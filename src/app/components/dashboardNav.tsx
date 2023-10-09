@@ -1,15 +1,13 @@
-import { CiSearch } from 'react-icons/ci'
 import dynamic from 'next/dynamic'
+import { CiSearch } from 'react-icons/ci'
 
-// const DynmaicDashboardNavClient = dynamic(() => import('@/app/client/dashboardNav/dashboardNavClient'), {
-//     ssr: false,
-//     loading: () => <h1>loading</h1>
-// })
+
+const DynmaicDashboardNavClient = dynamic(()=> import("@/app/client/dashboardNav/dashboardNavClient"))
 
 export default function DashboardNav() {
     return (
         <nav className="flex w-full h-full border-b py-4 px-5">
-            <div className="w-[10%]">
+            <div className="">
                 <h1 className="text-2xl">TaskMaster</h1>
             </div>
             <div className='ml-24 w-[40%]'>
@@ -24,7 +22,7 @@ export default function DashboardNav() {
                     />
                 </div>
             </div>
-           {/* <DynmaicDashboardNavClient /> */}
+           <DynmaicDashboardNavClient />
         </nav>
     )
 }

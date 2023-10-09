@@ -2,7 +2,7 @@ import Navbar from "@/app/components/navbar";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import DashboardNav from "../components/dashboardNav";
-import SidebarSkeleton from "../components/skeleton";
+import { SidebarSkeleton } from "../components/skeleton";
 
 const DynamicSidebar = dynamic(() => import('@/app/components/sidebar'), {
     ssr: false,
