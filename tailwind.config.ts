@@ -18,9 +18,21 @@ const config: Config = {
           min: "0px",
           max: "690px"
         },
+        mobile: {
+          min: "0px",
+          max: "695px"
+        },
+        smallTablet: {
+          min: "690px",
+          max: "840px"
+        },
         largeTablet: {
           min: "690px",
           max: "1174px"
+        },
+        largeScreen: {
+          min: "1174px",
+          max: "1289px"
         }
       }
     },

@@ -9,7 +9,7 @@ import loaderTwo from "../../../public/loader (2).png"
 import loaderThree from "../../../public/loader (3).png"
 
 
-export const SidebarSkeleton = ()=>  {
+export const SidebarSkeleton = () => {
     return (
         <div className="h-[97%] border-r">
             <div className="space-y-5">
@@ -41,7 +41,7 @@ export const SidebarSkeleton = ()=>  {
     )
 }
 
-export const HeaderButtonSkeleton = ()=> {
+export const HeaderButtonSkeleton = () => {
     return (
         <section className="flex justify-center pt-10 xs:justify-start">
             <div className="mr-4">
@@ -65,70 +65,70 @@ export const HeaderButtonSkeleton = ()=> {
 export const HomeNavSkeleton = () => {
     return (
         <section className="h-full flex items-center px-16">
-        <div className="flex items-center rounded-md cursor-pointer hover:bg-[#EBE9FE] border px-3 py-1">
-            <div>
-                <IoAddSharp />
-            </div>
-            <p>Add Task</p>
-        </div>
-        <div className="border ml-10 h-8 rounded-md flex items-center px-2">
-            <div>
-                <CiSearch />
-            </div>
-            <input
-                className="outline-none px-2"
-                type="text"
-                placeholder="search..."
-            />
-        </div>
-        <div className="border ml-auto mr-4 px-3 py-1 cursor-pointer rounded-md flex items-center">
-            <p className="mr-2">Upgrade to Pro</p>
-            <div>
-                <Image src={star} alt="image" width={20} height={20}/>
-            </div>
-        </div>
-        <div className="flex items-center border px-3 py-1 rounded-md">
-            <div className="flex items-center mr-2">
+            <div className="flex items-center rounded-md cursor-pointer hover:bg-[#EBE9FE] border px-3 py-1">
                 <div>
-                    <CiFilter />
+                    <IoAddSharp />
                 </div>
-                <p>Filter</p>
+                <p>Add Task</p>
             </div>
-            <div className="cursor-pointer">
-                <RiArrowDropDownLine size="1.5rem"/>
+            <div className="border ml-10 h-8 rounded-md flex items-center px-2">
+                <div>
+                    <CiSearch />
+                </div>
+                <input
+                    className="outline-none px-2"
+                    type="text"
+                    placeholder="search..."
+                />
             </div>
-        </div>
-    </section>
+            <div className="border ml-auto mr-4 px-3 py-1 cursor-pointer rounded-md flex items-center">
+                <p className="mr-2">Upgrade to Pro</p>
+                <div>
+                    <Image src={star} alt="image" width={20} height={20} />
+                </div>
+            </div>
+            <div className="flex items-center border px-3 py-1 rounded-md">
+                <div className="flex items-center mr-2">
+                    <div>
+                        <CiFilter />
+                    </div>
+                    <p>Filter</p>
+                </div>
+                <div className="cursor-pointer">
+                    <RiArrowDropDownLine size="1.5rem" />
+                </div>
+            </div>
+        </section>
     )
 }
 
 export const TasksSkeleton = () => {
-    return(
+    return (
         <div className="bg-[#F3F4F8] h-[92%] w-full px-16 pt-4 flex justify-between">
-        <div className="w-[25%] h-full">
-            <div className="border h-12 w-full bg-white rounded-md flex items-center">
-                <h1 className="px-4">To Do</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
-                <div className="ml-auto mr-4">
-                    <Image src={loaderOne} alt="image" height={20} width={20} />
+            <div className="w-[25%] h-full">
+                <div className="border h-12 w-full bg-white rounded-md flex items-center">
+                    <h1 className="px-4">To Do</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
+                    <div className="ml-auto mr-4">
+                        <Image src={loaderOne} alt="image" height={20} width={20} />
+                    </div>
+                </div>
+            </div>
+            <div className="w-[25%]">
+                <div className="border h-12 w-full bg-white rounded-md flex items-center">
+                    <h1 className="px-4">In progress</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
+                    <div className="ml-auto mr-4">
+                        <Image src={loaderTwo} alt="image" height={20} width={20} />
+                    </div>
+                </div>
+            </div>
+            <div className="w-[25%]">
+                <div className="border h-12 w-full bg-white rounded-md flex items-center">
+                    <h1 className="px-4">Completed</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
+                    <div className="ml-auto mr-4">
+                        <Image src={loaderThree} alt="image" height={20} width={20} />
+                    </div>
                 </div>
             </div>
         </div>
-        <div className="w-[25%]">
-            <div className="border h-12 w-full bg-white rounded-md flex items-center">
-                <h1 className="px-4">In progress</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
-                <div className="ml-auto mr-4">
-                    <Image src={loaderTwo} alt="image" height={20} width={20} />
-                </div>
-            </div>
-        </div>
-        <div className="w-[25%]">
-            <div className="border h-12 w-full bg-white rounded-md flex items-center">
-                <h1 className="px-4">Completed</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
-                <div className="ml-auto mr-4">
-                    <Image src={loaderThree} alt="image" height={20} width={20} />
-                </div>
-            </div>
-        </div>
-    </div>
     )
 }

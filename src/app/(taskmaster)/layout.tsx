@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import DashboardNav from "../components/dashboardNav";
 import { SidebarSkeleton } from "../components/skeleton";
+import {BsReverseLayoutSidebarReverse} from "react-icons/bs"
 
 const DynamicSidebar = dynamic(() => import('@/app/components/sidebar'), {
     ssr: false,
@@ -21,7 +22,7 @@ export default function ServiceLayout({
             </section>
 
             <section className="flex h-[90%]">
-                <section className="w-[15%]">
+                <section className="w-[15%] largeScreen:w-[20%] largeTablet:w-[25%] largeTablet:hidden mobile:hidden">
                     <DynamicSidebar />
                 </section>
                 <section className="w-full">

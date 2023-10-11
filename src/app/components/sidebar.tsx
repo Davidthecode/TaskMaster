@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 export default function Sidebar() {
     const currentPath = usePathname()
     return (
-        <aside className='border-r w-full h-full'>
+        <aside className='border-r w-full h-full largeTablet:bg-red-500'>
             <div className='px-5 py-5 space-y-5'>
                 <Link
                     href="/home"

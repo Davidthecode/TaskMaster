@@ -4,10 +4,10 @@ import { AiOutlineDelete } from "react-icons/ai"
 import { SlCalender } from "react-icons/sl"
 import {BsPinAngle} from "react-icons/bs"
 
-export default function TodoTask() {
+export default function TodoTasks() {
     return (
-        <section className="h-full overflow-y-auto">
-            <div className="border h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+        <section className="h-full">
+            <div className="border h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -26,7 +26,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -45,7 +45,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -64,7 +64,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -83,7 +83,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -102,7 +102,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -121,7 +121,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -140,7 +140,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -159,7 +159,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -178,7 +178,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>
@@ -197,7 +197,7 @@ export default function TodoTask() {
                     </div>
                 </div>
             </div>
-            <div className="border mt-6 h-[33%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
+            <div className="border mt-6 h-[40%] px-2 py-1 relative bg-white cursor-pointer hover:bg-gray-300">
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg font-medium">TaskMaster</h1>
                     <div>

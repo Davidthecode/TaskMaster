@@ -17,7 +17,7 @@ export default function DashboardNavClient() {
 
     return (
         <div className='ml-auto flex items-center relative'>
-            <div className='mr-2'>
+            <div className='mr-2 mobile:hidden'>
                 <p>Ajibola David</p>
             </div>
             <div className=''>
@@ -32,7 +32,7 @@ export default function DashboardNavClient() {
             <div className='cursor-pointer' onClick={handleDropdown}>
                {dropdownVisibility ? <RiArrowDropUpLine size="1.6rem" /> : <RiArrowDropDownLine size="1.6rem" />} 
             </div>
-            <div className={`${dropdownVisibility ? "block" : "hidden"} absolute right-0 top-12 border-grey-00 border h-20 z-20 bg-gray-100 shadow-md`}>
+            <div className={`${dropdownVisibility ? "block" : "hidden"} absolute right-0 top-8 border-grey-00 border h-20 z-20 bg-[#F3F4F8] shadow-md`}>
                 <div className="cursor-pointer flex justify-start items-center mt-2 px-2 text-[#e4824d] hover:bg-gray-200 py-2">
                     <div className="mr-1">
                         <GoSignOut />
