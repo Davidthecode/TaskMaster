@@ -33,7 +33,7 @@ export default function DashboardNavClient() {
                {dropdownVisibility ? <RiArrowDropUpLine size="1.6rem" /> : <RiArrowDropDownLine size="1.6rem" />} 
             </div>
             <div className={`${dropdownVisibility ? "block" : "hidden"} absolute right-0 top-8 border-grey-00 border h-20 z-20 bg-[#F3F4F8] shadow-md`}>
-                <div className="cursor-pointer flex justify-start items-center mt-2 px-2 text-[#e4824d] hover:bg-gray-200 py-2">
+                <div className="cursor-pointer flex justify-start items-center mt-2 px-2 hover:bg-gray-200 py-2">
                     <div className="mr-1">
                         <GoSignOut />
                     </div>

@@ -5,6 +5,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { CiClock2 } from "react-icons/ci"
 import { PiSpinnerThin } from "react-icons/pi"
 import { IoAddSharp } from "react-icons/io5"
+import { RiArrowDropUpLine } from 'react-icons/ri'
 
 type AddtaskPopupProps = {
     onClose: () => void;
@@ -16,10 +17,15 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
     const handleShowNote = () => {
         setShowNote(true)
     }
+
+    const closeNote = () => {
+        setShowNote(false)
+    }
+
     return (
         <section>
             <div className="fixed top-0 z-50 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-                <div className="text-black w-[70%] h-[90%] ">
+                <div className="text-black w-[70%] h-[90%] largeTablet:w-[85%] mobile:w-[100%] mobile:h-[100%]">
                     <div className=' overflow-y-auto h-full bg-[#EFEFEF]'>
                         <div
                             onClick={onClose}
@@ -27,7 +33,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                         >
                             <AiOutlineClose size='1.3rem' />
                         </div>
-                        <div className='px-10'>
+                        <div className='px-10 mobile:px-2'>
                             <div>
                                 <input
                                     className='w-[60%] h-20 text-3xl borde outline-none px-4 bg-[#EFEFEF] fomt-bold'
@@ -37,7 +43,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                             </div>
 
                             <div className='flex items-center mt-6'>
-                                <div className='px-4 flex flex-col mr-12'>
+                                <div className='px-4 flex flex-col mr-12 mobile:mr-6'>
                                     <div className='flex items-center opacity-60'>
                                         <div className='mr-1'>
                                             <CiClock2 />
@@ -59,21 +65,28 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                             </div>
 
                             <div className='mt-6 px-4'>
-                                <div className='flex items-center opacity-60 hover:bg-[#DDDDDC] w-fit hover:px-1 rounded-md cursor-pointer'>
-                                    <div className='mr-1'>
-                                        <IoAddSharp />
+                                <div className="flex items-center">
+                                    <div className='flex items-center opacity-60 hover:bg-[#DDDDDC] w-fit hover:px-1 rounded-md cursor-pointer mr-3'>
+                                        <div className='mr-1'>
+                                            <IoAddSharp />
+                                        </div>
+                                        <p onClick={handleShowNote}>Add a note</p>
                                     </div>
-                                    <p onClick={handleShowNote}>Add a note</p>
+                                    {shownote &&
+                                        <div className="opacity-60 cursor-pointer" onClick={closeNote}>
+                                            <RiArrowDropUpLine size="1.5rem" />
+                                        </div>
+                                    }
                                 </div>
 
                                 <div className={`mt-6 ${shownote ? "block" : "hidden"}`}>
                                     <textarea
-                                        className='outline-none px-2 py-2 bg-[#EFEFEF] border border-gray-300'
+                                        className='outline-none px-2 py-2 bg-[#EFEFEF] border border-gray-300 w-[90%] h-[15rem] mobile:w-[100%]'
                                         name="tasknote"
                                         placeholder='write a note'
                                         id=""
-                                        cols={120}
-                                        rows={10}
+                                        cols={0}
+                                        rows={0}
                                     >
                                     </textarea>
                                 </div>

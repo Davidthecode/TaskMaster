@@ -21,7 +21,7 @@ export default function Tasks() {
                 <div className="border h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
                     <h1 className="px-4 font-semibold smallTablet:text-sm smallTablet:font-bold">In progress</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
                     <div className="ml-auto mr-4">
-                        <Image src={loaderOne} alt="image" height={20} width={20} />
+                        <Image src={loaderTwo} alt="image" height={20} width={20} />
                     </div>
                 </div>
                 <div className="border h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
@@ -31,6 +31,7 @@ export default function Tasks() {
                     </div>
                 </div>
             </div>
+            
             <div className="flex justify-between h-[92%] overflow-y-auto px-16 mobile:px-6 py-4 mobile:hidden">
                 <div className="h-[100%] w-[28%] largeTablet:w-[30%] smallTablet:h-[40rem]">
                     <TodoTasks />
