@@ -8,12 +8,13 @@ import star from "../../../public/star.png"
 import Image from "next/image"
 import Addtask from "./addTask"
 import { useState } from "react"
-import { BsReverseLayoutSidebarReverse } from "react-icons/bs"
+import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs"
 import {AiOutlineBars} from "react-icons/ai"
+import { useSidebarContext } from "../state/sidebar/sidebarContext"
 
 export default function HomeNav() {
+    const {isOpen, setIsOpen} = useSidebarContext()
     const [isVisible, setIsvisible] = useState(false)
-    const [toggle, setToggle] = useState(false)
 
     const handleAddTask = () => {
         setIsvisible(true)
@@ -24,13 +25,13 @@ export default function HomeNav() {
     }
 
     const handleToggle = () => {
-        setToggle(!toggle)
+        setIsOpen(true)
     }
 
     return (
         <section className="h-full flex items-center px-16 mobile:px-6">
             <div className="mr-4 cursor-pointer hidden largeTablet:block mobile:block" onClick={handleToggle}>
-                <BsReverseLayoutSidebarReverse size="1.3rem" />
+                <BsReverseLayoutTextSidebarReverse size="1.3rem" />
             </div>
             <div
                 onClick={handleAddTask}

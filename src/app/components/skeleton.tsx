@@ -8,7 +8,7 @@ import loaderOne from "../../../public/loader (1).png"
 import loaderTwo from "../../../public/loader (2).png"
 import loaderThree from "../../../public/loader (3).png"
 import { AiOutlineBars } from "react-icons/ai"
-import { BsReverseLayoutSidebarReverse } from "react-icons/bs"
+import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs"
 
 
 export const SidebarSkeleton = () => {
@@ -68,7 +68,7 @@ export const HomeNavSkeleton = () => {
     return (
         <section className="h-full flex items-center px-16 mobile:px-6">
             <div className="mr-4 cursor-pointer hidden largeTablet:block mobile:block">
-                <BsReverseLayoutSidebarReverse size="1.3rem" />
+                <BsReverseLayoutTextSidebarReverse size="1.3rem" />
             </div>
             <div className="flex items-center rounded-md cursor-pointer hover:bg-[#EBE9FE] border px-3 py-1 mobile:hidden">
                 <div>

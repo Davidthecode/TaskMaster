@@ -8,15 +8,31 @@ import { CiHome } from 'react-icons/ci'
 import { DiGithubBadge } from 'react-icons/di'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSidebarContext } from '../state/sidebar/sidebarContext';
+import { IoChevronBackOutline } from "react-icons/io5"
 
 export default function Sidebar() {
+    const { isOpen, setIsOpen } = useSidebarContext()
     const currentPath = usePathname()
+
+    const closeSidebar = () => {
+        setIsOpen(false)
+    }
     return (
-        <aside className='border-r w-full h-full largeTablet:bg-red-500'>
+        <aside className={`${isOpen ? "bg-white absolute w-[20%] z-50" : "largeTablet:hidden mobile:hidden"} border-r w-full h-full`}>
             <div className='px-5 py-5 space-y-5'>
+                {isOpen && (
+                    <div
+                        onClick={closeSidebar}
+                        className='bg-gray-200 hover:bg-gray-300 cursor-pointer w-fit px-1 py-1 rounded-full absolute right-2 top-2'
+                    >
+                        <IoChevronBackOutline />
+                    </div>
+                )}
                 <Link
                     href="/home"
                     className={`flex items-center rounded-md cursor-pointer px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/home" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
+                    onClick= {closeSidebar}
                 >
                     <div className='mr-2'>
                         <CiHome size="1.7rem" />
@@ -26,6 +42,7 @@ export default function Sidebar() {
                 <Link
                     href="/tasks"
                     className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/tasks" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
+                    onClick= {closeSidebar}
                 >
                     <div className='mr-2'>
                         <CiCircleList size="1.7rem" />
@@ -35,6 +52,7 @@ export default function Sidebar() {
                 <Link
                     href="/tasklist"
                     className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/tasklist" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
+                    onClick= {closeSidebar}
                 >
                     <div className='mr-2'>
                         <GoTasklist size="1.7rem" />
@@ -44,6 +62,7 @@ export default function Sidebar() {
                 <Link
                     href="journal"
                     className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/journal" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
+                    onClick= {closeSidebar}
                 >
                     <div className='mr-2'>
                         <BsJournals size="1.5rem" />
@@ -53,6 +72,7 @@ export default function Sidebar() {
                 <Link
                     href="settings"
                     className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/settings" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
+                    onClick= {closeSidebar}
                 >
                     <div className='mr-2'>
                         <CiSettings size="1.7rem" />

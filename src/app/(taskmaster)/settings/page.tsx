@@ -3,12 +3,21 @@
 import Image from "next/image"
 import anime from "../../../../public/anime.jpg"
 import { AiOutlineArrowLeft } from "react-icons/ai"
+import { useRouter } from "next/navigation"
 
 export default function Settings() {
+    const router = useRouter()
+
+    const handleRoute = () => {
+        router.back()
+    }
     return (
         <div className="px-[25%] pt-[5%] bg-[#F3F4F8] h-full mobile:px-6 largeTablet:px-[10%] largeScreen:px-[15%]">
             <div className="flex items-center">
-                <div className="mb-4 mr-2 bg-gray-300 w-fit p-3 cursor-pointer rounded-full hover:bg-gray-400">
+                <div
+                    onClick={handleRoute}
+                    className="mb-4 mr-2 bg-gray-300 w-fit p-3 cursor-pointer rounded-full hover:bg-gray-400"
+                >
                     <AiOutlineArrowLeft />
                 </div>
                 <p className="mb-4">Back</p>
