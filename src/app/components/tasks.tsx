@@ -7,11 +7,12 @@ import loaderThree from "../../../public/loader (3).png"
 import TodoTasks from "./todoTasks"
 import InProgressTasks from "./inProgressTasks"
 import CompletedTasks from "./completedTasks"
+import MobileTodo from "./mobileTodo"
 
 export default function Tasks() {
     return (
         <div className="bg-[#F3F4F8] h-[92%] w-[100%] flex flex-col justify-between pb-4">
-            <div className="flex justify-between h-[10%] mb-[1%] px-16 mobile:px-6 pt-3 mobile:hidden">
+            <div className="flex justify-between h-[10%] mb-[1%] px-16 mobile:px-6 smallTablet:px-6 pt-3 mobile:hidden">
                 <div className="border h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
                     <h1 className="px-4 font-semibold smallTablet:text-sm smallTablet:font-bold">To Do</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">5</span>
                     <div className="ml-auto mr-4">
@@ -32,16 +33,19 @@ export default function Tasks() {
                 </div>
             </div>
             
-            <div className="flex justify-between h-[92%] overflow-y-auto px-16 mobile:px-6 py-4 mobile:hidden">
-                <div className="h-[100%] w-[28%] largeTablet:w-[30%] smallTablet:h-[40rem]">
+            <div className="flex justify-between h-[92%] overflow-y-auto px-16 mobile:px-6 smallTablet:px-6 py-4 mobile:hidden">
+                <div className="h-[100%] w-[28%] largeTablet:w-[30%]">
                     <TodoTasks />
                 </div>
-                <div className="h-[100%] w-[28%] largeTablet:w-[30%] smallTablet:h-[40rem]">
+                <div className="h-[100%] w-[28%] largeTablet:w-[30%]">
                     <InProgressTasks />
                 </div>
-                <div className="h-[100%] w-[28%] largeTablet:w-[30%] smallTablet:h-[40rem]">
+                <div className="h-[100%] w-[28%] largeTablet:w-[30%]">
                     <CompletedTasks />
                 </div>
+            </div>
+            <div className="hidden mobile:block h-[100%] w-[100%]">
+                <MobileTodo />
             </div>
         </div>
     )

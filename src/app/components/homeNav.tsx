@@ -29,7 +29,7 @@ export default function HomeNav() {
     }
 
     return (
-        <section className="h-full flex items-center px-16 mobile:px-6">
+        <section className="h-full flex items-center px-16 smallTablet:px-10 mobile:px-6">
             <div className="mr-4 cursor-pointer hidden largeTablet:block mobile:block" onClick={handleToggle}>
                 <BsReverseLayoutTextSidebarReverse size="1.3rem" />
             </div>

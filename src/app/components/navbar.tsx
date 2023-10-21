@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { RiArrowDropDownLine } from 'react-icons/ri'
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { HiOutlineBars3 } from "react-icons/hi2"
 import { AiOutlineClose } from "react-icons/ai"
+import taskmasterImage from "../../../public/taskmasterImage.png"
 
 export default function Navbar() {
     const [sticky, setSticky] = useState(false)
@@ -39,25 +40,28 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleResize = () => {
-          if (dropdown) {
-            setDropdown(false);
-            document.body.classList.remove("overflow-hidden");
-          }
+            if (dropdown) {
+                setDropdown(false);
+                document.body.classList.remove("overflow-hidden");
+            }
         };
-      
+
         window.addEventListener("resize", handleResize);
-      
+
         return () => {
-          window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", handleResize);
         };
-      }, [dropdown]);
+    }, [dropdown]);
 
     return (
         <nav>
             <div className={`bg-[#EEEBEA] px-[8%] pb-4 flex items-center justify-between pt-2 w-full ${sticky ? "w-full fixed top-0 shadow transition-all duration-500 ease-in-out z-50" : ""}`}>
                 <div className="flex items-center">
+                    <div className="mr-3">
+                        <Image src={taskmasterImage} alt="image" height={30} width={30} />
+                    </div>
                     <div className="mr-10">
-                        <h1 className="text-2xl cursor-pointer">TaskMaster</h1>
+                        <h1 className="text-2xl cursor-pointer mobile:text-md">TaskMaster</h1>
                     </div>
                     <div className="xs:hidden largeTablet:hidden">
                         <ul className="flex items-center space-x-10 text-s font-normal">
@@ -76,7 +80,7 @@ export default function Navbar() {
                         <li className="cursor-pointer hover:border-b hover:border-black" onClick={handleLogin}>Log in</li>
                     </ul>
                     <button
-                        className="text-white bg-black hover:outline-none text-md px-3 py-1 cursor-pointer rounded-sm hover:bg-[#EE6969] xs:text-sm"
+                        className="text-white bg-black hover:outline-none text-md px-3 py-1 cursor-pointer rounded-sm hover:bg-[#EE6969] mobile:text-xs mobile:py-2"
                         onClick={handleSignUp}
                     >
                         Get started

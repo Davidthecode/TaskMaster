@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+			"path": "../Commerce-layer"
+		},
+		{
+			"path": "../javascript"
+		},
+		{
+			"path": "../nodejs"
+		},
+		{
+			"path": "../invoice-dragon"
+		},
+		{
+			"path": "../fork-commit-merge"
+		},
+		{
+			"path": "../gsap"
+		},
+		{
+			"path": "../chat-loom"
+		},
+		{
+			"path": "../discord-nested-routes"
+		},
+		{
+			"path": "../Stroke"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../AwesomeProject"
+		}
+	],
+	"settings": {}
+}

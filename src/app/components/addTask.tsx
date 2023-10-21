@@ -7,12 +7,14 @@ import { PiSpinnerThin } from "react-icons/pi"
 import { IoAddSharp } from "react-icons/io5"
 import { RiArrowDropUpLine } from 'react-icons/ri'
 
+
 type AddtaskPopupProps = {
     onClose: () => void;
 }
 
 export default function Addtask({ onClose }: AddtaskPopupProps) {
     const [shownote, setShowNote] = useState(false);
+    const [status, setStatus] = useState("Todo")
 
     const handleShowNote = () => {
         setShowNote(true)
@@ -20,6 +22,10 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
 
     const closeNote = () => {
         setShowNote(false)
+    }
+
+    const handleStatusChange = (e:any) => {
+        setStatus(e.target.value)
     }
 
     return (
@@ -60,7 +66,11 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
 
                                 <div className='px-4 flex flex-col opacity-60'>
                                     <p>October 9, 2023 1:02 PM</p>
-                                    <p className='mt-6'>Todo</p>
+                                    <select className="mt-6 outline-none" value={status} onChange={handleStatusChange}>
+                                        <option value="Todo">Todo</option>
+                                        <option value="In progress">In progress</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
                                 </div>
                             </div>
 

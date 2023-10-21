@@ -17,7 +17,7 @@ export default function HomeClient() {
     }
 
     return (
-        <section className="h-full bg-[#F3F4F8] px-16 overflow-y-auto">
+        <section className="h-full bg-[#F3F4F8] flex flex-col px-16 mobile:px-6 overflow-y-auto">
             <div className="flex items-center pt-4">
                 <div
                     onClick={closeSidebar}
@@ -32,7 +32,7 @@ export default function HomeClient() {
             <div className="mt-8">
                 <h1 className="text-xl font-semibold mb-4">Project Status</h1>
                 <div className="flex flex-wrap">
-                    <div className="border px-8 py-3 bg-red-200 rounded-md mr-4 min-w-[25%] smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5">
+                    <div className="border px-8 py-3 bg-red-200 rounded-md mr-4 mobile:mr-0 min-w-[25%] smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5 cursor-default">
                         <div className="flex justify-center">
                             <Image src={loader1} alt="image" width={70} height={70} />
                         </div>
@@ -40,7 +40,7 @@ export default function HomeClient() {
                         <p className="text-lg font-semibold text-center">4 projects</p>
                     </div>
 
-                    <div className="border px-8 py-3 bg-orange-200 rounded-md mr-4 min-w-[25%] smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5">
+                    <div className="border px-8 py-3 bg-orange-200 rounded-md mr-4 mobile:mr-0 min-w-[25%] smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5 cursor-default">
                         <div className="flex justify-center">
                             <Image src={loader2} alt="image" width={70} height={70} />
                         </div>
@@ -48,7 +48,7 @@ export default function HomeClient() {
                         <p className="text-lg font-semibold text-center">4 projects</p>
                     </div>
 
-                    <div className="border px-8 py-3 bg-green-200 rounded-md mr-4 min-w-[25%] smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5 smallTablet:mt-4">
+                    <div className="border px-8 py-3 bg-green-200 rounded-md mr-4 mobile:mr-0 min-w-[25%] smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5 smallTablet:mt-4 cursor-default">
                         <div className="flex justify-center">
                             <Image src={loader3} alt="image" width={70} height={70} />
                         </div>
@@ -56,7 +56,7 @@ export default function HomeClient() {
                         <p className="text-lg font-semibold text-center">4 projects</p>
                     </div>
 
-                    <div className="border px-8 py-3 bg-green-400 rounded-md mr-4 min-w-[25%] largeScreen:mt-4 largeTablet:mt-4 smallTablet:mt-4 smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5">
+                    <div className="border px-8 py-3 bg-green-400 rounded-md mr-4 mobile:mr-0 min-w-[25%] largeScreen:mt-4 largeTablet:mt-4 smallTablet:mt-4 smallTablet:w-[35%] mobile:w-[100%] mobile:mb-5 xl:mt-4 cursor-default">
                         <div className="flex justify-center">
                             <Image src={checked} alt="image" width={70} height={70} />
                         </div>
@@ -69,7 +69,7 @@ export default function HomeClient() {
             <div>
                 <h1 className="text-xl font-semibold">Analytics</h1>
             </div>
-            <div className="absolute bottom-10 right-10 cursor-pointer">
+            <div className="ml-auto mt-auto mb-3 cursor-pointer">
                 <TfiHelpAlt />
             </div>
         </section>

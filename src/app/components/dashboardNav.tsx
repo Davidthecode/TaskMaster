@@ -1,13 +1,18 @@
 import dynamic from 'next/dynamic'
 import { CiSearch } from 'react-icons/ci'
+import Image from 'next/image'
+import taskmasterImage from "../../../public/taskmasterImage.png"
 
 
 const DynmaicDashboardNavClient = dynamic(()=> import("@/app/client/dashboardNav/dashboardNavClient"))
 
 export default function DashboardNav() {
     return (
-        <nav className="flex items-center w-full h-full border-b py-4 px-5">
-            <div className="">
+        <nav className="flex items-center w-full h-full border-b py-4 px-5 mobile:px-3">
+            <div className="flex items-center pl-4 mobile:pl-2">
+                <div className='mr-3'>
+                    <Image src={taskmasterImage} alt='image' width={30} height={30} />
+                </div>
                 <h1 className="text-2xl">TaskMaster</h1>
             </div>
             <div className='ml-24 w-[40%] mobile:hidden'>

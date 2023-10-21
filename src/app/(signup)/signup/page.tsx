@@ -1,10 +1,14 @@
 import Image from "next/image"
 import googleIcon from "../../../../public/google-icon.png"
+import taskmasterImage from "../../../../public/taskmasterImage.png"
 
 export default function Login() {
     return (
         <div className="px-[10%] font-sans">
-            <div className="pt-5 absolute">
+            <div className="pt-5 absolute flex items-center">
+                <div className="mr-3">
+                    <Image src={taskmasterImage} alt="image" width={30} height={30}/>
+                </div>
                 <h1 className="text-3xl xs:text-xl">TaskMaster</h1>
             </div>
 
