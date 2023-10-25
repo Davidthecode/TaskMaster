@@ -1,16 +1,29 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import anime from "../../../../public/anime.jpg"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { useRouter } from "next/navigation"
+import { auth } from "@/app/firebase/firebase-config"
+import { onAuthStateChanged } from "firebase/auth"
 
 export default function Settings() {
     const router = useRouter()
-
+    const [currentuser, setCurrentUser] = useState(auth.currentUser)
     const [editState, setEditState] = useState(false)
     const [passwordState, setPasswordState] = useState(false)
+
+    console.log(currentuser)
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setCurrentUser(user)
+            } else setCurrentUser(null)
+        })
+        return () => unsubscribe()
+    }, [])
 
     const handleRoute = () => {
         router.back()
@@ -84,7 +97,7 @@ export default function Settings() {
                             <Image src={anime} alt="image" height={80} width={80} className="rounded-full" />
                         </div>
                         <div>
-                            <h1 className="text-xl mb-3">Ajibola David</h1>
+                            <h1 className="text-xl mb-3">{currentuser?.displayName}</h1>
                             <button
                                 onClick={handleEdit}
                                 className="border border-gray-400 px-4 py-1 rounded-md hover:bg-[#EFEFEF]">Edit</button>
@@ -96,7 +109,7 @@ export default function Settings() {
             <div className="mt-10 bg-white h-[40%] py-8 px-4 mobile:h-[30%]">
                 <div>
                     <h1 className="text-xl">Email</h1>
-                    <h2 className="font-semibold mt-2">ajiboladavid0963@gmail.com</h2>
+                    <h2 className="font-semibold mt-2">{currentuser?.email}</h2>
                 </div>
                 {passwordState ? (
                     <div className="flex mt-6 items-center space-x-3">

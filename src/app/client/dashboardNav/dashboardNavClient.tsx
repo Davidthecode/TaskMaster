@@ -4,21 +4,40 @@ import Image from "next/image"
 import anime from "../../../../public/anime.jpg"
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import {RiArrowDropUpLine} from 'react-icons/ri'
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import {BsArrowRight} from "react-icons/bs"
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "@/app/firebase/firebase-config";
+import { useRouter } from "next/navigation";
 
 export default function DashboardNavClient() {
-
+    const router = useRouter()
+    const [currentuser, setCurrentuser] = useState(auth.currentUser)
     const [dropdownVisibility, setDropdownVisibility] = useState(false)
+
+    useEffect(()=> {
+        const unsubscribe = onAuthStateChanged(auth, (user)=> {
+            if(user){
+                setCurrentuser(user)
+            }else setCurrentuser(null)
+        })
+
+        return ()=> unsubscribe()
+    },[])
 
     const handleDropdown = () => {
         setDropdownVisibility(!dropdownVisibility)
     }
 
+    const handleSignOut = async() => {
+        await signOut(auth)
+        router.push("/")
+    }
+
     return (
         <div className='ml-auto flex items-center relative'>
-            <div className='mr-2 mobile:hidden'>
-                <p>Ajibola David</p>
+            <div className='mr-2 mobile:hidden smallTablet:hidden'>
+                <p>{currentuser?.displayName}</p>
             </div>
             <div className=''>
                 <Image
@@ -37,7 +56,7 @@ export default function DashboardNavClient() {
                     <div className="mr-2">
                         <BsArrowRight />
                     </div>
-                    <p className="">Signout</p>
+                    <p onClick={handleSignOut}>Signout</p>
                 </div>
             </div>
         </div>

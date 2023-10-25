@@ -10,14 +10,23 @@ import Image from "next/image"
 import loaderOne from "../../../../../../public/loader (1).png"
 import loaderTwo from "../../../../../../public/loader (2).png"
 import loaderThree from "../../../../../../public/loader (3).png"
+import { useParams } from "next/navigation"
+import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore"
+import { db } from "@/app/firebase/firebase-config"
+import toast from "react-hot-toast"
 
-export default function Omo() {
+export default function Task() {
+    const params = useParams()
+    const paramsId = params.id
     const router = useRouter();
     const [isHovering, setIsHovering] = useState(false);
     const [toggleDisableInput, setToggleDisableInput] = useState(true);
     const [toggleDisableTextarea, setToggleDisableTextarea] = useState(true);
-    const [selectedOption, setSelectedOption] = useState('Todo');
+    const [selectedOption, setSelectedOption] = useState("");
     const [imgSrc, setImgSrc] = useState(loaderOne);
+    const docRef = doc(db, "tasks", paramsId as string)
+    const [note, setNote] = useState("")
+    const [title, setTitle] = useState("")
 
     useEffect(() => {
         if (selectedOption == "Todo") {
@@ -29,8 +38,29 @@ export default function Omo() {
         }
     }, [selectedOption])
 
-    const handleSelectChange = (e: any) => {
-        setSelectedOption(e.target.value);
+    useEffect(() => {
+        getTaskData()
+    }, [])
+
+    const getTaskData = () => {
+        const unsubscribe = onSnapshot(docRef, (snapshot) => {
+            if (snapshot.exists()) {
+                setNote(snapshot.data().taskData.note)
+                setTitle(snapshot.data().taskData.title)
+                setSelectedOption(snapshot.data().taskData.status)
+            }
+        })
+
+        return () => unsubscribe()
+    }
+
+    const handleSelectChange = async (e: any) => {
+        const selectedOption = e.target.value
+        setSelectedOption(selectedOption);
+        const dataToUpdate = {
+            "taskData.status": selectedOption
+        }
+        await updateDoc(docRef, dataToUpdate)
     };
 
     const handleMouseOver = () => {
@@ -52,17 +82,27 @@ export default function Omo() {
         setToggleDisableTextarea(false)
     }
 
-    const saveTask = () => {
-        console.log("saved")
-        setToggleDisableTextarea(true)
-    }
-
-    const handleDelete = () => {
-        console.log("Deleted")
-    }
-
-    const saveTitle = () => {
+    const saveTitle = async() => {
         setToggleDisableInput(true)
+        const dataToUpdate = {
+            "taskData.title": title
+        }
+        await updateDoc(docRef, dataToUpdate)
+    }
+
+
+    const saveNote = async() => {
+        setToggleDisableTextarea(true)
+        const dataToUpdate = {
+            "taskData.note": note
+        }
+        await updateDoc(docRef, dataToUpdate)
+    }
+
+    const handleDelete = async() => {
+        await deleteDoc(docRef)
+        toast.success("Task deleted successfully")
+        router.push("/tasks")
     }
 
     const handleNavigation = () => {
@@ -95,9 +135,10 @@ export default function Omo() {
                 className="mb-6 flex items-center w-fit">
                 <div className="mobile:w-[85%]">
                     <input
-                        className={`text-3xl font-medium w-full px-2 py-1 outline-none mr-4 bg-[#F3F4F8] ${!toggleDisableInput && "border border-black"}`}
-                        placeholder="TaskMaster"
-                        value="TaskMaster"
+                        className={`text-3xl font-medium w-full px-2 py-1 h-14 outline-none mr-4 bg-[#F3F4F8] ${!toggleDisableInput && "border border-black"}`}
+                        placeholder={title}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         disabled={toggleDisableInput}
                     />
                 </div>
@@ -131,13 +172,14 @@ export default function Omo() {
 
             <div className="bg-[#F3F4F8]">
                 <textarea
-                    className="mb-10 bg-[#F3F4F8] outline-none p-2 h-[26rem] w-[100%] overflow-y-auto"
+                    className={`mb-10 bg-[#F3F4F8] outline-none p-2 h-[26rem] w-[100%] overflow-y-auto ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
                     name=""
                     id=""
                     cols={0}
                     rows={0}
                     disabled={toggleDisableTextarea}
-                    value="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque possimus voluptatibus modi, officiis, deleniti iste perspiciatis quam laudantium earum maiores quod saepe repudiandae illo velit fugit? Praesentium omnis veniam rerum. or, sit amet consectetur adipisicing elit. Totam quia doloribus ab fugit et, consequatur commodi nisi! Ipsum, perspiciatis molestiae! Fugit repellat eaque blanditiis, veniam quibusdam corrupti eum quisquam accusantium. Lous ab fugit et, consequatur commodi nisi! Ipsum, perspiciatis molestiae! Fugit repellat eaque blanditiis, veniam quibusdam corrupti eum quisquam accusantium. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis ratione voluptatum t. Veritatis ratione voluptatum quis vitae saepe dolorum amet obcaecati optio minus maxime voluptate, perferendis, suscipit si"
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
                 >
 
                 </textarea>
@@ -164,7 +206,7 @@ export default function Omo() {
                             </div>
                         ) : (
                             <div
-                                onClick={saveTask}
+                                onClick={saveNote}
                                 className="flex items-center px-6 py-1"
                             >
                                 <div className="mr-1">

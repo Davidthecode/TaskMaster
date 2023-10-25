@@ -1,12 +1,18 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { AiOutlineClose } from 'react-icons/ai';
 import { CiClock2 } from "react-icons/ci"
 import { PiSpinnerThin } from "react-icons/pi"
 import { IoAddSharp } from "react-icons/io5"
 import { RiArrowDropUpLine } from 'react-icons/ri'
-
+import { auth, db } from "../firebase/firebase-config";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { toast } from "react-hot-toast"
+import { v4 as uuidv4 } from "uuid"
+import { onAuthStateChanged } from "firebase/auth";
+import spinner from "../../../public/icons8-spinner.gif"
+import Image from "next/image";
 
 type AddtaskPopupProps = {
     onClose: () => void;
@@ -14,7 +20,46 @@ type AddtaskPopupProps = {
 
 export default function Addtask({ onClose }: AddtaskPopupProps) {
     const [shownote, setShowNote] = useState(false);
+    const [title, setTitle] = useState("")
     const [status, setStatus] = useState("Todo")
+    const [currentDateTime, setCurrentDateTime] = useState("")
+    const [note, setNote] = useState("")
+    const collectionRef = collection(db, "tasks")
+    const [currentuser, setCurrentuser] = useState(auth.currentUser)
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setCurrentuser(user)
+            } else setCurrentuser(null)
+        })
+
+        return () => unsubscribe()
+    }, [])
+
+    const updateDateTime = () => {
+        const now = new Date();
+        const options: Intl.DateTimeFormatOptions = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+        }
+        const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(now);
+        setCurrentDateTime(formattedDateTime);
+    }
+
+    useEffect(() => {
+        updateDateTime()
+        const intervalId = setInterval(updateDateTime, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
 
     const handleShowNote = () => {
         setShowNote(true)
@@ -24,8 +69,35 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
         setShowNote(false)
     }
 
-    const handleStatusChange = (e:any) => {
+    const handleStatusChange = (e: any) => {
         setStatus(e.target.value)
+    }
+
+    const createTask = async () => {
+        if (title !== "") {
+            try {
+                setLoading(true)
+                const taskData = {
+                    title,
+                    dataAndTimeAdded: currentDateTime,
+                    status,
+                    note,
+                    userId: currentuser?.uid
+                }
+
+                const userRef = doc(collectionRef, uuidv4())
+                await setDoc(userRef, {
+                    taskData
+                })
+                toast.success("task added successfully")
+                setLoading(false)
+                onClose()
+            } catch (error) {
+                toast.error("error adding task")
+                console.log(error)
+                setLoading(false)
+            }
+        } else toast.error("Write a title before creating a task")
     }
 
     return (
@@ -42,6 +114,8 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                         <div className='px-10 mobile:px-2'>
                             <div>
                                 <input
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
                                     className='w-[60%] h-20 text-3xl borde outline-none px-4 bg-[#EFEFEF] fomt-bold'
                                     placeholder='Untitled'
                                     type="text"
@@ -65,7 +139,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                 </div>
 
                                 <div className='px-4 flex flex-col opacity-60'>
-                                    <p>October 9, 2023 1:02 PM</p>
+                                    <p>{currentDateTime}</p>
                                     <select className="mt-6 outline-none" value={status} onChange={handleStatusChange}>
                                         <option value="Todo">Todo</option>
                                         <option value="In progress">In progress</option>
@@ -91,6 +165,8 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
 
                                 <div className={`mt-6 ${shownote ? "block" : "hidden"}`}>
                                     <textarea
+                                        value={note}
+                                        onChange={(e) => setNote(e.target.value)}
                                         className='outline-none px-2 py-2 bg-[#EFEFEF] border border-gray-300 w-[90%] h-[15rem] mobile:w-[100%]'
                                         name="tasknote"
                                         placeholder='write a note'
@@ -102,7 +178,20 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                 </div>
 
                                 <div className="mt-4">
-                                    <button className="border bg-[#DDDDDC] px-2 py-1 rounded-md opacity-60 hover:opacity-100">Create task</button>
+                                    {loading ? (
+                                        <div
+                                            className="border bg-[#DDDDDC] cursor-auto px-6 py-2 rounded-md opacity-60 hover:opacity-100 w-fit"
+                                        >
+                                            <Image src={spinner} alt="image" width={20} height={20} />
+                                        </div>
+                                    ) : (
+                                        <button
+                                            onClick={createTask}
+                                            className="border bg-[#DDDDDC] px-2 py-1 rounded-md opacity-60 hover:opacity-100"
+                                        >
+                                            Create task
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>

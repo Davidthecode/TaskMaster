@@ -1,8 +1,56 @@
+"use client";
+
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import googleIcon from "../../../../public/google-icon.png"
 import taskmasterImage from "../../../../public/taskmasterImage.png"
+import { auth, provider } from "@/app/firebase/firebase-config";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+import spinner from "../../../../public/icons8-spinner.gif"
 
 export default function Login() {
+    const router = useRouter()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
+
+    const handleSignupWithGoogle = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider)
+            console.log(result)
+            router.push("/home")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleSignin = async () => {
+        try {
+            setLoading(true)
+            await signInWithEmailAndPassword(auth, email, password)
+            setEmail("")
+            setPassword("")
+            setLoading(false)
+            router.push("/home")
+            toast.success("logged in Successfully")
+        } catch (error: any) {
+            if (error.code == "auth/invalid-login-credentials") {
+                toast.error("Invalid login Credentials")
+            } else if (error.code == "auth/invalid-email") {
+                toast.error("Invalid email address")
+            } else if (error.code == "auth/missing-password") {
+                toast.error("Input password")
+            }
+            setLoading(false)
+        }
+    }
+
+    const redirectToSignUp = () => {
+        router.push("/signup")
+    }
+
     return (
         <div className="px-[10%] font-sans">
             <div className="pt-5 absolute flex items-center">
@@ -23,7 +71,7 @@ export default function Login() {
                             <div>
                                 <Image src={googleIcon} alt="image" width={20} height={20} />
                             </div>
-                            <div className="pr-[30%] xs:pr-[10%]">
+                            <div className="pr-[30%] xs:pr-[10%]" onClick={handleSignupWithGoogle}>
                                 <p>Continue with Google</p>
                             </div>
                         </div>
@@ -39,6 +87,8 @@ export default function Login() {
                         <div className="flex flex-col">
                             <label htmlFor="email" className="text-xs font-semibold">Email address</label>
                             <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="border-2 border-black border-opacity-20 h-10 rounded-md px-2 outline-[#426DC6]"
                                 type="text"
                                 id="email"
@@ -47,14 +97,35 @@ export default function Login() {
                         <div className="flex flex-col mt-2">
                             <label htmlFor="password" className="text-xs font-semibold">Password</label>
                             <input
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="border-2 border-black border-opacity-20 h-10 rounded-md px-2 outline-[#426DC6]"
                                 type="text"
                                 id="password"
                             />
                         </div>
-                        <div className="w-full mt-2">
-                            <button className="bg-[#426DC6] hover:bg-[#375699] text-white w-full mt-4 h-10 rounded-md">Continue</button>
-                        </div>
+                        {loading ? (
+                            <div className="w-full mt-6 flex items-center justify-center bg-[#426DC6] h-10 rounded-md cursor-default opacity-50">
+                                <div>
+                                    <Image src={spinner} alt="image" width={20} height={20} />
+                                </div>
+                            </div>
+                        ) : (
+                            <div
+                                onClick={handleSignin}
+                                className="w-full mt-6 flex items-center justify-center bg-[#426DC6] hover:bg-[#375699] h-10 rounded-md cursor-pointer"
+                            >
+                                <button
+                                    className="text-white w-fit h-10"
+                                >
+                                    Log In
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="mt-6">
+                        <p className="text-xs text-center">Don't have an account? <span className="underline cursor-pointer font-semibold" onClick={redirectToSignUp}>create account</span></p>
                     </div>
                 </div>
             </aside>

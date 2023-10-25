@@ -62,24 +62,6 @@ export default function Sidebar() {
                     <p>Tasks</p>
                 </Link>
                 <Link
-                    href="/tasklist"
-                    className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/tasklist" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
-                >
-                    <div className='mr-2'>
-                        <GoTasklist size="1.7rem" />
-                    </div>
-                    <p>Taskslist</p>
-                </Link>
-                <Link
-                    href="/journal"
-                    className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/journal" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
-                >
-                    <div className='mr-2'>
-                        <BsJournals size="1.5rem" />
-                    </div>
-                    <p>Journal</p>
-                </Link>
-                <Link
                     href="/settings"
                     className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#EBE9FE] ${currentPath == "/settings" && "bg-[#EBE9FE] text-[#4d2e9a]"}`}
                 >
@@ -92,7 +74,7 @@ export default function Sidebar() {
 
             <div className='h-0 mx-5 border mb-4'></div>
             <div className='px-5'>
-                <p className='px-4'>TaskMaster, the best platform for cross-functional work</p>
+                <p className='px-4'>TaskMaster, the best platform for cross-functional work Lorem ipsum dolor, sit amet consectetur adipisicing elit.s odit veritatis et incidunt ab ipsa suscipit aperiam, quos ad fugiat dolorem odio aspernatur, nisi sunt enim.</p>
             </div>
             <div className='h-0 mx-5 border mt-6 mobile:mt-2'></div>
             <Link href="https://github.com/Davidthecode" target='_blank'>
