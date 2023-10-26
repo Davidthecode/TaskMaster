@@ -27,6 +27,8 @@ export default function Task() {
     const docRef = doc(db, "tasks", paramsId as string)
     const [note, setNote] = useState("")
     const [title, setTitle] = useState("")
+    const [loading, setLoading] = useState(false)
+    console.log(loading)
 
     useEffect(() => {
         if (selectedOption == "Todo") {
@@ -39,20 +41,20 @@ export default function Task() {
     }, [selectedOption])
 
     useEffect(() => {
+        const getTaskData = () => {
+            const unsubscribe = onSnapshot(docRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    console.log("there is data")
+                    setNote(snapshot.data().taskData.note)
+                    setTitle(snapshot.data().taskData.title)
+                    setSelectedOption(snapshot.data().taskData.status)
+                }
+            })
+
+            return () => unsubscribe()
+        }
         getTaskData()
     }, [])
-
-    const getTaskData = () => {
-        const unsubscribe = onSnapshot(docRef, (snapshot) => {
-            if (snapshot.exists()) {
-                setNote(snapshot.data().taskData.note)
-                setTitle(snapshot.data().taskData.title)
-                setSelectedOption(snapshot.data().taskData.status)
-            }
-        })
-
-        return () => unsubscribe()
-    }
 
     const handleSelectChange = async (e: any) => {
         const selectedOption = e.target.value
@@ -82,7 +84,7 @@ export default function Task() {
         setToggleDisableTextarea(false)
     }
 
-    const saveTitle = async() => {
+    const saveTitle = async () => {
         setToggleDisableInput(true)
         const dataToUpdate = {
             "taskData.title": title
@@ -91,7 +93,7 @@ export default function Task() {
     }
 
 
-    const saveNote = async() => {
+    const saveNote = async () => {
         setToggleDisableTextarea(true)
         const dataToUpdate = {
             "taskData.note": note
@@ -99,7 +101,7 @@ export default function Task() {
         await updateDoc(docRef, dataToUpdate)
     }
 
-    const handleDelete = async() => {
+    const handleDelete = async () => {
         await deleteDoc(docRef)
         toast.success("Task deleted successfully")
         router.push("/tasks")

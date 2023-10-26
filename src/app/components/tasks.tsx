@@ -11,6 +11,7 @@ import CompletedTasks from "./completedTasks"
 import MobileTodo from "./mobileTodo"
 import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "../firebase/firebase-config"
+import toast from "react-hot-toast"
 
 export default function Tasks() {
     const collectionRef = collection(db, "tasks")
@@ -19,6 +20,12 @@ export default function Tasks() {
     const [inprogressTasks, setInprogressTasks] = useState<any[]>([])
     const [completedTasks, setCompletedTasks] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
+
+    const showNetworkAlert = () => {
+        if (!navigator.onLine) {
+            toast.error("Network is bad. Please check your internet connection.");
+        }
+    };
 
     useEffect(() => {
         try {
@@ -30,9 +37,18 @@ export default function Tasks() {
                 })
                 setTasks(tempTasks)
                 setLoading(false)
-            })
+            });
 
-            return () => unsubscribe()
+            showNetworkAlert();
+
+            window.addEventListener("online", showNetworkAlert);
+            window.addEventListener("offline", showNetworkAlert);
+
+            return () => {
+                unsubscribe()
+                window.removeEventListener("online", showNetworkAlert);
+                window.removeEventListener("offline", showNetworkAlert);
+            };
         } catch (error) {
             console.log("error")
             setLoading(false)
@@ -53,7 +69,7 @@ export default function Tasks() {
     }, [tasks])
 
     return (
-        <div className="bg-[#F3F4F8] h-[92%] w-[100%] flex flex-col justify-between pb-4">
+        <div className="bg-[#F7F5F5] h-[92%] w-[100%] flex flex-col justify-between pb-4">
             <div className="flex justify-between h-[10%] mb-[1%] px-16 mobile:px-6 smallTablet:px-6 pt-3 mobile:hidden">
                 <div className="border h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
                     <h1 className="px-4 font-semibold smallTablet:text-sm smallTablet:font-bold">To Do</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">{todoTasks.length}</span>

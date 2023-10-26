@@ -13,13 +13,13 @@ export default function ServiceLayout({
     children: React.ReactNode
 }) {
     return (
-        <section className="font-sans h-screen">
-            <section className="h-[10%]">
+        <section className="font-sans h-screen flex flex-col">
+            <section className="h-[7%]">
                 <DashboardNav />
             </section>
 
-            <section className="flex h-[90%]">
-                <section className="w-[15%] largeScreen:w-[20%] largeTablet:w-0 mobile:w-0">
+            <section className="flex h-[93%]">
+                <section className="w-[15%] largeScreen:w-[20%] largeTablet:w-0 mobile:w-0 h-[100%]">
                     <DynamicSidebar />
                 </section>
                 <section className="w-full">

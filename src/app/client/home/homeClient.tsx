@@ -66,7 +66,7 @@ export default function HomeClient() {
     }
 
     return (
-        <section className="h-full bg-[#F3F4F8] flex flex-col px-16 mobile:px-6 overflow-y-auto">
+        <section className="h-full bg-[#EEEBEA] flex flex-col px-16 mobile:px-6 overflow-y-auto">
             <div className="flex items-center pt-4">
                 <div
                     onClick={closeSidebar}
@@ -75,7 +75,7 @@ export default function HomeClient() {
                     <BsReverseLayoutTextSidebarReverse size="1.5rem" />
                 </div>
                 <div>
-                    <h1 className="text-3xl">Welcome, {currentUser?.displayName}</h1>
+                    <h1 className="text-2xl">Welcome, <span className="font-medium">{currentUser?.displayName}</span></h1>
                 </div>
             </div>
             <div className="mt-8">

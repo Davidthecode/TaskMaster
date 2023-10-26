@@ -32,7 +32,7 @@ export default function CompletedTasks({completedTasks, setCompletedTasks, loadi
             {completedTasks.map((completedTask)=> {
                 return(
                     <Link href={`/tasks/${completedTask.id}`} key={completedTask.id}>
-                        <div className="border max-h-[50%] px-2 py-1 mb-6 bg-white cursor-pointer hover:bg-gray-300 flex flex-col">
+                        <div className="border max-h-[50%] px-2 py-1 mb-6 bg-white cursor-pointer hover:bg-gray-300 flex flex-col rounded-md">
                             <div className="flex justify-between items-center mb-1">
                                 <h1 className="text-lg font-medium">{LimitWords(completedTask.taskData.title, 4)}</h1>
                             </div>

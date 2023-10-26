@@ -3,61 +3,74 @@
 import Image from "next/image"
 import anime from "../../../../public/anime.jpg"
 import { RiArrowDropDownLine } from 'react-icons/ri'
-import {RiArrowDropUpLine} from 'react-icons/ri'
-import {useState, useEffect} from "react"
-import {BsArrowRight} from "react-icons/bs"
+import { RiArrowDropUpLine } from 'react-icons/ri'
+import { useState, useEffect } from "react"
+import { BsArrowRight } from "react-icons/bs"
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/app/firebase/firebase-config";
 import { useRouter } from "next/navigation";
+import spinner from "../../../../public/icons8-spinner.gif"
 
 export default function DashboardNavClient() {
     const router = useRouter()
     const [currentuser, setCurrentuser] = useState(auth.currentUser)
     const [dropdownVisibility, setDropdownVisibility] = useState(false)
+    const [loading, setLoading] = useState(false)
 
-    useEffect(()=> {
-        const unsubscribe = onAuthStateChanged(auth, (user)=> {
-            if(user){
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
                 setCurrentuser(user)
-            }else setCurrentuser(null)
+            } else setCurrentuser(null)
         })
 
-        return ()=> unsubscribe()
-    },[])
+        return () => unsubscribe()
+    }, [])
 
     const handleDropdown = () => {
         setDropdownVisibility(!dropdownVisibility)
     }
 
-    const handleSignOut = async() => {
+    const handleSignOut = async () => {
+        setLoading(true)
         await signOut(auth)
         router.push("/")
+        setLoading(false)
     }
 
     return (
         <div className='ml-auto flex items-center relative'>
             <div className='mr-2 mobile:hidden smallTablet:hidden'>
-                <p>{currentuser?.displayName}</p>
+                <p className="text-xs text-[#E2E1E0]">{currentuser?.displayName}</p>
             </div>
             <div className=''>
                 <Image
                     className='rounded-full'
                     src={anime}
                     alt='image'
-                    width={25}
-                    height={25}
+                    width={22}
+                    height={22}
                 />
             </div>
             <div className='cursor-pointer' onClick={handleDropdown}>
-               {dropdownVisibility ? <RiArrowDropUpLine size="1.6rem" /> : <RiArrowDropDownLine size="1.6rem" />} 
+                {dropdownVisibility ? <RiArrowDropUpLine size="1.6rem" /> : <RiArrowDropDownLine size="1.6rem" />}
             </div>
-            <div className={`${dropdownVisibility ? "block" : "hidden"} absolute right-0 top-8 border-grey-00 border h-[4rem] w-[10rem] z-20 bg-white shadow-md`}>
-                <div className="cursor-pointer flex justify-start items-center mt-2 px-2 hover:bg-gray-200 py-2">
-                    <div className="mr-2">
-                        <BsArrowRight />
+            <div className={`${dropdownVisibility ? "block" : "hidden"} absolute right-0 top-8 border-grey-00 border h-[4rem] w-[6rem] z-20 bg-white shadow-md`}>
+                {loading ? (
+                    <div className="flex justify-start items-center mt-2 px-2 py-2">
+                        <p className="mr-2">Signing out</p>
+                        <div>
+                            <Image src={spinner} alt="image" width={20} height={20} />
+                        </div>
                     </div>
-                    <p onClick={handleSignOut}>Signout</p>
-                </div>
+                ) : (
+                    <div className="cursor-pointer flex justify-start items-center mt-2 px-2 hover:bg-gray-200 text-black py-2">
+                        <div className="mr-2">
+                            <BsArrowRight />
+                        </div>
+                        <p onClick={handleSignOut} className="text-sm font-medium">Signout</p>
+                    </div>
+                )}
             </div>
         </div>
     )

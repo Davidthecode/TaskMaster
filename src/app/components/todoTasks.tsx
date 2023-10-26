@@ -33,7 +33,7 @@ export default function TodoTasks({ todoTasks, setTodoTasks, loading }: TodTaskT
             {todoTasks.map((todoTask) => {
                 return (
                     <Link href={`/tasks/${todoTask.id}`} key={todoTask.id}>
-                        <div className="border max-h-[50%] px-2 py-1 mb-6 bg-white cursor-pointer hover:bg-gray-300 flex flex-col">
+                        <div className="border max-h-[50%] px-2 py-1 mb-6 bg-white cursor-pointer hover:bg-gray-300 flex flex-col rounded-md">
                             <div className="flex justify-between items-center mb-1">
                                 <h1 className="text-lg font-medium">{LimitWords(todoTask.taskData.title, 4)}</h1>
                             </div>

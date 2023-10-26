@@ -64,7 +64,7 @@ export default function Navbar() {
                         <h1 className="text-2xl cursor-pointer mobile:text-md">TaskMaster</h1>
                     </div>
                     <div className="xs:hidden largeTablet:hidden">
-                        <ul className="flex items-center space-x-10 text-s font-normal">
+                        <ul className="flex items-center space-x-10 largeScreen:space-x-5 text-s font-normal">
                             <li className="hover:text-very-black cursor-pointer">Features</li>
                             <li className="hover:text-black cursor-pointer">Solutions</li>
                             <li className="hover:text-black cursor-pointer">Resources</li>
@@ -72,7 +72,6 @@ export default function Navbar() {
                             <li className="hover:text-black cursor-pointer">Pricing</li>
                         </ul>
                     </div>
-
                 </div>
                 <div className="flex items-center">
                     <ul className="flex items-center space-x-10 mr-10 xs:hidden">

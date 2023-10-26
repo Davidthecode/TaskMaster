@@ -35,12 +35,12 @@ export default function HomeNav() {
             </div>
             <div
                 onClick={handleAddTask}
-                className="flex items-center rounded-md cursor-pointer hover:bg-[#EBE9FE] border px-3 py-1 mobile:hidden"
+                className="flex items-center rounded-md cursor-pointer hover:bg-[#EEEBEA] border px-3 py-1 mobile:hidden"
             >
                 <div>
                     <IoAddSharp />
                 </div>
-                <p>Add Task</p>
+                <p className="text-sm font-medium">Add Task</p>
             </div>
             <div className="border ml-10 h-8 rounded-md flex items-center px-2 smallTablet:w-[60%]">
                 <div>
@@ -52,8 +52,8 @@ export default function HomeNav() {
                     placeholder="search..."
                 />
             </div>
-            <div className="border ml-auto mr-4 px-3 py-1 cursor-pointer rounded-md flex items-center smallTablet:hidden mobile:hidden">
-                <p className="mr-2">Upgrade to Pro</p>
+            <div className="border ml-auto mr-4 px-3 py-1 cursor-pointer rounded-md flex items-center smallTablet:hidden mobile:hidden hover:bg-[#EEEBEA]">
+                <p className="mr-2 text-sm font-medium">Upgrade to Pro</p>
                 <div>
                     <Image src={star} alt="image" width={20} height={20} />
                 </div>
@@ -63,7 +63,7 @@ export default function HomeNav() {
                     <div>
                         <CiFilter />
                     </div>
-                    <p>Filter</p>
+                    <p className="text-sm font-medium">Filter</p>
                 </div>
                 <div className="cursor-pointer">
                     <RiArrowDropDownLine size="1.5rem" />

@@ -6,15 +6,22 @@ import anime from "../../../../public/anime.jpg"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { useRouter } from "next/navigation"
 import { auth } from "@/app/firebase/firebase-config"
-import { onAuthStateChanged } from "firebase/auth"
+import { onAuthStateChanged, updateProfile, updatePassword } from "firebase/auth"
+import toast from "react-hot-toast"
 
 export default function Settings() {
     const router = useRouter()
     const [currentuser, setCurrentUser] = useState(auth.currentUser)
     const [editState, setEditState] = useState(false)
     const [passwordState, setPasswordState] = useState(false)
+    const [passwordValue, setPasswordValue] = useState("")
+    const [name, setName] = useState("")
 
-    console.log(currentuser)
+    useEffect(() => {
+        if (currentuser && currentuser.displayName) {
+            setName(currentuser?.displayName)
+        }
+    }, [])
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -34,15 +41,32 @@ export default function Settings() {
     }
 
     const handlePasswordChange = () => {
-        setPasswordState(true)
+        setPasswordState(true)  
     }
 
-    const saveName = () => {
-
+    const updateDisplayName = async () => {
+        try {
+            if (currentuser) {
+                if (name !== "") {
+                    await updateProfile(currentuser, { displayName: name })
+                    setEditState(false)
+                } else toast.error("input cannot be empty")
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const savePassword = () => {
-
+    const updateUserPassword = async() => {
+        try {
+            if(currentuser){
+                await updatePassword(currentuser, passwordValue)
+                setPasswordState(false)
+                toast.success("password updated successfully")
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleAbortName = () => {
@@ -54,7 +78,7 @@ export default function Settings() {
     }
 
     return (
-        <div className="px-[25%] pt-[5%] bg-[#F3F4F8] h-full mobile:px-6 largeTablet:px-[10%] largeScreen:px-[15%]">
+        <div className="px-[25%] pt-[5%] bg-[#F7F5F5] h-full mobile:px-6 largeTablet:px-[10%] largeScreen:px-[15%]">
             <div className="flex items-center">
                 <div
                     onClick={handleRoute}
@@ -72,13 +96,15 @@ export default function Settings() {
                     <div className="flex items-center space-x-3">
                         <div className="h-12 w-[60%] mobile:h-8 mr-1">
                             <input
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 className="border h-full outline-none px-3"
                                 type="text"
                             />
                         </div>
                         <div className="flex">
                             <button
-                                onClick={saveName}
+                                onClick={updateDisplayName}
                                 className="bg-[#D1D5DB] hover:bg-[#9f9fa0] px-4 py-1 rounded-md mr-3 mobile:text-xs"
                             >
                                 Save
@@ -115,6 +141,8 @@ export default function Settings() {
                     <div className="flex mt-6 items-center space-x-3">
                         <div className="h-12 w-[60%] mobile:h-8">
                             <input
+                                value={passwordValue}
+                                onChange={(e)=> setPasswordValue(e.target.value)}
                                 className="border h-full w-full outline-none px-3"
                                 type="password"
 
@@ -122,7 +150,7 @@ export default function Settings() {
                         </div>
                         <div className="flex">
                             <button
-                                onClick={savePassword}
+                                onClick={updateUserPassword}
                                 className="bg-[#D1D5DB] hover:bg-[#9f9fa0] px-4 py-1 rounded-md mr-3 mobile:text-xs"
                             >
                                 Save

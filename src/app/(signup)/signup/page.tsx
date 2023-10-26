@@ -123,7 +123,7 @@ export default function Login() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="border-2 border-black border-opacity-20 h-10 rounded-md px-2 outline-[#426DC6]"
-                                type="text"
+                                type="password"
                                 id="password"
                                 placeholder="Password must be at least 6 characters"
                             />
