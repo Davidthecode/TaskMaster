@@ -125,7 +125,7 @@ export default function Login() {
                     </div>
 
                     <div className="mt-6">
-                        <p className="text-xs text-center">Don't have an account? <span className="underline cursor-pointer font-semibold" onClick={redirectToSignUp}>create account</span></p>
+                        <p className="text-xs text-center">Don&apos;t have an account? <span className="underline cursor-pointer font-semibold" onClick={redirectToSignUp}>create account</span></p>
                     </div>
                 </div>
             </aside>

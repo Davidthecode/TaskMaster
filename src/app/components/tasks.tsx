@@ -70,20 +70,20 @@ export default function Tasks() {
 
     return (
         <div className="bg-[#F7F5F5] h-[92%] w-[100%] flex flex-col justify-between pb-4">
-            <div className="flex justify-between h-[10%] mb-[1%] px-16 mobile:px-6 smallTablet:px-6 pt-3 mobile:hidden">
-                <div className="border h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
+            <div className="flex h-[10%] mb-[1%] px-16 mobile:px-6 smallTablet:px-6 pt-3 mobile:hidden">
+                <div className="border mr-6 h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
                     <h1 className="px-4 font-semibold smallTablet:text-sm smallTablet:font-bold">To Do</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">{todoTasks.length}</span>
                     <div className="ml-auto mr-4">
                         <Image src={loaderOne} alt="image" height={20} width={20} />
                     </div>
                 </div>
-                <div className="border h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
+                <div className="border mr-6 h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
                     <h1 className="px-4 font-semibold smallTablet:text-sm smallTablet:font-bold">In progress</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">{inprogressTasks.length}</span>
                     <div className="ml-auto mr-4">
                         <Image src={loaderTwo} alt="image" height={20} width={20} />
                     </div>
                 </div>
-                <div className="border h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
+                <div className="border mr-6 h-full w-[28%] largeTablet:w-[30%] bg-white rounded-md flex items-center">
                     <h1 className="px-4 font-semibold smallTablet:text-sm smallTablet:font-bold">Completed</h1> <span className="border px-2 rounded-full bg-[#F3F4F8] text-sm">{completedTasks.length}</span>
                     <div className="ml-auto mr-4">
                         <Image src={loaderThree} alt="image" height={20} width={20} />
@@ -91,11 +91,11 @@ export default function Tasks() {
                 </div>
             </div>
 
-            <div className="flex justify-between h-[92%] overflow-y-auto px-16 mobile:px-6 smallTablet:px-6 py-4 mobile:hidden">
-                <div className="h-[100%] w-[28%] largeTablet:w-[30%]">
+            <div className="flex h-[92%] overflow-y-auto px-16 mobile:px-6 smallTablet:px-6 py-4 mobile:hidden">
+                <div className="h-[100%] w-[28%] largeTablet:w-[30%] mr-6">
                     <TodoTasks todoTasks={todoTasks} setTodoTasks={setTodoTasks} loading={loading} />
                 </div>
-                <div className="h-[100%] w-[28%] largeTablet:w-[30%]">
+                <div className="h-[100%] w-[28%] largeTablet:w-[30%] mr-6">
                     <InProgressTasks inprogressTasks={inprogressTasks} setInprogressTasks={setInprogressTasks} loading={loading} />
                 </div>
                 <div className="h-[100%] w-[28%] largeTablet:w-[30%]">

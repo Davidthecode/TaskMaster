@@ -2,11 +2,12 @@ import dynamic from 'next/dynamic'
 import { CiSearch } from 'react-icons/ci'
 import Image from 'next/image'
 import taskmasterImage from "../../../public/taskmasterImage.png"
+import { DashboardNavSkeleton } from './skeleton'
 
 
 const DynmaicDashboardNavClient = dynamic(()=> import("@/app/client/dashboardNav/dashboardNavClient"), {
     ssr:false,
-    loading: ()=> <h1>Loading...</h1>
+    loading: ()=> <DashboardNavSkeleton />
 })
 
 export default function DashboardNav() {
@@ -19,8 +20,8 @@ export default function DashboardNav() {
                 <h1 className="text-xl opacity-90">TaskMaster</h1>
             </div>
             <div className='ml-24 w-[40%] mobile:hidden'>
-                <div className='flex items-center border-none rounded-lg px-4 bg-[#3D3E40]'>
-                    <div className='mr-2'>
+                <div className='flex items-center border border-gray-50 rounded-lg px-4 bg-[#3D3E40] border-opacity-25'>
+                    <div className='mr-2 opacity-60'>
                         <CiSearch size="1.1rem" />
                     </div>
                     <input

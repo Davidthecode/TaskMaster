@@ -103,20 +103,20 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
     return (
         <section>
             <div className="fixed top-0 z-50 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-                <div className="text-black w-[70%] h-[90%] largeTablet:w-[85%] mobile:w-[100%] mobile:h-[100%]">
-                    <div className=' overflow-y-auto h-full bg-[#EFEFEF]'>
+                <div className="text-black w-[70%] h-[90%] rounded-md mt-10 mobile:mt-0 largeTablet:w-[85%] mobile:w-[100%] mobile:h-[100%]">
+                    <div className=' overflow-y-auto h-full bg-white rounded-md'>
                         <div
                             onClick={onClose}
-                            className='w-8 ml-auto hover:bg-[#5F6066] text-black hover:text-white mr-2 mt-2 flex justify-center items-center h-8 cursor-pointer'
+                            className='w-8 ml-auto hover:bg-[#F9F8F8] text-black opacity-60 hover:opacity-100 mr-2 mt-2 flex justify-center items-center h-8 cursor-pointer'
                         >
-                            <AiOutlineClose size='1.3rem' />
+                            <AiOutlineClose size='1.1rem' />
                         </div>
                         <div className='px-10 mobile:px-2'>
                             <div>
                                 <input
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    className='w-[60%] h-20 text-3xl borde outline-none px-4 bg-[#EFEFEF] fomt-bold'
+                                    className='w-[60%] h-20 text-3xl borde outline-none px-4 bg-white fomt-bold'
                                     placeholder='Untitled'
                                     type="text"
                                 />
@@ -154,7 +154,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                         <div className='mr-1'>
                                             <IoAddSharp />
                                         </div>
-                                        <p onClick={handleShowNote}>Add a note</p>
+                                        <p onClick={handleShowNote}>Description</p>
                                     </div>
                                     {shownote &&
                                         <div className="opacity-60 cursor-pointer" onClick={closeNote}>
@@ -167,9 +167,9 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                     <textarea
                                         value={note}
                                         onChange={(e) => setNote(e.target.value)}
-                                        className='outline-none px-2 py-2 bg-[#EFEFEF] border border-gray-300 w-[90%] h-[15rem] mobile:w-[100%]'
+                                        className='outline-none px-2 py-2 rounded-md border border-gray-300 w-[90%] h-[15rem] mobile:w-[100%]'
                                         name="tasknote"
-                                        placeholder='write a note'
+                                        placeholder='write a description'
                                         id=""
                                         cols={0}
                                         rows={0}
@@ -187,7 +187,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                     ) : (
                                         <button
                                             onClick={createTask}
-                                            className="border bg-[#DDDDDC] px-2 py-1 rounded-md opacity-60 hover:opacity-100"
+                                            className="border bg-black text-white px-2 py-1 rounded-md opacity-80 hover:opacity-100"
                                         >
                                             Create task
                                         </button>

@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import anime from "../../../../public/anime.jpg"
+import anime from "../../../../../public/anime.jpg"
 import { auth, db } from "@/app/firebase/firebase-config"
 import { onAuthStateChanged, updateProfile } from "firebase/auth"
 import toast from "react-hot-toast"
-import spinner from "../../../../public/icons8-spinner.gif"
+import spinner from "../../../../../public/icons8-spinner.gif"
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore"
 
-export default function Settings() {
+export default function Profile() {
     const [currentuser, setCurrentUser] = useState(auth.currentUser)
     const [username, setUsername] = useState("")
     const [userEmail, setUserEmail] = useState("")

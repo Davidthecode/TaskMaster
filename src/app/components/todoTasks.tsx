@@ -23,7 +23,7 @@ export default function TodoTasks({ todoTasks, setTodoTasks, loading }: TodTaskT
     }
     if(todoTasks.length == 0){
         return(
-            <div>
+            <div className="flex justify-center">
                 <h1>You have no Todo task yet..</h1>
             </div>
         )
@@ -33,7 +33,7 @@ export default function TodoTasks({ todoTasks, setTodoTasks, loading }: TodTaskT
             {todoTasks.map((todoTask) => {
                 return (
                     <Link href={`/tasks/${todoTask.id}`} key={todoTask.id}>
-                        <div className="border max-h-[50%] px-2 py-1 mb-6 bg-white cursor-pointer hover:bg-gray-300 flex flex-col rounded-md">
+                        <div className="border max-h-[54%] px-2 py-1 mb-6 bg-white cursor-pointer hover:bg-gray-300 flex flex-col rounded-md">
                             <div className="flex justify-between items-center mb-1">
                                 <h1 className="text-lg font-medium">{LimitWords(todoTask.taskData.title, 4)}</h1>
                             </div>
@@ -41,7 +41,7 @@ export default function TodoTasks({ todoTasks, setTodoTasks, loading }: TodTaskT
                                 <p className="opacity-70">{LimitWords(todoTask.taskData.note, 20)}</p>
                             </div>
                             <div className="w-full lg:w-[70%] mb-2 mt-auto ml-auto largeScreen:w-[85%]">
-                                <div className="flex items-center justify-center bg-[#DDDDDC] py-1 rounded-sm">
+                                <div className="flex items-center justify-center bg-[#DDDDDC] py-1 rounded-md">
                                     <div className="mr-1">
                                         <SlCalender size=".8rem" />
                                     </div>

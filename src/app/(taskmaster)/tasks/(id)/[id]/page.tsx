@@ -14,6 +14,7 @@ import { useParams } from "next/navigation"
 import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore"
 import { db } from "@/app/firebase/firebase-config"
 import toast from "react-hot-toast"
+import spinner from "../../../../../../public/icons8-spinner.gif"
 
 export default function Task() {
     const params = useParams()
@@ -28,7 +29,6 @@ export default function Task() {
     const [note, setNote] = useState("")
     const [title, setTitle] = useState("")
     const [loading, setLoading] = useState(false)
-    console.log(loading)
 
     useEffect(() => {
         if (selectedOption == "Todo") {
@@ -42,16 +42,21 @@ export default function Task() {
 
     useEffect(() => {
         const getTaskData = () => {
-            const unsubscribe = onSnapshot(docRef, (snapshot) => {
-                if (snapshot.exists()) {
-                    console.log("there is data")
-                    setNote(snapshot.data().taskData.note)
-                    setTitle(snapshot.data().taskData.title)
-                    setSelectedOption(snapshot.data().taskData.status)
-                }
-            })
-
-            return () => unsubscribe()
+            try {
+                setLoading(true)
+                const unsubscribe = onSnapshot(docRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        setNote(snapshot.data().taskData.note)
+                        setTitle(snapshot.data().taskData.title)
+                        setSelectedOption(snapshot.data().taskData.status)
+                    }
+                    setLoading(false)
+                })
+                return () => unsubscribe()
+            } catch (error) {
+                console.log(error)
+                setLoading(false)
+            }
         }
         getTaskData()
     }, [])
@@ -172,22 +177,45 @@ export default function Task() {
                 )}
             </div>
 
-            <div className="bg-[#F3F4F8]">
-                <textarea
-                    className={`mb-10 bg-[#F3F4F8] outline-none p-2 h-[26rem] w-[100%] overflow-y-auto ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
-                    name=""
-                    id=""
-                    cols={0}
-                    rows={0}
-                    disabled={toggleDisableTextarea}
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                >
+            <div className="flex items-center w-[100%] h-full">
+                <div className="bg-[#F3F4F8] w-[85%] mr-6">
+                    {loading ? (
+                        <div className="flex items-center justify-center h-full">
+                            <Image src={spinner} alt="image" width={20} height={20} />
+                        </div>
+                    ) : (
+                        <textarea
+                            className={`mb-10 bg-[#F3F4F8] outline-none p-2 h-[26rem] w-[100%] overflow-y-auto ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
+                            name=""
+                            id=""
+                            cols={0}
+                            rows={0}
+                            disabled={toggleDisableTextarea}
+                            value={note}
+                            onChange={(e) => setNote(e.target.value)}
+                        >
 
-                </textarea>
+                        </textarea>
+                    )}
+                </div>
+                <div className="w-[15%] h-full py-2 flex flex-col border-l border-gray-300">
+                    <div className="flex flex-col rounded-md w-fit px-5 py-1 cursor-pointer ml-6">
+                        <p className="text-xs opacity-50">Assignee</p>
+                        <p className="text-sm font-medium">David Ajibola</p>
+                    </div>
+                    <div className="mt-5 flex flex-col rounded-md w-fit px-5 py-1 ml-6 cursor-pointer">
+                        <p className="text-xs opacity-50">Date Created</p>
+                        <p className="text-sm font-medium">October 25, 2023</p>
+                    </div>
+                    <div className="mt-5 flex flex-col rounded-md w-fit px-5 py-1 ml-6 cursor-pointer">
+                        <p className="text-xs opacity-50">Date Last modified</p>
+                        <p className="text-sm font-medium">October 26, 2023</p>
+                    </div>
+                </div>
             </div>
 
-            <div className="flex items-center mobile:flex-col">
+            <div className="flex items-center mobile:flex-col w-[75%]">
+                <p className="mr-2">Status:</p>
                 <div className="flex items-center border px-4 py-1 bg-[#D1D5DB] hover:bg-[#9f9fa0] rounded-md mobile:mr-auto mobile:mb-8">
                     <p className="mr-2">{selectedOption}</p>
                     <div>
