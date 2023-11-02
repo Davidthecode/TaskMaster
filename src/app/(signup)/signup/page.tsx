@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Image from "next/image"
 import googleIcon from "../../../../public/google-icon.png"
 import taskmasterImage from "../../../../public/taskmasterImage.png"
 import { auth, provider } from "@/app/firebase/firebase-config";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, updateProfile } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth"
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation";
 import spinner from "../../../../public/icons8-spinner.gif"
