@@ -14,7 +14,6 @@ import { GoGoal } from "react-icons/go"
 import { IoIosAdd } from "react-icons/io"
 import { useRouter } from "next/navigation";
 import CreateProject from "./createProject";
-import { GoProjectTemplate } from "react-icons/go"
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
 
@@ -77,16 +76,16 @@ export default function Sidebar() {
                     href="/home"
                     className={`flex items-center rounded-md cursor-pointer px-4 py-1 hover:bg-[#505051] ${currentPath == "/home" && "bg-[#636366] text-[#F0EFEE]"}`}
                 >
-                    <div className='mr-2'>
+                    <div className='mr-1'>
                         <CiHome size="1.3rem" />
                     </div>
                     <p className='text-sm'>Home</p>
                 </Link>
                 <Link
-                    href="/tasks"
-                    className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#454547] ${currentPath == "/tasks" && "bg-[#636366] text-[#F0EFEE]"}`}
+                    href="/tasks/list"
+                    className={`flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#454547] ${currentPath == "/tasks/list" || currentPath == "/tasks/board" ? "bg-[#636366] text-[#F0EFEE]" : ""}`}
                 >
-                    <div className='mr-2'>
+                    <div className='mr-1'>
                         <CiCircleList size="1.3rem" />
                     </div>
                     <p className="text-sm">Tasks</p>
@@ -96,7 +95,7 @@ export default function Sidebar() {
                     href="/"
                     className="flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#505051]"
                 >
-                    <div className="mr-2">
+                    <div className="mr-1">
                         <MdOutlineInsights />
                     </div>
                     <p className="text-sm">Insights</p>
@@ -105,7 +104,7 @@ export default function Sidebar() {
                     href="/"
                     className="flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#505051]"
                 >
-                    <div className="mr-2">
+                    <div className="mr-1">
                         <GoGoal />
                     </div>
                     <p className="text-sm">Goals</p>
@@ -120,15 +119,13 @@ export default function Sidebar() {
                     </div>
                 </div>
 
-                <div className="">
+                <div className="h-[15rem] overflow-y-auto">
                     {projects.map((project) => {
                         return (
                             <div className="px-4 mt-2 text-sm flex items-center" key={project.id}>
-                                <div className="">
-                                    <GoProjectTemplate />
-                                </div>
+                                <div className="bg-[#F06A6A] w-4 h-4 rounded-md"></div>
                                 <Link
-                                    href={`/project/${project.id}`}
+                                    href={`/project/${project.id}/overview`}
                                     className="px-2"
                                 >
                                     {project.projectData.projectName}

@@ -1,23 +1,20 @@
-import dynamic from "next/dynamic"
-import { HomeNavSkeleton, TasksSkeleton } from "@/app/components/skeleton"
+"use client"
 
-const DynamicHomeNav = dynamic(()=> import("@/app/components/homeNav"), {
-    ssr: false,
-    loading: ()=> <HomeNavSkeleton />
-})
-
-const DynamicTasks = dynamic(()=> import("@/app/components/tasks"), {
-    ssr: false,
-    loading: ()=> <TasksSkeleton />
-})
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export default function Tasks() {
+    const router = useRouter()
+    const pathname = usePathname()
+
+    useEffect(() => {
+        if (pathname === "/tasks"){
+            router.push("/tasks/list")
+        }
+    }, [pathname])
+
     return (
-        <section className="h-full">
-            <div className="h-[8%]">
-                <DynamicHomeNav />
-            </div>
-            <DynamicTasks />
-        </section>
+        <div></div>
     )
 }

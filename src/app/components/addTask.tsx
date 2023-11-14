@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid"
 import { onAuthStateChanged } from "firebase/auth";
 import spinner from "../../../public/icons8-spinner.gif"
 import Image from "next/image";
+import {CiUser} from "react-icons/ci"
 
 type AddtaskPopupProps = {
     onClose: () => void;
@@ -21,8 +22,10 @@ type AddtaskPopupProps = {
 export default function Addtask({ onClose }: AddtaskPopupProps) {
     const [shownote, setShowNote] = useState(false);
     const [title, setTitle] = useState("")
-    const [status, setStatus] = useState("Todo")
-    const [currentDateTime, setCurrentDateTime] = useState("")
+    const [taskType, setTaskType] = useState("Todo")
+    const [priority, setPriority] = useState("Low")
+    const [status, setStatus] = useState("On track")
+    const [currentDate, setCurrentDate] = useState("")
     const [note, setNote] = useState("")
     const collectionRef = collection(db, "tasks")
     const [currentuser, setCurrentuser] = useState(auth.currentUser)
@@ -43,13 +46,10 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
         const options: Intl.DateTimeFormatOptions = {
             year: "numeric",
             month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
+            day: "numeric"
         }
         const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(now);
-        setCurrentDateTime(formattedDateTime);
+        setCurrentDate(formattedDateTime);
     }
 
     useEffect(() => {
@@ -69,7 +69,15 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
         setShowNote(false)
     }
 
-    const handleStatusChange = (e: any) => {
+    const handleTaskTypeStatusChange = (e: any) => {
+        setTaskType(e.target.value)
+    }
+
+    const handlePriorityStatusChange =(e: any) => {
+        setPriority(e.target.value)
+    }
+
+    const handleStatusStatusChange =(e: any) => {
         setStatus(e.target.value)
     }
 
@@ -79,7 +87,9 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                 setLoading(true)
                 const taskData = {
                     title,
-                    dataAndTimeAdded: currentDateTime,
+                    dateAdded: currentDate,
+                    taskType,
+                    priority,
                     status,
                     note,
                     userId: currentuser?.uid
@@ -104,7 +114,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
         <section>
             <div className="fixed top-0 z-50 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
                 <div className="text-black w-[70%] h-[90%] rounded-md mt-10 mobile:mt-0 largeTablet:w-[85%] mobile:w-[100%] mobile:h-[100%]">
-                    <div className=' overflow-y-auto h-full bg-white rounded-md'>
+                    <div className=' overflow-y-auto h-full bg-white rounded-md pb-10'>
                         <div
                             onClick={onClose}
                             className='w-8 ml-auto hover:bg-[#F9F8F8] text-black opacity-60 hover:opacity-100 mr-2 mt-2 flex justify-center items-center h-8 cursor-pointer'
@@ -124,11 +134,29 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
 
                             <div className='flex items-center mt-6'>
                                 <div className='px-4 flex flex-col mr-12 mobile:mr-6'>
-                                    <div className='flex items-center opacity-60'>
+                                    <div className='flex items-center'>
+                                        <div className='mr-1'>
+                                            <CiUser />
+                                        </div>
+                                        <p className='opacity-60'>Owner</p>
+                                    </div>
+                                    <div className='flex items-center opacity-60 mt-6'>
                                         <div className='mr-1'>
                                             <CiClock2 />
                                         </div>
                                         <p>Date created</p>
+                                    </div>
+                                    <div className='flex items-center mt-6'>
+                                        <div className='mr-1'>
+                                            <PiSpinnerThin />
+                                        </div>
+                                        <p className='opacity-60'>Task type</p>
+                                    </div>
+                                    <div className='flex items-center mt-6'>
+                                        <div className='mr-1'>
+                                            <PiSpinnerThin />
+                                        </div>
+                                        <p className='opacity-60'>Priority</p>
                                     </div>
                                     <div className='flex items-center mt-6'>
                                         <div className='mr-1'>
@@ -139,11 +167,22 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                 </div>
 
                                 <div className='px-4 flex flex-col opacity-60'>
-                                    <p>{currentDateTime}</p>
-                                    <select className="mt-6 outline-none" value={status} onChange={handleStatusChange}>
+                                    <p>{currentuser?.displayName}</p>
+                                    <p className="mt-6">{currentDate}</p>
+                                    <select className="mt-6 outline-none" value={taskType} onChange={handleTaskTypeStatusChange}>
                                         <option value="Todo">Todo</option>
                                         <option value="In progress">In progress</option>
                                         <option value="Completed">Completed</option>
+                                    </select>
+                                    <select className="mt-6 outline-none" value={priority} onChange={handlePriorityStatusChange}>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                    </select>
+                                    <select className="mt-6 outline-none" value={status} onChange={handleStatusStatusChange}>
+                                        <option value="On track">On track</option>
+                                        <option value="At risk">At risk</option>
+                                        <option value="Off track">Off track</option>
                                     </select>
                                 </div>
                             </div>

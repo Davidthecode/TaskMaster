@@ -71,9 +71,9 @@ export default function HomeClient() {
 
     useEffect(() => {
         if (tasks.length) {
-            const filteredTodoTasks = tasks.filter((task) => task.taskData.status === "Todo")
-            const filteredInProgressTasks = tasks.filter((task) => task.taskData.status === "In progress")
-            const filteredCompletedTasks = tasks.filter((task) => task.taskData.status === "Completed")
+            const filteredTodoTasks = tasks.filter((task) => task.taskData.taskType === "Todo")
+            const filteredInProgressTasks = tasks.filter((task) => task.taskData.taskType === "In progress")
+            const filteredCompletedTasks = tasks.filter((task) => task.taskData.taskType === "Completed")
 
             setTodoTasks(filteredTodoTasks)
             setInprogressTasks(filteredInProgressTasks)

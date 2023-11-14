@@ -5,14 +5,16 @@ import { collection, onSnapshot } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
-import projectImg from "../../../../../public/project.png"
+import projectImg from "../../../public/project.png"
 import { CiViewTable } from "react-icons/ci"
-import {RxDashboard} from "react-icons/rx"
-import {PiTagThin} from "react-icons/pi"
-import {IoIosAdd} from "react-icons/io"
+import { RxDashboard } from "react-icons/rx"
+import { PiTagThin } from "react-icons/pi"
+import Link from "next/link"
+import { useParams } from "next/navigation"
 
 
-export default function Projects() {
+export default function ProjectsHeader() {
+    const params = useParams()
     const currentPath = usePathname()
     const [projects, setProjects] = useState<any[]>([])
     const collectionRef = collection(db, "projects")
@@ -31,45 +33,55 @@ export default function Projects() {
     }, [])
 
     return (
-        <section className="px-5 py-5">
-            {projects.map((project) => (
-                <div>
-                    <div className="flex items-center">
-                        <div className="mr-2">
-                            <Image src={projectImg} alt="image" width={40} height={40} />
-                        </div>
-                        <h1 className="text-xl font-medium">{project.projectData.projectName}</h1>
+        <section className="">
+            <div>
+                <div className="flex items-center">
+                    <div className="mr-2">
+                        <Image src={projectImg} alt="image" width={40} height={40} />
                     </div>
-                    <div className="mt-5 flex items-center border-b pb-2">
-                        <div className="flex items-center mr-6 cursor-pointer">
+                    {projects.length
+                        ? projects.map((project) => (
+                            <h1 className="text-xl font-medium">{project.projectData.projectName}</h1>
+                        )) : (
+                            <div className="bg-[#f0eded] w-24 h-3 rounded-md animate-pulse"></div>
+                        )}
+                </div>
+                <div className="mt-5 flex items-center border-b pb-2">
+                    <Link
+                        href={`/project/${params.id}/overview`}
+                        className={`${currentPath == `/project/${params.id}/overview` && "underline underline-offset-[12px]"}`}
+                    >
+                        <div className={`flex items-center mr-6 cursor-pointer`}>
                             <div className="mr-1">
                                 <PiTagThin size="1rem" />
                             </div>
                             <p className="text-sm font-medium">Overview</p>
                         </div>
+                    </Link>
+                    <Link
+                        href={`/project/${params.id}/list`}
+                        className={`${currentPath == `/project/${params.id}/list` && "underline underline-offset-[12px]"}`}
+                    >
                         <div className="flex items-center mr-6 cursor-pointer">
                             <div className="mr-1">
                                 <CiViewTable size="1.2rem" />
                             </div>
                             <p className="text-sm font-medium">List</p>
                         </div>
+                    </Link>
+                    <Link
+                        href={`/project/${params.id}/board`}
+                        className={`${currentPath == `/project/${params.id}/board` && "underline underline-offset-[12px]"}`}
+                    >
                         <div className="flex items-center cursor-pointer">
                             <div className="mr-1">
                                 <RxDashboard size="1rem" />
                             </div>
                             <p className="text-sm font-medium">Board</p>
                         </div>
-                    </div>
-                    <div className="mt-4">
-                        <div className="border w-fit px-2 py-1 flex items-center rounded-md border-gray-300 cursor-pointer hover:bg-[#F9F8F8]">
-                            <div>
-                                <IoIosAdd size="1.3rem" />
-                            </div>
-                            <p className="text-xs font-medium">Add Task</p>
-                        </div>
-                    </div>
+                    </Link>
                 </div>
-            ))}
+            </div>
         </section>
     )
 }
