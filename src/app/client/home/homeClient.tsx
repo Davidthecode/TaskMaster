@@ -11,7 +11,7 @@ import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs"
 import { useSidebarContext } from "@/app/state/sidebar/sidebarContext"
 import { auth, db } from "@/app/firebase/firebase-config"
 import { onAuthStateChanged } from "firebase/auth"
-import { collection, onSnapshot } from "firebase/firestore"
+import { collection, onSnapshot, query, where } from "firebase/firestore"
 import spinner from "../../../../public/icons8-spinner.gif"
 
 function formatDate(date: any) {
@@ -55,7 +55,11 @@ export default function HomeClient() {
     useEffect(() => {
         try {
             setLoading(true)
-            const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+            const queryTasks = query(
+                collectionRef,
+                where("taskData.userId", "==", currentUser?.uid)
+            )
+            const unsubscribe = onSnapshot(queryTasks, (snapshot) => {
                 let tempTasks: any[] = []
                 snapshot.forEach((doc) => {
                     tempTasks.push({ ...doc.data(), id: doc.id })
@@ -67,7 +71,7 @@ export default function HomeClient() {
         } catch (error) {
             console.log("error")
         }
-    }, [])
+    }, [currentUser])
 
     useEffect(() => {
         if (tasks.length) {
