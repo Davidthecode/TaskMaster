@@ -9,13 +9,15 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore"
-import { auth, db } from "@/app/firebase/firebase-config"
+import { db } from "@/app/firebase/firebase-config"
 import toast from "react-hot-toast"
 import spinner from "../../../../../../public/icons8-spinner.gif"
 import { CiCircleCheck } from "react-icons/ci"
 import { TaskTitleSkeleton } from "@/app/components/skeleton"
+import CurrentUserHook from "@/app/hooks/currentUserHook"
 
 export default function Task() {
+    const {currentUser} = CurrentUserHook();
     const params = useParams()
     const paramsId = params.id
     const router = useRouter();
@@ -32,7 +34,7 @@ export default function Task() {
     const [selectedPriorityOption, setSelectedPriorityOption] = useState("")
     const [showStatus, setShowStatus] = useState(false)
     const [selectedStatusOption, setSelectedStatusOption] = useState("On track")
-    const currentuser = auth.currentUser
+
 
     const priorityOptions = [
         { label: "Low", bgColor: "#9EE7E3" },
@@ -52,7 +54,6 @@ export default function Task() {
                 setLoading(true)
                 const unsubscribe = onSnapshot(docRef, (snapshot) => {
                     if (snapshot.exists()) {
-                        console.log(snapshot.data().taskData)
                         setNote(snapshot.data().taskData.note)
                         setTitle(snapshot.data().taskData.title)
                         setDateCreated(snapshot.data().taskData.dateAdded)
@@ -213,7 +214,7 @@ export default function Task() {
                     <div className="w-[95%]">
                         <div className="flex items-center">
                             <p className="mr-16 text-xs">Assignee</p>
-                            <p className="text-xs">{currentuser?.displayName}</p>
+                            <p className="text-xs">{currentUser?.displayName}</p>
                         </div>
                         <div className="mt-6 flex items-center">
                             <p className="mr-11 text-xs">Date created</p>

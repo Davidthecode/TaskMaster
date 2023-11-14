@@ -14,10 +14,12 @@ import { GoGoal } from "react-icons/go"
 import { IoIosAdd } from "react-icons/io"
 import { useRouter } from "next/navigation";
 import CreateProject from "./createProject";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
+import CurrentUserHook from "../hooks/currentUserHook";
 
 export default function Sidebar() {
+    const { currentUser } = CurrentUserHook()
     const router = useRouter()
     const { isOpen, setIsOpen } = useSidebarContext()
     const currentPath = usePathname()
@@ -39,16 +41,24 @@ export default function Sidebar() {
     }, [])
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-            const tempArray: any[] = []
-            snapshot.forEach((doc) => {
-                tempArray.push({ ...doc.data(), id: doc.id })
+        try {
+            const queryProjects = query(
+                collectionRef,
+                where("projectData.userId", "==", currentUser?.uid)
+            )
+            const unsubscribe = onSnapshot(queryProjects, (snapshot) => {
+                const tempArray: any[] = []
+                snapshot.forEach((doc) => {
+                    tempArray.push({ ...doc.data(), id: doc.id })
+                })
+                setPProjects(tempArray)
             })
-            setPProjects(tempArray)
-        })
 
-        return () => unsubscribe()
-    }, [])
+            return () => unsubscribe()
+        } catch (error) {
+            console.log(error)
+        }
+    }, [currentUser])
 
     const handleAddProject = () => {
         setIsvisible(true)

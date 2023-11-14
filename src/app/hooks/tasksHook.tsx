@@ -1,11 +1,14 @@
 "use client"
 
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from "../firebase/firebase-config";
+import { auth, db } from "../firebase/firebase-config";
 import toast from "react-hot-toast";
+import { onAuthStateChanged } from "firebase/auth";
+import CurrentUserHook from "./currentUserHook";
 
 export default function TasksHook () {
+    const {currentUser} = CurrentUserHook()
     const collectionRef = collection(db, "tasks")
     const [tasks, setTasks] = useState<any[]>([])
     const [todoTasks, setTodoTasks] = useState<any[]>([])
@@ -19,11 +22,14 @@ export default function TasksHook () {
         }
     };
 
-
     useEffect(() => {
         try {
             setLoading(true)
-            const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+            const queryTasks = query(
+                collectionRef,
+                where("taskData.userId", "==", currentUser?.uid)
+            )
+            const unsubscribe = onSnapshot(queryTasks, (snapshot) => {
                 let tempTasks: any[] = []
                 snapshot.forEach((doc) => {
                     tempTasks.push({ ...doc.data(), id: doc.id })
@@ -46,7 +52,7 @@ export default function TasksHook () {
             console.log("error")
             setLoading(false)
         }
-    }, [])
+    }, [currentUser])
 
     useEffect(() => {
         if (tasks.length) {

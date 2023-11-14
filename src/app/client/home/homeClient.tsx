@@ -45,11 +45,11 @@ export default function HomeClient() {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setCurrentUser(user)
-            } else setCurrentUser(null)
+                setCurrentUser(user);
+            } else setCurrentUser(null);
         })
 
-        return () => unsubscribe()
+        return () => unsubscribe();
     }, [])
 
     useEffect(() => {
