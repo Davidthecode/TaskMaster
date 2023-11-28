@@ -15,9 +15,9 @@ export default function TasksHook () {
     const [completedTasks, setCompletedTasks] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
 
-    // console.log("todo", todoTasks)
-    // console.log("inprogress", inprogressTasks)
-    // console.log("completed", completedTasks)
+    console.log("todo", todoTasks)
+    console.log("inprogress", inprogressTasks)
+    console.log("completed", completedTasks)
 
     const showNetworkAlert = () => {
         if (!navigator.onLine) {
