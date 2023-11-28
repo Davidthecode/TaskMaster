@@ -1,5 +1,6 @@
 "use client"
 
+import {useEffect} from "react"
 import { AiOutlineClose } from "react-icons/ai"
 import TasksHook from "../hooks/tasksHook"
 
@@ -7,20 +8,26 @@ type CloseFilterType = {
     closeFilter: () => void
 }
 
-const handleFilterCompleteTasks = async() => {
-    const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks} = TasksHook()
-    if (todoTasks.length && inprogressTasks.length && completedTasks.length) {
-        const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
-        const filteredInProgressTasks = inprogressTasks.filter((task) => task.taskData.completed === true)
-        const filteredCompletedTasks = completedTasks.filter((task) => task.taskData.completed === true)
+export default function TaskFilter({closeFilter}:CloseFilterType) {
+    const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks} = TasksHook();
 
-        setTodoTasks((prev) => [...prev, ...filteredTodoTasks]);
-        setInprogressTasks((prev) => [...prev, ...filteredInProgressTasks]);
-        setCompletedTasks((prev) => [...prev, ...filteredCompletedTasks]);
-    }
-}
+    // useEffect(()=> {
+    //     handleFilterCompleteTasks();
+    // },[])
+    
+    const handleFilterCompleteTasks = () => {
+        if (todoTasks.length && inprogressTasks.length && completedTasks.length) {
+            const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
+            const filteredInProgressTasks = inprogressTasks.filter((task) => task.taskData.completed === true)
+            const filteredCompletedTasks = completedTasks.filter((task) => task.taskData.completed === true)
+    
+            setTodoTasks(filteredTodoTasks);
+            setInprogressTasks(filteredInProgressTasks);
+            setCompletedTasks(filteredCompletedTasks);
+        }
+    } 
 
-export default function TaskFilter({closeFilter}:CloseFilterType) { 
+    
     return (
         <section className="w-full h-full flex flex-col">
             <div className="flex items-center">

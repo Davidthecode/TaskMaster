@@ -21,14 +21,7 @@ console.log((new Date).getDate())
 
 export default function ListInprogressClient({ inprogressTasks, setInprogressTasks, loading }: InprogressTaskType) {
     const [showInprogressList, setShowInprogressList] = useState(true)
-
-    const currentDate = new Date();
-    const options: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    }
-    const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(currentDate);
+    console.log(inprogressTasks)
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)
@@ -52,9 +45,6 @@ export default function ListInprogressClient({ inprogressTasks, setInprogressTas
                 <h1 className="text-lg font-medium">In progress</h1>
             </div>
             {inprogressTasks.map((inprogressTask) => {
-                const dueDate = inprogressTask.taskData.dueDate;
-                const formattedDueDate = new Date(dueDate.replace(/(\d+)(?:st|nd|rd|th)/, '$1')).toISOString();
-                const isDueDateInFuture = new Date(formattedDueDate).getTime() > new Date().getTime();
                 return (
                     <Link href={`/tasks/${inprogressTask.id}`} key={inprogressTask.id}>
                         <div className={`flex items-center hover:bg-[#F9F8F8] ${showInprogressList ? "flex" : "hidden"}`}>
