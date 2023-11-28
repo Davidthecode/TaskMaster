@@ -18,6 +18,7 @@ export default function List() {
     // console.log("todo", todoTasks)
     // console.log("inprogress", inprogressTasks)
     // console.log("completed", completedTasks)
+    
 
     
         if (filterTasks) {
