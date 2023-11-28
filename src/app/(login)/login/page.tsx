@@ -9,6 +9,10 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import spinner from "../../../../public/icons8-spinner.gif"
+import meetingOneImage from "../../../../public/meeting.png"
+import meetingTwoImage from "../../../../public/meeting-room.png"
+import meetingThreeImage from "../../../../public/round-table.png"
+import writingImage from "../../../../public/writing.png"
 
 export default function Login() {
     const router = useRouter()
@@ -59,6 +63,22 @@ export default function Login() {
                 </div>
                 <h1 className="text-3xl xs:text-xl">TaskMaster</h1>
             </div>
+
+            <section>
+                <div className="absolute top-40 left-20 xs:left-10">
+                    <Image src={meetingOneImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute bottom-40 left-40 largeTablet:bottom-20 xs:bottom-10 xs:left-10">
+                    <Image src={meetingTwoImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute top-40 right-20 xs:right-10">
+                    <Image src={writingImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute bottom-40 right-40 largeTablet:bottom-20 xs:bottom-10 xs:right-10">
+                    <Image src={meetingThreeImage} alt="image" width={40} height={40} />
+                </div>
+            </section>
+
 
             <aside className="flex justify-center items-center h-screen">
                 <div className="w-[30rem]">

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { AiOutlineClose } from "react-icons/ai";
-import { BsCalendar2 } from "react-icons/bs"
 import Image from "next/image";
 import projectImage from "../../../public/projectImage.png"
 import { auth, db } from "../firebase/firebase-config";
@@ -10,6 +9,8 @@ import { v4 as uuidv4 } from "uuid"
 import { toast } from "react-hot-toast"
 import spinner from "../../../public/icons8-spinner.gif"
 import { collection, doc, setDoc } from "firebase/firestore";
+import calender from "../../../public/icons8-calendar-16.png";
+import userIcon from "../../../public/icons8-user-16.png"
 
 type CreateProjectType = {
     onClose: () => void;
@@ -70,7 +71,7 @@ export default function CreateProject({ onClose }: CreateProjectType) {
     return (
         <section>
             <div className="fixed top-0 z-50 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-                <div className="text-black w-[40%] h-[90%] rounded-md mt-10 mobile:mt-0 largeTablet:w-[85%] mobile:w-[100%] mobile:h-[100%]">
+                <div className="text-black w-[40%] h-[90%] rounded-md mt-10 mobile:mt-0 largeTablet:w-[85%] mobile:w-[100%] mobile:h-[100%] z-50">
                     <div className="overflow-y-auto h-full bg-white rounded-md">
                         <div
                             onClick={onClose}
@@ -94,13 +95,18 @@ export default function CreateProject({ onClose }: CreateProjectType) {
                             </div>
                             <div className='mt-10 flex items-center'>
                                 <p className='mr-2 opacity-60'>Project owner:</p>
-                                <p>{currentuser?.displayName}</p>
+                                <div className="flex items-center">
+                                    <div className="mr-2">
+                                        <Image src={userIcon} alt="image" width={15} height={15} />
+                                    </div>
+                                    <p>{currentuser?.displayName}</p>
+                                </div>
                             </div>
                             <div className='mt-5 flex items-center'>
                                 <p className="mr-3 opacity-60">Creation Date:</p>
                                 <div className="flex items-center">
                                     <div className="mr-2">
-                                        <BsCalendar2 />
+                                        <Image src={calender} alt="image" width={15} height={15} />
                                     </div>
                                     <p>{currentDateTime}</p>
                                 </div>
@@ -118,10 +124,10 @@ export default function CreateProject({ onClose }: CreateProjectType) {
                                 <div className="border-2 w-fit px-8 py-1 rounded-md">
                                     <Image src={spinner} alt="image" width={20} height={20} />
                                 </div>
-                            ):(
+                            ) : (
                                 <div className="mt-3">
-                                <button className="bg-[#2E2E30] text-white px-6 text-sm opacity-90 hover:opacity-100 py-1 rounded-md" onClick={handleCreateProject}>Create</button>
-                            </div>
+                                    <button className="bg-[#2E2E30] text-white px-6 text-sm opacity-90 hover:opacity-100 py-1 rounded-md" onClick={handleCreateProject}>Create</button>
+                                </div>
                             )}
                         </div>
                     </div>

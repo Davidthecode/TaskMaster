@@ -15,25 +15,34 @@ import spinner from "../../../../../../public/icons8-spinner.gif"
 import { CiCircleCheck } from "react-icons/ci"
 import { TaskTitleSkeleton } from "@/app/components/skeleton"
 import CurrentUserHook from "@/app/hooks/currentUserHook"
+import Calendar from "react-calendar"
+import { IoCheckmarkOutline } from "react-icons/io5";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function Task() {
-    const {currentUser} = CurrentUserHook();
-    const params = useParams()
-    const paramsId = params.id
+    const [value, onChange] = useState<Value>();
+    const { currentUser } = CurrentUserHook();
+    const params = useParams();
+    const paramsId = params.id;
     const router = useRouter();
+    const [showCalender, setShowCalender] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [toggleDisableInput, setToggleDisableInput] = useState(true);
     const [toggleDisableTextarea, setToggleDisableTextarea] = useState(true);
     const [taskType, setTaskType] = useState("");
-    const docRef = doc(db, "tasks", paramsId as string)
-    const [note, setNote] = useState("")
-    const [title, setTitle] = useState("")
-    const [dateCreated, setDateCreated] = useState("")
-    const [loading, setLoading] = useState(false)
-    const [showPriority, setShowPriority] = useState(false)
-    const [selectedPriorityOption, setSelectedPriorityOption] = useState("")
-    const [showStatus, setShowStatus] = useState(false)
-    const [selectedStatusOption, setSelectedStatusOption] = useState("On track")
+    const docRef = doc(db, "tasks", paramsId as string);
+    const [note, setNote] = useState("");
+    const [title, setTitle] = useState("");
+    const [dateCreated, setDateCreated] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showPriority, setShowPriority] = useState(false);
+    const [selectedPriorityOption, setSelectedPriorityOption] = useState("");
+    const [showStatus, setShowStatus] = useState(false);
+    const [selectedStatusOption, setSelectedStatusOption] = useState("On track");
+    const [completed, setCompleted] = useState<boolean>()
 
 
     const priorityOptions = [
@@ -60,6 +69,10 @@ export default function Task() {
                         setTaskType(snapshot.data().taskData.taskType)
                         setSelectedPriorityOption(snapshot.data().taskData.priority)
                         setSelectedStatusOption(snapshot.data().taskData.status)
+                        setCompleted(snapshot.data().taskData.completed)
+                        const dueDateTimestamp = snapshot.data().taskData.dueDate;
+                        const dueDate = new Date(dueDateTimestamp);
+                        onChange(dueDate);
                     }
                     setLoading(false)
                 })
@@ -71,6 +84,19 @@ export default function Task() {
         }
         getTaskData()
     }, [])
+
+    useEffect(() => {
+        async function handleCalenderChange() {
+            if (value instanceof Date) {
+                const formattedDate = value.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                const dataToUpdate = {
+                    "taskData.dueDate": formattedDate
+                }
+                await updateDoc(docRef, dataToUpdate)
+            }
+        }
+        handleCalenderChange()
+    }, [value])
 
     const handleTaskTypeChange = async (e: any) => {
         const taskType = e.target.value
@@ -118,25 +144,25 @@ export default function Task() {
     }
 
     const handleDelete = async () => {
-        await deleteDoc(docRef)
-        toast.success("Task deleted successfully")
-        router.push("/tasks")
+        await deleteDoc(docRef);
+        toast.success("Task deleted successfully");
+        router.push("/tasks");
     }
 
     const handleNavigation = () => {
-        router.back()
+        router.back();
     }
 
     const handlePriorityChange = () => {
-        setShowPriority(!showPriority)
+        setShowPriority(!showPriority);
     }
 
     const handleStatusChange = () => {
-        setShowStatus(!showStatus)
+        setShowStatus(!showStatus);
     }
 
     const handleStatusOptionClick = async (statusOption: any) => {
-        setSelectedStatusOption(statusOption.label)
+        setSelectedStatusOption(statusOption.label);
         const dataToUpdate = {
             "taskData.status": statusOption.label
         }
@@ -151,10 +177,28 @@ export default function Task() {
         await updateDoc(docRef, dataToUpdate)
     }
 
+    const handleShowCalender = () => {
+        setShowCalender(!showCalender)
+    }
+
+    const handleMarkAsComplete = async() => {
+        const dataToUpdate = {
+            "taskData.completed": true
+        }
+        await updateDoc(docRef, dataToUpdate)
+    }
+
+    const handleMarkAsIncomplete = async() => {
+        const dataToUpdate = {
+            "taskData.completed": false
+        }
+        await updateDoc(docRef, dataToUpdate)
+    }
+
     return (
         <section className="bg-[#F9F8F8] px-20 mobile:px-6 py-3 flex flex-col items-center overflow-y-auto h-full">
             <div className="bg-white w-[75%] flex flex-col rounded-md overflow-y-auto">
-                <div className="flex items-center justify-between mb-3 w-[57.5%] border-b pl-10 py-2 fixed z-50 bg-white">
+                <div className="flex items-center justify-between mb-3 w-[57.5%] border-b pl-11 py-2 fixed z-40 bg-white">
                     <div className="flex items-center">
                         <div
                             onClick={handleNavigation}
@@ -165,7 +209,26 @@ export default function Task() {
                     </div>
                 </div>
 
-                <div className="pl-10 mt-14">
+                <div className="pl-12 mt-14">
+                    {completed ? (
+                        <div className="flex items-center border rounded-md px-2 py-1 w-fit cursor-pointer bg-[#E0F4EC] border-[#3d9673] hover:border-[#2d6f55]" onClick={handleMarkAsIncomplete}>
+                            <div className="mr-1">
+                                <div>
+                                    <IoCheckmarkOutline />
+                                </div>
+                            </div>
+                            <p className="text-xs">Completed</p>
+                        </div>
+                    ) : (
+                        <div className="flex items-center border rounded-md px-2 py-1 w-fit cursor-pointer hover:bg-[#E0F4EC] border-gray-300 hover:border-[#3d9673]" onClick={handleMarkAsComplete}>
+                            <div className="mr-1">
+                                <div>
+                                    <IoCheckmarkOutline />
+                                </div>
+                            </div>
+                            <p className="text-xs">Mark complete</p>
+                        </div>
+                    )}
                     {loading ? (
                         <TaskTitleSkeleton />
                     ) : (
@@ -211,7 +274,7 @@ export default function Task() {
                         </div>
                     )}
 
-                    <div className="w-[95%]">
+                    <div className="w-[95%] pl-2">
                         <div className="flex items-center">
                             <p className="mr-16 text-xs">Assignee</p>
                             <p className="text-xs">{currentUser?.displayName}</p>
@@ -222,7 +285,18 @@ export default function Task() {
                         </div>
                         <div className="mt-6 flex items-center">
                             <p className="text-xs mr-16">Due date</p>
-                            <p className="text-xs">December 4, 2023</p>
+                            <div className="flex items-center">
+                                <div>
+                                    {value instanceof Date && (
+                                        <p onClick={handleShowCalender} className="text-xs mr-4 cursor-pointer hover:bg-gray-200 pl-1 pr-3 py-1 rounded-md">{value.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                                    )}
+                                </div>
+                                {showCalender && (
+                                    <div className="text-xs ml-auto">
+                                        <Calendar onChange={onChange} value={value} />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                         <div className="mt-10 flex items-center">
                             <p className="text-xs mr-16">Task Type</p>
@@ -253,8 +327,8 @@ export default function Task() {
                             )}
                             {showPriority && (
                                 <div className="absolute top-7 right-1 z-50 shadow-lg border-t">
-                                    {priorityOptions.map((priorityOption) => (
-                                        <div className="flex flex-col text-xs w-24 bg-white" onClick={() => handlePriorityOptionClick(priorityOption)}>
+                                    {priorityOptions.map((priorityOption, index) => (
+                                        <div className="flex flex-col text-xs w-24 bg-white" onClick={() => handlePriorityOptionClick(priorityOption)} key={index}>
                                             <div className="cursor-pointer hover:bg-[#F3F4F8] my-1 rounded-sm py-[1.8px]">
                                                 <div className={`bg-[${priorityOption.bgColor}] rounded-md px-[3px] py-[2px] mx-3`}>
                                                     {priorityOption.label}
@@ -284,8 +358,8 @@ export default function Task() {
                             )}
                             {showStatus && (
                                 <div className="absolute top-7 right-1 z-50 shadow-lg border-t">
-                                    {statusOptions.map((statusOption) => (
-                                        <div className="flex flex-col text-xs w-24 bg-white" onClick={() => handleStatusOptionClick(statusOption)}>
+                                    {statusOptions.map((statusOption, index) => (
+                                        <div className="flex flex-col text-xs w-24 bg-white" onClick={() => handleStatusOptionClick(statusOption)} key={index}>
                                             <div className="cursor-pointer hover:bg-[#F3F4F8] my-1 rounded-sm py-[1.8px]">
                                                 <div className={`bg-[${statusOption.bgColor}] rounded-md px-[3px] py-[2px] mx-3`}>
                                                     {statusOption.label}
@@ -309,7 +383,7 @@ export default function Task() {
                                 </div>
                             ) : (
                                 <textarea
-                                    className={`mb-10 bg-white outline-none py-2 pr-2 h-[15rem] w-[100%] overflow-y-auto hover:border hover:border-gray-300 ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
+                                    className={`mb-10 bg-white outline-none py-2 pr-2 h-[15rem] w-[100%] overflow-y-auto hover:border hover:border-gray-300 pl-2 rounded-md ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
                                     name=""
                                     id=""
                                     cols={0}

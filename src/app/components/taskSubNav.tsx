@@ -1,9 +1,6 @@
 "use client"
 
 import { IoAddSharp } from "react-icons/io5"
-import { CiSearch } from "react-icons/ci"
-import { CiFilter } from "react-icons/ci"
-import { RiArrowDropDownLine } from "react-icons/ri"
 import star from "../../../public/star.png"
 import Image from "next/image"
 import Addtask from "./addTask"
@@ -13,10 +10,14 @@ import { AiOutlineBars } from "react-icons/ai"
 import { useSidebarContext } from "../state/sidebar/sidebarContext"
 import { GoFilter } from "react-icons/go"
 import { TbArrowsSort } from "react-icons/tb"
+import ProUpgrade from "./proUpgrade"
+import TaskFilter from "./taskFilter"
 
 export default function TaskSubNav() {
     const { isOpen, setIsOpen } = useSidebarContext()
     const [isVisible, setIsvisible] = useState(false)
+    const [proVisible, setProVisible] = useState(false)
+    const [filterVisible, setFilterVisible] = useState(false)
 
     const handleAddTask = () => {
         setIsvisible(true)
@@ -28,6 +29,18 @@ export default function TaskSubNav() {
 
     const handleToggle = () => {
         setIsOpen(true)
+    }
+
+    const onProClose = () => {
+        setProVisible(false)
+    }
+
+    const handleFilter = () => {
+        setFilterVisible(!filterVisible)
+    }
+
+    const closeFilter = () => {
+        setFilterVisible(false)
     }
 
     return (
@@ -45,10 +58,17 @@ export default function TaskSubNav() {
                 <p className="text-xs font-medium">Add Task</p>
             </div>
             <div className="flex items-center ml-2 mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
-                <div className="mr-1">
-                    <GoFilter />
+                <div className="flex items-center" onClick={handleFilter}>
+                    <div className="mr-1">
+                        <GoFilter />
+                    </div>
+                    <p className="text-xs">Filter</p>
                 </div>
-                <p className="text-xs">Filter</p>
+                {filterVisible && (
+                    <div className="absolute bg-white border rounded-md border-gray-300 py-2 px-4 shadow-lg w-[25%] top-[11rem] h-[10rem] z-50">
+                        <TaskFilter closeFilter={closeFilter} />
+                    </div>
+                )}
             </div>
             <div className="flex items-center hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
                 <div className="mr-1">
@@ -56,9 +76,9 @@ export default function TaskSubNav() {
                 </div>
                 <p className="text-xs">Sort</p>
             </div>
-            
+
             <div className="flex ml-auto items-center mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
-                <p className="mr-2 text-xs font-medium">Upgrade to Pro</p>
+                <p className="mr-2 text-xs font-medium" onClick={() => setProVisible(true)}>Upgrade to Pro</p>
                 <div>
                     <Image src={star} alt="image" width={20} height={20} />
                 </div>
@@ -67,6 +87,7 @@ export default function TaskSubNav() {
                 <AiOutlineBars size="1.3rem" />
             </div>
             {isVisible && <Addtask onClose={onClose} />}
+            {proVisible && <ProUpgrade onProClose={onProClose} />}
         </section>
     )
 }

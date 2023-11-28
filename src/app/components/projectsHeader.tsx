@@ -40,8 +40,8 @@ export default function ProjectsHeader() {
                         <Image src={projectImg} alt="image" width={40} height={40} />
                     </div>
                     {projects.length
-                        ? projects.map((project) => (
-                            <h1 className="text-xl font-medium">{project.projectData.projectName}</h1>
+                        ? projects.map((project, id) => (
+                            <h1 key={id} className="text-xl font-medium">{project.projectData.projectName}</h1>
                         )) : (
                             <div className="bg-[#f0eded] w-24 h-3 rounded-md animate-pulse"></div>
                         )}

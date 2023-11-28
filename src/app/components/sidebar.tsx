@@ -101,24 +101,22 @@ export default function Sidebar() {
                     <p className="text-sm">Tasks</p>
                 </Link>
 
-                <Link
-                    href="/"
+                <div
                     className="flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#505051]"
                 >
                     <div className="mr-1">
                         <MdOutlineInsights />
                     </div>
                     <p className="text-sm">Insights</p>
-                </Link>
-                <Link
-                    href="/"
+                </div>
+                <div
                     className="flex items-center cursor-pointer rounded-md px-4 py-1 hover:bg-[#505051]"
                 >
                     <div className="mr-1">
                         <GoGoal />
                     </div>
                     <p className="text-sm">Goals</p>
-                </Link>
+                </div>
 
                 <div className="w-full border border-gray-200 border-opacity-10"></div>
 

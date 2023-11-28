@@ -9,6 +9,7 @@ import Image from "next/image"
 import anime from "../../../../public/anime.jpg"
 import Link from "next/link"
 import { LimitWords } from "../../../../utils/limitWords"
+import ok from "../../../../public/icons8-ok-16 (1).png"
 
 type InprogressTaskType = {
     inprogressTasks: any[],
@@ -16,8 +17,18 @@ type InprogressTaskType = {
     loading: boolean
 }
 
+console.log((new Date).getDate())
+
 export default function ListInprogressClient({ inprogressTasks, setInprogressTasks, loading }: InprogressTaskType) {
     const [showInprogressList, setShowInprogressList] = useState(true)
+
+    const currentDate = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    }
+    const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(currentDate);
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)
@@ -40,31 +51,43 @@ export default function ListInprogressClient({ inprogressTasks, setInprogressTas
                 )}
                 <h1 className="text-lg font-medium">In progress</h1>
             </div>
-            {inprogressTasks.map((inprogressTask) => (
-                <Link href={`/tasks/${inprogressTask.id}`} key={inprogressTask.id}>
-                    <div className={`flex items-center hover:bg-[#F9F8F8] ${showInprogressList ? "flex" : "hidden"}`}>
-                        <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
-                            <div className="mr-1 cursor-pointer">
-                                <CiCircleCheck size="1.2rem" />
+            {inprogressTasks.map((inprogressTask) => {
+                const dueDate = inprogressTask.taskData.dueDate;
+                const formattedDueDate = new Date(dueDate.replace(/(\d+)(?:st|nd|rd|th)/, '$1')).toISOString();
+                const isDueDateInFuture = new Date(formattedDueDate).getTime() > new Date().getTime();
+                return (
+                    <Link href={`/tasks/${inprogressTask.id}`} key={inprogressTask.id}>
+                        <div className={`flex items-center hover:bg-[#F9F8F8] ${showInprogressList ? "flex" : "hidden"}`}>
+                            <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
+                                <div className="mr-1 cursor-pointer">
+                                    {inprogressTask.taskData.completed ? (
+                                        <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
+                                    ) : (
+                                        <CiCircleCheck size="1.2rem" />
+                                    )}
+                                </div>
+                                <p className="text-sm">{LimitWords(inprogressTask.taskData.title, 4)}</p>
                             </div>
-                            <p className="text-sm">{LimitWords(inprogressTask.taskData.title, 4)}</p>
-                        </div>
-                        <div className="flex items-center w-[50%] h-[42px]">
-                            <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500">Oct 15 - 17</div>
-                            <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center">
-                                <div className={`${inprogressTask.taskData.status === "On track" ? "bg-[#4ECBC4]" : inprogressTask.taskData.status === "At risk" ? "bg-[#F8DF72]" : inprogressTask.taskData.status === "Off track" ? "bg-[#F06A6A]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>
-                                    {inprogressTask.taskData.status}
+                            <div className="flex items-center w-[50%] h-[42px]">
+                                <div className={`text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500`}>
+                                    <p>{new Date(inprogressTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                    </p>
+                                </div>
+                                <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center">
+                                    <div className={`${inprogressTask.taskData.status === "On track" ? "bg-[#4ECBC4]" : inprogressTask.taskData.status === "At risk" ? "bg-[#F8DF72]" : inprogressTask.taskData.status === "Off track" ? "bg-[#F06A6A]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>
+                                        {inprogressTask.taskData.status}
+                                    </div>
+                                </div>
+                                <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center">
+                                    <div className={`${inprogressTask.taskData.priority === "Low" ? "bg-[#9EE7E3]" : inprogressTask.taskData.priority === "Medium" ? "bg-[#F1BD6C]" : inprogressTask.taskData.priority === "High" ? "bg-[#CD95EA]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>
+                                        {inprogressTask.taskData.priority}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center">
-                                <div className={`${inprogressTask.taskData.priority === "Low" ? "bg-[#9EE7E3]" : inprogressTask.taskData.priority === "Medium" ? "bg-[#F1BD6C]" : inprogressTask.taskData.priority === "High" ? "bg-[#CD95EA]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>
-                                    {inprogressTask.taskData.priority}
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                </Link>
-            ))}
+                    </Link>
+                )
+            })}
         </section>
     )
 }

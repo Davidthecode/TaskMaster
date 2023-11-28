@@ -6,6 +6,7 @@ import Image from "next/image"
 import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
+import ok from "../../../../public/icons8-ok-16 (1).png"
 
 type TodTaskType = {
     todoTasks: any[],
@@ -26,8 +27,12 @@ export default function BoardTodoClient({ todoTasks, setTodoTasks, loading }: To
                             <div className="w-full">
                                 <div className="border h-[10rem] rounded-md p-4 cursor-pointer shadow-sm hover:border-black hover:border-opacity-50">
                                     <div className="flex items-center">
-                                        <div className="mr-1">
-                                            <CiCircleCheck size="1.2rem" />
+                                        <div className="mr-1 cursor-pointer">
+                                            {todoTask.taskData.completed ? (
+                                                <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
+                                            ) : (
+                                                <CiCircleCheck size="1.2rem" />
+                                            )}
                                         </div>
                                         <p>{LimitWords(todoTask.taskData.title, 4)}</p>
                                     </div>
@@ -43,7 +48,10 @@ export default function BoardTodoClient({ todoTasks, setTodoTasks, loading }: To
                                         <div className="mr-3">
                                             <Image src={anime} alt="image" width={22} height={22} className="rounded-full" />
                                         </div>
-                                        <p className="text-xs opacity-80">Oct 15 - 17</p>
+                                        <div className="flex items-center">
+                                            <p className="text-xs mr-2 font-semibold">Due</p>
+                                            <p className="text-xs opacity-80">{new Date(todoTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

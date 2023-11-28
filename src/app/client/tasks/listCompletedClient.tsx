@@ -9,6 +9,7 @@ import Image from "next/image"
 import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
+import ok from "../../../../public/icons8-ok-16 (1).png"
 
 type CompletedTaskType = {
     completedTasks: any[],
@@ -45,12 +46,16 @@ export default function ListCompletedClient({ completedTasks, setCompletedTasks,
                     <div className={`flex items-center hover:bg-[#F9F8F8] ${showCompletedList ? "flex" : "hidden"}`}>
                         <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                             <div className="mr-1 cursor-pointer">
-                                <CiCircleCheck size="1.2rem" />
+                                {completedTask.taskData.completed ? (
+                                    <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
+                                ) : (
+                                    <CiCircleCheck size="1.2rem" />
+                                )}
                             </div>
                             <p className="text-sm">{LimitWords(completedTask.taskData.title, 4)}</p>
                         </div>
                         <div className="flex items-center w-[50%] h-[42px]">
-                            <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500">Oct 15 - 17</div>
+                            <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500"><p>{new Date(completedTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p></div>
                             <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center">
                                 <div className={`${completedTask.taskData.status === "On track" ? "bg-[#4ECBC4]" : completedTask.taskData.status === "At risk" ? "bg-[#F8DF72]" : completedTask.taskData.status === "Off track" ? "bg-[#F06A6A]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>
                                     {completedTask.taskData.status}

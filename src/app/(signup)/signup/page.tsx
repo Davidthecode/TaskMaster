@@ -9,6 +9,12 @@ import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation";
 import spinner from "../../../../public/icons8-spinner.gif"
+import taskImage from "../../../../public/task.png"
+import taskOneImage from "../../../../public/task (1).png"
+import projectPlanImage from "../../../../public/project-plan.png"
+import checkListImage from "../../../../public/check-list.png"
+import writingImage from "../../../../public/writing.png"
+import writingTwoImage from "../../../../public/copy-writing.png"
 
 export default function Login() {
     const router = useRouter()
@@ -26,7 +32,7 @@ export default function Login() {
             console.log(error)
         }
     }
-   
+
     const handleSignup = async () => {
         const validate = username !== "" && email !== "" && password !== ""
         if (validate) {
@@ -71,6 +77,27 @@ export default function Login() {
                 <h1 className="text-3xl xs:text-xl">TaskMaster</h1>
             </div>
 
+            <section>
+                <div className="absolute top-60 left-80 xs:hidden largeTablet:left-10">
+                    <Image src={taskImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute bottom-80 xs:hidden largeTablet:left-12">
+                    <Image src={writingTwoImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute bottom-20 left-20 xs:bottom-10">
+                    <Image src={taskOneImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute top-60 right-80 xs:hidden largeTablet:right-10">
+                    <Image src={checkListImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute bottom-80 right-40 xs:hidden largeTablet:right-12">
+                    <Image src={writingImage} alt="image" width={40} height={40} />
+                </div>
+                <div className="absolute bottom-20 right-20 xs:bottom-10">
+                    <Image src={projectPlanImage} alt="image" width={40} height={40} />
+                </div>
+            </section>
+            
             <aside className="flex justify-center items-center h-screen">
                 <div className="w-[30rem]">
                     <div className="flex flex-col items-center justify-center">

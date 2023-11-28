@@ -13,7 +13,12 @@ import { v4 as uuidv4 } from "uuid"
 import { onAuthStateChanged } from "firebase/auth";
 import spinner from "../../../public/icons8-spinner.gif"
 import Image from "next/image";
-import {CiUser} from "react-icons/ci"
+import { CiUser } from "react-icons/ci"
+import calender from "../../../public/icons8-calendar-16.png"
+import user from "../../../public/icons8-user-16.png"
+import taskIcon from "../../../public/icons8-task-48.png"
+import priorityIcon from "../../../public/icons8-priority-48.png"
+import statusIcon from "../../../public/icons8-status-48.png"
 
 type AddtaskPopupProps = {
     onClose: () => void;
@@ -41,14 +46,15 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
         return () => unsubscribe()
     }, [])
 
+    const now = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    }
+    const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(now);
+
     const updateDateTime = () => {
-        const now = new Date();
-        const options: Intl.DateTimeFormatOptions = {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        }
-        const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(now);
         setCurrentDate(formattedDateTime);
     }
 
@@ -73,11 +79,11 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
         setTaskType(e.target.value)
     }
 
-    const handlePriorityStatusChange =(e: any) => {
+    const handlePriorityStatusChange = (e: any) => {
         setPriority(e.target.value)
     }
 
-    const handleStatusStatusChange =(e: any) => {
+    const handleStatusStatusChange = (e: any) => {
         setStatus(e.target.value)
     }
 
@@ -88,11 +94,13 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                 const taskData = {
                     title,
                     dateAdded: currentDate,
+                    dueDate: formattedDateTime,
                     taskType,
                     priority,
                     status,
                     note,
-                    userId: currentuser?.uid
+                    userId: currentuser?.uid,
+                    completed: false
                 }
 
                 const userRef = doc(collectionRef, uuidv4())
@@ -136,31 +144,31 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                 <div className='px-4 flex flex-col mr-12 mobile:mr-6'>
                                     <div className='flex items-center'>
                                         <div className='mr-1'>
-                                            <CiUser />
+                                           <Image src={user} alt="image" width={15} height={15}/>
                                         </div>
                                         <p className='opacity-60'>Owner</p>
                                     </div>
                                     <div className='flex items-center opacity-60 mt-6'>
                                         <div className='mr-1'>
-                                            <CiClock2 />
+                                            <Image src={calender} alt="image" width={15} height={15} />
                                         </div>
                                         <p>Date created</p>
                                     </div>
                                     <div className='flex items-center mt-6'>
-                                        <div className='mr-1'>
-                                            <PiSpinnerThin />
+                                        <div className='mr-[.5px]'>
+                                            <Image src={taskIcon} alt="image" width={20} height={20} />
                                         </div>
                                         <p className='opacity-60'>Task type</p>
                                     </div>
                                     <div className='flex items-center mt-6'>
                                         <div className='mr-1'>
-                                            <PiSpinnerThin />
+                                            <Image src={priorityIcon} alt="image" width={15} height={15} />
                                         </div>
                                         <p className='opacity-60'>Priority</p>
                                     </div>
                                     <div className='flex items-center mt-6'>
                                         <div className='mr-1'>
-                                            <PiSpinnerThin />
+                                           <Image src={statusIcon} alt="image" width={15} height={15} />
                                         </div>
                                         <p className='opacity-60'>Status</p>
                                     </div>
@@ -226,7 +234,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                     ) : (
                                         <button
                                             onClick={createTask}
-                                            className="border bg-black text-white px-2 py-1 rounded-md opacity-80 hover:opacity-100"
+                                            className="border bg-black text-white text-sm px-2 py-1 rounded-md opacity-80 hover:opacity-100"
                                         >
                                             Create task
                                         </button>

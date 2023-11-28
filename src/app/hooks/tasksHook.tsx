@@ -2,9 +2,8 @@
 
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { auth, db } from "../firebase/firebase-config";
-import toast from "react-hot-toast";
-import { onAuthStateChanged } from "firebase/auth";
+import { db } from "../firebase/firebase-config";
+import toast from "react-hot-toast";;
 import CurrentUserHook from "./currentUserHook";
 
 export default function TasksHook () {
@@ -21,6 +20,8 @@ export default function TasksHook () {
             toast.error("Network is bad. Please check your internet connection.");
         }
     };
+
+    console.log(inprogressTasks)
 
     useEffect(() => {
         try {
