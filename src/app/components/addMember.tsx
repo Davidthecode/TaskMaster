@@ -52,7 +52,6 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
         ws_name: projectName[0]
     }
 
-
     const sendEmail = async () => {
         if (userEmail) {
             try {
