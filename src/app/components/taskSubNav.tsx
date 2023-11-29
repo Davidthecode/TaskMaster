@@ -12,12 +12,14 @@ import { GoFilter } from "react-icons/go";
 import { TbArrowsSort } from "react-icons/tb";
 import ProUpgrade from "./proUpgrade";
 import TaskFilter from "./taskFilter";
+import TaskSort from "./taskSort";
 
 export default function TaskSubNav() {
   const { isOpen, setIsOpen } = useSidebarContext();
   const [isVisible, setIsvisible] = useState(false);
   const [proVisible, setProVisible] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
+  const [sortVisible, setSortVisible] = useState(false);
 
   const handleAddTask = () => {
     setIsvisible(true);
@@ -37,10 +39,20 @@ export default function TaskSubNav() {
 
   const handleFilter = () => {
     setFilterVisible(!filterVisible);
+    setSortVisible(false);
   };
 
   const closeFilter = () => {
     setFilterVisible(false);
+  };
+
+  const handleSort = () => {
+    setSortVisible(!sortVisible);
+    setFilterVisible(false);
+  };
+
+  const closeSort = () => {
+    setSortVisible(false);
   };
 
   return (
@@ -61,7 +73,10 @@ export default function TaskSubNav() {
         <p className="text-xs font-medium">Add Task</p>
       </div>
       <div className="flex items-center ml-2 mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
-        <div className="flex items-center font-medium opacity-80" onClick={handleFilter}>
+        <div
+          className="flex items-center font-medium opacity-80"
+          onClick={handleFilter}
+        >
           <div className="mr-1">
             <GoFilter />
           </div>
@@ -78,10 +93,20 @@ export default function TaskSubNav() {
         )}
       </div>
       <div className="flex items-center hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md font-medium opacity-80">
-        <div className="mr-1">
-          <TbArrowsSort />
+        <div
+          className="flex items-center font-medium opacity-80"
+          onClick={handleSort}
+        >
+          <div className="mr-1">
+            <TbArrowsSort />
+          </div>
+          <p className="text-xs">Sort</p>
         </div>
-        <p className="text-xs">Sort</p>
+        {sortVisible && (
+          <div className="absolute bg-white border rounded-md border-gray-300 py-2 shadow-lg w-[10%] top-[11rem] h-[10rem] z-50">
+            <TaskSort closeSort={closeSort} />
+          </div>
+        )}
       </div>
 
       <div className="flex ml-auto items-center mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">

@@ -11,15 +11,10 @@ import { TaskListSkeleton } from "@/app/components/skeleton"
 export default function List() {
     const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, filterTasks} = TasksHook();
 
-    useEffect(()=> {
-        console.log(filterTasks)
-    },[filterTasks])
-
     // console.log("todo", todoTasks)
     // console.log("inprogress", inprogressTasks)
     // console.log("completed", completedTasks)
 
-    
         if (filterTasks) {
             const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
             const filteredInProgressTasks = inprogressTasks.filter((task) => task.taskData.completed === true)

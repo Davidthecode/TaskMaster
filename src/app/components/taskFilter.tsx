@@ -11,9 +11,6 @@ type CloseFilterType = {
 export default function TaskFilter({closeFilter}:CloseFilterType) {
     const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, setFilterTasks} = TasksHook();
 
-    
-
-    
     const handleFilterCompleteTasks = () => {
         // if (todoTasks.length || inprogressTasks.length || completedTasks.length) {
         //     const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
