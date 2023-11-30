@@ -1,7 +1,18 @@
 "use client"
 
+import {useState} from "react"
 import { IoAdd } from "react-icons/io5";
+import AddGoal from "@/app/components/goal/addGoal";
 export default function Goals() {
+    const [showGoal, setShowGoal] = useState(false)
+
+    const openGoal = () => {
+        setShowGoal(true);
+    } 
+
+    const closeGoal = () => {
+        setShowGoal(false);
+    };
     return (
         <section className="h-full bg-white flex flex-col mobile:px-6 overflow-y-auto">
             <div className="pt-4 border-b pb-3 px-10">
@@ -13,7 +24,7 @@ export default function Goals() {
                         <div className="font-bold">
                             <IoAdd size="1.1rem" />
                         </div>
-                        <p className="text-xs">Add goal</p>
+                        <p className="text-xs" onClick={openGoal}>Add goal</p>
                     </div>
                 </div>
                 <div className="flex px-10 border-b py-2">
@@ -21,6 +32,7 @@ export default function Goals() {
                     <div className="text-xs w-[10%]">Owner</div>
                 </div>
             </div>
+            {showGoal && <AddGoal closeGoal={closeGoal}/>}
         </section>
     )
 }

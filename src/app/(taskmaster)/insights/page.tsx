@@ -7,6 +7,7 @@ import noUser from "../../../../public/nouser.jpg"
 import CurrentUserHook from "@/app/hooks/currentUserHook"
 import { CiLock } from "react-icons/ci";
 import insightsImage from "../../../../public/insights.png"
+import TasksInsights from "@/app/components/insights/tasksInsights"
 
 export default function Insights() {
     const { currentUser } = CurrentUserHook()
@@ -21,7 +22,7 @@ export default function Insights() {
         <section className="h-full bg-white flex flex-col mobile:px-6 overflow-y-auto">
             <div className="flex items-center pt-4 border-b border-gray-300 pb-3 px-10">
                 <div className="flex items-center">
-                    <div className="mr-2 bg-[#ada6ec] text-white p-2 rounded-md">
+                    <div className="mr-2 bg-[#9ab9e1] text-white p-2 rounded-md">
                         <Image src={insightsImage} alt="image" width={35} height={35} />
                     </div>
                     <div className="">
@@ -44,24 +45,7 @@ export default function Insights() {
                     <p className="text-xs">share</p>
                 </div>
             </div>
-            <div className="mt-10 flex items-center justify-around mx-20">
-                <div className="border border-gray-300 w-[22%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
-                    <h1 className="text-xl ">Completed tasks</h1>
-                    <h1 className="mt-4 text-4xl">0</h1>
-                </div>
-                <div className="border border-gray-300 w-[22%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
-                    <h1 className="text-xl ">Incomplete tasks</h1>
-                    <h1 className="mt-4 text-4xl">12</h1>
-                </div>
-                <div className="border border-gray-300 w-[22%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
-                    <h1 className="text-xl ">Overdue tasks</h1>
-                    <h1 className="mt-4 text-4xl">9</h1>
-                </div>
-                <div className="border border-gray-300 w-[22%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
-                    <h1 className="text-xl ">Total tasks</h1>
-                    <h1 className="mt-4 text-4xl">12</h1>
-                </div>
-            </div>
+            <TasksInsights />
         </section>
     )
 }
