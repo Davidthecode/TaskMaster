@@ -10,12 +10,24 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/app/firebase/firebase-config";
 import { useRouter } from "next/navigation";
 import spinner from "../../../../public/icons8-spinner.gif"
+import CurrentUserHook from "@/app/hooks/currentUserHook";
+import { StaticImageData } from "next/image";
+import noUser from "../../../../public/nouser.jpg"
 
 export default function DashboardNavClient() {
+    const {currentUser} = CurrentUserHook();
     const router = useRouter()
     const [currentuser, setCurrentuser] = useState(auth.currentUser)
     const [dropdownVisibility, setDropdownVisibility] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    const [photo, setPhoto] = useState<string | StaticImageData>(noUser)
+
+    useEffect(() => {
+        if (currentUser?.photoURL) {
+            setPhoto(currentUser?.photoURL)
+        }
+    }, [currentUser])
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -46,7 +58,7 @@ export default function DashboardNavClient() {
             <div className=''>
                 <Image
                     className='rounded-full'
-                    src={anime}
+                    src={photo}
                     alt='image'
                     width={22}
                     height={22}

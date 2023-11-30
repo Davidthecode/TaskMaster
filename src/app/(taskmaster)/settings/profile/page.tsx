@@ -8,6 +8,10 @@ import { onAuthStateChanged, updateProfile } from "firebase/auth"
 import toast from "react-hot-toast"
 import spinner from "../../../../../public/icons8-spinner.gif"
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore"
+import noUser from "../../../../../public/nouser.jpg"
+import { StaticImageData } from "next/image"
+import { storage } from "../../../firebase/firebase-config";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 
 export default function Profile() {
     const [currentuser, setCurrentUser] = useState(auth.currentUser)
@@ -20,7 +24,37 @@ export default function Profile() {
     const [disableButon, setDisableButton] = useState(true)
     const [loading, setLoading] = useState(false)
     const profileCollectionRef = collection(db, "profile")
+    const [photoUrl, setPhotoUrl] = useState<StaticImageData | string>(noUser)
+    const [imageLoading, setImageLoading] = useState(false)
+    const [photo, setPhoto] = useState<Blob | Uint8Array | ArrayBuffer | null>(null)
 
+    useEffect(() => {
+        if (currentuser?.photoURL) {
+            setPhotoUrl(currentuser.photoURL);
+        }
+    }, [currentuser])
+
+    const handleImageChange = (e: any) => {
+        if (e.target.files[0]) {
+            setPhoto(e.target.files[0]);
+        };
+    };
+
+    const handlePhotoUpload = async () => {
+        try {
+            if (currentuser && photo) {
+                const fileRef = ref(storage, currentuser.uid + ".png");
+                setImageLoading(true);
+                const snapshot = await uploadBytes(fileRef, photo);
+                const photoURL = await getDownloadURL(fileRef)
+                updateProfile(currentuser, {photoURL})
+                setImageLoading(false);
+                toast.success("image updated successfully")
+            }
+        } catch (error) {
+            toast.error("Error uploading image");
+        }
+    }
 
     useEffect(() => {
         if (currentuser && currentuser.displayName) {
@@ -95,12 +129,24 @@ export default function Profile() {
         <div className="pt-[2%] bg-white h-full mobile:px-6 overflow-y-auto">
             <div className="flex items-center">
                 <div className="mr-5">
-                    <Image src={anime} alt="image" height={40} width={40} className="rounded-full" />
+                    <Image src={photoUrl} alt="image" height={50} width={50} className="rounded-" style={{borderRadius: "100%"}} />
                 </div>
                 <div>
-                    <h2 className="text-blue-500 hover:underline cursor-pointer w-fit">Upload your photo</h2>
-                    <p className="text-xs">Photos help your teammates recognize you in TaskMaster</p>
+                    <input type="file" className="text-sm" onChange={handleImageChange} accept="image/*" />
                 </div>
+                {imageLoading ? (
+                    <div className="flex items-center">
+                        <div className="mr-2">
+                            <Image src={spinner} alt="spinner" height={20} width={20} className="rounded-full" />
+                        </div>
+                        <p>uploading image..</p>
+                    </div>
+                ) : (
+                    <div>
+                        <button className={`text-blue-500 hover:underline w-fit ${!photo && 'hover:no-underline'}`} disabled={imageLoading || !photo} onClick={handlePhotoUpload}>Upload your photo</button>
+                        <p className="text-xs">Photos help your teammates recognize you in TaskMaster</p>
+                    </div>
+                )}
             </div>
             <div className="flex items-center mt-10">
                 <div className="mr-5">
