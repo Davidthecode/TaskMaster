@@ -10,6 +10,7 @@ import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
+import TasksHook from "@/app/hooks/tasksHook"
 
 type CompletedTaskType = {
     completedTasks: any[],
@@ -17,7 +18,8 @@ type CompletedTaskType = {
     loading: boolean
 }
 
-export default function ListCompletedClient({ completedTasks, setCompletedTasks, loading }: CompletedTaskType) {
+export default function ListCompletedClient() {
+    const {completedTasks, setCompletedTasks, loading} = TasksHook();
     const [showCompletedList, setShowCompletedList] = useState(true)
 
     const handleCloseCompletedList = () => {

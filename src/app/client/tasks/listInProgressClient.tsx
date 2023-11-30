@@ -10,6 +10,7 @@ import anime from "../../../../public/anime.jpg"
 import Link from "next/link"
 import { LimitWords } from "../../../../utils/limitWords"
 import ok from "../../../../public/icons8-ok-16 (1).png"
+import TasksHook from "@/app/hooks/tasksHook"
 
 type InprogressTaskType = {
     inprogressTasks: any[],
@@ -19,9 +20,10 @@ type InprogressTaskType = {
 
 console.log((new Date).getDate())
 
-export default function ListInprogressClient({ inprogressTasks, setInprogressTasks, loading }: InprogressTaskType) {
+export default function ListInprogressClient() {
     const [showInprogressList, setShowInprogressList] = useState(true)
-    console.log(inprogressTasks)
+    const {inprogressTasks, setInprogressTasks, loading} = TasksHook()
+    // console.log("inprogressTasks", inprogressTasks)
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)

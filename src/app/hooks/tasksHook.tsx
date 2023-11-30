@@ -14,13 +14,13 @@ export default function TasksHook () {
     const [inprogressTasks, setInprogressTasks] = useState<any[]>([])
     const [completedTasks, setCompletedTasks] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
-    const [filterTasks, setFilterTasks] = useState(false)
 
     const showNetworkAlert = () => {
         if (!navigator.onLine) {
             toast.error("Network is bad. Please check your internet connection.");
         }
     };
+    // console.log("inprogressTasks", inprogressTasks)
 
     useEffect(() => {
         try {
@@ -67,5 +67,5 @@ export default function TasksHook () {
 
     }, [tasks])
 
-    return {tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, filterTasks, setFilterTasks}
+    return {tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading}
 }

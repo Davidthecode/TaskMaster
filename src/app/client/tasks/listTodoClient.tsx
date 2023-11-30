@@ -10,13 +10,15 @@ import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
+import TasksHook from "@/app/hooks/tasksHook"
 
 type TodTaskType = {
     todoTasks: any[],
     setTodoTasks: Dispatch<SetStateAction<any[]>>,
     loading: boolean
 }
-export default function ListTodoClient({ todoTasks, setTodoTasks, loading }: TodTaskType) {
+export default function ListTodoClient() {
+    const {todoTasks, setTodoTasks, loading} = TasksHook()
     const [showTodoList, setShowTodoList] = useState(true)
 
     const handleCloseTodoList = () => {

@@ -9,19 +9,19 @@ type CloseFilterType = {
 }
 
 export default function TaskFilter({closeFilter}:CloseFilterType) {
-    const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, setFilterTasks} = TasksHook();
+    const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks} = TasksHook();
+    // console.log("inprogressTasks", inprogressTasks)
 
     const handleFilterCompleteTasks = () => {
-        // if (todoTasks.length || inprogressTasks.length || completedTasks.length) {
-        //     const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
-        //     const filteredInProgressTasks = inprogressTasks.filter((task) => task.taskData.completed === true)
-        //     const filteredCompletedTasks = completedTasks.filter((task) => task.taskData.completed === true)
+        if (todoTasks.length || inprogressTasks.length || completedTasks.length) {
+            const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
+            const filteredInProgressTasks = inprogressTasks.filter((task) => task.taskData.completed === true)
+            const filteredCompletedTasks = completedTasks.filter((task) => task.taskData.completed === true)
     
-        //     setTodoTasks(filteredTodoTasks);
-        //     setInprogressTasks(filteredInProgressTasks);
-        //     setCompletedTasks(filteredCompletedTasks);
-        // }
-        setFilterTasks(true)
+            setTodoTasks(filteredTodoTasks);
+            setInprogressTasks(filteredInProgressTasks);
+            setCompletedTasks(filteredCompletedTasks);
+        }
     } 
 
     
