@@ -97,7 +97,7 @@ export default function Login() {
                     <Image src={projectPlanImage} alt="image" width={40} height={40} />
                 </div>
             </section>
-            
+
             <aside className="flex justify-center items-center h-screen">
                 <div className="w-[30rem]">
                     <div className="flex flex-col items-center justify-center">

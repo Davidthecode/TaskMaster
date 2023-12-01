@@ -8,6 +8,8 @@ import CurrentUserHook from "@/app/hooks/currentUserHook"
 import { CiLock } from "react-icons/ci";
 import insightsImage from "../../../../public/insights.png"
 import TasksInsights from "@/app/components/insights/tasksInsights"
+import InsightsBarChart from "@/app/components/insights/insightsBarChart"
+import InsightsPieChart from "@/app/components/insights/insightsPieChart"
 
 export default function Insights() {
     const { currentUser } = CurrentUserHook()
@@ -46,6 +48,10 @@ export default function Insights() {
                 </div>
             </div>
             <TasksInsights />
+            <div className="flex items-center mx-20 mt-10">
+                <InsightsBarChart />
+                <InsightsPieChart />
+            </div>
         </section>
     )
 }
