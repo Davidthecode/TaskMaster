@@ -63,11 +63,10 @@ export default function AddGoal({ closeGoal }: closeGoalType) {
                                 </div>
                             </div>
 
-                            <div className="flex items-center mt-3">
+                            <div className="flex items-center mt-6">
                                 <div className="mr-6 w-[30%]">
                                     <div className="flex items-center">
                                         <p className="text-xs font-medium opacity-70 mr-1">Update method</p>
-                                        <p className="text-red-500 mt-1">*</p>
                                     </div>
                                     <div className="flex items-center px-3 border w-full h-8 rounded-md border-gray-400 border-opacity-80">
                                         <div>
@@ -79,13 +78,12 @@ export default function AddGoal({ closeGoal }: closeGoalType) {
                                 <div className="w-[30%]">
                                     <div className="flex items-center">
                                         <p className="text-xs font-medium opacity-70 mr-1">Measurment</p>
-                                        <p className="text-red-500 mt-1">*</p>
                                     </div>
                                     <div className="flex items-center px-3 border w-full h-8 rounded-md border-gray-400 border-opacity-80">
                                         <div className="mr-1">
                                             <PiPercentLight />
                                         </div>
-                                        <p className="text-sm">Automatic</p>
+                                        <p className="text-sm">Percent</p>
                                     </div>
                                 </div>
                             </div>

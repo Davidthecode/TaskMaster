@@ -21,7 +21,7 @@ export default function InsightsBarChart() {
     }
 
     const options = {
-
+        maintainAspectRatio: false,
     }
     return (
         <section className="w-[48%] flex justify-center items-center h-[20rem] border rounded-md border-gray-300 px-3">

@@ -22,13 +22,13 @@ export default function InsightsPieChart() {
     }
 
     const options = {
-
+        maintainAspectRatio: false,
     }
     return (
         <section className="w-[48%] ml-auto flex justify-center items-center h-[20rem] border rounded-md border-gray-300">
             <Pie
                 style={
-                    {paddingBlock: "20px", height: "80%", width: "60%" }
+                    {paddingBlock: "20px", height: "80%", width: "80%" }
                 }
                 data={data}
                 options={options}
