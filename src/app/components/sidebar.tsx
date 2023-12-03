@@ -7,7 +7,7 @@ import { CiHome } from 'react-icons/ci';
 import { DiGithubBadge } from 'react-icons/di';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useSidebarContext } from '../state/sidebar/sidebarContext';
+import { useSidebarContext } from '../context/sidebarContext';
 import { IoChevronBackOutline } from "react-icons/io5";
 import { MdOutlineInsights } from "react-icons/md"
 import { GoGoal } from "react-icons/go"

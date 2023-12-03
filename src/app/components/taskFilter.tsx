@@ -3,20 +3,22 @@
 import {useEffect} from "react"
 import { AiOutlineClose } from "react-icons/ai"
 import TasksHook from "../hooks/tasksHook"
+import { useTasks } from "../context/tasksContext"
 
 type CloseFilterType = {
     closeFilter: () => void
 }
 
 export default function TaskFilter({closeFilter}:CloseFilterType) {
-    const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks} = TasksHook();
+    const {todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks} = useTasks()
+    // const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks} = TasksHook();
     // console.log("inprogressTasks", inprogressTasks)
 
     const handleFilterCompleteTasks = () => {
         if (todoTasks.length || inprogressTasks.length || completedTasks.length) {
-            const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
-            const filteredInProgressTasks = inprogressTasks.filter((task) => task.taskData.completed === true)
-            const filteredCompletedTasks = completedTasks.filter((task) => task.taskData.completed === true)
+            const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === true)
+            const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === true)
+            const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === true)
     
             setTodoTasks(filteredTodoTasks);
             setInprogressTasks(filteredInProgressTasks);

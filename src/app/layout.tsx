@@ -1,8 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { UseSidebarContext } from './state/sidebar/sidebarContext'
+import { UseSidebarContext } from './context/sidebarContext'
 import { Toaster } from 'react-hot-toast'
+import { UseTasksContext } from './context/tasksContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,8 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <UseSidebarContext>
-          {children}
-          <Toaster />
+          <UseTasksContext>
+            {children}
+            <Toaster />
+          </UseTasksContext>
         </UseSidebarContext>
       </body>
     </html>

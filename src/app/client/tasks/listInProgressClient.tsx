@@ -11,6 +11,7 @@ import Link from "next/link"
 import { LimitWords } from "../../../../utils/limitWords"
 import ok from "../../../../public/icons8-ok-16 (1).png"
 import TasksHook from "@/app/hooks/tasksHook"
+import { useTasks } from "@/app/context/tasksContext"
 
 type InprogressTaskType = {
     inprogressTasks: any[],
@@ -22,8 +23,9 @@ console.log((new Date).getDate())
 
 export default function ListInprogressClient() {
     const [showInprogressList, setShowInprogressList] = useState(true)
-    const {inprogressTasks, setInprogressTasks, loading} = TasksHook()
-    // console.log("inprogressTasks", inprogressTasks)
+    // const {inprogressTasks, setInprogressTasks, loading} = TasksHook();
+    const {inprogressTasks, setInprogressTasks, loading} = useTasks()
+    console.log("inprogressTasks", inprogressTasks)
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)
@@ -46,7 +48,7 @@ export default function ListInprogressClient() {
                 )}
                 <h1 className="text-lg font-medium">In progress</h1>
             </div>
-            {inprogressTasks.map((inprogressTask) => {
+            {inprogressTasks.map((inprogressTask:any) => {
                 return (
                     <Link href={`/tasks/${inprogressTask.id}`} key={inprogressTask.id}>
                         <div className={`flex items-center hover:bg-[#F9F8F8] ${showInprogressList ? "flex" : "hidden"}`}>

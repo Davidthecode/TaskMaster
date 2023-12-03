@@ -7,7 +7,7 @@ import Addtask from "./addTask";
 import { useState } from "react";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { AiOutlineBars } from "react-icons/ai";
-import { useSidebarContext } from "../state/sidebar/sidebarContext";
+import { useSidebarContext } from "../context/sidebarContext";
 import { GoFilter } from "react-icons/go";
 import { TbArrowsSort } from "react-icons/tb";
 import ProUpgrade from "./proUpgrade";

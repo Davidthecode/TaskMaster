@@ -7,17 +7,20 @@ import ListInprogressClient from "@/app/client/tasks/listInProgressClient"
 import ListCompletedClient from "@/app/client/tasks/listCompletedClient"
 import TasksHook from "@/app/hooks/tasksHook"
 import { TaskListSkeleton } from "@/app/components/skeleton"
+import { useTasks } from "@/app/context/tasksContext"
 
 export default function List() {
-    const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading } = TasksHook();
+    // const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading } = TasksHook();
+
+    const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading} = useTasks()
 
     console.log("inprogress", inprogressTasks)
     
     const handleChange = () => {
 
-        const filteredTodoTasks = todoTasks.filter((task) => task.taskData.completed === true)
-        const filteredInProgressTasks = inprogressTasks.filter((task) => task.taskData.completed === true)
-        const filteredCompletedTasks = completedTasks.filter((task) => task.taskData.completed === true)
+        const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === true)
+        const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === true)
+        const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === true)
 
         setTodoTasks(filteredTodoTasks);
         setInprogressTasks(filteredInProgressTasks);
