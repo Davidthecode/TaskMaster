@@ -6,11 +6,10 @@ import { BiSolidDownArrow } from "react-icons/bi"
 import { BiSolidRightArrow } from "react-icons/bi"
 import { CiCircleCheck } from "react-icons/ci"
 import Image from "next/image"
-import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
-import TasksHook from "@/app/hooks/tasksHook"
+import { useTasks } from "@/app/context/tasksContext"
 
 type CompletedTaskType = {
     completedTasks: any[],
@@ -19,8 +18,8 @@ type CompletedTaskType = {
 }
 
 export default function ListCompletedClient() {
-    const {completedTasks, setCompletedTasks, loading} = TasksHook();
-    const [showCompletedList, setShowCompletedList] = useState(true)
+    const [showCompletedList, setShowCompletedList] = useState(true);
+    const { completedTasks, setCompletedTasks, loading } = useTasks();
 
     const handleCloseCompletedList = () => {
         setShowCompletedList(false)
@@ -43,7 +42,7 @@ export default function ListCompletedClient() {
                 )}
                 <h1 className="text-lg font-medium">Completed</h1>
             </div>
-            {completedTasks.map((completedTask) => (
+            {completedTasks.map((completedTask: any) => (
                 <Link href={`/tasks/${completedTask.id}`} key={completedTask.id}>
                     <div className={`flex items-center hover:bg-[#F9F8F8] ${showCompletedList ? "flex" : "hidden"}`}>
                         <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
