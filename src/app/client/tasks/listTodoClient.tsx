@@ -6,11 +6,10 @@ import { BiSolidDownArrow } from "react-icons/bi"
 import { BiSolidRightArrow } from "react-icons/bi"
 import { CiCircleCheck } from "react-icons/ci"
 import Image from "next/image"
-import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
-import TasksHook from "@/app/hooks/tasksHook"
+import { useTasks } from "@/app/context/tasksContext"
 
 type TodTaskType = {
     todoTasks: any[],
@@ -18,8 +17,8 @@ type TodTaskType = {
     loading: boolean
 }
 export default function ListTodoClient() {
-    const {todoTasks, setTodoTasks, loading} = TasksHook()
     const [showTodoList, setShowTodoList] = useState(true)
+    const {todoTasks, setTodoTasks, loading} = useTasks()
 
     const handleCloseTodoList = () => {
         setShowTodoList(false)
@@ -42,7 +41,7 @@ export default function ListTodoClient() {
                 )}
                 <h1 className="text-lg font-medium">To do</h1>
             </div>
-            {todoTasks.map((todoTask) => {
+            {todoTasks.map((todoTask:any) => {
                 return (
                     <Link href={`/tasks/${todoTask.id}`} key={todoTask.id}>
                         <div className={`flex items-center hover:bg-[#F9F8F8] ${showTodoList ? "flex" : "hidden"}`}>
