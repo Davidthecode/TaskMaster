@@ -1,32 +1,12 @@
 "use client"
 
-import {useEffect} from "react"
 import { AiOutlineClose } from "react-icons/ai"
-import TasksHook from "../hooks/tasksHook"
-import { useTasks } from "../context/tasksContext"
 
 type CloseFilterType = {
     closeFilter: () => void
 }
 
-export default function TaskFilter({closeFilter}:CloseFilterType) {
-    const {todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks} = useTasks()
-    // const {todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks} = TasksHook();
-    // console.log("inprogressTasks", inprogressTasks)
-
-    const handleFilterCompleteTasks = () => {
-        if (todoTasks.length || inprogressTasks.length || completedTasks.length) {
-            const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === true)
-            const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === true)
-            const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === true)
-    
-            setTodoTasks(filteredTodoTasks);
-            setInprogressTasks(filteredInProgressTasks);
-            setCompletedTasks(filteredCompletedTasks);
-        }
-    } 
-
-    
+export default function TaskFilter({ closeFilter }: CloseFilterType) {
     return (
         <section className="w-full h-full flex flex-col">
             <div className="flex items-center">
@@ -43,7 +23,7 @@ export default function TaskFilter({closeFilter}:CloseFilterType) {
                     <button className="text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] hover:font-medium hover:border-none">Incomplete tasks</button>
                 </div>
                 <div>
-                    <button className="text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] hover:font-medium hover:border-none" onClick={handleFilterCompleteTasks}>complete tasks</button>
+                    <button className="text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] hover:font-medium hover:border-none">complete tasks</button>
                 </div>
             </div>
             <div className="mt-8 border"></div>

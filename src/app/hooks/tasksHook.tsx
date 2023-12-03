@@ -6,8 +6,8 @@ import { db } from "../firebase/firebase-config";
 import toast from "react-hot-toast";;
 import CurrentUserHook from "./currentUserHook";
 
-export default function TasksHook () {
-    const {currentUser} = CurrentUserHook()
+export default function TasksHook() {
+    const { currentUser } = CurrentUserHook()
     const collectionRef = collection(db, "tasks")
     const [tasks, setTasks] = useState<any[]>([])
     const [todoTasks, setTodoTasks] = useState<any[]>([])
@@ -20,7 +20,6 @@ export default function TasksHook () {
             toast.error("Network is bad. Please check your internet connection.");
         }
     };
-    // console.log("inprogressTasks", inprogressTasks)
 
     useEffect(() => {
         try {
@@ -67,5 +66,5 @@ export default function TasksHook () {
 
     }, [tasks])
 
-    return {tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading}
+    return { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading }
 }

@@ -6,11 +6,9 @@ import { BiSolidDownArrow } from "react-icons/bi"
 import { BiSolidRightArrow } from "react-icons/bi"
 import { CiCircleCheck } from "react-icons/ci"
 import Image from "next/image"
-import anime from "../../../../public/anime.jpg"
 import Link from "next/link"
 import { LimitWords } from "../../../../utils/limitWords"
 import ok from "../../../../public/icons8-ok-16 (1).png"
-import TasksHook from "@/app/hooks/tasksHook"
 import { useTasks } from "@/app/context/tasksContext"
 
 type InprogressTaskType = {
@@ -23,9 +21,7 @@ console.log((new Date).getDate())
 
 export default function ListInprogressClient() {
     const [showInprogressList, setShowInprogressList] = useState(true)
-    // const {inprogressTasks, setInprogressTasks, loading} = TasksHook();
     const {inprogressTasks, setInprogressTasks, loading} = useTasks()
-    console.log("inprogressTasks", inprogressTasks)
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)
