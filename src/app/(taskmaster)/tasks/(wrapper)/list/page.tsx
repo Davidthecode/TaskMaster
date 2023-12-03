@@ -8,7 +8,7 @@ import { TaskListSkeleton } from "@/app/components/skeleton"
 import { useTasks } from "@/app/context/tasksContext"
 
 export default function List() {
-    const { todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading } = useTasks();
+    const { loading } = useTasks();
 
     return (
         <section className="px-10">
