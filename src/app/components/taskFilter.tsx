@@ -10,11 +10,12 @@ type CloseFilterType = {
 }
 
 export default function TaskFilter({closeFilter}:CloseFilterType) {
-    const {todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks } = useTasks()
+    const {todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks()
 
     const handleFilterCompleteTasks = () => {
         setCheckFilter((prevValue)=>  !prevValue)
-        if (!checkFilter) {
+        setCheckIncompleteFilter(false)
+        if (!checkFilter && !checkIncompleteFilter) {
             const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === true)
             const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === true)
             const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === true)
@@ -26,8 +27,9 @@ export default function TaskFilter({closeFilter}:CloseFilterType) {
     } 
 
     const handleFilterInCompleteTasks = () => {
-        setCheckFilter((prevValue)=>  !prevValue)
-        if (!checkFilter) {
+        setCheckIncompleteFilter((prevValue)=>  !prevValue)
+        setCheckFilter(false)
+        if (!checkIncompleteFilter && !checkFilter) {
             const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === false)
             const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === false)
             const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === false)

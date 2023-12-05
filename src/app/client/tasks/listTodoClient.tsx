@@ -18,9 +18,9 @@ type TodTaskType = {
 }
 export default function ListTodoClient() {
     const [showTodoList, setShowTodoList] = useState(true)
-    const { todoTasks, setTodoTasks, loading, checkFilter, filteredTodoTasks } = useTasks()
+    const { todoTasks, setTodoTasks, loading, checkFilter, checkIncompleteFilter,  filteredTodoTasks } = useTasks()
 
-    const handleTask = checkFilter ?  filteredTodoTasks :  todoTasks
+    const handleTask = checkFilter || checkIncompleteFilter ?  filteredTodoTasks :  todoTasks
 
     const handleCloseTodoList = () => {
         setShowTodoList(false);   

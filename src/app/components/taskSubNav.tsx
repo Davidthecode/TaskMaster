@@ -23,8 +23,6 @@ export default function TaskSubNav() {
   const [filterVisible, setFilterVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
 
-  console.log(filterVisible)
-
   const handleAddTask = () => {
     setIsvisible(true);
   };

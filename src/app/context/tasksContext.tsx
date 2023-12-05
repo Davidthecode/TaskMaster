@@ -21,15 +21,17 @@ type TasksContextType = {
     filteredInProgressTasks: any,
     setFilteredInProgressTasks: Dispatch<SetStateAction<any>>,
     filteredCompletedTasks: any,
-    setFilteredCompletedTasks: Dispatch<SetStateAction<any>>
+    setFilteredCompletedTasks: Dispatch<SetStateAction<any>>,
+    checkIncompleteFilter: boolean,
+    setCheckIncompleteFilter: Dispatch<SetStateAction<boolean>>
 }
 
 export const TasksContext = createContext<TasksContextType | undefined>(undefined)
 
 export const UseTasksContext: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks } = TasksHook();
+    const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = TasksHook();
     return (
-        <TasksContext.Provider value={{ tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks }}>
+        <TasksContext.Provider value={{ tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter }}>
             {children}
         </TasksContext.Provider>
     )
