@@ -13,7 +13,11 @@ export default function TasksHook() {
     const [todoTasks, setTodoTasks] = useState<any[]>([])
     const [inprogressTasks, setInprogressTasks] = useState<any[]>([])
     const [completedTasks, setCompletedTasks] = useState<any[]>([])
-    const [loading, setLoading] = useState(false)
+    const [filteredTodoTasks, setFilteredTodoTasks] = useState<any[]>([])
+    const [filteredInProgressTasks, setFilteredInProgressTasks] = useState<any[]>([])
+    const [filteredCompletedTasks, setFilteredCompletedTasks] = useState<any[]>([])
+    const [loading, setLoading] = useState(false);
+    const [checkFilter, setCheckFilter] = useState(false);
 
     const showNetworkAlert = () => {
         if (!navigator.onLine) {
@@ -66,5 +70,5 @@ export default function TasksHook() {
 
     }, [tasks])
 
-    return { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading }
+    return { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks }
 }

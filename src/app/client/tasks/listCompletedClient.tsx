@@ -19,7 +19,9 @@ type CompletedTaskType = {
 
 export default function ListCompletedClient() {
     const [showCompletedList, setShowCompletedList] = useState(true);
-    const { completedTasks, setCompletedTasks, loading } = useTasks();
+    const { completedTasks, setCompletedTasks, loading, checkFilter, filteredCompletedTasks } = useTasks();
+
+    const handleTasks = checkFilter ?  filteredCompletedTasks :  completedTasks
 
     const handleCloseCompletedList = () => {
         setShowCompletedList(false)
@@ -42,7 +44,7 @@ export default function ListCompletedClient() {
                 )}
                 <h1 className="text-lg font-medium">Completed</h1>
             </div>
-            {completedTasks.map((completedTask: any) => (
+            {handleTasks.map((completedTask: any) => (
                 <Link href={`/tasks/${completedTask.id}`} key={completedTask.id}>
                     <div className={`flex items-center hover:bg-[#F9F8F8] ${showCompletedList ? "flex" : "hidden"}`}>
                         <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">

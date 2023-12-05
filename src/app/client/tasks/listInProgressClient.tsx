@@ -21,7 +21,9 @@ console.log((new Date).getDate())
 
 export default function ListInprogressClient() {
     const [showInprogressList, setShowInprogressList] = useState(true)
-    const {inprogressTasks, setInprogressTasks, loading} = useTasks()
+    const { inprogressTasks, setInprogressTasks, loading, checkFilter, filteredInProgressTasks } = useTasks();
+
+    const handleTasks = checkFilter ? filteredInProgressTasks : inprogressTasks
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)
@@ -44,7 +46,7 @@ export default function ListInprogressClient() {
                 )}
                 <h1 className="text-lg font-medium">In progress</h1>
             </div>
-            {inprogressTasks.map((inprogressTask:any) => {
+            {handleTasks.map((inprogressTask: any) => {
                 return (
                     <Link href={`/tasks/${inprogressTask.id}`} key={inprogressTask.id}>
                         <div className={`flex items-center hover:bg-[#F9F8F8] ${showInprogressList ? "flex" : "hidden"}`}>

@@ -18,10 +18,12 @@ type TodTaskType = {
 }
 export default function ListTodoClient() {
     const [showTodoList, setShowTodoList] = useState(true)
-    const {todoTasks, setTodoTasks, loading} = useTasks()
+    const { todoTasks, setTodoTasks, loading, checkFilter, filteredTodoTasks } = useTasks()
+
+    const handleTask = checkFilter ?  filteredTodoTasks :  todoTasks
 
     const handleCloseTodoList = () => {
-        setShowTodoList(false)
+        setShowTodoList(false);   
     }
 
     const handleOpenTodoList = () => {
@@ -41,7 +43,7 @@ export default function ListTodoClient() {
                 )}
                 <h1 className="text-lg font-medium">To do</h1>
             </div>
-            {todoTasks.map((todoTask:any) => {
+            {handleTask.map((todoTask: any) => {
                 return (
                     <Link href={`/tasks/${todoTask.id}`} key={todoTask.id}>
                         <div className={`flex items-center hover:bg-[#F9F8F8] ${showTodoList ? "flex" : "hidden"}`}>

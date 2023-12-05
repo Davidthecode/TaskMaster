@@ -10,19 +10,33 @@ type CloseFilterType = {
 }
 
 export default function TaskFilter({closeFilter}:CloseFilterType) {
-    const {todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks} = useTasks()
+    const {todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks } = useTasks()
 
     const handleFilterCompleteTasks = () => {
-        if (todoTasks.length || inprogressTasks.length || completedTasks.length) {
+        setCheckFilter((prevValue)=>  !prevValue)
+        if (!checkFilter) {
             const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === true)
             const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === true)
             const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === true)
     
-            setTodoTasks(filteredTodoTasks);
-            setInprogressTasks(filteredInProgressTasks);
-            setCompletedTasks(filteredCompletedTasks);
+            setFilteredTodoTasks(filteredTodoTasks);
+            setFilteredInProgressTasks(filteredInProgressTasks);
+            setFilteredCompletedTasks(filteredCompletedTasks);
         }
     } 
+
+    const handleFilterInCompleteTasks = () => {
+        setCheckFilter((prevValue)=>  !prevValue)
+        if (!checkFilter) {
+            const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === false)
+            const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === false)
+            const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === false)
+    
+            setFilteredTodoTasks(filteredTodoTasks);
+            setFilteredInProgressTasks(filteredInProgressTasks);
+            setFilteredCompletedTasks(filteredCompletedTasks);
+        }
+    }
 
     
     return (
@@ -38,10 +52,10 @@ export default function TaskFilter({closeFilter}:CloseFilterType) {
             </div>
             <div className="mt-4 flex items-center">
                 <div className="mr-5">
-                    <button className="text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] hover:font-medium hover:border-none">Incomplete tasks</button>
+                    <button className="text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] font-medium hover:border-none" onClick={handleFilterInCompleteTasks}>Incomplete tasks</button>
                 </div>
                 <div>
-                    <button className="text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] hover:font-medium hover:border-none" onClick={handleFilterCompleteTasks}>complete tasks</button>
+                    <button className={`text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] font-medium hover:border-none ${checkFilter && "bg-[#c2c7f3] text-[#000000] hover:text-[#000000] hover:bg-[#c2c7f3]"}`} onClick={handleFilterCompleteTasks}>complete tasks</button>
                 </div>
             </div>
             <div className="mt-8 border"></div>
