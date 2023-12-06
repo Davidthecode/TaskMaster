@@ -21,9 +21,11 @@ console.log((new Date).getDate())
 
 export default function ListInprogressClient() {
     const [showInprogressList, setShowInprogressList] = useState(true)
-    const { inprogressTasks, setInprogressTasks, loading, checkFilter, filteredInProgressTasks } = useTasks();
+    const { inprogressTasks, setInprogressTasks, loading, checkFilter, checkIncompleteFilter, filteredInProgressTasks } = useTasks();
 
-    const handleTasks = checkFilter ? filteredInProgressTasks : inprogressTasks
+    console.log("checkCom", checkFilter, "checkInc", checkIncompleteFilter)
+
+    const handleTasks = checkFilter  || checkIncompleteFilter  ? filteredInProgressTasks : inprogressTasks
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)

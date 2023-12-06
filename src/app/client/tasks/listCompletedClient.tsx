@@ -19,9 +19,9 @@ type CompletedTaskType = {
 
 export default function ListCompletedClient() {
     const [showCompletedList, setShowCompletedList] = useState(true);
-    const { completedTasks, setCompletedTasks, loading, checkFilter, filteredCompletedTasks } = useTasks();
+    const { completedTasks, setCompletedTasks, loading, checkFilter, checkIncompleteFilter, filteredCompletedTasks } = useTasks();
 
-    const handleTasks = checkFilter ?  filteredCompletedTasks :  completedTasks
+    const handleTasks = checkFilter || checkIncompleteFilter ?  filteredCompletedTasks :  completedTasks
 
     const handleCloseCompletedList = () => {
         setShowCompletedList(false)

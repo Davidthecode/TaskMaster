@@ -22,6 +22,7 @@ export default function TasksHook() {
 
     console.log("complete", checkFilter)
     console.log("incomplete", checkIncompleteFilter)
+    console.log("filteredInpTodo", filteredInProgressTasks)
 
     const showNetworkAlert = () => {
         if (!navigator.onLine) {

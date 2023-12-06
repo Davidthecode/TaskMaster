@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect} from "react"
+import { useEffect } from "react"
 import { AiOutlineClose } from "react-icons/ai"
 import TasksHook from "../hooks/tasksHook"
 import { useTasks } from "../context/tasksContext"
@@ -9,38 +9,60 @@ type CloseFilterType = {
     closeFilter: () => void
 }
 
-export default function TaskFilter({closeFilter}:CloseFilterType) {
-    const {todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks()
+export default function TaskFilter({ closeFilter }: CloseFilterType) {
+    const { todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks()
+
+    //function to handle filter for complete tasks
+    const handleIncompleteFilter = () => {
+        const filteredTodoTasks = todoTasks.filter((task: any) => task.taskData.completed === true)
+        const filteredInProgressTasks = inprogressTasks.filter((task: any) => task.taskData.completed === true)
+        const filteredCompletedTasks = completedTasks.filter((task: any) => task.taskData.completed === true)
+
+        setFilteredTodoTasks(filteredTodoTasks);
+        setFilteredInProgressTasks(filteredInProgressTasks);
+        setFilteredCompletedTasks(filteredCompletedTasks);
+    }
 
     const handleFilterCompleteTasks = () => {
-        setCheckFilter((prevValue)=>  !prevValue)
+        setCheckFilter(!checkFilter)
         setCheckIncompleteFilter(false)
         if (!checkFilter && !checkIncompleteFilter) {
-            const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === true)
-            const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === true)
-            const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === true)
-    
-            setFilteredTodoTasks(filteredTodoTasks);
-            setFilteredInProgressTasks(filteredInProgressTasks);
-            setFilteredCompletedTasks(filteredCompletedTasks);
-        }
-    } 
-
-    const handleFilterInCompleteTasks = () => {
-        setCheckIncompleteFilter((prevValue)=>  !prevValue)
-        setCheckFilter(false)
-        if (!checkIncompleteFilter && !checkFilter) {
-            const filteredTodoTasks = todoTasks.filter((task:any) => task.taskData.completed === false)
-            const filteredInProgressTasks = inprogressTasks.filter((task:any) => task.taskData.completed === false)
-            const filteredCompletedTasks = completedTasks.filter((task:any) => task.taskData.completed === false)
-    
-            setFilteredTodoTasks(filteredTodoTasks);
-            setFilteredInProgressTasks(filteredInProgressTasks);
-            setFilteredCompletedTasks(filteredCompletedTasks);
+            handleIncompleteFilter()
+        } else if (!checkFilter && checkIncompleteFilter) {
+            handleIncompleteFilter()
+        } else {
+            setFilteredTodoTasks([]);
+            setFilteredInProgressTasks([]);
+            setFilteredCompletedTasks([]);
         }
     }
 
-    
+    //function to handle filter for complete tasks
+    const handleCompleteFilter = () => {
+        const filteredTodoTasks = todoTasks.filter((task: any) => task.taskData.completed === false)
+        const filteredInProgressTasks = inprogressTasks.filter((task: any) => task.taskData.completed === false)
+        const filteredCompletedTasks = completedTasks.filter((task: any) => task.taskData.completed === false)
+
+        setFilteredTodoTasks(filteredTodoTasks);
+        setFilteredInProgressTasks(filteredInProgressTasks);
+        setFilteredCompletedTasks(filteredCompletedTasks);
+    }
+
+    const handleFilterInCompleteTasks = () => {
+        setCheckIncompleteFilter(!checkIncompleteFilter)
+        setCheckFilter(false)
+        if (!checkIncompleteFilter && !checkFilter) {
+            handleCompleteFilter();
+        } else if (!checkIncompleteFilter && checkFilter) {
+            handleCompleteFilter();
+        } else {
+            setFilteredTodoTasks([]);
+            setFilteredInProgressTasks([]);
+            setFilteredCompletedTasks([]);
+        }
+    }
+
+
     return (
         <section className="w-full h-full flex flex-col">
             <div className="flex items-center">
