@@ -12,6 +12,8 @@ type CloseFilterType = {
 export default function TaskFilter({ closeFilter }: CloseFilterType) {
     const { todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks()
 
+    console.log(checkFilter, checkIncompleteFilter)
+
     //function to handle filter for complete tasks
     const handleIncompleteFilter = () => {
         const filteredTodoTasks = todoTasks.filter((task: any) => task.taskData.completed === true)
@@ -26,9 +28,9 @@ export default function TaskFilter({ closeFilter }: CloseFilterType) {
     const handleFilterCompleteTasks = () => {
         setCheckFilter(!checkFilter)
         setCheckIncompleteFilter(false)
-        if (!checkFilter && !checkIncompleteFilter) {
+        if (checkFilter == false && checkIncompleteFilter == false) {
             handleIncompleteFilter()
-        } else if (!checkFilter && checkIncompleteFilter) {
+        } else if (checkFilter == false && checkIncompleteFilter) {
             handleIncompleteFilter()
         } else {
             setFilteredTodoTasks([]);
@@ -51,9 +53,9 @@ export default function TaskFilter({ closeFilter }: CloseFilterType) {
     const handleFilterInCompleteTasks = () => {
         setCheckIncompleteFilter(!checkIncompleteFilter)
         setCheckFilter(false)
-        if (!checkIncompleteFilter && !checkFilter) {
+        if (checkIncompleteFilter == false && checkFilter == false) {
             handleCompleteFilter();
-        } else if (!checkIncompleteFilter && checkFilter) {
+        } else if (checkIncompleteFilter == false && checkFilter) {
             handleCompleteFilter();
         } else {
             setFilteredTodoTasks([]);
@@ -76,7 +78,7 @@ export default function TaskFilter({ closeFilter }: CloseFilterType) {
             </div>
             <div className="mt-4 flex items-center">
                 <div className="mr-5">
-                    <button className="text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] font-medium hover:border-none" onClick={handleFilterInCompleteTasks}>Incomplete tasks</button>
+                    <button className={`text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] font-medium hover:border-none ${checkIncompleteFilter && "bg-[#c2c7f3] text-[#000000] hover:text-[#000000] hover:bg-[#c2c7f3]"}`} onClick={handleFilterInCompleteTasks}>Incomplete tasks</button>
                 </div>
                 <div>
                     <button className={`text-xs border border-gray-400 px-3 py-1 rounded-md hover:bg-[#F9F8F8] font-medium hover:border-none ${checkFilter && "bg-[#c2c7f3] text-[#000000] hover:text-[#000000] hover:bg-[#c2c7f3]"}`} onClick={handleFilterCompleteTasks}>complete tasks</button>

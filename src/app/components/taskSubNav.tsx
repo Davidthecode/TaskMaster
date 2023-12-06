@@ -16,7 +16,7 @@ import TaskSort from "./taskSort";
 import { useTasks } from "../context/tasksContext";
 
 export default function TaskSubNav() {
-  const { checkFilter } = useTasks();
+  const { checkFilter, checkIncompleteFilter } = useTasks();
   const { isOpen, setIsOpen } = useSidebarContext();
   const [isVisible, setIsvisible] = useState(false);
   const [proVisible, setProVisible] = useState(false);
@@ -82,7 +82,7 @@ export default function TaskSubNav() {
               <GoFilter />
             </div>
             <p className="text-xs mr-[2px]">Filter</p>
-            {checkFilter && (
+            {(checkFilter || checkIncompleteFilter) && (
               <div className="flex items-center">
                 <p className="text-xs mr-1">:</p>
                 <p className="text-xs pt-[1px]">1</p>

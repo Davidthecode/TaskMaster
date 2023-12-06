@@ -20,10 +20,6 @@ export default function TasksHook() {
     const [checkFilter, setCheckFilter] = useState(false);
     const [checkIncompleteFilter, setCheckIncompleteFilter] = useState(false)
 
-    console.log("complete", checkFilter)
-    console.log("incomplete", checkIncompleteFilter)
-    console.log("filteredInpTodo", filteredInProgressTasks)
-
     const showNetworkAlert = () => {
         if (!navigator.onLine) {
             toast.error("Network is bad. Please check your internet connection.");
