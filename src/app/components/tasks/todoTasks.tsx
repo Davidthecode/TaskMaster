@@ -10,21 +10,21 @@ type TodTaskType = {
     todoTasks: any[],
     setTodoTasks: Dispatch<SetStateAction<any[]>>,
     loading: boolean
-}
+};
 
 export default function TodoTasks({ todoTasks, setTodoTasks, loading }: TodTaskType) {
     if (loading) {
         return (
             <HomeSkeleton />
         )
-    }
+    };
     if (todoTasks.length == 0) {
         return (
             <div className="flex justify-center">
                 <h1>You have no Todo task yet..</h1>
             </div>
         )
-    }
+    };
     return (
         <section className="h-full">
             {todoTasks.map((todoTask) => {
@@ -51,4 +51,4 @@ export default function TodoTasks({ todoTasks, setTodoTasks, loading }: TodTaskT
             })}
         </section>
     )
-}
+};

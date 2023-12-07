@@ -1,31 +1,29 @@
-"use client"
+"use client";
 
-import { Dispatch, SetStateAction } from "react"
-import { AiOutlineDelete } from "react-icons/ai"
-import { SlCalender } from "react-icons/sl"
-import { BsPinAngle } from "react-icons/bs"
-import Link from "next/link"
-import { LimitWords } from "../../../../utils/limitWords"
-import { HomeSkeleton } from "../skeleton"
+import { Dispatch, SetStateAction } from "react";
+import { SlCalender } from "react-icons/sl";
+import Link from "next/link";
+import { LimitWords } from "../../../../utils/limitWords";
+import { HomeSkeleton } from "../skeleton";
 
 type InprogressTaskType = {
     inprogressTasks: any[],
     setInprogressTasks: Dispatch<SetStateAction<any[]>>,
     loading: boolean
-}
-export default function InProgressTasks({ inprogressTasks, setInprogressTasks, loading }: InprogressTaskType) {
-    if(loading){
+};
+export default function InProgressTasks({ inprogressTasks, loading }: InprogressTaskType) {
+    if (loading) {
         return (
             <HomeSkeleton />
         )
-    }
-    if(inprogressTasks.length == 0){
-        return(
+    };
+    if (inprogressTasks.length == 0) {
+        return (
             <div className="flex justify-center">
                 <h1>You have no In progress task yet..</h1>
             </div>
         )
-    }
+    };
     return (
         <section className="h-full">
             {inprogressTasks.map((inprogressTask) => {
@@ -52,4 +50,4 @@ export default function InProgressTasks({ inprogressTasks, setInprogressTasks, l
             })}
         </section>
     )
-}
+};

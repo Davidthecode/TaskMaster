@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { useTasks } from "../../context/tasksContext";
@@ -8,7 +8,7 @@ type CloseFilterType = {
 };
 
 export default function TaskFilter({ closeFilter }: CloseFilterType) {
-    const { todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks();
+    const { todoTasks, inprogressTasks, completedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks();
 
     //function to handle filter for complete tasks
     const handleIncompleteFilter = () => {
@@ -88,4 +88,4 @@ export default function TaskFilter({ closeFilter }: CloseFilterType) {
             </div>
         </section>
     )
-}
+};

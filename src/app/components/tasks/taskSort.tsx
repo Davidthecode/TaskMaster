@@ -55,4 +55,4 @@ export default function TaskSort({ closeSort }: CloseSortType) {
             </div>
         </section>
     )
-}
+};

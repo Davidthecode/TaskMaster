@@ -1,36 +1,34 @@
-"use client"
+"use client";
 
-import { Dispatch, SetStateAction } from "react"
-import { AiOutlineDelete } from "react-icons/ai"
-import { SlCalender } from "react-icons/sl"
-import {BsPinAngle} from "react-icons/bs"
-import Link from "next/link"
-import { LimitWords } from "../../../../utils/limitWords"
-import { HomeSkeleton } from "../skeleton"
+import { Dispatch, SetStateAction } from "react";
+import { SlCalender } from "react-icons/sl";
+import Link from "next/link";
+import { LimitWords } from "../../../../utils/limitWords";
+import { HomeSkeleton } from "../skeleton";
 
 type CompletedTaskType = {
     completedTasks: any[],
     setCompletedTasks: Dispatch<SetStateAction<any[]>>,
-    loading:boolean
-}
+    loading: boolean
+};
 
-export default function CompletedTasks({completedTasks, setCompletedTasks, loading}: CompletedTaskType) {
-    if(loading){
+export default function CompletedTasks({ completedTasks, loading }: CompletedTaskType) {
+    if (loading) {
         return (
             <HomeSkeleton />
         )
-    }
-    if(completedTasks.length == 0){
-        return(
+    };
+    if (completedTasks.length == 0) {
+        return (
             <div className="flex justify-center">
                 <h1>You have no completed task yet..</h1>
             </div>
         )
-    }
+    };
     return (
         <section className="h-full">
-            {completedTasks.map((completedTask)=> {
-                return(
+            {completedTasks.map((completedTask) => {
+                return (
                     <Link href={`/tasks/${completedTask.id}`} key={completedTask.id}>
                         <div className="border max-h-[54%] px-2 py-1 mb-6 bg-white cursor-pointer hover:bg-gray-300 flex flex-col rounded-md">
                             <div className="flex justify-between items-center mb-1">
@@ -47,10 +45,10 @@ export default function CompletedTasks({completedTasks, setCompletedTasks, loadi
                                     <p className="text-xs">{completedTask.taskData.dataAndTimeAdded}</p>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </Link>
                 )
             })}
         </section>
     )
-}
+};
