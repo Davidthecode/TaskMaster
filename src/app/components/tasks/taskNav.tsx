@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { CiViewTable } from "react-icons/ci"
-import { RxDashboard } from "react-icons/rx"
-import { usePathname } from "next/navigation"
-import CurrentUserHook from "../hooks/currentUserHook"
-import { useEffect, useState } from "react"
-import { StaticImageData } from "next/image"
-import noUser from "../../../public/nouser.jpg"
+import Image from "next/image";
+import Link from "next/link";
+import { CiViewTable } from "react-icons/ci";
+import { RxDashboard } from "react-icons/rx";
+import { usePathname } from "next/navigation";
+import CurrentUserHook from "../../hooks/currentUserHook";
+import { useEffect, useState } from "react";
+import { StaticImageData } from "next/image";
+import noUser from "../../../public/nouser.jpg";
 
 export default function TaskNav() {
-    const { currentUser } = CurrentUserHook()
+    const { currentUser } = CurrentUserHook();
     const currentPath = usePathname();
 
-    const [photo, setPhoto] = useState<string | StaticImageData>(noUser)
+    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
 
     useEffect(() => {
         if (currentUser?.photoURL) {
-            setPhoto(currentUser?.photoURL)
+            setPhoto(currentUser?.photoURL);
         }
-    }, [currentUser])
+    }, [currentUser]);
 
     return (
         <section className="px-10 pt-2 flex border-b">
@@ -58,4 +58,4 @@ export default function TaskNav() {
             </div>
         </section>
     )
-}
+};
