@@ -28,9 +28,9 @@ type TasksContextType = {
     setSortedTasks: Dispatch<SetStateAction<any[]>>,
     checkSort: boolean,
     setCheckSort: Dispatch<SetStateAction<boolean>>
-}
+};
 
-export const TasksContext = createContext<TasksContextType | undefined>(undefined)
+export const TasksContext = createContext<TasksContextType | undefined>(undefined);
 
 export const UseTasksContext: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort } = TasksHook();
@@ -39,7 +39,7 @@ export const UseTasksContext: React.FC<{ children: ReactNode }> = ({ children })
             {children}
         </TasksContext.Provider>
     )
-}
+};
 
 export function useTasks() {
     const context = useContext(TasksContext);
@@ -47,4 +47,4 @@ export function useTasks() {
         throw new Error('useTasks must be used within an TasksContextProvider');
     }
     return context;
-} 
+};

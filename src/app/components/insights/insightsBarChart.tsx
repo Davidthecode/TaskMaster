@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 import { Bar } from "react-chartjs-2";
@@ -33,11 +33,11 @@ export default function InsightsBarChart() {
                 barThickness: 20,
             }
         ]
-    }
+    };
 
     const options = {
         maintainAspectRatio: false,
-    }
+    };
 
     return (
         <section className="w-[48%] h-[20rem] flex flex-col justify-center items-center border rounded-md border-gray-300 px-3">
@@ -60,4 +60,4 @@ export default function InsightsBarChart() {
             </div>
         </section>
     )
-}
+};
