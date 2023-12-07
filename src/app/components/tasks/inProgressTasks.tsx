@@ -5,8 +5,8 @@ import { AiOutlineDelete } from "react-icons/ai"
 import { SlCalender } from "react-icons/sl"
 import { BsPinAngle } from "react-icons/bs"
 import Link from "next/link"
-import { LimitWords } from "../../../utils/limitWords"
-import { HomeSkeleton } from "./skeleton"
+import { LimitWords } from "../../../../utils/limitWords"
+import { HomeSkeleton } from "../skeleton"
 
 type InprogressTaskType = {
     inprogressTasks: any[],

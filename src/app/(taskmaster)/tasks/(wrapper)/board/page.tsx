@@ -1,6 +1,6 @@
 "use client"
 
-import TaskSubNav from "@/app/components/taskSubNav";
+import TaskSubNav from "@/app/components/tasks/taskSubNav";
 import BoardTodoClient from "@/app/client/tasks/boardTodoClient";
 import BoardInProgressClient from "@/app/client/tasks/boardInProgressClient";
 import BoardCompletedClient from "@/app/client/tasks/boardCompletedClient";

@@ -1,7 +1,7 @@
 "use client"
 
 import { AiOutlineClose } from "react-icons/ai";
-import { useTasks } from "../context/tasksContext";
+import { useTasks } from "../../context/tasksContext";
 
 type CloseFilterType = {
     closeFilter: () => void;

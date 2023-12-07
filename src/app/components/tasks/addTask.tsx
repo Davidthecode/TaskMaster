@@ -6,7 +6,7 @@ import { CiClock2 } from "react-icons/ci"
 import { PiSpinnerThin } from "react-icons/pi"
 import { IoAddSharp } from "react-icons/io5"
 import { RiArrowDropUpLine } from 'react-icons/ri'
-import { auth, db } from "../firebase/firebase-config";
+import { auth, db } from "../../firebase/firebase-config";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast"
 import { v4 as uuidv4 } from "uuid"

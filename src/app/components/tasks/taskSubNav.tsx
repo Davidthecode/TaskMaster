@@ -7,13 +7,13 @@ import Addtask from "./addTask";
 import { useState } from "react";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { AiOutlineBars } from "react-icons/ai";
-import { useSidebarContext } from "../context/sidebarContext";
+import { useSidebarContext } from "../../context/sidebarContext";
 import { GoFilter } from "react-icons/go";
 import { TbArrowsSort } from "react-icons/tb";
-import ProUpgrade from "./proUpgrade";
+import ProUpgrade from "../proUpgrade";
 import TaskFilter from "./taskFilter";
 import TaskSort from "./taskSort";
-import { useTasks } from "../context/tasksContext";
+import { useTasks } from "../../context/tasksContext";
 
 export default function TaskSubNav() {
   const { checkFilter, checkIncompleteFilter } = useTasks();
