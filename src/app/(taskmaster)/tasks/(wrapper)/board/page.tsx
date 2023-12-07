@@ -20,9 +20,9 @@ export default function Board() {
                     <TaskBoardSkeleton />
                 ) : (
                     <div className="w-full flex">
-                        <BoardTodoClient todoTasks={todoTasks} setTodoTasks={setTodoTasks} loading={loading} />
-                        <BoardInProgressClient inprogressTasks={inprogressTasks} setInprogressTasks={setInprogressTasks} loading={loading} />
-                        <BoardCompletedClient completedTasks={completedTasks} setCompletedTasks={setCompletedTasks} loading={loading} />
+                        <BoardTodoClient />
+                        <BoardInProgressClient />
+                        <BoardCompletedClient />
                     </div>
                 )}
             </section>

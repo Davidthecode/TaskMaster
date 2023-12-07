@@ -11,19 +11,9 @@ import { LimitWords } from "../../../../utils/limitWords"
 import ok from "../../../../public/icons8-ok-16 (1).png"
 import { useTasks } from "@/app/context/tasksContext"
 
-type InprogressTaskType = {
-    inprogressTasks: any[],
-    setInprogressTasks: Dispatch<SetStateAction<any[]>>,
-    loading: boolean
-}
-
-console.log((new Date).getDate())
-
 export default function ListInprogressClient() {
     const [showInprogressList, setShowInprogressList] = useState(true)
     const { inprogressTasks, setInprogressTasks, loading, checkFilter, checkIncompleteFilter, filteredInProgressTasks } = useTasks();
-
-    console.log("checkCom", checkFilter, "checkInc", checkIncompleteFilter)
 
     const handleTasks = checkFilter  || checkIncompleteFilter  ? filteredInProgressTasks : inprogressTasks
 

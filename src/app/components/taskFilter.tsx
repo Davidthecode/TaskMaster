@@ -1,24 +1,20 @@
 "use client"
 
-import { useEffect } from "react"
-import { AiOutlineClose } from "react-icons/ai"
-import TasksHook from "../hooks/tasksHook"
-import { useTasks } from "../context/tasksContext"
+import { AiOutlineClose } from "react-icons/ai";
+import { useTasks } from "../context/tasksContext";
 
 type CloseFilterType = {
-    closeFilter: () => void
-}
+    closeFilter: () => void;
+};
 
 export default function TaskFilter({ closeFilter }: CloseFilterType) {
-    const { todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks()
-
-    console.log(checkFilter, checkIncompleteFilter)
+    const { todoTasks, inprogressTasks, completedTasks, setTodoTasks, setInprogressTasks, setCompletedTasks, checkFilter, setCheckFilter, setFilteredTodoTasks, setFilteredInProgressTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter } = useTasks();
 
     //function to handle filter for complete tasks
     const handleIncompleteFilter = () => {
-        const filteredTodoTasks = todoTasks.filter((task: any) => task.taskData.completed === true)
-        const filteredInProgressTasks = inprogressTasks.filter((task: any) => task.taskData.completed === true)
-        const filteredCompletedTasks = completedTasks.filter((task: any) => task.taskData.completed === true)
+        const filteredTodoTasks = todoTasks.filter((task: any) => task.taskData.completed === true);
+        const filteredInProgressTasks = inprogressTasks.filter((task: any) => task.taskData.completed === true);
+        const filteredCompletedTasks = completedTasks.filter((task: any) => task.taskData.completed === true);
 
         setFilteredTodoTasks(filteredTodoTasks);
         setFilteredInProgressTasks(filteredInProgressTasks);
@@ -26,24 +22,24 @@ export default function TaskFilter({ closeFilter }: CloseFilterType) {
     }
 
     const handleFilterCompleteTasks = () => {
-        setCheckFilter(!checkFilter)
-        setCheckIncompleteFilter(false)
+        setCheckFilter(!checkFilter);
+        setCheckIncompleteFilter(false);
         if (checkFilter == false && checkIncompleteFilter == false) {
-            handleIncompleteFilter()
+            handleIncompleteFilter();
         } else if (checkFilter == false && checkIncompleteFilter) {
-            handleIncompleteFilter()
+            handleIncompleteFilter();
         } else {
             setFilteredTodoTasks([]);
             setFilteredInProgressTasks([]);
             setFilteredCompletedTasks([]);
-        }
-    }
+        };
+    };
 
     //function to handle filter for complete tasks
     const handleCompleteFilter = () => {
-        const filteredTodoTasks = todoTasks.filter((task: any) => task.taskData.completed === false)
-        const filteredInProgressTasks = inprogressTasks.filter((task: any) => task.taskData.completed === false)
-        const filteredCompletedTasks = completedTasks.filter((task: any) => task.taskData.completed === false)
+        const filteredTodoTasks = todoTasks.filter((task: any) => task.taskData.completed === false);
+        const filteredInProgressTasks = inprogressTasks.filter((task: any) => task.taskData.completed === false);
+        const filteredCompletedTasks = completedTasks.filter((task: any) => task.taskData.completed === false);
 
         setFilteredTodoTasks(filteredTodoTasks);
         setFilteredInProgressTasks(filteredInProgressTasks);
@@ -51,8 +47,8 @@ export default function TaskFilter({ closeFilter }: CloseFilterType) {
     }
 
     const handleFilterInCompleteTasks = () => {
-        setCheckIncompleteFilter(!checkIncompleteFilter)
-        setCheckFilter(false)
+        setCheckIncompleteFilter(!checkIncompleteFilter);
+        setCheckFilter(false);
         if (checkIncompleteFilter == false && checkFilter == false) {
             handleCompleteFilter();
         } else if (checkIncompleteFilter == false && checkFilter) {

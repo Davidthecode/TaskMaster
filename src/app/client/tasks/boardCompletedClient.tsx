@@ -7,14 +7,14 @@ import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
+import { useTasks } from "@/app/context/tasksContext"
 
-type CompletedTaskType = {
-    completedTasks: any[],
-    setCompletedTasks: Dispatch<SetStateAction<any[]>>,
-    loading: boolean
-}
+export default function BoardCompletedClient() {
 
-export default function BoardCompletedClient({ completedTasks, setCompletedTasks, loading }: CompletedTaskType) {
+    const { completedTasks, setCompletedTasks, loading, checkFilter, checkIncompleteFilter, filteredCompletedTasks } = useTasks();
+
+    const handleTasks = checkFilter || checkIncompleteFilter ? filteredCompletedTasks : completedTasks;
+
     return (
         <section className="w-[22%] mr-5 h-[100%]">
             <div className="h-[12%] flex items-center">
@@ -22,7 +22,7 @@ export default function BoardCompletedClient({ completedTasks, setCompletedTasks
             </div>
 
             <div className="overflow-y-auto h-[88%] pb-1 pr-3">
-                {completedTasks.map((completedTask) => (
+                {handleTasks.map((completedTask: any) => (
                     <Link href={`/tasks/${completedTask.id}`} key={completedTask.id}>
                         <div className="flex items-center w-full mb-5 bg-white rounded-md opacity-95">
                             <div className="w-full">

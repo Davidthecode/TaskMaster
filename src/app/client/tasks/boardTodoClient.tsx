@@ -7,13 +7,12 @@ import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
+import { useTasks } from "@/app/context/tasksContext"
 
-type TodTaskType = {
-    todoTasks: any[],
-    setTodoTasks: Dispatch<SetStateAction<any[]>>,
-    loading: boolean
-}
-export default function BoardTodoClient({ todoTasks, setTodoTasks, loading }: TodTaskType) {
+export default function BoardTodoClient() {
+    const { todoTasks, setTodoTasks, loading, checkFilter, checkIncompleteFilter, filteredTodoTasks } = useTasks();
+
+    const handleTask = checkFilter || checkIncompleteFilter ? filteredTodoTasks : todoTasks;
     return (
         <section className="w-[22%] mr-5 h-[100%]">
             <div className="h-[12%] flex items-center">
@@ -21,7 +20,7 @@ export default function BoardTodoClient({ todoTasks, setTodoTasks, loading }: To
             </div>
 
             <div className="overflow-y-auto h-[88%] pb-1 pr-3">
-                {todoTasks.map((todoTask) => (
+                {handleTask.map((todoTask: any) => (
                     <Link href={`/tasks/${todoTask.id}`} key={todoTask.id}>
                         <div className="flex items-center w-full mb-5 bg-white rounded-md opacity-95">
                             <div className="w-full">

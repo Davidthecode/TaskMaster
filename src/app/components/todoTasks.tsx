@@ -16,13 +16,13 @@ type TodTaskType = {
 }
 
 export default function TodoTasks({ todoTasks, setTodoTasks, loading }: TodTaskType) {
-    if(loading){
-        return(
+    if (loading) {
+        return (
             <HomeSkeleton />
         )
     }
-    if(todoTasks.length == 0){
-        return(
+    if (todoTasks.length == 0) {
+        return (
             <div className="flex justify-center">
                 <h1>You have no Todo task yet..</h1>
             </div>

@@ -7,14 +7,14 @@ import anime from "../../../../public/anime.jpg"
 import { LimitWords } from "../../../../utils/limitWords"
 import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
+import { useTasks } from "@/app/context/tasksContext"
 
-type InprogressTaskType = {
-    inprogressTasks: any[],
-    setInprogressTasks: Dispatch<SetStateAction<any[]>>,
-    loading: boolean
-}
+export default function BoardInProgressClient() {
 
-export default function BoardInProgressClient({ inprogressTasks, setInprogressTasks, loading }: InprogressTaskType) {
+    const { inprogressTasks, setInprogressTasks, loading, checkFilter, checkIncompleteFilter, filteredInProgressTasks } = useTasks();
+
+    const handleTasks = checkFilter || checkIncompleteFilter ? filteredInProgressTasks : inprogressTasks
+
     return (
         <section className="w-[22%] mr-5 h-[100%]">
             <div className="h-[12%] flex items-center">
@@ -22,7 +22,7 @@ export default function BoardInProgressClient({ inprogressTasks, setInprogressTa
             </div>
 
             <div className="overflow-y-auto h-[88%] pb-1 pr-3">
-                {inprogressTasks.map((inprogressTask) => (
+                {handleTasks.map((inprogressTask: any) => (
                     <Link href={`/tasks/${inprogressTask.id}`} key={inprogressTask.id}>
                         <div className=" flex items-center w-full mb-5 bg-white rounded-md opacity-95">
                             <div className="w-full">

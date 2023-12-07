@@ -1,33 +1,27 @@
 "use client"
 
-import { Dispatch, SetStateAction, useEffect } from "react"
-import { useState } from "react"
-import { BiSolidDownArrow } from "react-icons/bi"
-import { BiSolidRightArrow } from "react-icons/bi"
-import { CiCircleCheck } from "react-icons/ci"
-import Image from "next/image"
-import { LimitWords } from "../../../../utils/limitWords"
-import Link from "next/link"
-import ok from "../../../../public/icons8-ok-16 (1).png"
-import { useTasks } from "@/app/context/tasksContext"
+import { useState } from "react";
+import { BiSolidDownArrow } from "react-icons/bi";
+import { BiSolidRightArrow } from "react-icons/bi";
+import { CiCircleCheck } from "react-icons/ci";
+import Image from "next/image";
+import { LimitWords } from "../../../../utils/limitWords";
+import Link from "next/link";
+import ok from "../../../../public/icons8-ok-16 (1).png";
+import { useTasks } from "@/app/context/tasksContext";
 
-type TodTaskType = {
-    todoTasks: any[],
-    setTodoTasks: Dispatch<SetStateAction<any[]>>,
-    loading: boolean
-}
 export default function ListTodoClient() {
-    const [showTodoList, setShowTodoList] = useState(true)
-    const { todoTasks, setTodoTasks, loading, checkFilter, checkIncompleteFilter,  filteredTodoTasks } = useTasks()
+    const [showTodoList, setShowTodoList] = useState(true);
+    const { todoTasks, setTodoTasks, loading, checkFilter, checkIncompleteFilter,  filteredTodoTasks } = useTasks();
 
-    const handleTask = checkFilter || checkIncompleteFilter ?  filteredTodoTasks :  todoTasks
+    const handleTask = checkFilter || checkIncompleteFilter ?  filteredTodoTasks :  todoTasks;
 
     const handleCloseTodoList = () => {
         setShowTodoList(false);   
     }
 
     const handleOpenTodoList = () => {
-        setShowTodoList(true)
+        setShowTodoList(true);
     }
     return (
         <section className="mt-6">
@@ -78,4 +72,4 @@ export default function ListTodoClient() {
             })}
         </section>
     )
-}
+};

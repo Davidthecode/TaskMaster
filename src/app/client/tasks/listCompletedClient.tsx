@@ -11,17 +11,11 @@ import Link from "next/link"
 import ok from "../../../../public/icons8-ok-16 (1).png"
 import { useTasks } from "@/app/context/tasksContext"
 
-type CompletedTaskType = {
-    completedTasks: any[],
-    setCompletedTasks: Dispatch<SetStateAction<any[]>>,
-    loading: boolean
-}
-
 export default function ListCompletedClient() {
     const [showCompletedList, setShowCompletedList] = useState(true);
     const { completedTasks, setCompletedTasks, loading, checkFilter, checkIncompleteFilter, filteredCompletedTasks } = useTasks();
 
-    const handleTasks = checkFilter || checkIncompleteFilter ?  filteredCompletedTasks :  completedTasks
+    const handleTasks = checkFilter || checkIncompleteFilter ? filteredCompletedTasks : completedTasks
 
     const handleCloseCompletedList = () => {
         setShowCompletedList(false)
