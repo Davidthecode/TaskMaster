@@ -1,65 +1,62 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { AiOutlineClose } from 'react-icons/ai';
-import { CiClock2 } from "react-icons/ci"
-import { PiSpinnerThin } from "react-icons/pi"
-import { IoAddSharp } from "react-icons/io5"
-import { RiArrowDropUpLine } from 'react-icons/ri'
+import { IoAddSharp } from "react-icons/io5";
+import { RiArrowDropUpLine } from 'react-icons/ri';
 import { auth, db } from "../../firebase/firebase-config";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import { toast } from "react-hot-toast"
-import { v4 as uuidv4 } from "uuid"
+import { collection, doc, setDoc } from "firebase/firestore";
+import { toast } from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 import { onAuthStateChanged } from "firebase/auth";
-import spinner from "../../../public/icons8-spinner.gif"
+import spinner from "../../../public/icons8-spinner.gif";
 import Image from "next/image";
-import { CiUser } from "react-icons/ci"
-import calender from "../../../public/icons8-calendar-16.png"
-import user from "../../../public/icons8-user-16.png"
-import taskIcon from "../../../public/icons8-task-48.png"
-import priorityIcon from "../../../public/icons8-priority-48.png"
-import statusIcon from "../../../public/icons8-status-48.png"
+import calender from "../../../public/icons8-calendar-16.png";
+import user from "../../../public/icons8-user-16.png";
+import taskIcon from "../../../public/icons8-task-48.png";
+import priorityIcon from "../../../public/icons8-priority-48.png";
+import statusIcon from "../../../public/icons8-status-48.png";
 
 type AddtaskPopupProps = {
     onClose: () => void;
-}
+};
 
 export default function Addtask({ onClose }: AddtaskPopupProps) {
     const [shownote, setShowNote] = useState(false);
-    const [title, setTitle] = useState("")
-    const [taskType, setTaskType] = useState("Todo")
-    const [priority, setPriority] = useState("Low")
-    const [status, setStatus] = useState("On track")
-    const [currentDate, setCurrentDate] = useState("")
-    const [note, setNote] = useState("")
-    const collectionRef = collection(db, "tasks")
-    const [currentuser, setCurrentuser] = useState(auth.currentUser)
-    const [loading, setLoading] = useState(false)
+    const [title, setTitle] = useState("");
+    const [taskType, setTaskType] = useState("Todo");
+    const [priority, setPriority] = useState("Low");
+    const [status, setStatus] = useState("On track");
+    const [currentDate, setCurrentDate] = useState("");
+    const [note, setNote] = useState("");
+    const collectionRef = collection(db, "tasks");
+    const [currentuser, setCurrentuser] = useState(auth.currentUser);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setCurrentuser(user)
-            } else setCurrentuser(null)
+                setCurrentuser(user);
+            } else setCurrentuser(null);
         })
 
-        return () => unsubscribe()
-    }, [])
+        return () => unsubscribe();
+    }, []);
 
     const now = new Date();
     const options: Intl.DateTimeFormatOptions = {
         year: "numeric",
         month: "long",
         day: "numeric"
-    }
+    };
     const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(now);
 
     const updateDateTime = () => {
         setCurrentDate(formattedDateTime);
-    }
+    };
 
     useEffect(() => {
-        updateDateTime()
+        updateDateTime();
         const intervalId = setInterval(updateDateTime, 1000);
 
         return () => {
@@ -68,29 +65,29 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
     }, []);
 
     const handleShowNote = () => {
-        setShowNote(true)
-    }
+        setShowNote(true);
+    };
 
     const closeNote = () => {
-        setShowNote(false)
-    }
+        setShowNote(false);
+    };
 
     const handleTaskTypeStatusChange = (e: any) => {
-        setTaskType(e.target.value)
-    }
+        setTaskType(e.target.value);
+    };
 
     const handlePriorityStatusChange = (e: any) => {
-        setPriority(e.target.value)
-    }
+        setPriority(e.target.value);
+    };
 
     const handleStatusStatusChange = (e: any) => {
-        setStatus(e.target.value)
-    }
+        setStatus(e.target.value);
+    };
 
     const createTask = async () => {
         if (title !== "") {
             try {
-                setLoading(true)
+                setLoading(true);
                 const taskData = {
                     title,
                     dateAdded: currentDate,
@@ -101,21 +98,21 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                     note,
                     userId: currentuser?.uid,
                     completed: false
-                }
+                };
 
-                const userRef = doc(collectionRef, uuidv4())
+                const userRef = doc(collectionRef, uuidv4());
                 await setDoc(userRef, {
                     taskData
-                })
-                toast.success("task added successfully")
-                setLoading(false)
-                onClose()
+                });
+                toast.success("task added successfully");
+                setLoading(false);
+                onClose();
             } catch (error) {
-                toast.error("error adding task")
-                console.log(error)
-                setLoading(false)
+                toast.error("error adding task");
+                console.log(error);
+                setLoading(false);
             }
-        } else toast.error("Write a title before creating a task")
+        } else toast.error("Write a title before creating a task");
     }
 
     return (
@@ -144,7 +141,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                 <div className='px-4 flex flex-col mr-12 mobile:mr-6'>
                                     <div className='flex items-center'>
                                         <div className='mr-1'>
-                                           <Image src={user} alt="image" width={15} height={15}/>
+                                            <Image src={user} alt="image" width={15} height={15} />
                                         </div>
                                         <p className='opacity-60'>Owner</p>
                                     </div>
@@ -168,7 +165,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                     </div>
                                     <div className='flex items-center mt-6'>
                                         <div className='mr-1'>
-                                           <Image src={statusIcon} alt="image" width={15} height={15} />
+                                            <Image src={statusIcon} alt="image" width={15} height={15} />
                                         </div>
                                         <p className='opacity-60'>Status</p>
                                     </div>
@@ -247,4 +244,4 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
             </div>
         </section>
     )
-}
+};
