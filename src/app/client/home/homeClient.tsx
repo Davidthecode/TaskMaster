@@ -1,18 +1,17 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import checked from "../../../../public/checked.png"
-import Image from "next/image"
-import { TfiHelpAlt } from "react-icons/tfi"
-import loader1 from "../../../../public/loader (1).png"
-import loader2 from "../../../../public/loader (2).png"
-import loader3 from "../../../../public/loader (3).png"
-import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs"
-import { useSidebarContext } from "@/app/context/sidebarContext"
-import { auth, db } from "@/app/firebase/firebase-config"
-import { onAuthStateChanged } from "firebase/auth"
-import { collection, onSnapshot, query, where } from "firebase/firestore"
-import spinner from "../../../../public/icons8-spinner.gif"
+import { useState, useEffect } from "react";
+import checked from "../../../../public/checked.png";
+import Image from "next/image";
+import { TfiHelpAlt } from "react-icons/tfi";
+import loader1 from "../../../../public/loader (1).png";
+import loader2 from "../../../../public/loader (2).png";
+import loader3 from "../../../../public/loader (3).png";
+import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
+import { useSidebarContext } from "@/app/context/sidebarContext";
+import spinner from "../../../../public/icons8-spinner.gif";
+import TasksHook from "@/app/hooks/tasksHook";
+import CurrentUserHook from "@/app/hooks/currentUserHook";
 
 function formatDate(date: any) {
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
@@ -20,75 +19,26 @@ function formatDate(date: any) {
 }
 
 export default function HomeClient() {
+    const {tasks, todoTasks, inprogressTasks, completedTasks, loading} = TasksHook();
+    const {currentUser} = CurrentUserHook();
     const { setIsOpen } = useSidebarContext();
-    const collectionRef = collection(db, "tasks")
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [currentUser, setCurrentUser] = useState(auth.currentUser)
-    const [tasks, setTasks] = useState<any[]>([])
-    const [todoTasks, setTodoTasks] = useState<any[]>([])
-    const [inprogressTasks, setInprogressTasks] = useState<any[]>([])
-    const [completedTasks, setCompletedTasks] = useState<any[]>([])
-    const [loading, setLoading] = useState(false)
 
+
+    //function to get current date
     useEffect(() => {
-        // Update the date every minute (or as often as needed)
         const intervalId = setInterval(() => {
             setCurrentDate(new Date());
         }, 60000); // 60000 milliseconds = 1 minute
 
-        // Clear the interval when the component unmounts
         return () => clearInterval(intervalId);
     }, []);
 
     const formattedDate = formatDate(currentDate);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setCurrentUser(user);
-            } else setCurrentUser(null);
-        })
-
-        return () => unsubscribe();
-    }, [])
-
-    useEffect(() => {
-        try {
-            setLoading(true)
-            const queryTasks = query(
-                collectionRef,
-                where("taskData.userId", "==", currentUser?.uid)
-            )
-            const unsubscribe = onSnapshot(queryTasks, (snapshot) => {
-                let tempTasks: any[] = []
-                snapshot.forEach((doc) => {
-                    tempTasks.push({ ...doc.data(), id: doc.id })
-                })
-                setTasks(tempTasks)
-                setLoading(false)
-            })
-            return () => unsubscribe()
-        } catch (error) {
-            console.log("error")
-        }
-    }, [currentUser])
-
-    useEffect(() => {
-        if (tasks.length) {
-            const filteredTodoTasks = tasks.filter((task) => task.taskData.taskType === "Todo")
-            const filteredInProgressTasks = tasks.filter((task) => task.taskData.taskType === "In progress")
-            const filteredCompletedTasks = tasks.filter((task) => task.taskData.taskType === "Completed")
-
-            setTodoTasks(filteredTodoTasks)
-            setInprogressTasks(filteredInProgressTasks)
-            setCompletedTasks(filteredCompletedTasks)
-        }
-
-    }, [tasks])
-
     const closeSidebar = () => {
-        setIsOpen(true)
-    }
+        setIsOpen(true);
+    };
 
     return (
         <section className="h-full bg-white flex flex-col px-16 mobile:px-6 overflow-y-auto">

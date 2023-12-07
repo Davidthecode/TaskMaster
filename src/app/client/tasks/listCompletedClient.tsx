@@ -1,29 +1,28 @@
 "use client"
 
-import { Dispatch, SetStateAction } from "react"
-import { useState } from "react"
-import { BiSolidDownArrow } from "react-icons/bi"
-import { BiSolidRightArrow } from "react-icons/bi"
-import { CiCircleCheck } from "react-icons/ci"
-import Image from "next/image"
-import { LimitWords } from "../../../../utils/limitWords"
-import Link from "next/link"
-import ok from "../../../../public/icons8-ok-16 (1).png"
-import { useTasks } from "@/app/context/tasksContext"
+import { useState } from "react";
+import { BiSolidDownArrow } from "react-icons/bi";
+import { BiSolidRightArrow } from "react-icons/bi";
+import { CiCircleCheck } from "react-icons/ci";
+import Image from "next/image";
+import { LimitWords } from "../../../../utils/limitWords";
+import Link from "next/link";
+import ok from "../../../../public/icons8-ok-16 (1).png";
+import { useTasks } from "@/app/context/tasksContext";
 
 export default function ListCompletedClient() {
     const [showCompletedList, setShowCompletedList] = useState(true);
     const { completedTasks, setCompletedTasks, loading, checkFilter, checkIncompleteFilter, filteredCompletedTasks } = useTasks();
 
-    const handleTasks = checkFilter || checkIncompleteFilter ? filteredCompletedTasks : completedTasks
+    const handleTasks = checkFilter || checkIncompleteFilter ? filteredCompletedTasks : completedTasks;
 
     const handleCloseCompletedList = () => {
-        setShowCompletedList(false)
-    }
+        setShowCompletedList(false);
+    };
 
     const handleOpenCompletedList = () => {
-        setShowCompletedList(true)
-    }
+        setShowCompletedList(true);
+    };
     return (
         <section className="mt-6">
             <div className="flex items-center border-b">
@@ -69,4 +68,4 @@ export default function ListCompletedClient() {
             ))}
         </section>
     )
-}
+};

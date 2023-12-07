@@ -1,11 +1,11 @@
 "use client"
 
-import TaskSubNav from "@/app/components/taskSubNav"
-import BoardTodoClient from "@/app/client/tasks/boardTodoClient"
-import BoardInProgressClient from "@/app/client/tasks/boardInProgressClient"
-import BoardCompletedClient from "@/app/client/tasks/boardCompletedClient"
-import TasksHook from "@/app/hooks/tasksHook"
-import { TaskBoardSkeleton } from "@/app/components/skeleton"
+import TaskSubNav from "@/app/components/taskSubNav";
+import BoardTodoClient from "@/app/client/tasks/boardTodoClient";
+import BoardInProgressClient from "@/app/client/tasks/boardInProgressClient";
+import BoardCompletedClient from "@/app/client/tasks/boardCompletedClient";
+import TasksHook from "@/app/hooks/tasksHook";
+import { TaskBoardSkeleton } from "@/app/components/skeleton";
 
 export default function Board() {
     const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading } = TasksHook();
