@@ -8,7 +8,7 @@ import { Bar } from "react-chartjs-2";
 export default function InsightsBarChart() {
     const [check, setCheck] = useState([1, 2, 3, 4])
     const data = {
-        labels: ["Mon", "Tue", "Wed", "man", "Fri", "Sat"],
+        labels: ["Mon", "Tue", "Wed", "man"],
         datasets: [
             {
                 label: "369",
@@ -24,15 +24,18 @@ export default function InsightsBarChart() {
         maintainAspectRatio: false,
     }
     return (
-        <section className="w-[48%] flex justify-center items-center h-[20rem] border rounded-md border-gray-300 px-3">
-            <Bar
-                style={
-                    {paddingBlock: "20px", height: "80%", width: "80%"}
-                }
-                data={data}
-                options={options}
-            >
-            </Bar>
+        <section className="w-[48%] h-[20rem] flex flex-col justify-center items-center border rounded-md border-gray-300 px-3">
+            <h1 className="mt-4 font-medium">Tasks by completion status</h1>
+            <div className="w-[90%] flex justify-center items-center h-[80%]">
+                <Bar
+                    style={
+                        { paddingBlock: "20px", height: "75%", width: "75%" }
+                    }
+                    data={data}
+                    options={options}
+                >
+                </Bar>
+            </div>
         </section>
     )
 }
