@@ -9,13 +9,13 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import { onAuthStateChanged } from "firebase/auth";
-import spinner from "../../../public/icons8-spinner.gif";
+import spinner from "../../../../public/icons8-spinner.gif";
 import Image from "next/image";
-import calender from "../../../public/icons8-calendar-16.png";
-import user from "../../../public/icons8-user-16.png";
-import taskIcon from "../../../public/icons8-task-48.png";
-import priorityIcon from "../../../public/icons8-priority-48.png";
-import statusIcon from "../../../public/icons8-status-48.png";
+import calender from "../../../../public/icons8-calendar-16.png";
+import user from "../../../../public/icons8-user-16.png";
+import taskIcon from "../../../../public/icons8-task-48.png";
+import priorityIcon from "../../../../public/icons8-priority-48.png";
+import statusIcon from "../../../../public/icons8-status-48.png";
 
 type AddtaskPopupProps = {
     onClose: () => void;

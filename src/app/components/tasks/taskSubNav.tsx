@@ -1,7 +1,7 @@
 "use client";
 
 import { IoAddSharp } from "react-icons/io5";
-import star from "../../../public/star.png";
+import star from "../../../../public/star.png";
 import Image from "next/image";
 import Addtask from "./addTask";
 import { useState } from "react";

@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import CurrentUserHook from "../../hooks/currentUserHook";
 import { useEffect, useState } from "react";
 import { StaticImageData } from "next/image";
-import noUser from "../../../public/nouser.jpg";
+import noUser from "../../../../public/nouser.jpg";
 
 export default function TaskNav() {
     const { currentUser } = CurrentUserHook();

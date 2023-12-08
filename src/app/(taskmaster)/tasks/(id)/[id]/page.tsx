@@ -108,41 +108,46 @@ export default function Task() {
     };
 
     const handleMouseOver = () => {
-        if (toggleDisableInput && window.innerWidth > 694) {
-            setIsHovering(true)
-        }
+        setIsHovering(true)
     }
 
     const handleMouseOut = () => {
         setIsHovering(false)
     }
 
-    const handleTitleEdit = () => {
-        setToggleDisableInput(false)
-        setIsHovering(false)
+    const handleTitleChange = (e: any) => {
+        setTitle(e.target.value);
+    };
+
+    useEffect(() => {
+        const saveTitle = async () => {
+            if (title.trim() !== '') {
+                const dataToUpdate = {
+                    "taskData.title": title
+                }
+                await updateDoc(docRef, dataToUpdate)
+            }
+        };
+        saveTitle();
+    }, [title]);
+
+    const handleNoteChange = (e: any) => {
+        setNote(e.target.value)
     }
 
-    const handleEdit = () => {
-        setToggleDisableTextarea(false)
-    }
-
-    const saveTitle = async () => {
-        setToggleDisableInput(true)
-        const dataToUpdate = {
-            "taskData.title": title
+    useEffect(() => {
+        const saveNote = async () => {
+            if (note.trim() !== '') {
+                const dataToUpdate = {
+                    "taskData.note": note
+                }
+                await updateDoc(docRef, dataToUpdate)
+            }
         }
-        await updateDoc(docRef, dataToUpdate)
-    }
+        saveNote();
+    }, [note]);
 
-
-    const saveNote = async () => {
-        setToggleDisableTextarea(true)
-        const dataToUpdate = {
-            "taskData.note": note
-        }
-        await updateDoc(docRef, dataToUpdate)
-    }
-
+    //function to delete task
     const handleDelete = async () => {
         await deleteDoc(docRef);
         toast.success("Task deleted successfully");
@@ -181,14 +186,14 @@ export default function Task() {
         setShowCalender(!showCalender)
     }
 
-    const handleMarkAsComplete = async() => {
+    const handleMarkAsComplete = async () => {
         const dataToUpdate = {
             "taskData.completed": true
         }
         await updateDoc(docRef, dataToUpdate)
     }
 
-    const handleMarkAsIncomplete = async() => {
+    const handleMarkAsIncomplete = async () => {
         const dataToUpdate = {
             "taskData.completed": false
         }
@@ -235,42 +240,15 @@ export default function Task() {
                         <div
                             onMouseOver={handleMouseOver}
                             onMouseOut={handleMouseOut}
-                            className="mb-6 flex items-center w-[70%]">
-                            <div className="mobile:w-[85%] mr-10 ">
+                            className="mb-6 flex items-center w-[90%]">
+                            <div className="mobile:w-[85%] w-full ">
                                 <input
-                                    className={`text-3xl bg-white font-medium w-full py-1 h-14 outline-none${!toggleDisableInput && "border border-black"}`}
+                                    className={`text-3xl bg-white font-medium w-full h-10 mt-4 mb-2 outline-none border-none${isHovering && "border-b border-gray-400 underline"}`}
                                     placeholder={title}
                                     value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    disabled={toggleDisableInput}
+                                    onChange={handleTitleChange}
                                 />
                             </div>
-
-                            <div className={`hidden mobile:block ${!toggleDisableInput && "mobile:hidden"}`} onClick={handleTitleEdit}>
-                                <button className="border bg-[#D1D5DB] hover:bg-[#9f9fa0] px-4 rounded-md">Edit</button>
-                            </div>
-
-                            {isHovering && (
-                                <div className=" mt-1">
-                                    <button
-                                        onClick={handleTitleEdit}
-                                        className="border px-4 py-1 rounded-md bg-[#D1D5DB] hover:bg-[#9f9fa0]"
-                                    >
-                                        Edit
-                                    </button>
-                                </div>
-                            )}
-
-                            {!toggleDisableInput && (
-                                <div className="ml-4">
-                                    <button
-                                        onClick={saveTitle}
-                                        className="border px-4 py-1 bg-[#D1D5DB] hover:bg-[#9f9fa0] rounded-md"
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                            )}
                         </div>
                     )}
 
@@ -383,14 +361,13 @@ export default function Task() {
                                 </div>
                             ) : (
                                 <textarea
-                                    className={`mb-10 bg-white outline-none py-2 pr-2 h-[15rem] w-[100%] overflow-y-auto hover:border hover:border-gray-300 pl-2 rounded-md ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
+                                    className={`mb-10 bg-white outline-none py-2 pr-2 h-[15rem] w-[100%] overflow-y-auto hover:border hover:border-gray-400 pl-2 rounded-md ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
                                     name=""
                                     id=""
                                     cols={0}
                                     rows={0}
-                                    disabled={toggleDisableTextarea}
                                     value={note}
-                                    onChange={(e) => setNote(e.target.value)}
+                                    onChange={handleNoteChange}
                                 >
 
                                 </textarea>
@@ -398,40 +375,15 @@ export default function Task() {
                         </div>
                     </div>
 
-                    <div className="flex items-center mobile:flex-col w-[60%] mt-12 mb-10">
-                        <div className="mb-1 ml-auto flex items-center">
-                            <div className="flex items-center border rounded-md bg-[#D1D5DB] hover:bg-[#9f9fa0] cursor-pointer mr-5">
-                                {toggleDisableTextarea ? (
-                                    <div
-                                        onClick={handleEdit}
-                                        className="flex items-center px-6 py-1"
-                                    >
-                                        <div className="mr-1">
-                                            <CiEdit />
-                                        </div>
-                                        <button className="text-sm">Edit</button>
-                                    </div>
-                                ) : (
-                                    <div
-                                        onClick={saveNote}
-                                        className="flex items-center px-6 py-1"
-                                    >
-                                        <div className="mr-1">
-                                            <CiSaveDown2 />
-                                        </div>
-                                        <button className="text-sm">Save</button>
-                                    </div>
-                                )}
+                    <div className="flex">
+                        <div
+                            onClick={handleDelete}
+                            className="flex items-center border rounded-md px-6 py-1 bg-[#D1D5DB] hover:bg-[#e5e5ec] cursor-pointer mr-5 text-red-500 ml-auto my-10"
+                        >
+                            <div className="mr-1">
+                                <AiOutlineDelete />
                             </div>
-                            <div
-                                onClick={handleDelete}
-                                className="flex items-center border rounded-md px-6 py-1 bg-[#D1D5DB] hover:bg-[#9f9fa0] cursor-pointer mr-5"
-                            >
-                                <div className="mr-1">
-                                    <AiOutlineDelete />
-                                </div>
-                                <button className="text-sm">Delete</button>
-                            </div>
+                            <button className="text-sm">Delete task</button>
                         </div>
                     </div>
                 </div>
