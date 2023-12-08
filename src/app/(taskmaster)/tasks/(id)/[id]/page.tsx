@@ -201,8 +201,8 @@ export default function Task() {
     }
 
     return (
-        <section className="bg-[#F9F8F8] px-20 mobile:px-6 py-3 flex flex-col items-center overflow-y-auto h-full">
-            <div className="bg-white w-[75%] flex flex-col rounded-md overflow-y-auto">
+        <section className="bg-[#F9F8F8] px-20 mobile:px-0 py-3 flex flex-col items-center overflow-y-auto h-full">
+            <div className="bg-white w-[75%] mobile:w-full h-full largeTablet:w-full flex flex-col rounded-md overflow-y-auto">
                 <div className="flex items-center justify-between mb-3 w-[57.5%] border-b pl-11 py-2 fixed z-40 bg-white">
                     <div className="flex items-center">
                         <div
@@ -286,7 +286,7 @@ export default function Task() {
                                 </select>
                             </div>
                         </div>
-                        <div className="mt-6 flex items-center relative w-[27%]">
+                        <div className="mt-6 flex items-center relative w-[80%]">
                             <div className="flex items-center mr-14">
                                 <div className="mr-1">
                                     <CiCircleCheck />
@@ -296,7 +296,7 @@ export default function Task() {
                             {loading ? (
                                 <div className="bg-[#F3F4F8] w-24 h-5 animate-pulse rounded-md"></div>
                             ) : (
-                                <button className={`w-[100%] text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
+                                <button className={`w-[25%] mobile:w-[35%] text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
                                     onClick={handlePriorityChange}
                                     style={{ backgroundColor: priorityOptions.find((opt) => opt.label === selectedPriorityOption)?.bgColor }}
                                 >
@@ -317,7 +317,7 @@ export default function Task() {
                                 </div>
                             )}
                         </div>
-                        <div className="mt-6 flex items-center relative w-[27%]">
+                        <div className="mt-6 flex items-center relative w-[80%]">
                             <div className="flex items-center mr-[62px]">
                                 <div className="mr-1">
                                     <CiCircleCheck />
@@ -327,7 +327,7 @@ export default function Task() {
                             {loading ? (
                                 <div className="bg-[#F3F4F8] w-24 h-5 animate-pulse rounded-md"></div>
                             ) : (
-                                <button className={`w-[100%] text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
+                                <button className={`w-[25%] mobile:w-[35%] text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
                                     onClick={handleStatusChange}
                                     style={{ backgroundColor: statusOptions.find((opt) => opt.label === selectedStatusOption)?.bgColor }}
                                 >
