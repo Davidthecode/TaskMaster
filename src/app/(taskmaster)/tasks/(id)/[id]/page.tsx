@@ -167,6 +167,7 @@ export default function Task() {
     }
 
     const handleStatusOptionClick = async (statusOption: any) => {
+        setShowPriority(false);
         setSelectedStatusOption(statusOption.label);
         const dataToUpdate = {
             "taskData.status": statusOption.label
@@ -175,6 +176,7 @@ export default function Task() {
     }
 
     const handlePriorityOptionClick = async (priorityOption: any) => {
+        setShowStatus(false);
         setSelectedPriorityOption(priorityOption.label)
         const dataToUpdate = {
             "taskData.priority": priorityOption.label
@@ -286,67 +288,71 @@ export default function Task() {
                                 </select>
                             </div>
                         </div>
-                        <div className="mt-6 flex items-center relative w-[80%]">
+                        <div className="mt-6 flex items-center w-[80%]">
                             <div className="flex items-center mr-14">
                                 <div className="mr-1">
                                     <CiCircleCheck />
                                 </div>
                                 <p className="text-xs">Priority</p>
                             </div>
-                            {loading ? (
-                                <div className="bg-[#F3F4F8] w-24 h-5 animate-pulse rounded-md"></div>
-                            ) : (
-                                <button className={`w-[25%] mobile:w-[35%] text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
-                                    onClick={handlePriorityChange}
-                                    style={{ backgroundColor: priorityOptions.find((opt) => opt.label === selectedPriorityOption)?.bgColor }}
-                                >
-                                    {selectedPriorityOption}
-                                </button>
-                            )}
-                            {showPriority && (
-                                <div className="absolute top-7 right-1 z-50 shadow-lg border-t">
-                                    {priorityOptions.map((priorityOption, index) => (
-                                        <div className="flex flex-col text-xs w-24 bg-white" onClick={() => handlePriorityOptionClick(priorityOption)} key={index}>
-                                            <div className="cursor-pointer hover:bg-[#F3F4F8] my-1 rounded-sm py-[1.8px]">
-                                                <div className={`bg-[${priorityOption.bgColor}] rounded-md px-[3px] py-[2px] mx-3`}>
-                                                    {priorityOption.label}
+                            <div className="w-full relative">
+                                {loading ? (
+                                    <div className="bg-[#F3F4F8] w-24 h-5 animate-pulse rounded-md"></div>
+                                ) : (
+                                    <button className={`w-[30%] mobile:w-32 text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
+                                        onClick={handlePriorityChange}
+                                        style={{ backgroundColor: priorityOptions.find((opt) => opt.label === selectedPriorityOption)?.bgColor }}
+                                    >
+                                        {selectedPriorityOption}
+                                    </button>
+                                )}
+                                {showPriority && (
+                                    <div className="absolute top-7 left-0 z-50 shadow-lg border-t w-[30%] mobile:w-32 bg-white">
+                                        {priorityOptions.map((priorityOption, index) => (
+                                            <div className="flex flex-col text-xs w-full" onClick={() => handlePriorityOptionClick(priorityOption)} key={index}>
+                                                <div className="cursor-pointer hover:bg-[#F3F4F8] my-1 rounded-sm py-[1.8px]">
+                                                    <div className={`bg-[${priorityOption.bgColor}] rounded-md pl-2 px-[3px] py-[2px] mx-3`}>
+                                                        {priorityOption.label}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                        <div className="mt-6 flex items-center relative w-[80%]">
+                        <div className="mt-6 flex items-center w-[80%]">
                             <div className="flex items-center mr-[62px]">
                                 <div className="mr-1">
                                     <CiCircleCheck />
                                 </div>
                                 <p className="text-xs">Status</p>
                             </div>
-                            {loading ? (
-                                <div className="bg-[#F3F4F8] w-24 h-5 animate-pulse rounded-md"></div>
-                            ) : (
-                                <button className={`w-[25%] mobile:w-[35%] text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
-                                    onClick={handleStatusChange}
-                                    style={{ backgroundColor: statusOptions.find((opt) => opt.label === selectedStatusOption)?.bgColor }}
-                                >
-                                    {selectedStatusOption}
-                                </button>
-                            )}
-                            {showStatus && (
-                                <div className="absolute top-7 right-1 z-50 shadow-lg border-t">
-                                    {statusOptions.map((statusOption, index) => (
-                                        <div className="flex flex-col text-xs w-24 bg-white" onClick={() => handleStatusOptionClick(statusOption)} key={index}>
-                                            <div className="cursor-pointer hover:bg-[#F3F4F8] my-1 rounded-sm py-[1.8px]">
-                                                <div className={`bg-[${statusOption.bgColor}] rounded-md px-[3px] py-[2px] mx-3`}>
-                                                    {statusOption.label}
+                            <div className="w-full relative">
+                                {loading ? (
+                                    <div className="bg-[#F3F4F8] w-24 h-5 animate-pulse rounded-md"></div>
+                                ) : (
+                                    <button className={`w-[30%] mobile:w-32 text-xs flex items-startitems-center px-3 py-1 rounded-md $`}
+                                        onClick={handleStatusChange}
+                                        style={{ backgroundColor: statusOptions.find((opt) => opt.label === selectedStatusOption)?.bgColor }}
+                                    >
+                                        {selectedStatusOption}
+                                    </button>
+                                )}
+                                {showStatus && (
+                                    <div className="absolute top-7 left-0 z-50 shadow-lg border-t w-[30%] mobile:w-32 bg-white">
+                                        {statusOptions.map((statusOption, index) => (
+                                            <div className="flex flex-col text-xs w-full bg-white" onClick={() => handleStatusOptionClick(statusOption)} key={index}>
+                                                <div className="cursor-pointer hover:bg-[#F3F4F8] my-1 rounded-sm py-[1.8px]">
+                                                    <div className={`bg-[${statusOption.bgColor}] rounded-md pl-2 px-[3px] py-[2px] mx-3`}>
+                                                        {statusOption.label}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                         <div className="mt-10 mb-3">
                             <p className="text-xs">Description</p>
