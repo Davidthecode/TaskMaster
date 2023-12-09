@@ -1,21 +1,19 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { AiOutlineDelete } from "react-icons/ai"
-import { CiEdit } from "react-icons/ci"
-import { CiSaveDown2 } from "react-icons/ci"
-import { AiOutlineArrowLeft } from "react-icons/ai"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
-import { useParams } from "next/navigation"
-import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore"
-import { db } from "@/app/firebase/firebase-config"
-import toast from "react-hot-toast"
-import spinner from "../../../../../../public/icons8-spinner.gif"
-import { CiCircleCheck } from "react-icons/ci"
-import { TaskTitleSkeleton } from "@/app/components/skeleton"
-import CurrentUserHook from "@/app/hooks/currentUserHook"
-import Calendar from "react-calendar"
+import { useEffect, useState } from "react";
+import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-config";
+import toast from "react-hot-toast";
+import spinner from "../../../../../../public/icons8-spinner.gif";
+import { CiCircleCheck } from "react-icons/ci";
+import { TaskTitleSkeleton } from "@/app/components/skeleton";
+import CurrentUserHook from "@/app/hooks/currentUserHook";
+import Calendar from "react-calendar";
 import { IoCheckmarkOutline } from "react-icons/io5";
 
 type ValuePiece = Date | null;
@@ -30,8 +28,6 @@ export default function Task() {
     const router = useRouter();
     const [showCalender, setShowCalender] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
-    const [toggleDisableInput, setToggleDisableInput] = useState(true);
-    const [toggleDisableTextarea, setToggleDisableTextarea] = useState(true);
     const [taskType, setTaskType] = useState("");
     const docRef = doc(db, "tasks", paramsId as string);
     const [note, setNote] = useState("");
@@ -42,48 +38,48 @@ export default function Task() {
     const [selectedPriorityOption, setSelectedPriorityOption] = useState("");
     const [showStatus, setShowStatus] = useState(false);
     const [selectedStatusOption, setSelectedStatusOption] = useState("On track");
-    const [completed, setCompleted] = useState<boolean>()
+    const [completed, setCompleted] = useState<boolean>();
 
 
     const priorityOptions = [
         { label: "Low", bgColor: "#9EE7E3" },
         { label: "Medium", bgColor: "#F1BD6C" },
         { label: "High", bgColor: "#CD95EA" }
-    ]
+    ];
 
     const statusOptions = [
         { label: "On track", bgColor: "#4ECBC4" },
         { label: "At risk", bgColor: "#F8DF72" },
         { label: "Off track", bgColor: "#F06A6A" }
-    ]
+    ];
 
     useEffect(() => {
         const getTaskData = () => {
             try {
-                setLoading(true)
+                setLoading(true);
                 const unsubscribe = onSnapshot(docRef, (snapshot) => {
                     if (snapshot.exists()) {
-                        setNote(snapshot.data().taskData.note)
-                        setTitle(snapshot.data().taskData.title)
-                        setDateCreated(snapshot.data().taskData.dateAdded)
-                        setTaskType(snapshot.data().taskData.taskType)
-                        setSelectedPriorityOption(snapshot.data().taskData.priority)
-                        setSelectedStatusOption(snapshot.data().taskData.status)
-                        setCompleted(snapshot.data().taskData.completed)
+                        setNote(snapshot.data().taskData.note);
+                        setTitle(snapshot.data().taskData.title);
+                        setDateCreated(snapshot.data().taskData.dateAdded);
+                        setTaskType(snapshot.data().taskData.taskType);
+                        setSelectedPriorityOption(snapshot.data().taskData.priority);
+                        setSelectedStatusOption(snapshot.data().taskData.status);
+                        setCompleted(snapshot.data().taskData.completed);
                         const dueDateTimestamp = snapshot.data().taskData.dueDate;
                         const dueDate = new Date(dueDateTimestamp);
                         onChange(dueDate);
                     }
-                    setLoading(false)
-                })
-                return () => unsubscribe()
+                    setLoading(false);
+                });
+                return () => unsubscribe();
             } catch (error) {
-                console.log(error)
-                setLoading(false)
-            }
+                console.log(error);
+                setLoading(false);
+            };
         }
-        getTaskData()
-    }, [])
+        getTaskData();
+    }, []);
 
     useEffect(() => {
         async function handleCalenderChange() {
@@ -91,29 +87,29 @@ export default function Task() {
                 const formattedDate = value.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
                 const dataToUpdate = {
                     "taskData.dueDate": formattedDate
-                }
-                await updateDoc(docRef, dataToUpdate)
-            }
-        }
-        handleCalenderChange()
-    }, [value])
+                };
+                await updateDoc(docRef, dataToUpdate);
+            };
+        };
+        handleCalenderChange();
+    }, [value]);
 
     const handleTaskTypeChange = async (e: any) => {
-        const taskType = e.target.value
+        const taskType = e.target.value;
         setTaskType(taskType);
         const dataToUpdate = {
             "taskData.taskType": taskType
-        }
-        await updateDoc(docRef, dataToUpdate)
+        };
+        await updateDoc(docRef, dataToUpdate);
     };
 
     const handleMouseOver = () => {
-        setIsHovering(true)
-    }
+        setIsHovering(true);
+    };
 
     const handleMouseOut = () => {
-        setIsHovering(false)
-    }
+        setIsHovering(false);
+    };
 
     const handleTitleChange = (e: any) => {
         setTitle(e.target.value);
@@ -124,26 +120,26 @@ export default function Task() {
             if (title.trim() !== '') {
                 const dataToUpdate = {
                     "taskData.title": title
-                }
-                await updateDoc(docRef, dataToUpdate)
-            }
+                };
+                await updateDoc(docRef, dataToUpdate);
+            };
         };
         saveTitle();
     }, [title]);
 
     const handleNoteChange = (e: any) => {
-        setNote(e.target.value)
-    }
+        setNote(e.target.value);
+    };
 
     useEffect(() => {
         const saveNote = async () => {
             if (note.trim() !== '') {
                 const dataToUpdate = {
                     "taskData.note": note
-                }
-                await updateDoc(docRef, dataToUpdate)
-            }
-        }
+                };
+                await updateDoc(docRef, dataToUpdate);
+            };
+        };
         saveNote();
     }, [note]);
 
@@ -152,55 +148,55 @@ export default function Task() {
         await deleteDoc(docRef);
         toast.success("Task deleted successfully");
         router.push("/tasks");
-    }
+    };
 
     const handleNavigation = () => {
         router.back();
-    }
+    };
 
     const handlePriorityChange = () => {
+        setShowStatus(false);
         setShowPriority(!showPriority);
-    }
+    };
 
     const handleStatusChange = () => {
+        setShowPriority(false);
         setShowStatus(!showStatus);
-    }
+    };
 
     const handleStatusOptionClick = async (statusOption: any) => {
-        setShowPriority(false);
         setSelectedStatusOption(statusOption.label);
         const dataToUpdate = {
             "taskData.status": statusOption.label
-        }
-        await updateDoc(docRef, dataToUpdate)
-    }
+        };
+        await updateDoc(docRef, dataToUpdate);
+    };
 
     const handlePriorityOptionClick = async (priorityOption: any) => {
-        setShowStatus(false);
-        setSelectedPriorityOption(priorityOption.label)
+        setSelectedPriorityOption(priorityOption.label);
         const dataToUpdate = {
             "taskData.priority": priorityOption.label
-        }
-        await updateDoc(docRef, dataToUpdate)
-    }
+        };
+        await updateDoc(docRef, dataToUpdate);
+    };
 
     const handleShowCalender = () => {
-        setShowCalender(!showCalender)
-    }
+        setShowCalender(!showCalender);
+    };
 
     const handleMarkAsComplete = async () => {
         const dataToUpdate = {
             "taskData.completed": true
-        }
-        await updateDoc(docRef, dataToUpdate)
-    }
+        };
+        await updateDoc(docRef, dataToUpdate);
+    };
 
     const handleMarkAsIncomplete = async () => {
         const dataToUpdate = {
             "taskData.completed": false
-        }
-        await updateDoc(docRef, dataToUpdate)
-    }
+        };
+        await updateDoc(docRef, dataToUpdate);
+    };
 
     return (
         <section className="bg-[#F9F8F8] px-20 mobile:px-0 py-3 flex flex-col items-center overflow-y-auto h-full">
@@ -367,7 +363,7 @@ export default function Task() {
                                 </div>
                             ) : (
                                 <textarea
-                                    className={`mb-10 bg-white outline-none py-2 pr-2 h-[15rem] w-[100%] overflow-y-auto hover:border hover:border-gray-400 pl-2 rounded-md ${toggleDisableTextarea == false && "border border-black border-opacity-20"}`}
+                                    className={`mb-10 bg-white outline-none py-2 pr-2 h-[15rem] w-[100%] overflow-y-auto hover:border hover:border-gray-400 pl-2 rounded-md`}
                                     name=""
                                     id=""
                                     cols={0}
@@ -395,5 +391,5 @@ export default function Task() {
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
