@@ -12,6 +12,7 @@ import { useSidebarContext } from "@/app/context/sidebarContext";
 import spinner from "../../../../public/icons8-spinner.gif";
 import TasksHook from "@/app/hooks/tasksHook";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
+import { useRouter } from "next/navigation";
 
 function formatDate(date: any) {
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
@@ -19,11 +20,17 @@ function formatDate(date: any) {
 }
 
 export default function HomeClient() {
+    const router = useRouter()
     const {tasks, todoTasks, inprogressTasks, completedTasks, loading} = TasksHook();
     const {currentUser} = CurrentUserHook();
     const { setIsOpen } = useSidebarContext();
     const [currentDate, setCurrentDate] = useState(new Date());
 
+    useEffect(()=> {
+        if(!currentUser){
+            router.replace('/login')
+        }
+    },[currentUser])
 
     //function to get current date
     useEffect(() => {
