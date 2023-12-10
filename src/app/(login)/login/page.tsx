@@ -37,7 +37,7 @@ export default function Login() {
             setEmail("")
             setPassword("")
             setLoading(false)
-            router.push("/home")
+            router.replace("/home")
             toast.success("logged in Successfully")
         } catch (error: any) {
             if (error.code == "auth/invalid-login-credentials") {

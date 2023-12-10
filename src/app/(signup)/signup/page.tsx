@@ -47,7 +47,7 @@ export default function Login() {
                 setPassword("")
                 toast.success("signed up successfully")
                 setLoading(false)
-                router.push("/home")
+                router.replace("/home")
             } catch (error: any) {
                 if (error.code === "auth/weak-password") {
                     toast.error("Weak password!")

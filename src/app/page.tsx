@@ -9,13 +9,13 @@ import CurrentUserHook from "./hooks/currentUserHook";
 
 export default function Home() {
   const router = useRouter();
-  const {currentUser} = CurrentUserHook();
+  const { currentUser } = CurrentUserHook();
 
-  useEffect(()=> {
-    if(currentUser){
+  useEffect(() => {
+    if (currentUser) {
       router.push('/home');
-    };
-  },[currentUser]);
+    } else router.push('/');
+  }, [currentUser]);
 
   return (
     <main className="font-sans h-screen bg-[#EEEBEA]">
@@ -24,4 +24,4 @@ export default function Home() {
       <TaskmasterImg />
     </main>
   );
-};
+}
