@@ -32,8 +32,8 @@ export default function Projects() {
 
     return (
         <section className="px-5 py-5">
-            {projects.map((project) => (
-                <div>
+            {projects.map((project, id) => (
+                <div key={id}>
                     <div className="flex items-center">
                         <div className="mr-2">
                             <Image src={projectImg} alt="image" width={40} height={40} />
