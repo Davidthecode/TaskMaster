@@ -28,8 +28,6 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
     const templateId = "template_uj2u74a";
     const publicApiKey = "NYPGjY00NVvlY0fKn";
 
-    console.log(userEmail)
-
     useEffect(() => {
         const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
             const tempArray: any[] = []

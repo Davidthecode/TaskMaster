@@ -22,7 +22,7 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
     const a = "project/15ea464c-67fd-4b93-9fae-be657c916259/overview"
-    const continueTo = searchParams.get("continueTo") ?? a;
+    const continueTo = searchParams.get("continueTo") || a;
 
     const handleSignupWithGoogle = async () => {
         try {
