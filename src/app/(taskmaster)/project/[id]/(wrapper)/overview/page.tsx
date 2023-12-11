@@ -11,8 +11,12 @@ import { doc, onSnapshot } from "firebase/firestore"
 import { db } from "@/app/firebase/firebase-config"
 import { useParams } from "next/navigation"
 import Addmember from "@/app/components/addMember"
+import Link from "next/link";
+import { usePathname } from "next/navigation"
 
 export default function Overview() {
+    const pathname = usePathname();
+    console.log(pathname);
     const params = useParams();
     const id = params.id as string
     const docRef = doc(db, "projects", id)
@@ -51,6 +55,8 @@ export default function Overview() {
         <section className="mx-5 mt-5">
             <div>
                 <h1 className="font-medium text-xl">Project description</h1>
+                <Link href={`/login?continueTo=${pathname}`}>project link</Link>
+                <Link href='{{}}'>project link</Link>
             </div>
             <div className="mt-10">
                 <h1 className="font-medium text-xl">Project roles</h1>
@@ -98,7 +104,7 @@ export default function Overview() {
                 </div>
             )}
             {toggleProjectBriefPopup && <ProjectBrief closeProjectBrief={closeProjectBrief} />}
-            {toggleAddMemberPopup && <Addmember closeAddMember={closeAddMember}/>}
+            {toggleAddMemberPopup && <Addmember closeAddMember={closeAddMember} />}
         </section>
     )
 }

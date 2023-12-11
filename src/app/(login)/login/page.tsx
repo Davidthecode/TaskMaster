@@ -12,13 +12,17 @@ import spinner from "../../../../public/icons8-spinner.gif"
 import meetingOneImage from "../../../../public/meeting.png"
 import meetingTwoImage from "../../../../public/meeting-room.png"
 import meetingThreeImage from "../../../../public/round-table.png"
-import writingImage from "../../../../public/writing.png"
+import writingImage from "../../../../public/writing.png";
+import { useSearchParams } from "next/navigation";
 
 export default function Login() {
+    const searchParams = useSearchParams();
     const router = useRouter()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
+    const a = "project/15ea464c-67fd-4b93-9fae-be657c916259/overview"
+    const continueTo = searchParams.get("continueTo") ?? a;
 
     const handleSignupWithGoogle = async () => {
         try {
@@ -37,7 +41,7 @@ export default function Login() {
             setEmail("")
             setPassword("")
             setLoading(false)
-            router.replace("/home")
+            router.replace(continueTo);
             toast.success("logged in Successfully")
         } catch (error: any) {
             if (error.code == "auth/invalid-login-credentials") {

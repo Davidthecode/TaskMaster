@@ -7,7 +7,7 @@ import { SidebarSkeleton } from "../components/skeleton";
 const DynamicSidebar = dynamic(() => import('@/app/components/sidebar'), {
     ssr: false,
     loading: () => <SidebarSkeleton />
-})
+});
 
 export default function ServiceLayout({
     children,

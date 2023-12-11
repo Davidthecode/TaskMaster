@@ -49,7 +49,8 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
     const templateParams = {
         from_name: currentuser?.displayName,
         from_email: currentuser?.email,
-        ws_name: projectName[0]
+        ws_name: projectName[0],
+        linkTo: currentPath
     }
 
     const sendEmail = async () => {
