@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import { db } from "@/app/firebase/firebase-config"
-import { collection, onSnapshot } from "firebase/firestore"
-import { useEffect, useState } from "react"
-import { usePathname } from "next/navigation"
-import Image from "next/image"
-import projectImg from "../../../../../public/project.png"
-import { CiViewTable } from "react-icons/ci"
-import {RxDashboard} from "react-icons/rx"
-import {PiTagThin} from "react-icons/pi"
-import {IoIosAdd} from "react-icons/io"
+import { db } from "@/app/firebase/firebase-config";
+import { collection, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import projectImg from "../../../../../public/project.png";
+import { CiViewTable } from "react-icons/ci";
+import {RxDashboard} from "react-icons/rx";
+import {PiTagThin} from "react-icons/pi";
+import {IoIosAdd} from "react-icons/io";
 
 
 export default function Projects() {
-    const currentPath = usePathname()
-    const [projects, setProjects] = useState<any[]>([])
-    const collectionRef = collection(db, "projects")
+    const currentPath = usePathname();
+    const [projects, setProjects] = useState<any[]>([]);
+    const collectionRef = collection(db, "projects");
 
     useEffect(() => {
         const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-            const tempArray: any[] = []
+            const tempArray: any[] = [];
             snapshot.forEach((doc) => {
                 if (`/project/${doc.id}/overview` == currentPath) {
-                    tempArray.push({ ...doc.data(), id: doc.id })
-                }
-            })
-            setProjects(tempArray)
-        })
-        return () => unsubscribe()
-    }, [])
+                    tempArray.push({ ...doc.data(), id: doc.id });
+                };
+            });
+            setProjects(tempArray);
+        });
+        return () => unsubscribe();
+    }, []);
 
     return (
         <section className="px-5 py-5">
@@ -71,5 +71,5 @@ export default function Projects() {
                 </div>
             ))}
         </section>
-    )
-}
+    );
+};

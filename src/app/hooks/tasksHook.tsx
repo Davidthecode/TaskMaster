@@ -55,7 +55,6 @@ export default function TasksHook() {
                 window.removeEventListener("offline", showNetworkAlert);
             };
         } catch (error) {
-            console.log("error");
             setLoading(false);
         }
     }, [currentUser]);

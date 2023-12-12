@@ -1,59 +1,47 @@
 "use client";
 
-import Image from "next/image"
-import anime from "../../../../public/anime.jpg"
-import { RiArrowDropDownLine } from 'react-icons/ri'
-import { RiArrowDropUpLine } from 'react-icons/ri'
-import { useState, useEffect } from "react"
-import { BsArrowRight } from "react-icons/bs"
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import Image from "next/image";
+import { RiArrowDropDownLine } from 'react-icons/ri';
+import { RiArrowDropUpLine } from 'react-icons/ri';
+import { useState, useEffect } from "react";
+import { BsArrowRight } from "react-icons/bs";
+import { signOut } from "firebase/auth";
 import { auth } from "@/app/firebase/firebase-config";
 import { useRouter } from "next/navigation";
-import spinner from "../../../../public/icons8-spinner.gif"
+import spinner from "../../../../public/icons8-spinner.gif";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { StaticImageData } from "next/image";
-import noUser from "../../../../public/nouser.jpg"
+import noUser from "../../../../public/nouser.jpg";
 
 export default function DashboardNavClient() {
-    const {currentUser} = CurrentUserHook();
-    const router = useRouter()
-    const [currentuser, setCurrentuser] = useState(auth.currentUser)
-    const [dropdownVisibility, setDropdownVisibility] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const { currentUser } = CurrentUserHook();
+    const router = useRouter();
+    const [dropdownVisibility, setDropdownVisibility] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const [photo, setPhoto] = useState<string | StaticImageData>(noUser)
+    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
 
     useEffect(() => {
         if (currentUser?.photoURL) {
-            setPhoto(currentUser?.photoURL)
-        }
-    }, [currentUser])
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setCurrentuser(user)
-            } else setCurrentuser(null)
-        })
-
-        return () => unsubscribe()
-    }, [])
+            setPhoto(currentUser?.photoURL);
+        };
+    }, [currentUser]);
 
     const handleDropdown = () => {
-        setDropdownVisibility(!dropdownVisibility)
-    }
+        setDropdownVisibility(!dropdownVisibility);
+    };
 
     const handleSignOut = async () => {
-        setLoading(true)
-        await signOut(auth)
-        router.push("/")
-        setLoading(false)
-    }
+        setLoading(true);
+        await signOut(auth);
+        router.push("/");
+        setLoading(false);
+    };
 
     return (
         <div className='ml-auto flex items-center relative'>
             <div className='mr-2 mobile:hidden smallTablet:hidden'>
-                <p className="text-xs text-[#E2E1E0]">{currentuser?.displayName}</p>
+                <p className="text-xs text-[#E2E1E0]">{currentUser?.displayName}</p>
             </div>
             <div className=''>
                 <Image
@@ -85,5 +73,5 @@ export default function DashboardNavClient() {
                 )}
             </div>
         </div>
-    )
-}
+    );
+};

@@ -32,5 +32,5 @@ export default function HeaderClient() {
                 </button>
             </div>
         </section>
-    )
+    );
 };

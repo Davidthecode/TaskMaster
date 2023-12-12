@@ -1,63 +1,63 @@
 "use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import googleIcon from "../../../../public/google-icon.png"
-import taskmasterImage from "../../../../public/taskmasterImage.png"
+import { useState } from "react";
+import Image from "next/image";
+import googleIcon from "../../../../public/google-icon.png";
+import taskmasterImage from "../../../../public/taskmasterImage.png";
 import { auth, provider } from "@/app/firebase/firebase-config";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import spinner from "../../../../public/icons8-spinner.gif"
-import meetingOneImage from "../../../../public/meeting.png"
-import meetingTwoImage from "../../../../public/meeting-room.png"
-import meetingThreeImage from "../../../../public/round-table.png"
+import spinner from "../../../../public/icons8-spinner.gif";
+import meetingOneImage from "../../../../public/meeting.png";
+import meetingTwoImage from "../../../../public/meeting-room.png";
+import meetingThreeImage from "../../../../public/round-table.png";
 import writingImage from "../../../../public/writing.png";
 import { useSearchParams } from "next/navigation";
 
 export default function Login() {
     const searchParams = useSearchParams();
-    const router = useRouter()
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [loading, setLoading] = useState(false)
-    const a = "project/15ea464c-67fd-4b93-9fae-be657c916259/overview"
-    const continueTo = searchParams.get("continueTo") || a;
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const redirectLink = "/home";
+    const continueTo = searchParams.get("continueTo") || redirectLink;
 
     const handleSignupWithGoogle = async () => {
         try {
-            const result = await signInWithPopup(auth, provider)
-            console.log(result)
-            router.push("/home")
+            const result = await signInWithPopup(auth, provider);
+            console.log(result);
+            router.push("/home");
         } catch (error) {
-            console.log(error)
-        }
-    }
+            console.log(error);
+        };
+    };
 
     const handleSignin = async () => {
         try {
-            setLoading(true)
-            await signInWithEmailAndPassword(auth, email, password)
-            setEmail("")
-            setPassword("")
-            setLoading(false)
+            setLoading(true);
+            await signInWithEmailAndPassword(auth, email, password);
+            setEmail("");
+            setPassword("");
+            setLoading(false);
             router.replace(continueTo);
-            toast.success("logged in Successfully")
+            toast.success("logged in Successfully");
         } catch (error: any) {
             if (error.code == "auth/invalid-login-credentials") {
-                toast.error("Invalid login Credentials")
+                toast.error("Invalid login Credentials");
             } else if (error.code == "auth/invalid-email") {
-                toast.error("Invalid email address")
+                toast.error("Invalid email address");
             } else if (error.code == "auth/missing-password") {
-                toast.error("Input password")
-            }
-            setLoading(false)
-        }
-    }
+                toast.error("Input password");
+            };
+            setLoading(false);
+        };
+    };
 
     const redirectToSignUp = () => {
-        router.push("/signup")
-    }
+        router.push("/signup");
+    };
 
     return (
         <div className="px-[10%] font-sans">
@@ -154,5 +154,5 @@ export default function Login() {
                 </div>
             </aside>
         </div>
-    )
-}
+    );
+};

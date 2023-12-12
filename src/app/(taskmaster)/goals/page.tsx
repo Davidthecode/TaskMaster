@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
-import {useState} from "react"
+import { useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import AddGoal from "@/app/components/goal/addGoal";
+import UserGoals from "@/app/components/goal/userGoals";
 export default function Goals() {
-    const [showGoal, setShowGoal] = useState(false)
+    const [showGoal, setShowGoal] = useState(false);
 
     const openGoal = () => {
         setShowGoal(true);
-    } 
+    };
 
     const closeGoal = () => {
         setShowGoal(false);
@@ -20,19 +21,16 @@ export default function Goals() {
             </div>
             <div className="mt-4">
                 <div className="border-b pb-4 px-10">
-                    <div className="flex items-center bg-bl border w-fit rounded-md px-2 py-[.3rem] cursor-pointer bg-blue-600 hover:bg-blue-800 text-white">
+                    <div className="flex items-center bg-bl border w-fit rounded-md px-2 py-[.3rem] cursor-pointer bg-blue-600 hover:bg-blue-800 text-white" onClick={openGoal}>
                         <div className="font-bold">
                             <IoAdd size="1.1rem" />
                         </div>
-                        <p className="text-xs" onClick={openGoal}>Add goal</p>
+                        <p className="text-xs">Add goal</p>
                     </div>
                 </div>
-                <div className="flex px-10 border-b py-2">
-                    <div className="text-xs w-[90%]">Name</div>
-                    <div className="text-xs w-[10%]">Owner</div>
-                </div>
             </div>
-            {showGoal && <AddGoal closeGoal={closeGoal}/>}
+            <UserGoals />
+            {showGoal && <AddGoal closeGoal={closeGoal} />}
         </section>
-    )
-}
+    );
+};

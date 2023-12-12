@@ -1,62 +1,56 @@
-"use client"
+"use client";
 
-import { IoIosAdd } from "react-icons/io"
-import Image from "next/image"
-import anime from "../../../../../../../public/anime.jpg"
-import keyResourcesImg from "../../../../../../../public/key_resources.png"
-import { LiaStickyNote } from "react-icons/lia"
-import { useEffect, useState } from "react"
-import ProjectBrief from "@/app/components/projectBrief"
-import { doc, onSnapshot } from "firebase/firestore"
-import { db } from "@/app/firebase/firebase-config"
-import { useParams } from "next/navigation"
-import Addmember from "@/app/components/addMember"
-import Link from "next/link";
-import { usePathname } from "next/navigation"
+import { IoIosAdd } from "react-icons/io";
+import Image from "next/image";
+import anime from "../../../../../../../public/anime.jpg";
+import keyResourcesImg from "../../../../../../../public/key_resources.png";
+import { LiaStickyNote } from "react-icons/lia";
+import { useEffect, useState } from "react";
+import ProjectBrief from "@/app/components/projectBrief";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-config";
+import { useParams } from "next/navigation";
+import Addmember from "@/app/components/addMember";
 
 export default function Overview() {
-    const pathname = usePathname();
-    console.log(pathname);
     const params = useParams();
-    const id = params.id as string
-    const docRef = doc(db, "projects", id)
+    const id = params.id as string;
+    const docRef = doc(db, "projects", id);
     const [toggleProjectBriefPopup, setToggleProjectBriefPopup] = useState(false);
     const [toggleAddMemberPopup, setToggleAddMemberPopup] = useState(false);
     const [projectBrief, setProjectBrief] = useState("");
 
     const openAddMember = () => {
-        setToggleAddMemberPopup(true)
-    }
+        setToggleAddMemberPopup(true);
+    };
 
     const closeAddMember = () => {
-        setToggleAddMemberPopup(false)
-    }
+        setToggleAddMemberPopup(false);
+    };
 
     const createProjectBrief = () => {
-        setToggleProjectBriefPopup(true)
-    }
+        setToggleProjectBriefPopup(true);
+    };
 
     const closeProjectBrief = () => {
-        setToggleProjectBriefPopup(false)
-    }
+        setToggleProjectBriefPopup(false);
+    };
 
     useEffect(() => {
         const unsubscribe = onSnapshot(docRef, (snapshot) => {
             if (snapshot.exists()) {
-                setProjectBrief(snapshot.data().projectData.projectBrief)
-            }
-        })
+                setProjectBrief(snapshot.data().projectData.projectBrief);
+            };
+        });
 
-        return () => unsubscribe()
-    }, [])
+        return () => unsubscribe();
+    }, []);
 
 
     return (
         <section className="mx-5 mt-5">
             <div>
                 <h1 className="font-medium text-xl">Project description</h1>
-                <Link href={`/login?continueTo=${pathname}`}>project link</Link>
-                <Link href='{{}}'>project link</Link>
             </div>
             <div className="mt-10">
                 <h1 className="font-medium text-xl">Project roles</h1>
@@ -106,5 +100,5 @@ export default function Overview() {
             {toggleProjectBriefPopup && <ProjectBrief closeProjectBrief={closeProjectBrief} />}
             {toggleAddMemberPopup && <Addmember closeAddMember={closeAddMember} />}
         </section>
-    )
-}
+    );
+};

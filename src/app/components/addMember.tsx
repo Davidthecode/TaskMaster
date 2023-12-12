@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { AiOutlineClose } from "react-icons/ai"
-import emailjs from "@emailjs/browser"
+import { AiOutlineClose } from "react-icons/ai";
+import emailjs from "@emailjs/browser";
 import { useState, useEffect } from "react";
 import { auth } from "../firebase/firebase-config";
 import toast from "react-hot-toast";
 import Image from "next/image";
-import spinner from "../../../public/icons8-spinner.gif"
+import spinner from "../../../public/icons8-spinner.gif";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
 import { usePathname } from "next/navigation";
 
 type AddMenberType = {
     closeAddMember: () => void;
-}
+};
 
 export default function Addmember({ closeAddMember }: AddMenberType) {
-    const currentuser = auth.currentUser
-    const [userEmail, setUserEmail] = useState("")
-    const [projectName, setProjectName] = useState<any[]>([])
-    const [loading, setLoading] = useState(false)
-    const currentPath = usePathname()
-    const [projects, setProjects] = useState<any[]>([])
-    const collectionRef = collection(db, "projects")
+    const currentuser = auth.currentUser;
+    const [userEmail, setUserEmail] = useState("");
+    const [projectName, setProjectName] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
+    const currentPath = usePathname();
+    const [projects, setProjects] = useState<any[]>([]);
+    const collectionRef = collection(db, "projects");
 
     const serviceId = "service_o5h4dc6";
     const templateId = "template_uj2u74a";
@@ -30,21 +30,21 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
 
     useEffect(() => {
         const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-            const tempArray: any[] = []
+            const tempArray: any[] = [];
             snapshot.forEach((doc) => {
                 if (`/project/${doc.id}/overview` == currentPath) {
-                    tempArray.push({ ...doc.data(), id: doc.id })
-                }
-            })
-            setProjects(tempArray)
-        })
-        return () => unsubscribe()
-    }, [])
+                    tempArray.push({ ...doc.data(), id: doc.id });
+                };
+            });
+            setProjects(tempArray);
+        });
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         const projectNames = projects.map((project) => project.projectData.projectName);
         setProjectName(projectNames);
-    }, [projects])
+    }, [projects]);
 
     const templateParams = {
         from_name: currentuser?.displayName,
@@ -52,25 +52,25 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
         ws_name: projectName[0],
         linkTo: currentPath, 
         to: userEmail 
-    }
+    };
 
     const sendEmail = async () => {
         if (userEmail) {
             try {
-                setLoading(true)
-                const result = await emailjs.send(serviceId, templateId, templateParams, publicApiKey)
-                console.log(result.text)
+                setLoading(true);
+                const result = await emailjs.send(serviceId, templateId, templateParams, publicApiKey);
+                console.log(result.text);
                 toast.success("invite sent successfully");
                 setUserEmail("");
                 closeAddMember();
-                setLoading(false)
+                setLoading(false);
             } catch (error) {
                 console.log(error);
                 toast.error("error sending invite");
-                setLoading(false)
-            }
-        } else toast.error("write an email to send an invite")
-    }
+                setLoading(false);
+            };
+        } else toast.error("write an email to send an invite");
+    };
 
     return (
         <section>
@@ -115,5 +115,5 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};

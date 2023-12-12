@@ -59,5 +59,5 @@ export default function InsightsBarChart() {
                 )}
             </div>
         </section>
-    )
+    );
 };
