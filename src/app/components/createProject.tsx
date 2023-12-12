@@ -53,7 +53,7 @@ export default function CreateProject({ onClose }: CreateProjectType) {
                     projectName,
                     dataAndTimeAdded: currentDateTime,
                     userId: currentuser?.uid
-                }
+                };
 
                 const docRef = doc(collectionRef, uuidv4())
                 await setDoc(docRef, { projectData })

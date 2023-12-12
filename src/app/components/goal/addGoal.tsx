@@ -10,7 +10,7 @@ import noUser from "../../../../public/nouser.jpg";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import toast from "react-hot-toast";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { db } from "@/app/firebase/firebase-config";
+import { auth, db } from "@/app/firebase/firebase-config";
 import { v4 as uuidv4 } from "uuid";
 import spinner from "../../../../public/icons8-spinner.gif";
 
@@ -19,15 +19,16 @@ type closeGoalType = {
 };
 
 export default function AddGoal({ closeGoal }: closeGoalType) {
+    const { currentUser } = CurrentUserHook();
+    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
+    const [loading, setLoading] = useState(false);
+
     const initialFormData = {
         goalTitle: "",
         goalSubtitle: ""
     };
 
-    const { currentUser } = CurrentUserHook();
     const [formData, setFormData] = useState(initialFormData);
-    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (currentUser?.photoURL) {
@@ -47,15 +48,21 @@ export default function AddGoal({ closeGoal }: closeGoalType) {
     const collectionRef = collection(db, "goals");
     const saveGoal = async () => {
         setLoading(true);
-        const docRef = doc(collectionRef, uuidv4());
-        await setDoc(docRef, { formData });
-        setFormData({
-            goalTitle: '',
-            goalSubtitle: '',
-        });
-        toast.success("Goal added successfully");
-        setLoading(false);
-        closeGoal();
+        if (currentUser && currentUser.uid) {
+            const goalData = {
+                formData,
+                userId: currentUser?.uid
+            };
+            const docRef = doc(collectionRef, uuidv4());
+            await setDoc(docRef, { goalData });
+            setFormData({
+                goalTitle: '',
+                goalSubtitle: '',
+            });
+            toast.success("Goal added successfully");
+            setLoading(false);
+            closeGoal();
+        } else console.log('error')
     };
 
     return (
