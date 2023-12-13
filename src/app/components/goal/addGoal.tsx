@@ -10,7 +10,7 @@ import noUser from "../../../../public/nouser.jpg";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import toast from "react-hot-toast";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { auth, db } from "@/app/firebase/firebase-config";
+import { db } from "@/app/firebase/firebase-config";
 import { v4 as uuidv4 } from "uuid";
 import spinner from "../../../../public/icons8-spinner.gif";
 

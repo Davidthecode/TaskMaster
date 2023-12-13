@@ -43,7 +43,7 @@ export default function DashboardNavClient() {
             <div className='mr-2 mobile:hidden smallTablet:hidden'>
                 <p className="text-xs text-[#E2E1E0]">{currentUser?.displayName}</p>
             </div>
-            <div className=''>
+            <div>
                 <Image
                     className='rounded-full'
                     src={photo}

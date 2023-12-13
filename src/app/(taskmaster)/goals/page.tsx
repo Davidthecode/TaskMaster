@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import AddGoal from "@/app/components/goal/addGoal";
 import UserGoals from "@/app/components/goal/userGoals";
+
 export default function Goals() {
     const [showGoal, setShowGoal] = useState(false);
 

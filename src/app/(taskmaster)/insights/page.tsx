@@ -1,25 +1,26 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useState, useEffect } from "react"
-import { StaticImageData } from "next/image"
-import noUser from "../../../../public/nouser.jpg"
-import CurrentUserHook from "@/app/hooks/currentUserHook"
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { StaticImageData } from "next/image";
+import noUser from "../../../../public/nouser.jpg";
+import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { CiLock } from "react-icons/ci";
-import insightsImage from "../../../../public/insights.png"
-import TasksInsights from "@/app/components/insights/tasksInsights"
-import InsightsBarChart from "@/app/components/insights/insightsBarChart"
-import InsightsPieChart from "@/app/components/insights/insightsPieChart"
+import insightsImage from "../../../../public/insights.png";
+import TasksInsights from "@/app/components/insights/tasksInsights";
+import InsightsBarChart from "@/app/components/insights/insightsBarChart";
+import InsightsPieChart from "@/app/components/insights/insightsPieChart";
 
 export default function Insights() {
-    const { currentUser } = CurrentUserHook()
-    const [photo, setPhoto] = useState<string | StaticImageData>(noUser)
+    const { currentUser } = CurrentUserHook();
+    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
 
     useEffect(() => {
         if (currentUser?.photoURL) {
-            setPhoto(currentUser?.photoURL)
-        }
-    }, [currentUser])
+            setPhoto(currentUser?.photoURL);
+        };
+    }, [currentUser]);
+
     return (
         <section className="h-full bg-white flex flex-col mobile:px-6 overflow-y-auto">
             <div className="flex items-center pt-4 border-b border-gray-300 pb-3 px-10">
@@ -53,5 +54,5 @@ export default function Insights() {
                 <InsightsPieChart />
             </div>
         </section>
-    )
-}
+    );
+};
