@@ -9,11 +9,36 @@ import CurrentUserHook from "@/app/hooks/currentUserHook";
 import noUser from "../../../../../public/nouser.jpg";
 import anime from "../../../../../public/anime.jpg";
 import lighteningImage from "../../../../../public/lightening.png";
+import { collection, doc, onSnapshot, query } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-config";
+import { useParams } from "next/navigation";
 
 export default function GoalsInfo() {
     const { currentUser } = CurrentUserHook();
+    const params = useParams();
+    const paramsId = params.id;
     const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
     const [loadPercentage, setLoadPercentage] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [goalTitle, setGoalTitle] = useState('');
+    const docRef = doc(db, "goals", paramsId as string);
+
+    useEffect(() => {
+        try {
+            setLoading(true);
+            const unsubscribe = onSnapshot(docRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    setGoalTitle(snapshot.data().goalData.formData.goalTitle);
+                }
+                setLoading(false);
+            });
+
+            return () => unsubscribe();
+
+        } catch (error) {
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
         if (currentUser?.photoURL) {
@@ -59,7 +84,7 @@ export default function GoalsInfo() {
             </div>
             <div className="flex h-[90%]">
                 <div className="pl-[15%] w-[60%] mr-10 mt-20">
-                    <h1 className="text-3xl font-medium mb-12 opacity-80">Fast</h1>
+                    <h1 className="text-3xl font-medium mb-12 opacity-80">{goalTitle}</h1>
                     <div>
                         <div>
                             <h2 className="text-xl font-medium opacity-70">What&apos;s the status? </h2>
