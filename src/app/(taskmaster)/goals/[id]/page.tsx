@@ -22,15 +22,13 @@ export default function GoalsInfo() {
     }, [currentUser]);
 
     useEffect(() => {
-        // Simulate loading by incrementing the load percentage
         const interval = setInterval(() => {
             setLoadPercentage((prevPercentage) => {
-                const newPercentage = prevPercentage + 5; // Adjust as needed
+                const newPercentage = prevPercentage + 5;
                 return newPercentage <= 60 ? newPercentage : 60;
             });
-        }, 1000); // Adjust the interval as needed
+        }, 1000);
 
-        // Clean up the interval when the component unmounts
         return () => clearInterval(interval);
     }, []);
 
