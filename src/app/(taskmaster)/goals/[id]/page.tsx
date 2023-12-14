@@ -21,6 +21,7 @@ export default function GoalsInfo() {
     const [loadPercentage, setLoadPercentage] = useState(0);
     const [loading, setLoading] = useState(false);
     const [goalTitle, setGoalTitle] = useState('');
+    const [goalSubtitle, setGoalSubtitle] = useState('');
     const docRef = doc(db, "goals", paramsId as string);
 
     useEffect(() => {
@@ -29,6 +30,7 @@ export default function GoalsInfo() {
             const unsubscribe = onSnapshot(docRef, (snapshot) => {
                 if (snapshot.exists()) {
                     setGoalTitle(snapshot.data().goalData.formData.goalTitle);
+                    setGoalSubtitle(snapshot.data().goalData.formData.goalSubtitle);
                 }
                 setLoading(false);
             });
@@ -57,6 +59,10 @@ export default function GoalsInfo() {
         return () => clearInterval(interval);
     }, []);
 
+    const handleDate = () => {
+        
+    }
+
     return (
         <section className="h-full">
             <div className="flex items-center pt-4 border-b border-gray-200 pb-3 px-10 h-[10%]">
@@ -84,7 +90,8 @@ export default function GoalsInfo() {
             </div>
             <div className="flex h-[90%]">
                 <div className="pl-[15%] w-[60%] mr-10 mt-20">
-                    <h1 className="text-3xl font-medium mb-12 opacity-80">{goalTitle}</h1>
+                    <h1 className="text-3xl font-medium opacity-80 mb-2">{goalTitle}</h1>
+                    <h2 className="text-sm mb-10">{goalSubtitle}</h2>
                     <div>
                         <div>
                             <h2 className="text-xl font-medium opacity-70">What&apos;s the status? </h2>
@@ -150,7 +157,7 @@ export default function GoalsInfo() {
                             <p className="text-xs mt-2 font-medium opacity-70">Q4FY23</p>
                         </div>
                         <div className="mt-2">
-                            <p className="text-xs font-medium cursor-pointer">Set a custom due date</p>
+                            <p className="text-xs font-medium cursor-pointer"onClick={handleDate}>Set a custom due date</p>
                         </div>
                     </div>
                 </div>
