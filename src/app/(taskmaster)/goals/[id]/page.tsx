@@ -7,11 +7,13 @@ import Image from "next/image";
 import { CiLock } from "react-icons/ci";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import noUser from "../../../../../public/nouser.jpg";
-import anime from "../../../../../public/anime.jpg"
+import anime from "../../../../../public/anime.jpg";
+import lighteningImage from "../../../../../public/lightening.png";
 
 export default function GoalsInfo() {
-    const { currentUser } = CurrentUserHook()
-    const [photo, setPhoto] = useState<string | StaticImageData>(noUser)
+    const { currentUser } = CurrentUserHook();
+    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
+    const [loadPercentage, setLoadPercentage] = useState(0);
 
     useEffect(() => {
         if (currentUser?.photoURL) {
@@ -19,9 +21,22 @@ export default function GoalsInfo() {
         };
     }, [currentUser]);
 
+    useEffect(() => {
+        // Simulate loading by incrementing the load percentage
+        const interval = setInterval(() => {
+            setLoadPercentage((prevPercentage) => {
+                const newPercentage = prevPercentage + 5; // Adjust as needed
+                return newPercentage <= 60 ? newPercentage : 60;
+            });
+        }, 1000); // Adjust the interval as needed
+
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(interval);
+    }, []);
+
     return (
-        <section className="h-[100%]">
-            <div className="flex items-center pt-4 border-b border-gray-200 pb-3 px-10">
+        <section className="h-full">
+            <div className="flex items-center pt-4 border-b border-gray-200 pb-3 px-10 h-[10%]">
                 <div className="flex items-center">
                     <div className="mr-2 bg-[#9ab9e1] px-3 py-3 rounded-md">
                         <Image src={triangle} alt="image" width={20} height={20} />
@@ -44,8 +59,8 @@ export default function GoalsInfo() {
                     <p className="text-xs">share</p>
                 </div>
             </div>
-            <div className="flex items-center mt-[5%] h-full">
-                <div className="pl-[15%] w-[60%] h-[100%] mr-10">
+            <div className="flex h-[90%]">
+                <div className="pl-[15%] w-[60%] mr-10 mt-20">
                     <h1 className="text-3xl font-medium mb-12 opacity-80">Fast</h1>
                     <div>
                         <div>
@@ -66,13 +81,35 @@ export default function GoalsInfo() {
                             </div>
                         </div>
                     </div>
-                    <div className="border w-full h-40 mt-10 rounded-md">
+                    <div className="border w-full h-40 px-6 py-4 mt-10 rounded-md">
+                        <div className="flex items-center">
+                            <h1 className="font-semibold text-xl mr-1">{loadPercentage}%</h1>
+                            <div>
+                                <Image src={lighteningImage} alt="image" width={18} height={18} />
+                            </div>
+                        </div>
+                        <div className="mt-4">
+                            <div className="h-3 border rounded-lg">
+                                <div
+                                    className="bg-blue-500 h-3 rounded-lg border"
+                                    style={{
+                                        width: `${loadPercentage}%`,
+                                        transition: 'width .5s linear',
+                                    }}
+                                >
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-10">
+                        <h1 className="font-medium text-md">Description</h1>
+                        <p className="text-sm mt-4 cursor-pointer">Click to add context to this goal</p>
                     </div>
                 </div>
                 {/* second div */}
-                <div className="w-[20%] border-l pl-4">
-                    <h1 className="font-medium text-lg opacity-70">About this goal</h1>
+                <div className="w-[20%] border-l pl-4 mt-40">
+                    <h1 className="font-medium text-lg opacity-90">About this goal</h1>
                     <div className="border-b border-gray-200 mt-4 pb-6">
                         <p className="text-sm opacity-70">Goal owner</p>
                         <div className="flex items-center mt-4">
@@ -90,7 +127,7 @@ export default function GoalsInfo() {
                             <p className="text-xs mt-2 font-medium opacity-70">Q4FY23</p>
                         </div>
                         <div className="mt-2">
-                            <p className="text-xs font-medium">Set a custom due date</p>
+                            <p className="text-xs font-medium cursor-pointer">Set a custom due date</p>
                         </div>
                     </div>
                 </div>
