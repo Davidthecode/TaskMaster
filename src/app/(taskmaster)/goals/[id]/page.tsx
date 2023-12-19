@@ -9,7 +9,7 @@ import CurrentUserHook from "@/app/hooks/currentUserHook";
 import noUser from "../../../../../public/nouser.jpg";
 import anime from "../../../../../public/anime.jpg";
 import lighteningImage from "../../../../../public/lightening.png";
-import { collection, doc, onSnapshot, query } from "firebase/firestore";
+import { collection, doc, onSnapshot, query, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
 
@@ -33,6 +33,7 @@ export default function GoalsInfo() {
                 if (snapshot.exists()) {
                     setGoalTitle(snapshot.data().goalData.formData.goalTitle);
                     setGoalSubtitle(snapshot.data().goalData.formData.goalSubtitle);
+                    setSelectedDate(snapshot.data().goalData.formData.dueDate);
                 }
                 setLoading(false);
             });
@@ -49,19 +50,6 @@ export default function GoalsInfo() {
             setPhoto(currentUser?.photoURL);
         };
     }, [currentUser]);
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setLoadPercentage((prevPercentage) => {
-    //             const newPercentage = prevPercentage + 5;
-    //             return newPercentage <= 60 ? newPercentage : 60;
-    //         });
-    //     }, 1000);
-
-    //     return () => clearInterval(interval);
-    // }, []);
-
-    console.log(loadPercentage);
 
     useEffect(() => {
         const calculateProgress = () => {
@@ -82,13 +70,25 @@ export default function GoalsInfo() {
         return () => clearInterval(interval);
     }, [selectedDate]);
 
+    useEffect(() => {
+        const handleDueDate = async () => {
+            if (selectedDate !== "") {
+                const dataToUpdate = {
+                    "goalData.formData.dueDate": selectedDate
+                };
+                await updateDoc(docRef, dataToUpdate);
+            };
+        };
+
+        handleDueDate();
+    }, [selectedDate]);
+
     const openDate = () => {
         setCustomDateDiv(!customDateDiv);
     };
 
     const handleDateChange = (e: any) => {
-        const selectedDueDate = new Date(e.target.value);
-        setSelectedDate(selectedDueDate);
+        setSelectedDate(e.target.value);
     };
 
     return (
@@ -184,7 +184,7 @@ export default function GoalsInfo() {
                             <p className="text-xs font-medium">Time period</p>
                             <p className="text-xs mt-2 font-medium opacity-70">Q4FY23</p>
                         </div>
-                        {selectedDate !== "" && (
+                        {(selectedDate !== "" && selectedDate !== undefined) && (
                             <div className="mt-3">
                                 <p className="text-xs font-medium">Due Date</p>
                                 <p className="text-xs mt-2 font-medium opacity-70">
@@ -195,7 +195,7 @@ export default function GoalsInfo() {
                                             month: 'short',
                                             day: 'numeric',
                                         })
-                                        : ''}
+                                        : selectedDate}
                                 </p>
                             </div>
                         )}
