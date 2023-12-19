@@ -53,7 +53,8 @@ export default function CreateProject({ onClose }: CreateProjectType) {
                     projectName,
                     dataAndTimeAdded: currentDateTime,
                     userId: currentuser?.uid,
-                    dueDate: ""
+                    dueDate: "",
+                    status: ""
                 };
 
                 const docRef = doc(collectionRef, uuidv4())

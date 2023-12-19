@@ -9,7 +9,7 @@ import CurrentUserHook from "@/app/hooks/currentUserHook";
 import noUser from "../../../../../public/nouser.jpg";
 import anime from "../../../../../public/anime.jpg";
 import lighteningImage from "../../../../../public/lightening.png";
-import { collection, doc, onSnapshot, query, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
 
@@ -25,6 +25,7 @@ export default function GoalsInfo() {
     const docRef = doc(db, "goals", paramsId as string);
     const [customDateDiv, setCustomDateDiv] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | string>('');
+    const [selectedStatusOption, setSelectedStatusOption] = useState('');
 
     const statusOptions = [
         { label: "On track", bgColor: "#34D399" },
@@ -40,6 +41,7 @@ export default function GoalsInfo() {
                     setGoalTitle(snapshot.data().goalData.formData.goalTitle);
                     setGoalSubtitle(snapshot.data().goalData.formData.goalSubtitle);
                     setSelectedDate(snapshot.data().goalData.formData.dueDate);
+                    setSelectedStatusOption(snapshot.data().goalData.formData.status);
                 }
                 setLoading(false);
             });
@@ -68,8 +70,8 @@ export default function GoalsInfo() {
                 const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
                 const percentage = ((totalDays - remainingDays) / totalDays) * 100;
                 setLoadPercentage(percentage);
-            }
-        }
+            };
+        };
 
         const interval = setInterval(calculateProgress, 1000);
 
@@ -95,6 +97,14 @@ export default function GoalsInfo() {
 
     const handleDateChange = (e: any) => {
         setSelectedDate(e.target.value);
+    };
+
+    const handleStatusOption = async (statusOption: any) => {
+        setSelectedStatusOption(statusOption.label);
+        const dataToUpdate = {
+            "goalData.formData.status": statusOption.label
+        };
+        await updateDoc(docRef, dataToUpdate);
     };
 
     return (
@@ -134,8 +144,9 @@ export default function GoalsInfo() {
                             {
                                 statusOptions.map((statusOption, index) => (
                                     <div
-                                        className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer"
+                                        className={`flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer ${selectedStatusOption === statusOption.label && "bg-[#F0EDED]"}`}
                                         key={index}
+                                        onClick={() => handleStatusOption(statusOption)}
                                     >
                                         <p className={`bg-[${statusOption.bgColor}] mr-2 w-2 h-2 rounded-full`}></p>
                                         <p className="text-sm">{statusOption.label}</p>
