@@ -182,7 +182,16 @@ export default function GoalsInfo() {
                         {selectedDate !== "" && (
                             <div className="mt-3">
                                 <p className="text-xs font-medium">Due Date</p>
-                                <p className="text-xs mt-2 font-medium opacity-70">{selectedDate.toString()}</p>
+                                <p className="text-xs mt-2 font-medium opacity-70">
+                                    {selectedDate instanceof Date
+                                        ? selectedDate.toLocaleDateString(undefined, {
+                                            weekday: 'short',
+                                            year: 'numeric',
+                                            month: 'short',
+                                            day: 'numeric',
+                                        })
+                                        : ''}
+                                </p>
                             </div>
                         )}
                         <div className="mt-2">
