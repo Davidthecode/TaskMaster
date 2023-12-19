@@ -61,15 +61,20 @@ export default function GoalsInfo() {
     //     return () => clearInterval(interval);
     // }, []);
 
+    console.log(loadPercentage);
+
     useEffect(() => {
         const calculateProgress = () => {
             const currentDate = new Date();
-            const totalMilliseconds = selectedDate instanceof Date ? selectedDate.getTime() - currentDate.getTime() : 0;
-            const remainingMilliseconds = Math.max(totalMilliseconds, 0);
-            const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
-            const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
-            const percentage = ((totalDays - remainingDays) / totalDays) * 100;
-            setLoadPercentage(percentage);
+            const convertedSelectedDate = new Date(selectedDate);
+            const totalMilliseconds = convertedSelectedDate instanceof Date ? convertedSelectedDate.getTime() - currentDate.getTime() : setLoadPercentage(0);
+            if (totalMilliseconds) {
+                const remainingMilliseconds = Math.max(totalMilliseconds, 0);
+                const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
+                const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
+                const percentage = ((totalDays - remainingDays) / totalDays) * 100;
+                setLoadPercentage(percentage);
+            }
         }
 
         const interval = setInterval(calculateProgress, 1000);
