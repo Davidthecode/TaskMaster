@@ -143,20 +143,6 @@ export default function GoalsInfo() {
                                 ))
                             }
                         </div>
-                        {/* <div className="mt-3 flex items-center">
-                            <div className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer">
-                                <p className="bg-[#34D399] mr-2 w-2 h-2 rounded-full"></p>
-                                <p className="text-sm">On track</p>
-                            </div>
-                            <div className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer">
-                                <p className="bg-[#d8a846] mr-2 w-2 h-2 rounded-full"></p>
-                                <p className="text-sm">In progress</p>
-                            </div>
-                            <div className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit cursor-pointer hover:bg-[#F0EDED]">
-                                <p className="bg-[#EF4444] mr-2 w-2 h-2 rounded-full"></p>
-                                <p className="text-sm">Off track</p>
-                            </div>
-                        </div> */}
                     </div>
                     <div className="border w-full h-40 px-6 py-4 mt-10 rounded-md">
                         <div className="flex items-center">
