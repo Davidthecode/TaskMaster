@@ -23,6 +23,8 @@ export default function GoalsInfo() {
     const [goalTitle, setGoalTitle] = useState('');
     const [goalSubtitle, setGoalSubtitle] = useState('');
     const docRef = doc(db, "goals", paramsId as string);
+    const [customDateDiv, setCustomDateDiv] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<Date | string>('');
 
     useEffect(() => {
         try {
@@ -48,21 +50,41 @@ export default function GoalsInfo() {
         };
     }, [currentUser]);
 
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setLoadPercentage((prevPercentage) => {
+    //             const newPercentage = prevPercentage + 5;
+    //             return newPercentage <= 60 ? newPercentage : 60;
+    //         });
+    //     }, 1000);
+
+    //     return () => clearInterval(interval);
+    // }, []);
+
     useEffect(() => {
-        const interval = setInterval(() => {
-            setLoadPercentage((prevPercentage) => {
-                const newPercentage = prevPercentage + 5;
-                return newPercentage <= 60 ? newPercentage : 60;
-            });
-        }, 1000);
+        const calculateProgress = () => {
+            const currentDate = new Date();
+            const totalMilliseconds = selectedDate instanceof Date ? selectedDate.getTime() - currentDate.getTime() : 0;
+            const remainingMilliseconds = Math.max(totalMilliseconds, 0);
+            const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
+            const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
+            const percentage = ((totalDays - remainingDays) / totalDays) * 100;
+            setLoadPercentage(percentage);
+        }
+
+        const interval = setInterval(calculateProgress, 1000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [selectedDate]);
 
-    //
-    const handleDate = () => {
-        
-    }
+    const openDate = () => {
+        setCustomDateDiv(!customDateDiv);
+    };
+
+    const handleDateChange = (e: any) => {
+        const selectedDueDate = new Date(e.target.value);
+        setSelectedDate(selectedDueDate);
+    };
 
     return (
         <section className="h-full">
@@ -90,7 +112,7 @@ export default function GoalsInfo() {
                 </div>
             </div>
             <div className="flex h-[90%]">
-                <div className="pl-[15%] w-[60%] mr-10 mt-20">
+                <div className="pl-[15%] w-[60%] mr-10 mt-10">
                     <h1 className="text-3xl font-medium opacity-80 mb-2">{goalTitle}</h1>
                     <h2 className="text-sm mb-10">{goalSubtitle}</h2>
                     <div>
@@ -139,7 +161,7 @@ export default function GoalsInfo() {
                     </div>
                 </div>
                 {/* second div */}
-                <div className="w-[20%] border-l pl-4 mt-40">
+                <div className="w-[20%] border-l pl-4 mt-32">
                     <h1 className="font-medium text-lg opacity-90">About this goal</h1>
                     <div className="border-b border-gray-200 mt-4 pb-6">
                         <p className="text-sm opacity-70">Goal owner</p>
@@ -157,9 +179,27 @@ export default function GoalsInfo() {
                             <p className="text-xs font-medium">Time period</p>
                             <p className="text-xs mt-2 font-medium opacity-70">Q4FY23</p>
                         </div>
+                        {selectedDate !== "" && (
+                            <div className="mt-3">
+                                <p className="text-xs font-medium">Due Date</p>
+                                <p className="text-xs mt-2 font-medium opacity-70">{selectedDate.toString()}</p>
+                            </div>
+                        )}
                         <div className="mt-2">
-                            <p className="text-xs font-medium cursor-pointer"onClick={handleDate}>Set a custom due date</p>
+                            <p className="text-xs font-medium cursor-pointer" onClick={openDate}>{customDateDiv ? "Select a custom due date" : "Set a custom due date"}</p>
                         </div>
+                        {customDateDiv && (
+                            <div className="mt-4">
+                                <input
+                                    value={selectedDate.toString().split('T')[0]}
+                                    onChange={handleDateChange}
+                                    type="date"
+                                    name=""
+                                    id=""
+                                    className="border border-gray-400 px-4 py-[2px] bg-[#F9F8F8] text-xs rounded-md"
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
