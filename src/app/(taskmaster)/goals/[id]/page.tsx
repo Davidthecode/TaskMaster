@@ -26,6 +26,12 @@ export default function GoalsInfo() {
     const [customDateDiv, setCustomDateDiv] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | string>('');
 
+    const statusOptions = [
+        { label: "On track", bgColor: "#34D399" },
+        { label: "In progress", bgColor: "#d8a846" },
+        { label: "Off track", bgColor: "#EF4444" }
+    ];
+
     useEffect(() => {
         try {
             setLoading(true);
@@ -125,8 +131,21 @@ export default function GoalsInfo() {
                             <h2 className="text-xl font-medium opacity-70">What&apos;s the status? </h2>
                         </div>
                         <div className="mt-3 flex items-center">
+                            {
+                                statusOptions.map((statusOption, index) => (
+                                    <div
+                                        className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer"
+                                        key={index}
+                                    >
+                                        <p className={`bg-[${statusOption.bgColor}] mr-2 w-2 h-2 rounded-full`}></p>
+                                        <p className="text-sm">{statusOption.label}</p>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        {/* <div className="mt-3 flex items-center">
                             <div className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer">
-                                <p className="bg-green-600 mr-2 w-2 h-2 rounded-full"></p>
+                                <p className="bg-[#34D399] mr-2 w-2 h-2 rounded-full"></p>
                                 <p className="text-sm">On track</p>
                             </div>
                             <div className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer">
@@ -134,10 +153,10 @@ export default function GoalsInfo() {
                                 <p className="text-sm">In progress</p>
                             </div>
                             <div className="flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit cursor-pointer hover:bg-[#F0EDED]">
-                                <p className="bg-red-600 mr-2 w-2 h-2 rounded-full"></p>
+                                <p className="bg-[#EF4444] mr-2 w-2 h-2 rounded-full"></p>
                                 <p className="text-sm">Off track</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="border w-full h-40 px-6 py-4 mt-10 rounded-md">
                         <div className="flex items-center">
