@@ -11,17 +11,11 @@ import lighteningImage from "../../../../public/lightening.png";
 import Link from "next/link";
 
 export default function UserGoals() {
-    const { currentUser } = CurrentUserHook();
+    const { currentUser, photo } = CurrentUserHook();
     const [goals, setGoals] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const collectionRef = collection(db, 'goals');
-    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
-
-    useEffect(() => {
-        if (currentUser?.photoURL) {
-            setPhoto(currentUser?.photoURL);
-        };
-    }, [currentUser]);
+    const [loadPercentage, setLoadPercentage] = useState(0);
 
     useEffect(() => {
         try {
@@ -46,8 +40,6 @@ export default function UserGoals() {
         }
     }, []);
 
-    console.log(goals);
-
     return (
         <section>
             <div className="flex px-10 border-b py-2">
@@ -69,7 +61,15 @@ export default function UserGoals() {
                             <div className="w-[20%] flex flex-col items-center">
                                 <div className="flex items-center pl-10">
                                     <div className="flex items-center mr-2">
-                                        <div className="h-[6.5px] border rounded-lg w-12 mr-2 bg-[#eee9e9]"></div>
+                                        <div className="h-[6.5px] border rounded-lg w-12 mr-2 bg-[#eee9e9]">
+                                            <div
+                                                className="bg-blue-400 h-[6.5px] border rounded-md"
+                                                style={{
+                                                    width: `${loadPercentage}%`,
+                                                    transition: 'width .5s linear',
+                                                }}
+                                            ></div>
+                                        </div>
                                         <div className="text-xs">0%</div>
                                     </div>
                                     <div>
@@ -78,7 +78,7 @@ export default function UserGoals() {
                                 </div>
 
                                 <div className="mt-1">
-                                    <p className="text-xs">No status</p>
+                                    <p className="text-xs">{goal.goalData.formData.status ? goal.goalData.formData.status : "No status"}</p>
                                 </div>
                             </div>
                             <div className="w-[10%] flex justify-center">
