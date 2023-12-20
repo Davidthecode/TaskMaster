@@ -26,6 +26,7 @@ export default function GoalsInfo() {
     const [customDateDiv, setCustomDateDiv] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | string>('');
     const [selectedStatusOption, setSelectedStatusOption] = useState('');
+    const [goalDescription, setGoalDescription] = useState('');
 
     const statusOptions = [
         { label: "On track", bgColor: "#34D399" },
@@ -42,6 +43,7 @@ export default function GoalsInfo() {
                     setGoalSubtitle(snapshot.data().goalData.formData.goalSubtitle);
                     setSelectedDate(snapshot.data().goalData.formData.dueDate);
                     setSelectedStatusOption(snapshot.data().goalData.formData.status);
+                    setGoalDescription(snapshot.data().goalData.formData.goalDescription);
                 }
                 setLoading(false);
             });
@@ -91,6 +93,19 @@ export default function GoalsInfo() {
         handleDueDate();
     }, [selectedDate]);
 
+    useEffect(() => {
+        const handleSetgoalDescription = async () => {
+            if (goalDescription !== "") {
+                const dataToUpdate = {
+                    "goalData.formData.goalDescription": goalDescription
+                };
+                await updateDoc(docRef, dataToUpdate);
+            };
+        };
+
+        handleSetgoalDescription();
+    }, [goalDescription]);
+
     const openDate = () => {
         setCustomDateDiv(!customDateDiv);
     };
@@ -132,7 +147,7 @@ export default function GoalsInfo() {
                     <p className="text-xs">share</p>
                 </div>
             </div>
-            <div className="flex h-[90%]">
+            <div className="flex h-[90%] overflow-y-auto">
                 <div className="pl-[15%] w-[60%] mr-10 mt-10">
                     <h1 className="text-3xl font-medium opacity-80 mb-2">{goalTitle}</h1>
                     <h2 className="text-sm mb-10">{goalSubtitle}</h2>
@@ -148,7 +163,12 @@ export default function GoalsInfo() {
                                         key={index}
                                         onClick={() => handleStatusOption(statusOption)}
                                     >
-                                        <p className={`bg-[${statusOption.bgColor}] mr-2 w-2 h-2 rounded-full`}></p>
+                                        <p
+                                            style={{ backgroundColor: statusOption.bgColor }}
+                                            className="mr-2 w-2 h-2 rounded-full"
+                                        >
+
+                                        </p>
                                         <p className="text-sm">{statusOption.label}</p>
                                     </div>
                                 ))
@@ -176,13 +196,24 @@ export default function GoalsInfo() {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-10">
-                        <h1 className="font-medium text-md">Description</h1>
-                        <p className="text-sm mt-4 cursor-pointer">Click to add context to this goal</p>
+                    <div className="mt-10 h-[10rem] rounded-md">
+                        <h1 className="font-medium text-md px-2">Description</h1>
+                        <div className="w-[100%] h-[80%]">
+                            <textarea
+                                className="text-sm mt-4 cursor-pointer h-full w-full px-2 py-1 outline-none"
+                                placeholder="Click to add context to this goal"
+                                value={goalDescription}
+                                onChange={(e) => setGoalDescription(e.target.value)}
+                                name=""
+                                id=""
+                                cols={0}
+                                rows={0}
+                            ></textarea>
+                        </div>
                     </div>
                 </div>
                 {/* second div */}
-                <div className="w-[20%] border-l pl-4 mt-32">
+                <div className="w-[20%] border-l pl-6 mt-32">
                     <h1 className="font-medium text-lg opacity-90">About this goal</h1>
                     <div className="border-b border-gray-200 mt-4 pb-6">
                         <p className="text-sm opacity-70">Goal owner</p>

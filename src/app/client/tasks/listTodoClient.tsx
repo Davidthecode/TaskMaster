@@ -24,7 +24,7 @@ export default function ListTodoClient() {
         setShowTodoList(true);
     }
     return (
-        <section className="mt-6">
+        <section className="mt-3">
             <div className="flex items-center border-b">
                 {showTodoList ? (
                     <div className="mr-3 opacity-70 cursor-pointer" onClick={handleCloseTodoList}>

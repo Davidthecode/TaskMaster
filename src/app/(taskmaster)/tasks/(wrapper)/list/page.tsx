@@ -1,19 +1,21 @@
-"use client"
+"use client";
 
-import TaskSubNav from "../../../../components/tasks/taskSubNav"
-import ListTodoClient from "@/app/client/tasks/listTodoClient"
-import ListInprogressClient from "@/app/client/tasks/listInProgressClient"
-import ListCompletedClient from "@/app/client/tasks/listCompletedClient"
-import { TaskListSkeleton } from "@/app/components/skeleton"
-import { useTasks } from "@/app/context/tasksContext"
+import TaskSubNav from "../../../../components/tasks/taskSubNav";
+import ListTodoClient from "@/app/client/tasks/listTodoClient";
+import ListInprogressClient from "@/app/client/tasks/listInProgressClient";
+import ListCompletedClient from "@/app/client/tasks/listCompletedClient";
+import { TaskListSkeleton } from "@/app/components/skeleton";
+import { useTasks } from "@/app/context/tasksContext";
 
 export default function List() {
     const { loading } = useTasks();
 
     return (
-        <section className="px-10">
-            <TaskSubNav />
-            <div className="flex items-center">
+        <section className="px-10 h-[100%]">
+            <div className="h-[8%]">
+                <TaskSubNav />
+            </div>
+            <div className="flex items-center h-[8%]">
                 <div className="w-[50%] border-b">
                     <p className="text-xs py-3 cursor-default">Task name</p>
                 </div>
@@ -26,7 +28,7 @@ export default function List() {
             {loading ? (
                 <TaskListSkeleton />
             ) : (
-                <div>
+                <div className="h-[84%] overflow-y-auto pb-4">
                     <ListTodoClient />
                     <ListInprogressClient />
                     <ListCompletedClient />
