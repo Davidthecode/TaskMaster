@@ -28,7 +28,7 @@ export default function HomeClient() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentDate(new Date());
-        }, 60000); // 60000 milliseconds = 1 minute
+        }, 60000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -116,9 +116,6 @@ export default function HomeClient() {
                 </div>
             </div>
             <div className="border h-0 w-full my-10 border-gray-300"></div>
-            <div>
-                <h1 className="text-xl font-semibold">Analytics</h1>
-            </div>
             <div className="ml-auto mt-auto mb-3 cursor-pointer">
                 <TfiHelpAlt />
             </div>

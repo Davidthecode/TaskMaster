@@ -10,7 +10,7 @@ import Link from "next/link";
 import FiscalYearHook from "@/app/hooks/fiscalYearHook";
 
 export default function UserGoals() {
-    const {fiscalQuarter, fiscalYear} = FiscalYearHook();
+    const { fiscalQuarter, fiscalYear } = FiscalYearHook();
     const { currentUser, photo } = CurrentUserHook();
     const [goals, setGoals] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
@@ -42,14 +42,14 @@ export default function UserGoals() {
     console.log(goals)
 
     return (
-        <section>
-            <div className="flex px-10 border-b py-2">
+        <section className="h-[82%]">
+            <div className="flex items-center px-10 border-y py- h-[6%] ">
                 <div className="text-xs w-[50%]">Name</div>
                 <div className="text-xs w-[20%] text-center">Time period</div>
                 <div className="text-xs w-[20%] text-center">Progress</div>
                 <div className="text-xs w-[10%] text-center">Owner</div>
             </div>
-            <div>
+            <div className="h-[94%] overflow-y-auto pb-3">
                 {goals.map((goal) => (
                     <Link href={`/goals/${goal.id}`} key={goal.id}>
                         <div className="flex border-b h-16 items-center px-10 cursor-pointer">
@@ -57,7 +57,7 @@ export default function UserGoals() {
                                 {goal.goalData.formData.goalTitle}
                             </div>
                             <div className="w-[20%] flex justify-center">
-                                <p className="text-xs font-medium">{fiscalQuarter+fiscalYear}</p>
+                                <p className="text-xs font-medium">{fiscalQuarter + fiscalYear}</p>
                             </div>
                             <div className="w-[20%] flex flex-col items-center">
                                 <div className="flex items-center pl-10">

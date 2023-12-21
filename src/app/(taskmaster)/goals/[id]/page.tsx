@@ -13,6 +13,8 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
 import FiscalYearHook from "@/app/hooks/fiscalYearHook";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 export default function GoalsInfo() {
     const { fiscalQuarter, fiscalYear } = FiscalYearHook();
@@ -30,6 +32,7 @@ export default function GoalsInfo() {
     const [selectedStatusOption, setSelectedStatusOption] = useState('');
     const [goalDescription, setGoalDescription] = useState('');
     const animationRef = useRef<number | null>(null);
+    const { back } = useRouter();
 
     const statusOptions = [
         { label: "On track", bgColor: "#34D399" },
@@ -179,7 +182,7 @@ export default function GoalsInfo() {
     };
 
     return (
-        <section className="h-full">
+        <section className="h-full relative">
             <div className="flex items-center pt-4 border-b border-gray-200 pb-3 px-10 h-[10%]">
                 <div className="flex items-center">
                     <div className="mr-2 bg-[#9ab9e1] px-3 py-3 rounded-md">
@@ -204,6 +207,15 @@ export default function GoalsInfo() {
                 </div>
             </div>
             <div className="flex h-[90%] overflow-y-auto">
+                <div className="absolute top-28 left-10">
+                    <div
+                        className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer"
+                        title="back"
+                        onClick={() => back()}
+                    >
+                        <IoIosArrowRoundBack size="1.3rem" />
+                    </div>
+                </div>
                 <div className="pl-[15%] w-[60%] mr-10 mt-10">
                     <h1 className="text-3xl font-medium opacity-80 mb-2">{goalTitle}</h1>
                     <div className="w-[100%] h-[8%] mb-2">
