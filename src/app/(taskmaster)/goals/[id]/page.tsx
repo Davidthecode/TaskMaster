@@ -68,31 +68,50 @@ export default function GoalsInfo() {
         const calculateProgress = () => {
             const currentDate = new Date();
             const convertedSelectedDate = new Date(selectedDate);
-
-            if (!(convertedSelectedDate instanceof Date)) {
-                setLoadPercentage(0);
-                return;
-            }
-
-            const totalMilliseconds = convertedSelectedDate.getTime() - currentDate.getTime();
-            const remainingMilliseconds = Math.max(totalMilliseconds, 0);
-            const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
-            const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
-            const percentage = ((totalDays - remainingDays) / totalDays) * 100;
-
-            setLoadPercentage(percentage);
-
-            if (remainingMilliseconds > 0) {
-                animationRef.current = requestAnimationFrame(calculateProgress);
-            }
+            const totalMilliseconds = convertedSelectedDate instanceof Date ? convertedSelectedDate.getTime() - currentDate.getTime() : setLoadPercentage(0);
+            if (totalMilliseconds) {
+                const remainingMilliseconds = Math.max(totalMilliseconds, 0);
+                const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
+                const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
+                const percentage = ((totalDays - remainingDays) / totalDays) * 100;
+                setLoadPercentage(percentage);
+            };
         };
 
-        return () => {
-            if (animationRef.current !== null) {
-                cancelAnimationFrame(animationRef.current);
-            }
-        };
+        const interval = setInterval(calculateProgress, 1000);
+
+        return () => clearInterval(interval);
     }, [selectedDate]);
+
+    // useEffect(() => {
+    //     const calculateProgress = () => {
+    //         const currentDate = new Date();
+    //         const convertedSelectedDate = new Date(selectedDate);
+
+    //         if (!(convertedSelectedDate instanceof Date)) {
+    //             setLoadPercentage(0);
+    //             return;
+    //         }
+
+    //         const totalMilliseconds = convertedSelectedDate.getTime() - currentDate.getTime();
+    //         const remainingMilliseconds = Math.max(totalMilliseconds, 0);
+    //         const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
+    //         const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
+    //         const percentage = ((totalDays - remainingDays) / totalDays) * 100;
+
+    //         setLoadPercentage(percentage);
+
+    //         if (remainingMilliseconds > 0) {
+    //             animationRef.current = requestAnimationFrame(calculateProgress);
+    //         }
+    //     };
+
+    //     return () => {
+    //         if (animationRef.current !== null) {
+    //             cancelAnimationFrame(animationRef.current);
+    //         }
+    //     };
+    // }, [selectedDate]);
 
     useEffect(() => {
         const handleDueDate = async () => {
@@ -106,6 +125,19 @@ export default function GoalsInfo() {
 
         handleDueDate();
     }, [selectedDate]);
+
+    useEffect(() => {
+        const handleSetGoalSubtitle = async () => {
+            if (goalSubtitle !== "") {
+                const dataToUpdate = {
+                    "goalData.formData.goalSubtitle": goalSubtitle
+                };
+                await updateDoc(docRef, dataToUpdate);
+            };
+        };
+
+        handleSetGoalSubtitle();
+    }, [goalSubtitle]);
 
     useEffect(() => {
         const handleSetgoalDescription = async () => {
@@ -174,7 +206,18 @@ export default function GoalsInfo() {
             <div className="flex h-[90%] overflow-y-auto">
                 <div className="pl-[15%] w-[60%] mr-10 mt-10">
                     <h1 className="text-3xl font-medium opacity-80 mb-2">{goalTitle}</h1>
-                    <h2 className="text-sm mb-10">{goalSubtitle}</h2>
+                    <div className="w-[100%] h-[8%] mb-2">
+                        <textarea
+                            className="text-sm h-full w-full px-2 outline-none"
+                            placeholder="Click to add a goal subtitle"
+                            value={goalSubtitle}
+                            onChange={(e) => setGoalSubtitle(e.target.value)}
+                            name=""
+                            id=""
+                            cols={0}
+                            rows={0}
+                        ></textarea>
+                    </div>
                     <div>
                         <div>
                             <h2 className="text-xl font-medium opacity-70">What&apos;s the status? </h2>
@@ -224,7 +267,7 @@ export default function GoalsInfo() {
                         <h1 className="font-medium text-md px-2">Description</h1>
                         <div className="w-[100%] h-[80%]">
                             <textarea
-                                className="text-sm mt-4 cursor-pointer h-full w-full px-2 py-1 outline-none"
+                                className="text-sm h-full w-full px-2 py-1 outline-none"
                                 placeholder="Click to add context to this goal"
                                 value={goalDescription}
                                 onChange={(e) => setGoalDescription(e.target.value)}
