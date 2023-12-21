@@ -106,6 +106,16 @@ export default function GoalsInfo() {
         handleSetgoalDescription();
     }, [goalDescription]);
 
+    useEffect(() => {
+        const handleLoadPercentage = async () => {
+            const dataToUpdate = {
+                "goalData.formData.loadPercentage": loadPercentage
+            };
+            await updateDoc(docRef, dataToUpdate);
+        };
+        handleLoadPercentage();
+    }, [loadPercentage]);
+
     const openDate = () => {
         setCustomDateDiv(!customDateDiv);
     };

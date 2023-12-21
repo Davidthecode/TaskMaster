@@ -40,6 +40,8 @@ export default function UserGoals() {
         }
     }, []);
 
+    console.log(goals)
+
     return (
         <section>
             <div className="flex px-10 border-b py-2">
@@ -65,12 +67,12 @@ export default function UserGoals() {
                                             <div
                                                 className="bg-blue-400 h-[6.5px] border rounded-md"
                                                 style={{
-                                                    width: `${loadPercentage}%`,
+                                                    width: `${goal.goalData.formData.loadPercentage}%`,
                                                     transition: 'width .5s linear',
                                                 }}
                                             ></div>
                                         </div>
-                                        <div className="text-xs">0%</div>
+                                        <div className="text-xs">{goal.goalData.formData.loadPercentage}</div>
                                     </div>
                                     <div>
                                         <Image src={lighteningImage} alt="image" height={17} width={17} />
