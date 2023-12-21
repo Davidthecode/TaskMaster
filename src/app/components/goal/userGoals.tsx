@@ -4,18 +4,17 @@ import { db } from "@/app/firebase/firebase-config";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
-import { StaticImageData } from "next/image";
-import noUser from "../../../../public/nouser.jpg";
 import Image from "next/image";
 import lighteningImage from "../../../../public/lightening.png";
 import Link from "next/link";
+import FiscalYearHook from "@/app/hooks/fiscalYearHook";
 
 export default function UserGoals() {
+    const {fiscalQuarter, fiscalYear} = FiscalYearHook();
     const { currentUser, photo } = CurrentUserHook();
     const [goals, setGoals] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const collectionRef = collection(db, 'goals');
-    const [loadPercentage, setLoadPercentage] = useState(0);
 
     useEffect(() => {
         try {
@@ -58,7 +57,7 @@ export default function UserGoals() {
                                 {goal.goalData.formData.goalTitle}
                             </div>
                             <div className="w-[20%] flex justify-center">
-                                <p className="text-xs font-medium">Q4 FY23</p>
+                                <p className="text-xs font-medium">{fiscalQuarter+fiscalYear}</p>
                             </div>
                             <div className="w-[20%] flex flex-col items-center">
                                 <div className="flex items-center pl-10">

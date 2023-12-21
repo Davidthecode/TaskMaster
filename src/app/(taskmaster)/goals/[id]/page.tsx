@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StaticImageData } from "next/image";
 import triangle from "../../../../../public/triangle.png";
 import Image from "next/image";
@@ -12,8 +12,10 @@ import lighteningImage from "../../../../../public/lightening.png";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
+import FiscalYearHook from "@/app/hooks/fiscalYearHook";
 
 export default function GoalsInfo() {
+    const { fiscalQuarter, fiscalYear } = FiscalYearHook();
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.id;
@@ -27,6 +29,7 @@ export default function GoalsInfo() {
     const [selectedDate, setSelectedDate] = useState<Date | string>('');
     const [selectedStatusOption, setSelectedStatusOption] = useState('');
     const [goalDescription, setGoalDescription] = useState('');
+    const animationRef = useRef<number | null>(null);
 
     const statusOptions = [
         { label: "On track", bgColor: "#34D399" },
@@ -65,19 +68,30 @@ export default function GoalsInfo() {
         const calculateProgress = () => {
             const currentDate = new Date();
             const convertedSelectedDate = new Date(selectedDate);
-            const totalMilliseconds = convertedSelectedDate instanceof Date ? convertedSelectedDate.getTime() - currentDate.getTime() : setLoadPercentage(0);
-            if (totalMilliseconds) {
-                const remainingMilliseconds = Math.max(totalMilliseconds, 0);
-                const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
-                const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
-                const percentage = ((totalDays - remainingDays) / totalDays) * 100;
-                setLoadPercentage(percentage);
-            };
+
+            if (!(convertedSelectedDate instanceof Date)) {
+                setLoadPercentage(0);
+                return;
+            }
+
+            const totalMilliseconds = convertedSelectedDate.getTime() - currentDate.getTime();
+            const remainingMilliseconds = Math.max(totalMilliseconds, 0);
+            const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
+            const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
+            const percentage = ((totalDays - remainingDays) / totalDays) * 100;
+
+            setLoadPercentage(percentage);
+
+            if (remainingMilliseconds > 0) {
+                animationRef.current = requestAnimationFrame(calculateProgress);
+            }
         };
 
-        const interval = setInterval(calculateProgress, 1000);
-
-        return () => clearInterval(interval);
+        return () => {
+            if (animationRef.current !== null) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
     }, [selectedDate]);
 
     useEffect(() => {
@@ -239,7 +253,7 @@ export default function GoalsInfo() {
                     <div className="border-b border-gray-200 mt-6 pb-6">
                         <div>
                             <p className="text-xs font-medium">Time period</p>
-                            <p className="text-xs mt-2 font-medium opacity-70">Q4FY23</p>
+                            <p className="text-xs mt-2 font-medium opacity-70">{fiscalQuarter + fiscalYear}</p>
                         </div>
                         {(selectedDate !== "" && selectedDate !== undefined) && (
                             <div className="mt-3">
