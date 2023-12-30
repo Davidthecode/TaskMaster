@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { HomeSkeleton } from "@/app/components/skeleton";
+import { HomeSkeleton } from "@/app/components/skeleton/skeleton";
 const DynamicHomeClient = dynamic(()=> import("@/app/client/home/homeClient"), {
     ssr: false,
     loading: ()=> <HomeSkeleton />

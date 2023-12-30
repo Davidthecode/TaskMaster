@@ -1,5 +1,5 @@
-import Image from "next/image"
-import taskmasterImage from '../../../public/taskmaster.png'
+import Image from "next/image";
+import taskmasterImage from '../../../../public/taskmaster.png';
 
 export default function TaskmasterImg() {
     return (
@@ -9,4 +9,4 @@ export default function TaskmasterImg() {
             </div>
         </div>
     )
-}
+};

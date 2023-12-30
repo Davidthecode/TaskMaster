@@ -4,7 +4,7 @@ import TaskSubNav from "../../../../components/tasks/taskSubNav";
 import ListTodoClient from "@/app/client/tasks/listTodoClient";
 import ListInprogressClient from "@/app/client/tasks/listInProgressClient";
 import ListCompletedClient from "@/app/client/tasks/listCompletedClient";
-import { TaskListSkeleton } from "@/app/components/skeleton";
+import { TaskListSkeleton } from "@/app/components/skeleton/skeleton";
 import { useTasks } from "@/app/context/tasksContext";
 
 export default function List() {

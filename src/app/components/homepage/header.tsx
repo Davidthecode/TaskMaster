@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { HeaderButtonSkeleton } from "./skeleton";
+import { HeaderButtonSkeleton } from "../skeleton/skeleton";
 
 const DynamicHeaderClient = dynamic(() => import("@/app/client/header/headerClient"), {
     ssr: false,

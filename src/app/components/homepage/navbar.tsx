@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { HiOutlineBars3 } from "react-icons/hi2"
 import { AiOutlineClose } from "react-icons/ai"
-import taskmasterImage from "../../../public/taskmasterImage.png"
+import taskmasterImage from "../../../../public/taskmasterImage.png"
 
 export default function Navbar() {
     const [sticky, setSticky] = useState(false)

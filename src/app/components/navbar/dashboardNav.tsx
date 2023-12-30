@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic'
 import { CiSearch } from 'react-icons/ci'
 import Image from 'next/image'
-import taskmasterImage from "../../../public/taskmasterImage.png"
-import { DashboardNavSkeleton } from './skeleton'
+import taskmasterImage from "../../../../public/taskmasterImage.png"
+import { DashboardNavSkeleton } from '../skeleton/skeleton'
 
 
 const DynmaicDashboardNavClient = dynamic(()=> import("@/app/client/dashboardNav/dashboardNavClient"), {

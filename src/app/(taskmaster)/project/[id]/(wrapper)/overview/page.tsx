@@ -6,11 +6,11 @@ import anime from "../../../../../../../public/anime.jpg";
 import keyResourcesImg from "../../../../../../../public/key_resources.png";
 import { LiaStickyNote } from "react-icons/lia";
 import { useEffect, useState } from "react";
-import ProjectBrief from "@/app/components/projectBrief";
+import ProjectBrief from "@/app/components/projects/projectBrief";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
-import Addmember from "@/app/components/addMember";
+import Addmember from "@/app/components/projects/addMember";
 
 export default function Overview() {
     const params = useParams();

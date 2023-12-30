@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const DynamicSettingsHeader = dynamic(() => import("@/app/components/settingsHeader"), {
+const DynamicSettingsHeader = dynamic(() => import("@/app/components/settings/settingsHeader"), {
     ssr: false
 })
 

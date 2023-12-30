@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import AddGoal from "@/app/components/goal/addGoal";
-import UserGoals from "@/app/components/goal/userGoals";
+import AddGoal from "@/app/components/goals/addGoal";
+import UserGoals from "@/app/components/goals/userGoals";
 import Image from "next/image";
 import circle from "../../../../public/circle.png";
 

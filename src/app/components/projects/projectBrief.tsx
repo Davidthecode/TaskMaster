@@ -3,11 +3,11 @@
 import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai"
-import { db } from "../firebase/firebase-config";
+import { db } from "../../firebase/firebase-config";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import Image from "next/image";
-import spinner from "../../../public/icons8-spinner.gif"
+import spinner from "../../../../public/icons8-spinner.gif"
 
 type CreateOverviewBriefType = {
     closeProjectBrief: () => void;

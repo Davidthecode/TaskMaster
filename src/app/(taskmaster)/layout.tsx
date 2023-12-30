@@ -1,10 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import DashboardNav from "../components/dashboardNav";
-import { SidebarSkeleton } from "../components/skeleton";
+import DashboardNav from "../components/navbar/dashboardNav";
+import { SidebarSkeleton } from "../components/skeleton/skeleton";
 
-const DynamicSidebar = dynamic(() => import('@/app/components/sidebar'), {
+const DynamicSidebar = dynamic(() => import('@/app/components/sidebar/sidebar'), {
     ssr: false,
     loading: () => <SidebarSkeleton />
 });

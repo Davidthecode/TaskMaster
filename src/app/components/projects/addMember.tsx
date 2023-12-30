@@ -3,12 +3,12 @@
 import { AiOutlineClose } from "react-icons/ai";
 import emailjs from "@emailjs/browser";
 import { useState, useEffect } from "react";
-import { auth } from "../firebase/firebase-config";
+import { auth } from "../../firebase/firebase-config";
 import toast from "react-hot-toast";
 import Image from "next/image";
-import spinner from "../../../public/icons8-spinner.gif";
+import spinner from "../../../../public/icons8-spinner.gif";
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase/firebase-config";
+import { db } from "../../firebase/firebase-config";
 import { usePathname } from "next/navigation";
 
 type AddMenberType = {

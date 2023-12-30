@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Navbar from "./components/navbar";
-import Header from "./components/header";
-import TaskmasterImg from "./components/taskmasterImg";
+import Navbar from "./components/homepage/navbar";
+import Header from "./components/homepage/header";
+import TaskmasterImg from "./components/homepage/taskmasterImg";
 import CurrentUserHook from "./hooks/currentUserHook";
 
 export default function Home() {

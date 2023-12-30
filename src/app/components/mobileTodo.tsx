@@ -11,7 +11,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
 import toast from "react-hot-toast";
 import { LimitWords } from "../../../utils/limitWords";
-import { HomeSkeleton } from "./skeleton";
+import { HomeSkeleton } from "./skeleton/skeleton";
 import spinner from "../../../public/icons8-spinner.gif"
 
 export default function MobileTodo() {

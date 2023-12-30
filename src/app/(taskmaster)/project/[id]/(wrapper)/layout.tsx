@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-import { ProjectHeaderSkeleton } from "@/app/components/skeleton";
+import { ProjectHeaderSkeleton } from "@/app/components/skeleton/skeleton";
 
-const DynamicProjectsHeader = dynamic(() => import("@/app/components/projectsHeader"), {
+const DynamicProjectsHeader = dynamic(() => import("@/app/components/projects/projectsHeader"), {
     ssr: false,
     loading: () => <ProjectHeaderSkeleton />
 })

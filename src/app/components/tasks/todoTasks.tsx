@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from "react";
 import { SlCalender } from "react-icons/sl";
 import Link from "next/link";
 import { LimitWords } from "../../../../utils/limitWords";
-import { HomeSkeleton } from "../skeleton";
+import { HomeSkeleton } from "../skeleton/skeleton";
 
 type TodTaskType = {
     todoTasks: any[],

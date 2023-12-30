@@ -7,16 +7,16 @@ import { CiHome } from 'react-icons/ci';
 import { DiGithubBadge } from 'react-icons/di';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useSidebarContext } from '../context/sidebarContext';
+import { useSidebarContext } from '../../context/sidebarContext';
 import { IoChevronBackOutline } from "react-icons/io5";
 import { MdOutlineInsights } from "react-icons/md"
 import { GoGoal } from "react-icons/go"
 import { IoIosAdd } from "react-icons/io"
 import { useRouter } from "next/navigation";
-import CreateProject from "./createProject";
+import CreateProject from "../projects/createProject";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../firebase/firebase-config";
-import CurrentUserHook from "../hooks/currentUserHook";
+import { db } from "../../firebase/firebase-config";
+import CurrentUserHook from "../../hooks/currentUserHook";
 
 export default function Sidebar() {
     const { currentUser } = CurrentUserHook()

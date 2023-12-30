@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react"
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
-import projectImage from "../../../public/projectImage.png"
-import { auth, db } from "../firebase/firebase-config";
+import projectImage from "../../../../public/projectImage.png"
+import { auth, db } from "../../firebase/firebase-config";
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "react-hot-toast"
-import spinner from "../../../public/icons8-spinner.gif"
+import spinner from "../../../../public/icons8-spinner.gif"
 import { collection, doc, setDoc } from "firebase/firestore";
-import calender from "../../../public/icons8-calendar-16.png";
-import userIcon from "../../../public/icons8-user-16.png"
+import calender from "../../../../public/icons8-calendar-16.png";
+import userIcon from "../../../../public/icons8-user-16.png"
 
 type CreateProjectType = {
     onClose: () => void;

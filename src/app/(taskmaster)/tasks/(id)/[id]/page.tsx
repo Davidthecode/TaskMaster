@@ -11,7 +11,7 @@ import { db } from "@/app/firebase/firebase-config";
 import toast from "react-hot-toast";
 import spinner from "../../../../../../public/icons8-spinner.gif";
 import { CiCircleCheck } from "react-icons/ci";
-import { TaskTitleSkeleton } from "@/app/components/skeleton";
+import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import Calendar from "react-calendar";
 import { IoCheckmarkOutline } from "react-icons/io5";
