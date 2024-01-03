@@ -9,31 +9,29 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSidebarContext } from '../../context/sidebarContext';
 import { IoChevronBackOutline } from "react-icons/io5";
-import { MdOutlineInsights } from "react-icons/md"
-import { GoGoal } from "react-icons/go"
-import { IoIosAdd } from "react-icons/io"
-import { useRouter } from "next/navigation";
+import { MdOutlineInsights } from "react-icons/md";
+import { GoGoal } from "react-icons/go";
+import { IoIosAdd } from "react-icons/io";
 import CreateProject from "../projects/createProject";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
 import CurrentUserHook from "../../hooks/currentUserHook";
 
 export default function Sidebar() {
-    const { currentUser } = CurrentUserHook()
-    const router = useRouter()
-    const { isOpen, setIsOpen } = useSidebarContext()
-    const currentPath = usePathname()
-    const [isVisible, setIsvisible] = useState(false)
-    const collectionRef = collection(db, "projects")
-    const [projects, setPProjects] = useState<any[]>([])
+    const { currentUser } = CurrentUserHook();
+    const { isOpen, setIsOpen } = useSidebarContext();
+    const currentPath = usePathname();
+    const [isVisible, setIsvisible] = useState(false);
+    const collectionRef = collection(db, "projects");
+    const [projects, setProjects] = useState<any[]>([]);
 
     useEffect(() => {
         const handleResise = () => {
             if (window.innerWidth > 1174) {
-                setIsOpen(false)
-            }
-        }
-        window.addEventListener("resize", handleResise)
+                setIsOpen(false);
+            };
+        };
+        window.addEventListener("resize", handleResise);
 
         return () => {
             window.removeEventListener("resize", handleResise)
@@ -42,16 +40,15 @@ export default function Sidebar() {
 
     useEffect(() => {
         try {
-            const queryProjects = query(
-                collectionRef,
-                where("projectData.userId", "==", currentUser?.uid)
-            )
-            const unsubscribe = onSnapshot(queryProjects, (snapshot) => {
+            const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
                 const tempArray: any[] = []
                 snapshot.forEach((doc) => {
-                    tempArray.push({ ...doc.data(), id: doc.id })
+                    const projectData = doc.data().projectData;
+                    if (projectData.members && projectData.members.includes(currentUser?.uid)) {
+                        tempArray.push({ ...doc.data(), id: doc.id });
+                    }
                 })
-                setPProjects(tempArray)
+                setProjects(tempArray)
             })
 
             return () => unsubscribe()

@@ -6,31 +6,15 @@ import { GoFilter } from "react-icons/go"
 import { CiCircleCheck } from "react-icons/ci"
 import Image from "next/image"
 import anime from "../../../../../../../public/anime.jpg"
+import ProjectsSubnav from "@/app/components/projects/projectsSubnav"
 
 export default function Board() {
     return (
-        <section>
-            <div className="flex items-center pb-3 border-b">
-                <div className="border w-fit px-2 py-1 flex items-center rounded-md border-gray-300 cursor-pointer hover:bg-[#F9F8F8] mr-5">
-                    <div>
-                        <IoIosAdd size="1.3rem" />
-                    </div>
-                    <p className="text-xs font-medium">Add Task</p>
-                </div>
-                <div className="flex items-center mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
-                    <div className="mr-1">
-                        <GoFilter />
-                    </div>
-                    <p className="text-xs">Filter</p>
-                </div>
-                <div className="flex items-center hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
-                    <div className="mr-1">
-                        <TbArrowsSort />
-                    </div>
-                    <p className="text-xs">Sort</p>
-                </div>
+        <section className="h-[100%]">
+            <div className="h-[8%] px-10">
+                <ProjectsSubnav />
             </div>
-            <div className="mt-10 flex items-center">
+            {/* <div className="mt-10 flex items-center px-10">
                 <div className="w-[20%] mr-5">
                     <div className="mb-3">
                         <h1 className="font-medium">To do</h1>
@@ -100,7 +84,7 @@ export default function Board() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </section>
     )
 }

@@ -8,6 +8,10 @@ import { BiSolidRightArrow } from "react-icons/bi"
 import { useState } from "react"
 import Image from "next/image"
 import anime from "../../../../../../../public/anime.jpg"
+import ProjectsSubnav from "@/app/components/projects/projectsSubnav";
+import ProjectListTodoClient from "@/app/client/projects/projectListTodoClient"
+import ProjectListInprogressClient from "@/app/client/projects/projectListInprogressClient"
+import ProjectListCompletedClient from "@/app/client/projects/projectListCompletedClient"
 
 export default function List() {
     const [showTodoList, setShowTodoList] = useState(true)
@@ -21,29 +25,12 @@ export default function List() {
         setShowTodoList(true)
     }
     return (
-        <section>
-            <div className="flex items-center pb-3 border-b mr-[3%]">
-                <div className="border w-fit px-2 py-1 flex items-center rounded-md border-gray-300 cursor-pointer hover:bg-[#F9F8F8] mr-2">
-                    <div>
-                        <IoIosAdd size="1.3rem" />
-                    </div>
-                    <p className="text-xs font-medium">Add Task</p>
-                </div>
-                <div className="flex items-center mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
-                    <div className="mr-1">
-                        <GoFilter />
-                    </div>
-                    <p className="text-xs">Filter</p>
-                </div>
-                <div className="flex items-center hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
-                    <div className="mr-1">
-                        <TbArrowsSort />
-                    </div>
-                    <p className="text-xs">Sort</p>
-                </div>
+        <section className="px-10 h-[100%]">
+            <div className="h-[8%]">
+                <ProjectsSubnav />
             </div>
 
-            <div className="flex items-center pr-[3%]">
+            <div className="flex items-center h-[8%]">
                 <div className="w-[50%] border-b">
                     <p className="text-xs py-3 cursor-default">Task name</p>
                 </div>
@@ -56,7 +43,13 @@ export default function List() {
                 </div>
             </div>
 
-            <div className="mt-6">
+            <div className="h-[84%] overflow-y-auto pb-4">
+                <ProjectListTodoClient />
+                <ProjectListInprogressClient />
+                <ProjectListCompletedClient />
+            </div>
+
+            {/* <div className="mt-6">
                 <div className="flex items-center">
                     {showTodoList ? (
                         <div className="mr-3 opacity-70 cursor-pointer" onClick={handleCloseTodoList}>
@@ -99,7 +92,7 @@ export default function List() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
         </section>
     )

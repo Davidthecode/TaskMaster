@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";

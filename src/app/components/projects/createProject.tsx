@@ -56,7 +56,8 @@ export default function CreateProject({ onClose }: CreateProjectType) {
                     dueDate: "",
                     status: "",
                     goalDescription: "",
-                    loadPercentage: 0
+                    loadPercentage: 0,
+                    members: [currentuser?.uid]
                 };
 
                 const docRef = doc(collectionRef, uuidv4())

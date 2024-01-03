@@ -12,10 +12,12 @@ export default function ProjectLayout({
     children: React.ReactNode
 }) {
     return (
-        <section className="pl-[3%] pt-[1.5%] h-full flex flex-col">
-            <DynamicProjectsHeader />
+        <section className="h-[100%]">
+            <div className="h-[13%]">
+                <DynamicProjectsHeader />
+            </div>
 
-            <div className="overflow-y-auto mt-3">
+            <div className="h-[87%]">
                 {children}
             </div>
         </section>

@@ -1,5 +1,3 @@
-"use client";
-
 import dynamic from "next/dynamic";
 import DashboardNav from "../components/navbar/dashboardNav";
 import { SidebarSkeleton } from "../components/skeleton/skeleton";

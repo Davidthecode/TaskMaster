@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const DynamicTaskNav = dynamic(() => import("@/app/components/tasks/taskNav"));
+const DynamicTaskNav = dynamic(() => import("@/app/components/tasks/taskNav"), {ssr: false});
 
 export default function TasksLayout({
     children,

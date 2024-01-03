@@ -7,12 +7,14 @@ import keyResourcesImg from "../../../../../../../public/key_resources.png";
 import { LiaStickyNote } from "react-icons/lia";
 import { useEffect, useState } from "react";
 import ProjectBrief from "@/app/components/projects/projectBrief";
-import { doc, onSnapshot } from "firebase/firestore";
+import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
 import Addmember from "@/app/components/projects/addMember";
+import CurrentUserHook from "@/app/hooks/currentUserHook";
 
 export default function Overview() {
+    const { currentUser } = CurrentUserHook();
     const params = useParams();
     const id = params.id as string;
     const docRef = doc(db, "projects", id);
@@ -46,14 +48,28 @@ export default function Overview() {
         return () => unsubscribe();
     }, []);
 
+    useEffect(() => {
+        const adduserAsMember = async() => {
+            try {
+                await updateDoc(docRef, {
+                    "projectData.members": arrayUnion(currentUser?.uid)
+                });
+                console.log("added")
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        adduserAsMember();
+    }, [currentUser]);
 
     return (
-        <section className="mx-5 mt-5">
+        <section className="mx-12 mt-10">
             <div>
-                <h1 className="font-medium text-xl">Project description</h1>
+                <h1 className="font-medium text-lg">Project description</h1>
             </div>
             <div className="mt-10">
-                <h1 className="font-medium text-xl">Project roles</h1>
+                <h1 className="font-medium text-lg">Project roles</h1>
                 <div className="flex items-center">
                     <div className="mt-5 flex items-center hover:bg-[#F9F8F8] w-fit pl-2 pr-10 cursor-pointer py-3 rounded-md mr-4" onClick={openAddMember}>
                         <div className="border border-gray-500 border-dotted rounded-full w-fit p-1 mr-2">
@@ -75,7 +91,7 @@ export default function Overview() {
                 </div>
             </div>
             <div className="mt-6">
-                <h1 className="text-xl font-medium">Key Resources</h1>
+                <h1 className="text-lg font-medium">Key Resources</h1>
                 <div className="border h-[10rem] w-[70%] mt-6 rounded-md flex items-center justify-center">
                     <div className="w-[20%] h-[10rem]">
                         <Image src={keyResourcesImg} alt="image" width={0} height={0} className="w-full h-full" />
