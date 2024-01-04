@@ -14,11 +14,7 @@ export default function ProjectListTodoClient() {
     const [showTodoList, setShowTodoList] = useState(true);
     const { todoProjects, setTodoProjects, loading, checkFilter, checkIncompleteFilter, filteredTodoProjects } = useProjects();
 
-    console.log(todoProjects);
-
     const handleProjects = checkFilter || checkIncompleteFilter ? filteredTodoProjects : todoProjects;
-
-    console.log(handleProjects);
 
     const handleCloseTodoList = () => {
         setShowTodoList(false);

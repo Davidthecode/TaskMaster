@@ -4,11 +4,10 @@ import { useState, useEffect } from "react";
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoAddSharp } from "react-icons/io5";
 import { RiArrowDropUpLine } from 'react-icons/ri';
-import { auth, db } from "../../firebase/firebase-config";
+import { db } from "../../firebase/firebase-config";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
-import { onAuthStateChanged } from "firebase/auth";
 import spinner from "../../../../public/icons8-spinner.gif";
 import Image from "next/image";
 import calender from "../../../../public/icons8-calendar-16.png";
@@ -16,12 +15,14 @@ import user from "../../../../public/icons8-user-16.png";
 import taskIcon from "../../../../public/icons8-task-48.png";
 import priorityIcon from "../../../../public/icons8-priority-48.png";
 import statusIcon from "../../../../public/icons8-status-48.png";
+import CurrentUserHook from "@/app/hooks/currentUserHook";
 
 type AddtaskPopupProps = {
     onClose: () => void;
 };
 
 export default function Addtask({ onClose }: AddtaskPopupProps) {
+    const { currentUser } = CurrentUserHook();
     const [shownote, setShowNote] = useState(false);
     const [title, setTitle] = useState("");
     const [taskType, setTaskType] = useState("Todo");
@@ -30,18 +31,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
     const [currentDate, setCurrentDate] = useState("");
     const [note, setNote] = useState("");
     const collectionRef = collection(db, "tasks");
-    const [currentuser, setCurrentuser] = useState(auth.currentUser);
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setCurrentuser(user);
-            } else setCurrentuser(null);
-        })
-
-        return () => unsubscribe();
-    }, []);
 
     const now = new Date();
     const options: Intl.DateTimeFormatOptions = {
@@ -96,7 +86,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                     priority,
                     status,
                     note,
-                    userId: currentuser?.uid,
+                    userId: currentUser?.uid,
                     completed: false
                 };
 
@@ -172,7 +162,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                 </div>
 
                                 <div className='px-4 flex flex-col opacity-60'>
-                                    <p>{currentuser?.displayName}</p>
+                                    <p>{currentUser?.displayName}</p>
                                     <p className="mt-6">{currentDate}</p>
                                     <select className="mt-6 outline-none" value={taskType} onChange={handleTaskTypeStatusChange}>
                                         <option value="Todo">Todo</option>

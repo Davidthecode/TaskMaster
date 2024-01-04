@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast"
 import spinner from "../../../../public/icons8-spinner.gif"
 import { collection, doc, setDoc } from "firebase/firestore";
 import calender from "../../../../public/icons8-calendar-16.png";
-import userIcon from "../../../../public/icons8-user-16.png"
+import userIcon from "../../../../public/icons8-user-16.png";
 
 type CreateProjectType = {
     onClose: () => void;
@@ -57,7 +57,8 @@ export default function CreateProject({ onClose }: CreateProjectType) {
                     status: "",
                     goalDescription: "",
                     loadPercentage: 0,
-                    members: [currentuser?.uid]
+                    members: [currentuser?.uid],
+                    projectId: uuidv4().toString()
                 };
 
                 const docRef = doc(collectionRef, uuidv4())

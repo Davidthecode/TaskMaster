@@ -1,9 +1,8 @@
 "use client";
 
-import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/firebase-config";
-import toast from "react-hot-toast";;
 import CurrentUserHook from "./currentUserHook";
 import { useParams } from "next/navigation";
 
@@ -11,7 +10,7 @@ export default function ProjectsHook() {
     const params = useParams();
     const paramsId = params.id;
     const { currentUser } = CurrentUserHook();
-    const collectionRef = collection(db, "projects");
+    const collectionRef = collection(db, "projectsTasks");
     const [projects, setProjects] = useState<any[]>([]);
     const [todoProjects, setTodoProjects] = useState<any[]>([]);
     const [inprogressProjects, setInprogressProjects] = useState<any[]>([]);
@@ -24,23 +23,27 @@ export default function ProjectsHook() {
     const [checkIncompleteFilter, setCheckIncompleteFilter] = useState(false);
     const [sortedTasks, setSortedTasks] = useState<any[]>([]);
     const [checkSort, setCheckSort] = useState(false);
+    // console.log(projects);
 
     useEffect(() => {
         try {
-            const docRef = doc(collectionRef, paramsId as string);
-            const unsubscribe = onSnapshot(docRef, (snapshot) => {
+            const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
                 const tempArray: any[] = []
-                if (snapshot.exists()) {
-                    const data = snapshot.data();
-                    setProjects([...tempArray, data.taskData])
-                }
+                snapshot.docs.forEach((doc) => {
+                    const data = doc.data()
+                    if (data.taskData && data.taskData.taskId == paramsId) {
+                        tempArray.push(data);
+                    }
+
+                })
+                console.log(tempArray)
             })
 
             return () => unsubscribe();
         } catch (error) {
             console.log(error)
         }
-    }, [currentUser])
+    }, [currentUser, paramsId]);
 
     useEffect(() => {
         if (projects.length) {

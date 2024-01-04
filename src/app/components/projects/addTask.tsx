@@ -5,7 +5,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { IoAddSharp } from "react-icons/io5";
 import { RiArrowDropUpLine } from 'react-icons/ri';
 import { auth, db } from "../../firebase/firebase-config";
-import { doc, updateDoc } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 import { onAuthStateChanged } from "firebase/auth";
 import spinner from "../../../../public/icons8-spinner.gif";
@@ -16,12 +16,15 @@ import taskIcon from "../../../../public/icons8-task-48.png";
 import priorityIcon from "../../../../public/icons8-priority-48.png";
 import statusIcon from "../../../../public/icons8-status-48.png";
 import { useParams } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
+import CurrentUserHook from "@/app/hooks/currentUserHook";
 
 type AddtaskPopupProps = {
     onClose: () => void;
 };
 
 export default function AddProjectTask({ onClose }: AddtaskPopupProps) {
+    const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.id;
     const [shownote, setShowNote] = useState(false);
@@ -32,18 +35,8 @@ export default function AddProjectTask({ onClose }: AddtaskPopupProps) {
     const [currentDate, setCurrentDate] = useState("");
     const [note, setNote] = useState("");
     const docRef = doc(db, "projects", paramsId as string);
-    const [currentuser, setCurrentuser] = useState(auth.currentUser);
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setCurrentuser(user);
-            } else setCurrentuser(null);
-        })
-
-        return () => unsubscribe();
-    }, []);
+    const collectionRef = collection(db, "projectsTasks");
 
     const now = new Date();
     const options: Intl.DateTimeFormatOptions = {
@@ -99,10 +92,12 @@ export default function AddProjectTask({ onClose }: AddtaskPopupProps) {
                     taskStatus,
                     note,
                     completed: false,
-                    collaborators: []
+                    collaborators: [],
+                    assignee: currentUser?.uid,
+                    taskId: paramsId
                 };
-
-                await updateDoc(docRef, {
+                const docRef = doc(collectionRef, uuidv4())
+                await setDoc(docRef, {
                     taskData
                 });
                 toast.success("task added successfully");
@@ -173,7 +168,7 @@ export default function AddProjectTask({ onClose }: AddtaskPopupProps) {
                                 </div>
 
                                 <div className='px-4 flex flex-col opacity-60'>
-                                    <p>{currentuser?.displayName}</p>
+                                    <p>{currentUser?.displayName}</p>
                                     <p className="mt-6">{currentDate}</p>
                                     <select className="mt-6 outline-none" value={taskType} onChange={handleTaskTypeStatusChange}>
                                         <option value="Todo">Todo</option>
