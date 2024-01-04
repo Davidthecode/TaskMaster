@@ -10,7 +10,7 @@ type ProjectsContextType = {
     setTodoProjects: Dispatch<SetStateAction<any[]>>,
     inprogressProjects: any[],
     setInprogressProjects: Dispatch<SetStateAction<any[]>>,
-    complatedProjects: any[],
+    completedProjects: any[],
     setCompletedProjects: Dispatch<SetStateAction<any[]>>,
     loading: boolean,
     setLoading: Dispatch<SetStateAction<boolean>>,
@@ -33,9 +33,9 @@ type ProjectsContextType = {
 export const ProjectsContext = createContext<ProjectsContextType | undefined>(undefined);
 
 export const UseProjectsContext: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, complatedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort } = ProjectsHook();
+    const { projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, completedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort } = ProjectsHook();
     return (
-        <ProjectsContext.Provider value={{ projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, complatedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort }}>
+        <ProjectsContext.Provider value={{ projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, completedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort }}>
             {children}
         </ProjectsContext.Provider>
     )

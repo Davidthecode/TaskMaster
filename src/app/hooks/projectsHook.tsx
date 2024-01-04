@@ -14,7 +14,7 @@ export default function ProjectsHook() {
     const [projects, setProjects] = useState<any[]>([]);
     const [todoProjects, setTodoProjects] = useState<any[]>([]);
     const [inprogressProjects, setInprogressProjects] = useState<any[]>([]);
-    const [complatedProjects, setCompletedProjects] = useState<any[]>([]);
+    const [completedProjects, setCompletedProjects] = useState<any[]>([]);
     const [filteredTodoProjects, setFilteredTodoProjects] = useState<any[]>([]);
     const [filteredInprogressProjects, setFilteredInprogressProjects] = useState<any[]>([]);
     const [filteredCompletedProjects, setFilteredCompletedProjects] = useState<any[]>([]);
@@ -58,5 +58,5 @@ export default function ProjectsHook() {
 
     }, [projects]);
 
-    return { projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, complatedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort };
+    return { projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, completedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort };
 };
