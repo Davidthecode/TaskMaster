@@ -49,7 +49,7 @@ export default function ProjectListTodoClient() {
                                     <CiCircleCheck size="1.2rem" />
                                 )}
                             </div>
-                            <Link href={`/tasks/${data.id}`} className=" w-full h-full flex items-center hover:bg-[#F9F8F8] pl-1">
+                            <Link href={`/tasks/${data.id}`} className="w-full h-full flex items-center hover:bg-[#F9F8F8] pl-1">
                                 <p className="text-sm">{LimitWords(data.taskData.title, 4)}</p>
                             </Link>
                         </div>

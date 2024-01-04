@@ -12,10 +12,10 @@ export default function Board() {
 
     return (
         <section className="h-[100%]">
-            <div className="px-10 h-[8%]">
+            <div className="px-6 h-[8%]">
                 <TaskSubNav />
             </div>
-            <section className="flex bg-[#f0eded] px-10 overflow-y-auto h-[92%]">
+            <section className="flex bg-[#f0eded] px-6 overflow-y-auto h-[92%]">
                 {loading ? (
                     <TaskBoardSkeleton />
                 ) : (

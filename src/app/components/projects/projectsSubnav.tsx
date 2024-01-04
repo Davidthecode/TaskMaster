@@ -19,7 +19,7 @@ export default function ProjectsSubnav() {
 
     return (
         <section className="h-full flex items-center pb-3 border-b pt-2">
-            <div className="border w-fit px-2 py-[2.5px] flex items-center rounded-md border-gray-300 cursor-pointer hover:bg-[#F9F8F8] mr-2" onClick={handleAddTask}>
+            <div className="border w-fit px-2 py-[2.5px] flex items-center bg-[#F9F8F8] hover:bg-[#EBEBEA] rounded-md border-gray-300 cursor-pointer mr-2" onClick={handleAddTask}>
                 <div>
                     <IoIosAdd size="1.3rem" />
                 </div>

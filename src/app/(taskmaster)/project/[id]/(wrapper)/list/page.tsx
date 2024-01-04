@@ -25,7 +25,7 @@ export default function List() {
         setShowTodoList(true)
     }
     return (
-        <section className="px-10 h-[100%]">
+        <section className="px-6 h-[100%]">
             <div className="h-[8%]">
                 <ProjectsSubnav />
             </div>

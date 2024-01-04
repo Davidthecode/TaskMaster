@@ -32,7 +32,7 @@ export default function ProjectsHeader() {
     }, []);
 
     return (
-        <section className="px-10 pt-3 flex flex-col border-b h-[100%]">
+        <section className="px-6 pt-3 flex flex-col border-b h-[100%]">
             <div className="flex items-center">
                 <div className="mr-2">
                     <Image src={projectImg} alt="image" width={40} height={40} />

@@ -15,7 +15,7 @@ export default function ListInprogressClient() {
     const [showInprogressList, setShowInprogressList] = useState(true)
     const { inprogressTasks, setInprogressTasks, loading, checkFilter, checkIncompleteFilter, filteredInProgressTasks } = useTasks();
 
-    const handleTasks = checkFilter  || checkIncompleteFilter  ? filteredInProgressTasks : inprogressTasks
+    const handleTasks = checkFilter || checkIncompleteFilter ? filteredInProgressTasks : inprogressTasks
 
     const handleCloseInprogressList = () => {
         setShowInprogressList(false)
@@ -40,36 +40,38 @@ export default function ListInprogressClient() {
             </div>
             {handleTasks.map((inprogressTask: any) => {
                 return (
-                    <Link href={`/tasks/${inprogressTask.id}`} key={inprogressTask.id}>
-                        <div className={`flex items-center hover:bg-[#F9F8F8] ${showInprogressList ? "flex" : "hidden"}`}>
+                    <section key={inprogressTask.id}>
+                        <div className={`flex items-center ${showInprogressList ? "flex" : "hidden"}`}>
                             <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
-                                <div className="mr-1 cursor-pointer">
+                                <div className="mr-1 cursor-pointer w-fit pl-6">
                                     {inprogressTask.taskData.completed ? (
                                         <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
                                     ) : (
                                         <CiCircleCheck size="1.2rem" />
                                     )}
                                 </div>
-                                <p className="text-sm">{LimitWords(inprogressTask.taskData.title, 4)}</p>
+                                <Link href={`/tasks/${inprogressTask.id}`} className="w-full h-full flex items-center hover:bg-[#F9F8F8] pl-1">
+                                    <p className="text-sm">{LimitWords(inprogressTask.taskData.title, 4)}</p>
+                                </Link>
                             </div>
                             <div className="flex items-center w-[50%] h-[42px]">
-                                <div className={`text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500`}>
+                                <div className={`text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300`}>
                                     <p>{new Date(inprogressTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                     </p>
                                 </div>
-                                <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center">
+                                <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center hover:border hover:border-gray-300">
                                     <div className={`${inprogressTask.taskData.status === "On track" ? "bg-[#4ECBC4]" : inprogressTask.taskData.status === "At risk" ? "bg-[#F8DF72]" : inprogressTask.taskData.status === "Off track" ? "bg-[#F06A6A]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>
                                         {inprogressTask.taskData.status}
                                     </div>
                                 </div>
-                                <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center">
+                                <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
                                     <div className={`${inprogressTask.taskData.priority === "Low" ? "bg-[#9EE7E3]" : inprogressTask.taskData.priority === "Medium" ? "bg-[#F1BD6C]" : inprogressTask.taskData.priority === "High" ? "bg-[#CD95EA]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>
                                         {inprogressTask.taskData.priority}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    </section>
                 )
             })}
         </section>

@@ -68,7 +68,7 @@ export default function TaskSubNav() {
       </div>
       <div
         onClick={handleAddTask}
-        className="flex items-center rounded-md cursor-pointer bg-[#426DC6] text-white border px-3 py-1 mobile:hidden"
+        className="flex items-center cursor-pointer bg-[#F9F8F8] hover:bg-[#EBEBEA] rounded-md border border-gray-300 px-3 py-1 mobile:hidden"
       >
         <div>
           <IoAddSharp />

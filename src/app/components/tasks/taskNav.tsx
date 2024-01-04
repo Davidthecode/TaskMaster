@@ -23,20 +23,22 @@ export default function TaskNav() {
     }, [currentUser]);
 
     return (
-        <section className="px-10 pt-2 flex border-b">
-            <div className="mr-4 mt-1">
-                <Image src={photo} alt="image" height={50} width={50} className="rounded-full" />
-            </div>
-            <div className="flex flex-col justify-center">
+        <section className="px-6 pt-3 flex flex-col border-b h-[100%]">
+            <div className="flex items-center">
+                <div className="mr-2">
+                    <Image src={photo} alt="image" height={40} width={40} className="rounded-full" />
+                </div>
                 <div>
                     <h1 className="text-xl font-medium">My tasks</h1>
                 </div>
-                <div className="mt-2 flex items-center pb-2">
+            </div>
+            <div className="flex items-center mt-auto">
+                <div className="flex items-center pb-2">
                     <Link
                         href={`/tasks/list`}
                         className={`${currentPath == `/tasks/list` && "underline underline-offset-[12px]"}`}
                     >
-                        <div className="flex items-center mr-6 cursor-pointer opacity-70">
+                        <div className="flex items-center mr-6 cursor-pointer">
                             <div className="mr-1">
                                 <CiViewTable size="1.2rem" />
                             </div>
@@ -47,7 +49,7 @@ export default function TaskNav() {
                         href={`/tasks/board`}
                         className={`${currentPath == `/tasks/board` && "underline underline-offset-[12px]"}`}
                     >
-                        <div className="flex items-center cursor-pointer opacity-70">
+                        <div className="flex items-center cursor-pointer">
                             <div className="mr-1">
                                 <RxDashboard size="1rem" />
                             </div>

@@ -11,7 +11,7 @@ export default function List() {
     const { loading } = useTasks();
 
     return (
-        <section className="px-10 h-[100%]">
+        <section className="px-6 h-[100%]">
             <div className="h-[8%]">
                 <TaskSubNav />
             </div>
