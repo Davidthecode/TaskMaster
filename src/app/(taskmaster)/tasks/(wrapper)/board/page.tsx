@@ -8,14 +8,14 @@ import TasksHook from "@/app/hooks/tasksHook";
 import { TaskBoardSkeleton } from "@/app/components/skeleton/skeleton";
 
 export default function Board() {
-    const { tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading } = TasksHook();
+    const { loading } = TasksHook();
 
     return (
         <section className="h-[100%]">
             <div className="px-6 h-[8%]">
                 <TaskSubNav />
             </div>
-            <section className="flex bg-[#f0eded] px-6 overflow-y-auto h-[92%]">
+            <div className="flex bg-[#f0eded] px-6 overflow-y-auto h-[92%]">
                 {loading ? (
                     <TaskBoardSkeleton />
                 ) : (
@@ -25,7 +25,7 @@ export default function Board() {
                         <BoardCompletedClient />
                     </div>
                 )}
-            </section>
+            </div>
         </section>
     )
 }

@@ -42,7 +42,7 @@ export default function ProjectListInprogressClient() {
                 return (
                     <div className={`flex items-center ${showInprogressList ? "flex" : "hidden"}`} key={data.id}>
                         <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
-                            <div className="cursor-pointer w-fit">
+                            <div className="cursor-pointer w-fit pl-6">
                                 {data.taskData.completed ? (
                                     <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
                                 ) : (

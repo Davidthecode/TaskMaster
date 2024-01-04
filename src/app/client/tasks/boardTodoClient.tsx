@@ -1,13 +1,12 @@
-"use client"
+"use client";
 
-import { Dispatch, SetStateAction } from "react"
-import { CiCircleCheck } from "react-icons/ci"
-import Image from "next/image"
-import anime from "../../../../public/anime.jpg"
-import { LimitWords } from "../../../../utils/limitWords"
-import Link from "next/link"
-import ok from "../../../../public/icons8-ok-16 (1).png"
-import { useTasks } from "@/app/context/tasksContext"
+import { CiCircleCheck } from "react-icons/ci";
+import Image from "next/image";
+import anime from "../../../../public/anime.jpg";
+import { LimitWords } from "../../../../utils/limitWords";
+import Link from "next/link";
+import ok from "../../../../public/icons8-ok-16 (1).png";
+import { useTasks } from "@/app/context/tasksContext";
 
 export default function BoardTodoClient() {
     const { todoTasks, setTodoTasks, loading, checkFilter, checkIncompleteFilter, filteredTodoTasks } = useTasks();
@@ -60,4 +59,4 @@ export default function BoardTodoClient() {
             </div>
         </section>
     )
-}
+};
