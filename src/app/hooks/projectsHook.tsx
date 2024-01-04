@@ -23,26 +23,26 @@ export default function ProjectsHook() {
     const [checkIncompleteFilter, setCheckIncompleteFilter] = useState(false);
     const [sortedTasks, setSortedTasks] = useState<any[]>([]);
     const [checkSort, setCheckSort] = useState(false);
-    // console.log(projects);
 
     useEffect(() => {
         try {
             const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+                setTodoProjects([]);
                 const tempArray: any[] = []
                 snapshot.docs.forEach((doc) => {
                     const data = doc.data()
                     if (data.taskData && data.taskData.taskId == paramsId) {
                         tempArray.push(data);
-                    }
+                    };
 
-                })
-                console.log(tempArray)
-            })
+                });
+                setProjects(tempArray);
+            });
 
             return () => unsubscribe();
         } catch (error) {
-            console.log(error)
-        }
+            console.log(error);
+        };
     }, [currentUser, paramsId]);
 
     useEffect(() => {
@@ -56,7 +56,7 @@ export default function ProjectsHook() {
             setCompletedProjects(filteredCompletedProjects);
         }
 
-    }, [projects])
+    }, [projects]);
 
     return { projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, complatedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort };
 };

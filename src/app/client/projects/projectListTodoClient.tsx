@@ -12,7 +12,7 @@ import { useProjects } from "@/app/context/projectsContext";
 
 export default function ProjectListTodoClient() {
     const [showTodoList, setShowTodoList] = useState(true);
-    const { todoProjects, setTodoProjects, loading, checkFilter, checkIncompleteFilter, filteredTodoProjects } = useProjects();
+    const { todoProjects, setTodoProjects, loading, checkFilter, checkIncompleteFilter, filteredTodoProjects, projects } = useProjects();
 
     const handleProjects = checkFilter || checkIncompleteFilter ? filteredTodoProjects : todoProjects;
 
