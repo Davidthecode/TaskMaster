@@ -50,7 +50,7 @@ export default function TasksHook() {
             window.addEventListener("offline", showNetworkAlert);
 
             return () => {
-                unsubscribe()
+                unsubscribe();
                 window.removeEventListener("online", showNetworkAlert);
                 window.removeEventListener("offline", showNetworkAlert);
             };
