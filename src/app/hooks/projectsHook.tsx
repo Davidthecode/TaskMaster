@@ -30,9 +30,10 @@ export default function ProjectsHook() {
                 setTodoProjects([]);
                 const tempArray: any[] = []
                 snapshot.docs.forEach((doc) => {
-                    const data = doc.data()
+                    const data = doc.data();
+                    const id = (doc.id);
                     if (data.taskData && data.taskData.taskId == paramsId) {
-                        tempArray.push(data);
+                        tempArray.push({...data, id});
                     };
 
                 });

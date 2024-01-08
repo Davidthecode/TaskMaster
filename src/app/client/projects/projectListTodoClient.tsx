@@ -9,8 +9,11 @@ import { LimitWords } from "../../../../utils/limitWords";
 import Link from "next/link";
 import ok from "../../../../public/icons8-ok-16 (1).png";
 import { useProjects } from "@/app/context/projectsContext";
+import { useParams } from "next/navigation";
 
 export default function ProjectListTodoClient() {
+    const params = useParams();
+    const paramsId = params.id;
     const [showTodoList, setShowTodoList] = useState(true);
     const { todoProjects, setTodoProjects, loading, checkFilter, checkIncompleteFilter, filteredTodoProjects, projects } = useProjects();
 
@@ -49,7 +52,7 @@ export default function ProjectListTodoClient() {
                                     <CiCircleCheck size="1.2rem" />
                                 )}
                             </div>
-                            <Link href={`/tasks/${data.id}`} className="w-full h-full flex items-center hover:bg-[#F9F8F8] pl-1">
+                            <Link href={`/project/${paramsId}/${data.id}`} className="w-full h-full flex items-center hover:bg-[#F9F8F8] pl-1">
                                 <p className="text-sm">{LimitWords(data.taskData.title, 4)}</p>
                             </Link>
                         </div>

@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import toast from "react-hot-toast";
-import spinner from "../../../../../../public/icons8-spinner.gif";
+import spinner from "../../../../../../../public/icons8-spinner.gif";
 import { CiCircleCheck } from "react-icons/ci";
 import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
@@ -20,16 +20,16 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export default function Task() {
+export default function ProjectTask() {
     const [value, onChange] = useState<Value>();
     const { currentUser } = CurrentUserHook();
     const params = useParams();
-    const paramsId = params.id;
+    const paramsId = params.taskId;
     const router = useRouter();
     const [showCalender, setShowCalender] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [taskType, setTaskType] = useState("");
-    const docRef = doc(db, "tasks", paramsId as string);
+    const docRef = doc(db, "projectsTasks", paramsId as string);
     const [note, setNote] = useState("");
     const [title, setTitle] = useState("");
     const [dateCreated, setDateCreated] = useState("");
@@ -39,8 +39,7 @@ export default function Task() {
     const [showStatus, setShowStatus] = useState(false);
     const [selectedStatusOption, setSelectedStatusOption] = useState("On track");
     const [completed, setCompleted] = useState<boolean>();
-    const [dueDate, setDueDate] = useState("");
-
+    const [selectedDate, setSelectedDate] = useState('');
 
     const priorityOptions = [
         { label: "Low", bgColor: "#9EE7E3" },
@@ -62,12 +61,12 @@ export default function Task() {
                     if (snapshot.exists()) {
                         setNote(snapshot.data().taskData.note);
                         setTitle(snapshot.data().taskData.title);
-                        setDateCreated(snapshot.data().taskData.dateAdded);
+                        setDateCreated(snapshot.data().taskData.taskDateAdded);
+                        setSelectedDate(snapshot.data().taskData.dueDate);
                         setTaskType(snapshot.data().taskData.taskType);
-                        setSelectedPriorityOption(snapshot.data().taskData.priority);
-                        setSelectedStatusOption(snapshot.data().taskData.status);
+                        setSelectedPriorityOption(snapshot.data().taskData.taskPriority);
+                        setSelectedStatusOption(snapshot.data().taskData.taskStatus);
                         setCompleted(snapshot.data().taskData.completed);
-                        setDueDate(snapshot.data().taskData.dueDate);
                     }
                     setLoading(false);
                 });
@@ -82,15 +81,15 @@ export default function Task() {
 
     useEffect(() => {
         async function handleDueDate() {
-            if (dueDate !== "") {
+            if (selectedDate !== "") {
                 const dataToUpdate = {
-                    "taskData.dueDate": dueDate
+                    "taskData.dueDate": selectedDate
                 };
                 await updateDoc(docRef, dataToUpdate);
-            };
+            }
         };
         handleDueDate();
-    }, [dueDate]);
+    }, [selectedDate]);
 
     const handleTaskTypeChange = async (e: any) => {
         const taskType = e.target.value;
@@ -196,6 +195,8 @@ export default function Task() {
         await updateDoc(docRef, dataToUpdate);
     };
 
+    console.log(selectedDate);
+
     return (
         <section className="bg-[#F9F8F8] px-20 mobile:px-0 py-3 flex flex-col items-center overflow-y-auto h-full">
             <div className="bg-white w-[75%] mobile:w-full h-full largeTablet:w-full flex flex-col rounded-md overflow-y-auto">
@@ -263,8 +264,8 @@ export default function Task() {
                                 <input
                                     type="date"
                                     className="text-xs cursor-pointer"
-                                    value={dueDate.toString().split('T')[0]}
-                                    onChange={(e) => setDueDate(e.target.value)}
+                                    value={selectedDate.toString().split('T')[0]}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -385,5 +386,5 @@ export default function Task() {
                 </div>
             </div>
         </section>
-    );
+    )
 };
