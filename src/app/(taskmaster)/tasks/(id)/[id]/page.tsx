@@ -141,8 +141,8 @@ export default function Task() {
     //function to delete task
     const handleDelete = async () => {
         await deleteDoc(docRef);
-        toast.success("Task deleted successfully");
         router.push("/tasks");
+        toast.success("Task deleted successfully");
     };
 
     const handleNavigation = () => {
