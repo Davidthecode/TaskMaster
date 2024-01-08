@@ -13,7 +13,6 @@ import spinner from "../../../../../../public/icons8-spinner.gif";
 import { CiCircleCheck } from "react-icons/ci";
 import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
-import Calendar from "react-calendar";
 import { IoCheckmarkOutline } from "react-icons/io5";
 
 type ValuePiece = Date | null;
@@ -21,12 +20,10 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function Task() {
-    const [value, onChange] = useState<Value>();
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.id;
     const router = useRouter();
-    const [showCalender, setShowCalender] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [taskType, setTaskType] = useState("");
     const docRef = doc(db, "tasks", paramsId as string);
@@ -176,10 +173,6 @@ export default function Task() {
             "taskData.priority": priorityOption.label
         };
         await updateDoc(docRef, dataToUpdate);
-    };
-
-    const handleShowCalender = () => {
-        setShowCalender(!showCalender);
     };
 
     const handleMarkAsComplete = async () => {
