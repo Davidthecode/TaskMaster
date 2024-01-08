@@ -44,10 +44,10 @@ export default function AddProjectTask({ onClose }: AddtaskPopupProps) {
         month: "long",
         day: "numeric"
     };
-    const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(now);
+    const formattedDate = now.toISOString().split('T')[0];
 
     const updateDateTime = () => {
-        setCurrentDate(formattedDateTime);
+        setCurrentDate(formattedDate);
     };
 
     useEffect(() => {
@@ -86,7 +86,7 @@ export default function AddProjectTask({ onClose }: AddtaskPopupProps) {
                 const taskData = {
                     title,
                     taskDateAdded: currentDate,
-                    taskDueDate: formattedDateTime,
+                    taskDueDate: formattedDate,
                     taskType,
                     taskPriority,
                     taskStatus,

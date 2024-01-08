@@ -140,7 +140,7 @@ export default function ProjectTask() {
     //function to delete task
     const handleDelete = async () => {
         await deleteDoc(docRef);
-        router.push("/project");
+        router.back();
         toast.success("Task deleted successfully");
     };
 
@@ -187,6 +187,8 @@ export default function ProjectTask() {
         };
         await updateDoc(docRef, dataToUpdate);
     };
+
+    console.log(selectedDate)  //error with date
 
     return (
         <section className="bg-[#F9F8F8] px-20 mobile:px-0 py-3 flex flex-col items-center overflow-y-auto h-full">
@@ -255,7 +257,7 @@ export default function ProjectTask() {
                                 <input
                                     type="date"
                                     className="text-xs cursor-pointer"
-                                    value={selectedDate.toString().split('T')[0]}
+                                    value={selectedDate}
                                     onChange={(e) => setSelectedDate(e.target.value)}
                                 />
                             </div>
