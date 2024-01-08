@@ -21,12 +21,10 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function ProjectTask() {
-    const [value, onChange] = useState<Value>();
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.taskId;
     const router = useRouter();
-    const [showCalender, setShowCalender] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [taskType, setTaskType] = useState("");
     const docRef = doc(db, "projectsTasks", paramsId as string);
@@ -164,7 +162,7 @@ export default function ProjectTask() {
     const handleStatusOptionClick = async (statusOption: any) => {
         setSelectedStatusOption(statusOption.label);
         const dataToUpdate = {
-            "taskData.status": statusOption.label
+            "taskData.taskStatus": statusOption.label
         };
         await updateDoc(docRef, dataToUpdate);
     };
@@ -172,13 +170,9 @@ export default function ProjectTask() {
     const handlePriorityOptionClick = async (priorityOption: any) => {
         setSelectedPriorityOption(priorityOption.label);
         const dataToUpdate = {
-            "taskData.priority": priorityOption.label
+            "taskData.taskPriority": priorityOption.label
         };
         await updateDoc(docRef, dataToUpdate);
-    };
-
-    const handleShowCalender = () => {
-        setShowCalender(!showCalender);
     };
 
     const handleMarkAsComplete = async () => {
@@ -194,8 +188,6 @@ export default function ProjectTask() {
         };
         await updateDoc(docRef, dataToUpdate);
     };
-
-    console.log(selectedDate);
 
     return (
         <section className="bg-[#F9F8F8] px-20 mobile:px-0 py-3 flex flex-col items-center overflow-y-auto h-full">
