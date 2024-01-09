@@ -59,7 +59,7 @@ export default function ProjectTask() {
                         setNote(snapshot.data().taskData.note);
                         setTitle(snapshot.data().taskData.title);
                         setDateCreated(snapshot.data().taskData.taskDateAdded);
-                        setSelectedDate(snapshot.data().taskData.dueDate);
+                        setSelectedDate(snapshot.data().taskData.taskDueDate);
                         setTaskType(snapshot.data().taskData.taskType);
                         setSelectedPriorityOption(snapshot.data().taskData.taskPriority);
                         setSelectedStatusOption(snapshot.data().taskData.taskStatus);
@@ -80,7 +80,7 @@ export default function ProjectTask() {
         async function handleDueDate() {
             if (selectedDate !== "") {
                 const dataToUpdate = {
-                    "taskData.dueDate": selectedDate
+                    "taskData.taskDueDate": selectedDate
                 };
                 await updateDoc(docRef, dataToUpdate);
             }
