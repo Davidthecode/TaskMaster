@@ -10,6 +10,9 @@ import Link from "next/link";
 import ok from "../../../../public/icons8-ok-16 (1).png";
 import { useProjects } from "@/app/context/projectsContext";
 import { useParams } from "next/navigation";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-config";
+
 
 export default function ProjectListTodoClient() {
     const params = useParams();
@@ -25,6 +28,22 @@ export default function ProjectListTodoClient() {
 
     const handleOpenTodoList = () => {
         setShowTodoList(true);
+    };
+
+    const handleMarkAsComplete = async (id: string) => {
+        const docRef = doc(db, "projectsTasks", id);
+        const dataToUpdate = {
+            "taskData.completed": true
+        };
+        await updateDoc(docRef, dataToUpdate);
+    };
+
+    const handleMarkAsIncomplete = async (id: string) => {
+        const docRef = doc(db, "projectsTasks", id);
+        const dataToUpdate = {
+            "taskData.completed": false
+        };
+        await updateDoc(docRef, dataToUpdate);
     };
 
     return (
@@ -47,9 +66,19 @@ export default function ProjectListTodoClient() {
                         <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                             <div className="cursor-pointer w-fit pl-6">
                                 {data.taskData.completed ? (
-                                    <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
+                                    <Image
+                                        src={ok}
+                                        alt="image"
+                                        width={17}
+                                        height={17}
+                                        className="opacity-90 mt-1"
+                                        onClick={() => handleMarkAsIncomplete(data.id)}
+                                    />
                                 ) : (
-                                    <CiCircleCheck size="1.2rem" />
+                                    <CiCircleCheck
+                                        size="1.2rem"
+                                        onClick={() => handleMarkAsComplete(data.id)}
+                                    />
                                 )}
                             </div>
                             <Link href={`/project/${paramsId}/${data.id}`} className="w-full h-full flex items-center hover:bg-[#F9F8F8] pl-1">

@@ -15,16 +15,11 @@ import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { IoCheckmarkOutline } from "react-icons/io5";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 export default function ProjectTask() {
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.taskId;
     const router = useRouter();
-    const [isHovering, setIsHovering] = useState(false);
     const [taskType, setTaskType] = useState("");
     const docRef = doc(db, "projectsTasks", paramsId as string);
     const [note, setNote] = useState("");
@@ -95,14 +90,6 @@ export default function ProjectTask() {
             "taskData.taskType": taskType
         };
         await updateDoc(docRef, dataToUpdate);
-    };
-
-    const handleMouseOver = () => {
-        setIsHovering(true);
-    };
-
-    const handleMouseOut = () => {
-        setIsHovering(false);
     };
 
     const handleTitleChange = (e: any) => {
@@ -188,12 +175,10 @@ export default function ProjectTask() {
         await updateDoc(docRef, dataToUpdate);
     };
 
-    console.log(selectedDate)  //error with date
-
     return (
         <section className="bg-[#F9F8F8] px-20 mobile:px-0 py-3 flex flex-col items-center overflow-y-auto h-full">
             <div className="bg-white w-[75%] mobile:w-full h-full largeTablet:w-full flex flex-col rounded-md overflow-y-auto">
-                <div className="flex items-center justify-between mb-3 w-[57.5%] border-b pl-11 py-2 fixed z-40 bg-white">
+                <div className="flex items-center justify-between mb-3 border-b pl-11 py-2 fixed z-40 bg-white w-[50%]">
                     <div className="flex items-center">
                         <div
                             onClick={handleNavigation}
@@ -228,12 +213,10 @@ export default function ProjectTask() {
                         <TaskTitleSkeleton />
                     ) : (
                         <div
-                            onMouseOver={handleMouseOver}
-                            onMouseOut={handleMouseOut}
                             className="mb-6 flex items-center w-[90%]">
-                            <div className="mobile:w-[85%] w-full ">
+                            <div className="mobile:w-[85%] w-full hover:border-b hover:border-gray-300">
                                 <input
-                                    className={`text-3xl bg-white font-medium w-full h-10 mt-4 mb-2 outline-none border-none${isHovering && "border-b border-gray-400 underline"}`}
+                                    className="text-3xl bg-white font-medium w-full h-10 mt-4 mb-2 outline-none border-collapse"
                                     placeholder={title}
                                     value={title}
                                     onChange={handleTitleChange}

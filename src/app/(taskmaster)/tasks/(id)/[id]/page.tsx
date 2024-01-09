@@ -15,16 +15,11 @@ import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { IoCheckmarkOutline } from "react-icons/io5";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 export default function Task() {
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.id;
     const router = useRouter();
-    const [isHovering, setIsHovering] = useState(false);
     const [taskType, setTaskType] = useState("");
     const docRef = doc(db, "tasks", paramsId as string);
     const [note, setNote] = useState("");
@@ -73,7 +68,7 @@ export default function Task() {
                 console.log(error);
                 setLoading(false);
             };
-        }
+        };
         getTaskData();
     }, []);
 
@@ -96,14 +91,6 @@ export default function Task() {
             "taskData.taskType": taskType
         };
         await updateDoc(docRef, dataToUpdate);
-    };
-
-    const handleMouseOver = () => {
-        setIsHovering(true);
-    };
-
-    const handleMouseOut = () => {
-        setIsHovering(false);
     };
 
     const handleTitleChange = (e: any) => {
@@ -227,12 +214,10 @@ export default function Task() {
                         <TaskTitleSkeleton />
                     ) : (
                         <div
-                            onMouseOver={handleMouseOver}
-                            onMouseOut={handleMouseOut}
                             className="mb-6 flex items-center w-[90%]">
-                            <div className="mobile:w-[85%] w-full ">
+                            <div className="mobile:w-[85%] w-full hover:border-b hover:border-gray-300">
                                 <input
-                                    className={`text-3xl bg-white font-medium w-full h-10 mt-4 mb-2 outline-none border-none${isHovering && "border-b border-gray-400 underline"}`}
+                                    className="text-3xl bg-white font-medium w-full h-10 mt-4 mb-2 outline-none border-collapse"
                                     placeholder={title}
                                     value={title}
                                     onChange={handleTitleChange}
