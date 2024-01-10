@@ -2,18 +2,27 @@
 
 import { IoIosAdd } from "react-icons/io";
 import Image from "next/image";
-import anime from "../../../../../../../public/anime.jpg";
 import keyResourcesImg from "../../../../../../../public/key_resources.png";
 import { LiaStickyNote } from "react-icons/lia";
 import { useEffect, useState } from "react";
 import ProjectBrief from "@/app/components/projects/projectBrief";
-import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
 import Addmember from "@/app/components/projects/addMember";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
+import { StaticImageData } from "next/image";
+import noUser from "../../../../../../../public/nouser.jpg";
 
 export default function Overview() {
+    type ProfileMembersDataType = {
+        profileData: { username: string; photoUrl: string }
+    }
+
+    type ProfileDataType = {
+        username: string; photoUrl: string
+    }
+
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const id = params.id as string;
@@ -21,7 +30,10 @@ export default function Overview() {
     const [toggleProjectBriefPopup, setToggleProjectBriefPopup] = useState(false);
     const [toggleAddMemberPopup, setToggleAddMemberPopup] = useState(false);
     const [projectBrief, setProjectBrief] = useState("");
-
+    const [projectOwnerName, setProjectOwnerName] = useState<string | null>(null);
+    const [projectOwnerImageUrl, setProjectOwnerImageUrl] = useState<string | StaticImageData>(noUser);
+    const [projectMembers, setProjectMembers] = useState<ProfileDataType[]>([])
+    console.log(projectMembers)
     const openAddMember = () => {
         setToggleAddMemberPopup(true);
     };
@@ -39,9 +51,47 @@ export default function Overview() {
     };
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(docRef, (snapshot) => {
+        const unsubscribe = onSnapshot(docRef, async (snapshot) => {
             if (snapshot.exists()) {
                 setProjectBrief(snapshot.data().projectData.projectBrief);
+                const checkForProjectOwner: string = snapshot.data().projectData.userId;
+                const checkForProjectMembers: string[] = snapshot.data().projectData.members;
+
+                if (checkForProjectOwner) {
+                    const userDocRef = doc(db, 'profile', checkForProjectOwner);
+                    try {
+                        const userDocSnapshot = await getDoc(userDocRef);
+                        if (userDocSnapshot.exists()) {
+                            const userData = userDocSnapshot.data();
+                            setProjectOwnerName(userData.profileData.username);
+                            setProjectOwnerImageUrl(userData.profileData.photoUrl);
+                        } else {
+                            console.warn('User not found in the users collection');
+                        };
+                    } catch (error) {
+                        console.error('Error fetching user details:');
+                    };
+                };
+
+                if (checkForProjectMembers.length > 0) {
+                    const filteredProjectMembers = checkForProjectMembers.filter((memberId: string) => memberId !== checkForProjectOwner);
+                    if (filteredProjectMembers.length > 0) {
+                        const docRefs = filteredProjectMembers.map((filteredProjectId: string) => doc(db, "profile", filteredProjectId));
+                        try {
+                            const docSnapshots = await Promise.all(docRefs.map((docRef) => getDoc(docRef)));
+                            const projectMembersData = docSnapshots.map((snapshot) => {
+                                const data = snapshot.data() as ProfileMembersDataType;
+                                return {
+                                    username: data.profileData.username,
+                                    photoUrl: data.profileData.photoUrl,
+                                }
+                            });
+                            setProjectMembers(projectMembersData);
+                        } catch (error) {
+                            console.error("Error getting data");
+                        }
+                    }
+                }
             };
         });
 
@@ -49,29 +99,27 @@ export default function Overview() {
     }, []);
 
     useEffect(() => {
-        const adduserAsMember = async() => {
+        const adduserAsMember = async () => {
             try {
                 await updateDoc(docRef, {
                     "projectData.members": arrayUnion(currentUser?.uid)
                 });
-                console.log("added")
             } catch (error) {
-                console.log(error);
-            }
-        }
-
+                console.error(error);
+            };
+        };
         adduserAsMember();
     }, [currentUser]);
 
     return (
-        <section className="mx-12 mt-10">
+        <section className="mx-12 pt-10">
             <div>
                 <h1 className="font-medium text-lg">Project description</h1>
             </div>
-            <div className="mt-10">
-                <h1 className="font-medium text-lg">Project roles</h1>
+            <div className="pt-10">
+                <h1 className="font-medium text-lg pb-6">Project roles</h1>
                 <div className="flex items-center">
-                    <div className="mt-5 flex items-center hover:bg-[#F9F8F8] w-fit pl-2 pr-10 cursor-pointer py-3 rounded-md mr-4" onClick={openAddMember}>
+                    <div className="flex items-center hover:bg-[#F9F8F8] w-fit pl-2 pr-14 cursor-pointer rounded-md" onClick={openAddMember}>
                         <div className="border border-gray-500 border-dotted rounded-full w-fit p-1 mr-2">
                             <IoIosAdd size="1.5rem" />
                         </div>
@@ -79,14 +127,30 @@ export default function Overview() {
                             <p className="font-medium text-sm">Add member</p>
                         </div>
                     </div>
-                    <div className="mt-5 flex items-center">
+                    <div className="flex items-center h-full w-60 px-4">
                         <div className="mr-2">
-                            <Image src={anime} alt="image" width={30} height={30} className="rounded-full" />
+                            <Image src={projectOwnerImageUrl} alt="image" width={30} height={30} className="rounded-full" />
                         </div>
                         <div className="flex flex-col">
-                            <p className="text-sm font-medium">David Ajibola</p>
-                            <p className="text-xs">Project owner</p>
+                            <p className="text-sm font-medium">{projectOwnerName}</p>
+                            <p className="text-xs">ProjectOwner</p>
                         </div>
+                    </div>
+                    <div className="flex items-center space-x-8 overflow-x-auto w-full">
+                        {projectMembers.map((projectMember, id) => {
+                            return (
+                                <div key={id} className="mt-5 flex items-center">
+                                    <div className="mr-2">
+                                        <Image src={projectMember.photoUrl} alt="image" width={30} height={30} className="rounded-full" />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <p className="text-sm font-medium">{projectMember.username}</p>
+                                        <p className="text-xs">Project member</p>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                        
                     </div>
                 </div>
             </div>
@@ -108,7 +172,7 @@ export default function Overview() {
                 </div>
             </div>
             {projectBrief && (
-                <div className="mt-10 w-[70%] mb-20">
+                <div className="mt-10 w-[70%] pb-10">
                     <h1 className="text-xl font-medium">Project brief</h1>
                     <p>{projectBrief}</p>
                 </div>

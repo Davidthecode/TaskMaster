@@ -1,39 +1,39 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import anime from "../../../../../public/anime.jpg"
-import { auth, db } from "@/app/firebase/firebase-config"
-import { onAuthStateChanged, updateProfile } from "firebase/auth"
-import toast from "react-hot-toast"
-import spinner from "../../../../../public/icons8-spinner.gif"
-import { collection, doc, onSnapshot, setDoc } from "firebase/firestore"
-import noUser from "../../../../../public/nouser.jpg"
-import { StaticImageData } from "next/image"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import anime from "../../../../../public/anime.jpg";
+import { auth, db } from "@/app/firebase/firebase-config";
+import { onAuthStateChanged, updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
+import spinner from "../../../../../public/icons8-spinner.gif";
+import { collection, doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import noUser from "../../../../../public/nouser.jpg";
+import { StaticImageData } from "next/image";
 import { storage } from "../../../firebase/firebase-config";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function Profile() {
-    const [currentuser, setCurrentUser] = useState(auth.currentUser)
-    const [username, setUsername] = useState("")
-    const [userEmail, setUserEmail] = useState("")
-    const [pronouns, setPronouns] = useState("")
-    const [jobTitle, setJobTitle] = useState("")
-    const [department, setDepartment] = useState("")
-    const [about, setAbout] = useState("")
-    const [disableButon, setDisableButton] = useState(true)
-    const [loading, setLoading] = useState(false)
-    const profileCollectionRef = collection(db, "profile")
-    const [photoUrl, setPhotoUrl] = useState<StaticImageData | string>(noUser)
-    const [imageLoading, setImageLoading] = useState(false)
-    const [photo, setPhoto] = useState<Blob | Uint8Array | ArrayBuffer | null>(null)
+    const [currentuser, setCurrentUser] = useState(auth.currentUser);
+    const [username, setUsername] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [pronouns, setPronouns] = useState("");
+    const [jobTitle, setJobTitle] = useState("");
+    const [department, setDepartment] = useState("");
+    const [about, setAbout] = useState("");
+    const [disableButon, setDisableButton] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const profileCollectionRef = collection(db, "profile");
+    const [photoUrl, setPhotoUrl] = useState<StaticImageData | string>(noUser);
+    const [imageLoading, setImageLoading] = useState(false);
+    const [photo, setPhoto] = useState<Blob | Uint8Array | ArrayBuffer | null>(null);
 
     useEffect(() => {
         if (currentuser?.photoURL) {
-            setPhotoUrl(currentuser.photoURL);
-        }
-    }, [currentuser])
-
+            setPhotoUrl(currentuser.photoURL.replace('/_next/', '/next/'));
+        };
+    }, [currentuser]);
+   
     const handleImageChange = (e: any) => {
         if (e.target.files[0]) {
             setPhoto(e.target.files[0]);
@@ -46,15 +46,15 @@ export default function Profile() {
                 const fileRef = ref(storage, currentuser.uid + ".png");
                 setImageLoading(true);
                 const snapshot = await uploadBytes(fileRef, photo);
-                const photoURL = await getDownloadURL(fileRef)
-                updateProfile(currentuser, {photoURL})
+                const photoURL = await getDownloadURL(fileRef);
+                updateProfile(currentuser, { photoURL });
                 setImageLoading(false);
-                toast.success("image updated successfully")
-            }
+                toast.success("image updated successfully");
+            };
         } catch (error) {
             toast.error("Error uploading image");
-        }
-    }
+        };
+    };
 
     useEffect(() => {
         if (currentuser && currentuser.displayName) {
@@ -111,11 +111,14 @@ export default function Profile() {
                     jobTitle,
                     department,
                     about,
-                    userId: currentuser?.uid
+                    userId: currentuser?.uid,
+                    photoUrl,
+                    username,
+                    userEmail
                 }
                 await updateProfile(currentuser, { displayName: username })
                 const userRef = doc(profileCollectionRef, currentuser?.uid)
-                await setDoc(userRef, { profileData })
+                await updateDoc(userRef, { profileData })
                 toast.success("Profile updated successfully")
             }
             setLoading(false)
@@ -129,7 +132,7 @@ export default function Profile() {
         <div className="pt-[2%] bg-white h-full mobile:px-6 overflow-y-auto">
             <div className="flex items-center">
                 <div className="mr-5">
-                    <Image src={photoUrl} alt="image" height={50} width={50} className="rounded-" style={{borderRadius: "100%"}} />
+                    <Image src={photoUrl} alt="image" height={50} width={50} className="rounded-" style={{ borderRadius: "100%" }} />
                 </div>
                 <div>
                     <input type="file" className="text-sm" onChange={handleImageChange} accept="image/*" />
@@ -143,7 +146,13 @@ export default function Profile() {
                     </div>
                 ) : (
                     <div>
-                        <button className={`text-blue-500 hover:underline w-fit ${!photo && 'hover:no-underline'}`} disabled={imageLoading || !photo} onClick={handlePhotoUpload}>Upload your photo</button>
+                        <button
+                            className={`text-blue-500 hover:underline w-fit ${!photo && 'hover:no-underline'}`}
+                            disabled={imageLoading || !photo}
+                            onClick={handlePhotoUpload}
+                        >
+                            Upload your photo
+                        </button>
                         <p className="text-xs">Photos help your teammates recognize you in TaskMaster</p>
                     </div>
                 )}

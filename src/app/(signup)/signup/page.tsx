@@ -1,27 +1,29 @@
 "use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import googleIcon from "../../../../public/google-icon.png"
-import taskmasterImage from "../../../../public/taskmasterImage.png"
-import { auth, provider } from "@/app/firebase/firebase-config";
-import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth"
-import { toast } from "react-hot-toast"
+import { useState } from "react";
+import Image from "next/image";
+import googleIcon from "../../../../public/google-icon.png";
+import taskmasterImage from "../../../../public/taskmasterImage.png";
+import { auth, db, provider } from "@/app/firebase/firebase-config";
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import spinner from "../../../../public/icons8-spinner.gif"
-import taskImage from "../../../../public/task.png"
-import taskOneImage from "../../../../public/task (1).png"
-import projectPlanImage from "../../../../public/project-plan.png"
-import checkListImage from "../../../../public/check-list.png"
-import writingImage from "../../../../public/writing.png"
-import writingTwoImage from "../../../../public/copy-writing.png"
+import spinner from "../../../../public/icons8-spinner.gif";
+import taskImage from "../../../../public/task.png";
+import taskOneImage from "../../../../public/task (1).png";
+import projectPlanImage from "../../../../public/project-plan.png";
+import checkListImage from "../../../../public/check-list.png";
+import writingImage from "../../../../public/writing.png";
+import writingTwoImage from "../../../../public/copy-writing.png";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 export default function Login() {
-    const router = useRouter()
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [loading, setLoading] = useState(false)
+    const router = useRouter();
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const collectionRef = collection(db, "profile");
 
     const handleSignupWithGoogle = async () => {
         try {
@@ -42,6 +44,19 @@ export default function Login() {
                 await updateProfile(userCredentials.user, {
                     displayName: username
                 })
+
+                const profileData = {
+                    username,
+                    userEmail: email,
+                    userId: userCredentials.user.uid,
+                    photoUrl: "",
+                    pronouns: "",
+                    jobTitle: "",
+                    department: "",
+                    about: ""
+                }
+                const userRef = doc(collectionRef, userCredentials.user.uid)
+                await setDoc(userRef, { profileData })
                 setUsername("")
                 setEmail("")
                 setPassword("")

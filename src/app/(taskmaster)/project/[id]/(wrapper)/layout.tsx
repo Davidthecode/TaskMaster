@@ -17,7 +17,7 @@ export default function ProjectLayout({
                 <DynamicProjectsHeader />
             </div>
 
-            <div className="h-[87%]">
+            <div className="h-[87%] overflow-y-auto">
                 {children}
             </div>
         </section>

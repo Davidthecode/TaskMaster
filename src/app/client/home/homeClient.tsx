@@ -10,7 +10,7 @@ import loader3 from "../../../../public/loader (3).png";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { useSidebarContext } from "@/app/context/sidebarContext";
 import spinner from "../../../../public/icons8-spinner.gif";
-import TasksHook from "@/app/hooks/tasksHook";
+import { useTasks } from "@/app/context/tasksContext";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 
 function formatDate(date: any) {
@@ -19,7 +19,7 @@ function formatDate(date: any) {
 };
 
 export default function HomeClient() {
-    const { tasks, todoTasks, inprogressTasks, completedTasks, loading } = TasksHook();
+    const { tasks, todoTasks, inprogressTasks, completedTasks, loading } = useTasks();
     const { currentUser } = CurrentUserHook();
     const { setIsOpen } = useSidebarContext();
     const [currentDate, setCurrentDate] = useState(new Date());

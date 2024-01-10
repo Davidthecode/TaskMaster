@@ -5,10 +5,10 @@ import ProjectBoardTodoClient from "@/app/client/projects/projectBoardTodoClient
 import ProjectBoardInprogressClient from "@/app/client/projects/projectBoardInprogressClient";
 import ProjectBoardCompletedClient from "@/app/client/projects/projectBoardCompletedClient";
 import { TaskBoardSkeleton } from "@/app/components/skeleton/skeleton";
-import ProjectsHook from "@/app/hooks/projectsHook";
+import { useProjects } from "@/app/context/projectsContext";
 
 export default function Board() {
-    const { loading } = ProjectsHook();
+    const { loading } = useProjects();
     return (
         <section className="h-[100%]">
             <div className="h-[8%] px-6">

@@ -127,7 +127,7 @@ export default function Sidebar() {
                 <div className="h-[15rem] overflow-y-auto">
                     {projects.map((project) => {
                         return (
-                            <div className="px-4 mt-2 text-sm flex items-center" key={project.id}>
+                            <div className="px-4 mt-2 text-sm flex items-center hover:bg-[#454547] rounded-md py-1 " key={project.id}>
                                 <div className="bg-[#F06A6A] w-4 h-4 rounded-md"></div>
                                 <Link
                                     href={`/project/${project.id}/overview`}

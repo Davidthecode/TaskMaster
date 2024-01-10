@@ -67,12 +67,12 @@ export default function ProjectListCompletedClient() {
                                 <p>David, Isioma</p>
                             </div>
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
-                                <div className={`${data.taskData.taskPriority === "Low" ? "bg-[#9EE7E3]" : data.taskData.priority === "Medium" ? "bg-[#F1BD6C]" : data.taskData.priority === "High" ? "bg-[#CD95EA]" : ""} rounded-3xl w-[95%] h-[65%] flex items-center pl-4`}>
+                                <div className={`${data.taskData.taskPriority === "Low" ? "bg-[#9EE7E3]" : data.taskData.taskPriority === "Medium" ? "bg-[#F1BD6C]" : data.taskData.taskPriority === "High" ? "bg-[#CD95EA]" : ""} rounded-3xl w-[95%] h-[65%] flex items-center pl-4`}>
                                     {data.taskData.taskPriority}
                                 </div>
                             </div>
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center hover:border hover:border-gray-300">
-                                <div className={`${data.taskData.taskStatus === "On track" ? "bg-[#4ECBC4]" : data.taskData.status === "At risk" ? "bg-[#F8DF72]" : data.taskData.status === "Off track" ? "bg-[#F06A6A]" : ""} rounded-3xl w-[95%] h-[65%] flex items-center pl-4`}>
+                                <div className={`${data.taskData.taskStatus === "On track" ? "bg-[#4ECBC4]" : data.taskData.taskStatus === "At risk" ? "bg-[#F8DF72]" : data.taskData.taskStatus === "Off track" ? "bg-[#F06A6A]" : ""} rounded-3xl w-[95%] h-[65%] flex items-center pl-4`}>
                                     {data.taskData.taskStatus}
                                 </div>
                             </div>
