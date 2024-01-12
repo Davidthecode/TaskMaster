@@ -33,7 +33,7 @@ export default function Overview() {
     const [projectOwnerName, setProjectOwnerName] = useState<string | null>(null);
     const [projectOwnerImageUrl, setProjectOwnerImageUrl] = useState<string | StaticImageData>(noUser);
     const [projectMembers, setProjectMembers] = useState<ProfileDataType[]>([])
-    console.log(projectMembers)
+
     const openAddMember = () => {
         setToggleAddMemberPopup(true);
     };
@@ -118,8 +118,8 @@ export default function Overview() {
             </div>
             <div className="pt-10">
                 <h1 className="font-medium text-lg pb-6">Project roles</h1>
-                <div className="flex items-center">
-                    <div className="flex items-center hover:bg-[#F9F8F8] w-fit pl-2 pr-14 cursor-pointer rounded-md" onClick={openAddMember}>
+                <div className="flex items-center h-24 w-full">
+                    <div className="flex items-center hover:bg-[#F9F8F8] px-3 mr-3 cursor-pointer rounded-md min-w-[10rem] py-2" onClick={openAddMember}>
                         <div className="border border-gray-500 border-dotted rounded-full w-fit p-1 mr-2">
                             <IoIosAdd size="1.5rem" />
                         </div>
@@ -127,30 +127,32 @@ export default function Overview() {
                             <p className="font-medium text-sm">Add member</p>
                         </div>
                     </div>
-                    <div className="flex items-center h-full w-60 px-4">
-                        <div className="mr-2">
-                            <Image src={projectOwnerImageUrl} alt="image" width={30} height={30} className="rounded-full" />
+
+                    <div className="flex items-center overflow-x-auto">
+                        <div className="flex items-center px-4 min-w-[10rem]">
+                            <div className="mr-2">
+                                <Image src={projectOwnerImageUrl} alt="image" width={30} height={30} className="rounded-full" />
+                            </div>
+                            <div className="flex flex-col">
+                                <p className="text-sm font-medium">{projectOwnerName}</p>
+                                <p className="text-xs">ProjectOwner</p>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <p className="text-sm font-medium">{projectOwnerName}</p>
-                            <p className="text-xs">ProjectOwner</p>
+                        <div className="flex items-center space-x-6">
+                            {projectMembers.map((projectMember, id) => {
+                                return (
+                                    <div key={id} className="flex items-center min-w-[10rem]">
+                                        <div className="mr-2">
+                                            <Image src={projectMember.photoUrl} alt="image" width={30} height={30} className="rounded-full" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <p className="text-sm font-medium">{projectMember.username}</p>
+                                            <p className="text-xs">Project member</p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
-                    </div>
-                    <div className="flex items-center space-x-8 overflow-x-auto w-full">
-                        {projectMembers.map((projectMember, id) => {
-                            return (
-                                <div key={id} className="mt-5 flex items-center">
-                                    <div className="mr-2">
-                                        <Image src={projectMember.photoUrl} alt="image" width={30} height={30} className="rounded-full" />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <p className="text-sm font-medium">{projectMember.username}</p>
-                                        <p className="text-xs">Project member</p>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                        
                     </div>
                 </div>
             </div>
