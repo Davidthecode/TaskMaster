@@ -6,18 +6,15 @@ import keyResourcesImg from "../../../../../../../public/key_resources.png";
 import { LiaStickyNote } from "react-icons/lia";
 import { useEffect, useState } from "react";
 import ProjectBrief from "@/app/components/projects/projectBrief";
-import { arrayUnion, doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useParams } from "next/navigation";
 import Addmember from "@/app/components/projects/addMember";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
-import { StaticImageData } from "next/image";
-import noUser from "../../../../../../../public/nouser.jpg";
 import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 export default function Overview() {
     const { projectBrief, projectMembers, projectOwnerImageUrl, projectOwnerName } = useProjectMembersContext();
-
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const id = params.id as string;

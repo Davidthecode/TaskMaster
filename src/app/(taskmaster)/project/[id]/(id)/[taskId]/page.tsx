@@ -14,8 +14,10 @@ import { CiCircleCheck } from "react-icons/ci";
 import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { IoCheckmarkOutline } from "react-icons/io5";
+import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 export default function ProjectTask() {
+    const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.taskId;
@@ -186,6 +188,44 @@ export default function ProjectTask() {
                             <AiOutlineArrowLeft size=".8rem" />
                         </div>
                         <p className="text-sm">Back</p>
+                    </div>
+                    <div className="flex items-center">
+                        <p className="text-xs mr-1">Collaborators</p>
+                        <div>
+                            <Image src={projectOwnerImageUrl} alt="image" width={20} height={20} className="rounded-full" />
+                        </div>
+                        <div className="flex items-center">
+                            {projectMembers.length > 2 ? (
+                                <>
+                                    {projectMembers.slice(0, 2).map((projectMember, id) => (
+                                        <div key={id}>
+                                            <Image
+                                                src={projectMember.photoUrl}
+                                                alt="image"
+                                                width={20}
+                                                height={20}
+                                                className="rounded-full"
+                                            />
+                                        </div>
+                                    ))}
+                                    <div className="font-medium text-sm">+{projectMembers.length - 1}</div>
+                                </>
+                            ) : (
+                                <>
+                                    {projectMembers.map((projectMember, id) => (
+                                        <div key={id} className="">
+                                            <Image
+                                                src={projectMember.photoUrl}
+                                                alt="image"
+                                                width={20}
+                                                height={20}
+                                                className="rounded-full"
+                                            />
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                        </div>
                     </div>
                 </div>
 
