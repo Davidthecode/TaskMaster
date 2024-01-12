@@ -5,6 +5,7 @@ import { UseSidebarContext } from './context/sidebarContext';
 import { Toaster } from 'react-hot-toast';
 import { UseTasksContext } from './context/tasksContext';
 import { UseProjectsContext } from './context/projectsContext';
+import { UseProjectMembersContext } from './context/projectMembersContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,8 +25,10 @@ export default function RootLayout({
         <UseSidebarContext>
           <UseTasksContext>
             <UseProjectsContext>
-              {children}
-              <Toaster />
+              <UseProjectMembersContext>
+                {children}
+                <Toaster />
+              </UseProjectMembersContext>
             </UseProjectsContext>
           </UseTasksContext>
         </UseSidebarContext>

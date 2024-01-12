@@ -11,9 +11,11 @@ import { RxDashboard } from "react-icons/rx";
 import { PiTagThin } from "react-icons/pi";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 
 export default function ProjectsHeader() {
+    const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
     const params = useParams();
     const paramsId = params.id;
     const currentPath = usePathname();
@@ -30,6 +32,7 @@ export default function ProjectsHeader() {
 
         return () => unsubscribe();
     }, []);
+    console.log(projectMembers)
 
     return (
         <section className="px-6 pt-3 flex flex-col border-b h-[100%]">
@@ -42,6 +45,43 @@ export default function ProjectsHeader() {
                     ) : (
                         <div className="bg-[#f0eded] w-24 h-3 rounded-md animate-pulse"></div>
                     )}
+                <div className="absolute right-6 flex items-center">
+                    <div>
+                        <Image src={projectOwnerImageUrl} alt="image" width={23} height={23} className="rounded-full" />
+                    </div>
+                    <div className="flex items-center">
+                        {projectMembers.length > 2 ? (
+                            <>
+                                {projectMembers.slice(0, 2).map((projectMember, id) => (
+                                    <div key={id}>
+                                        <Image
+                                            src={projectMember.photoUrl}
+                                            alt="image"
+                                            width={22}
+                                            height={22}
+                                            className="rounded-full"
+                                        />
+                                    </div>
+                                ))}
+                                <div className="font-medium text-sm">+{projectMembers.length - 1}</div>
+                            </>
+                        ) : (
+                            <>
+                                {projectMembers.map((projectMember, id) => (
+                                    <div key={id} className="">
+                                        <Image
+                                            src={projectMember.photoUrl}
+                                            alt="image"
+                                            width={22}
+                                            height={22}
+                                            className="rounded-full"
+                                        />
+                                    </div>
+                                ))}
+                            </>
+                        )}
+                    </div>
+                </div>
             </div>
             <div className="flex items-center pb-2 mt-auto">
                 <Link
