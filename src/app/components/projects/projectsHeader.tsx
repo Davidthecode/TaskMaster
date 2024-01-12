@@ -47,7 +47,7 @@ export default function ProjectsHeader() {
                     )}
                 <div className="absolute right-6 flex items-center">
                     <div>
-                        <Image src={projectOwnerImageUrl} alt="image" width={23} height={23} className="rounded-full" />
+                        <Image src={projectOwnerImageUrl} alt="image" width={20} height={20} className="rounded-full" />
                     </div>
                     <div className="flex items-center">
                         {projectMembers.length > 2 ? (
@@ -57,8 +57,8 @@ export default function ProjectsHeader() {
                                         <Image
                                             src={projectMember.photoUrl}
                                             alt="image"
-                                            width={22}
-                                            height={22}
+                                            width={20}
+                                            height={20}
                                             className="rounded-full"
                                         />
                                     </div>
@@ -72,8 +72,8 @@ export default function ProjectsHeader() {
                                         <Image
                                             src={projectMember.photoUrl}
                                             alt="image"
-                                            width={22}
-                                            height={22}
+                                            width={20}
+                                            height={20}
                                             className="rounded-full"
                                         />
                                     </div>

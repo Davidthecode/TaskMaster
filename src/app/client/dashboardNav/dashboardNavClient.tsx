@@ -45,7 +45,7 @@ export default function DashboardNavClient() {
             </div>
             <div>
                 <Image
-                    className='rounded-full'
+                    className='rounded-full max-h-6'
                     src={photo}
                     alt='image'
                     width={22}

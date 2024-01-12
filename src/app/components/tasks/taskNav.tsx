@@ -26,7 +26,7 @@ export default function TaskNav() {
         <section className="px-6 pt-3 flex flex-col border-b h-[100%]">
             <div className="flex items-center">
                 <div className="mr-2">
-                    <Image src={photo} alt="image" height={40} width={40} className="rounded-full" />
+                    <Image src={photo} alt="image" height={40} width={40} className="rounded-full max-h-10" />
                 </div>
                 <div>
                     <h1 className="text-xl font-medium">My tasks</h1>
