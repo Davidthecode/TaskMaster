@@ -15,6 +15,7 @@ import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { useProjectMembersContext } from "@/app/context/projectMembersContext";
+import DeleteProjectTask from "@/app/components/projects/deleteProjectTask";
 
 export default function ProjectTask() {
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
@@ -34,6 +35,7 @@ export default function ProjectTask() {
     const [selectedStatusOption, setSelectedStatusOption] = useState("On track");
     const [completed, setCompleted] = useState<boolean>();
     const [selectedDate, setSelectedDate] = useState('');
+    const [deleteProjectTask, setDeleteProjectTask] = useState(false);
 
     const priorityOptions = [
         { label: "Low", bgColor: "#9EE7E3" },
@@ -128,9 +130,10 @@ export default function ProjectTask() {
 
     //function to delete task
     const handleDelete = async () => {
-        await deleteDoc(docRef);
-        router.back();
-        toast.success("Task deleted successfully");
+        setDeleteProjectTask(true);
+        // await deleteDoc(docRef);
+        // router.back();
+        // toast.success("Task deleted successfully");
     };
 
     const handleNavigation = () => {
@@ -401,6 +404,7 @@ export default function ProjectTask() {
                     </div>
                 </div>
             </div>
+            {deleteProjectTask && <DeleteProjectTask setDeleteProjectTask={setDeleteProjectTask} />}
         </section>
     )
 };
