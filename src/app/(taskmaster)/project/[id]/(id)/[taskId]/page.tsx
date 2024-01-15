@@ -36,6 +36,7 @@ export default function ProjectTask() {
     const [completed, setCompleted] = useState<boolean>();
     const [selectedDate, setSelectedDate] = useState('');
     const [deleteProjectTask, setDeleteProjectTask] = useState(false);
+    const [assigneeName, setAssigneeName] = useState("");
 
     const priorityOptions = [
         { label: "Low", bgColor: "#9EE7E3" },
@@ -55,14 +56,15 @@ export default function ProjectTask() {
                 setLoading(true);
                 const unsubscribe = onSnapshot(docRef, (snapshot) => {
                     if (snapshot.exists()) {
-                        setNote(snapshot.data().taskData.note);
-                        setTitle(snapshot.data().taskData.title);
-                        setDateCreated(snapshot.data().taskData.taskDateAdded);
-                        setSelectedDate(snapshot.data().taskData.taskDueDate);
-                        setTaskType(snapshot.data().taskData.taskType);
-                        setSelectedPriorityOption(snapshot.data().taskData.taskPriority);
-                        setSelectedStatusOption(snapshot.data().taskData.taskStatus);
-                        setCompleted(snapshot.data().taskData.completed);
+                        setNote(snapshot.data().taskData?.note);
+                        setTitle(snapshot.data().taskData?.title);
+                        setDateCreated(snapshot.data().taskData?.taskDateAdded);
+                        setSelectedDate(snapshot.data().taskData?.taskDueDate);
+                        setTaskType(snapshot.data().taskData?.taskType);
+                        setSelectedPriorityOption(snapshot.data().taskData?.taskPriority);
+                        setSelectedStatusOption(snapshot.data().taskData?.taskStatus);
+                        setCompleted(snapshot.data().taskData?.completed);
+                        setAssigneeName(snapshot.data().taskData?.assigneeName);
                     }
                     setLoading(false);
                 });
@@ -131,9 +133,6 @@ export default function ProjectTask() {
     //function to delete task
     const handleDelete = async () => {
         setDeleteProjectTask(true);
-        // await deleteDoc(docRef);
-        // router.back();
-        // toast.success("Task deleted successfully");
     };
 
     const handleNavigation = () => {
@@ -271,7 +270,7 @@ export default function ProjectTask() {
                     <div className="w-[95%] pl-2">
                         <div className="flex items-center">
                             <p className="mr-16 text-xs">Assignee</p>
-                            <p className="text-xs">{currentUser?.displayName}</p>
+                            <p className="text-xs">{assigneeName}</p>
                         </div>
                         <div className="mt-6 flex items-center">
                             <p className="mr-11 text-xs">Date created</p>

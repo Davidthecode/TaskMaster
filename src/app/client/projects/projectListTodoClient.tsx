@@ -12,9 +12,11 @@ import { useProjects } from "@/app/context/projectsContext";
 import { useParams } from "next/navigation";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
+import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 
 export default function ProjectListTodoClient() {
+    const { projectOwnerImageUrl, projectMembers } = useProjectMembersContext();
     const params = useParams();
     const paramsId = params.id;
     const [showTodoList, setShowTodoList] = useState(true);
@@ -61,6 +63,19 @@ export default function ProjectListTodoClient() {
                 <h1 className="text-lg font-medium">To do</h1>
             </div>
             {handleProjects.map((data: any) => {
+                const currentDate = new Date();
+                const dueDateFromDB = data.taskData.taskDueDate;
+                const taskDueDate = new Date(dueDateFromDB);
+                let textColorClass = "";
+
+                if (currentDate < taskDueDate) {
+                    textColorClass = "text-green-500";
+                } else if (currentDate.toDateString() === taskDueDate.toDateString()) {
+                    textColorClass = "text-yellow-500";
+                } else {
+                    textColorClass = "text-red-500";
+                }
+
                 return (
                     <div className={`flex items-center ${showTodoList ? "flex" : "hidden"}`} key={data.id}>
                         <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
@@ -87,13 +102,53 @@ export default function ProjectListTodoClient() {
                         </div>
                         <div className="flex items-center w-[50%] h-[42px]">
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
-                                <p>David</p>
-                            </div>
-                            <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300">
-                                <p>{new Date(data.taskData.taskDueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                                <p>{data.taskData?.assigneeName}</p>
                             </div>
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
-                                <p>David, Isioma</p>
+                                <p
+                                    className={`${textColorClass}`}>
+                                    {new Date(data.taskData.taskDueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                </p>
+                            </div>
+                            <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
+                                <div>
+                                    <Image
+                                        src={projectOwnerImageUrl}
+                                        alt="image"
+                                        width={18}
+                                        height={18}
+                                        className="rounded-full"
+                                    />
+                                </div>
+                                {projectMembers.length > 2 ? (
+                                    <>
+                                        {projectMembers.slice(0, 2).map((projectMember, id) => (
+                                            <div key={id}>
+                                                <Image
+                                                    src={projectMember.photoUrl}
+                                                    alt="image"
+                                                    width={18}
+                                                    height={18}
+                                                    className="rounded-full"
+                                                />
+                                            </div>
+                                        ))}
+                                        <p className="text-sm font-medium">+{projectMembers.length - 2}</p>
+                                    </>) : (
+                                    <>
+                                        {projectMembers.map((projectMember, id) => (
+                                            <div key={id}>
+                                                <Image
+                                                    src={projectMember.photoUrl}
+                                                    alt="image"
+                                                    width={18}
+                                                    height={18}
+                                                    className="rounded-full"
+                                                />
+                                            </div>
+                                        ))}
+                                    </>)
+                                }
                             </div>
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
                                 <div className={`${data.taskData.taskPriority === "Low" ? "bg-[#9EE7E3]" : data.taskData.taskPriority === "Medium" ? "bg-[#F1BD6C]" : data.taskData.taskPriority === "High" ? "bg-[#CD95EA]" : ""} rounded-3xl w-[95%] h-[65%] flex items-center pl-4`}>
