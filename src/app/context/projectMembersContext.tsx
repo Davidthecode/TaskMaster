@@ -12,7 +12,8 @@ type ProfileMembersDataType = {
 }
 
 type ProfileDataType = {
-    username: string; photoUrl: string
+    username: string,
+    photoUrl: string
 }
 
 type ProjectMembersContextType = {

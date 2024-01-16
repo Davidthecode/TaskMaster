@@ -16,7 +16,7 @@ import TaskSort from "./taskSort";
 import { useTasks } from "../../context/tasksContext";
 
 export default function TaskSubNav() {
-  const { checkFilter, checkIncompleteFilter } = useTasks();
+  const { checkFilter, checkIncompleteFilter, checkSort } = useTasks();
   const { isOpen, setIsOpen } = useSidebarContext();
   const [isVisible, setIsvisible] = useState(false);
   const [proVisible, setProVisible] = useState(false);
@@ -106,6 +106,12 @@ export default function TaskSubNav() {
               <TbArrowsSort />
             </div>
             <p className="text-xs">Sort</p>
+            {checkSort && (
+              <div className="flex items-center">
+                <p className="text-xs mr-1">:</p>
+                <p className="text-xs pt-[1px]">1</p>
+              </div>
+            )}
           </div>
         </div>
         {sortVisible && (

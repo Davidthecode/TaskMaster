@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { CiCircleCheck } from "react-icons/ci";
@@ -10,10 +10,9 @@ import Link from "next/link";
 import ok from "../../../../public/icons8-ok-16 (1).png";
 import { useProjects } from "@/app/context/projectsContext";
 import { useParams } from "next/navigation";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useProjectMembersContext } from "@/app/context/projectMembersContext";
-
 
 export default function ProjectListTodoClient() {
     const { projectOwnerImageUrl, projectMembers } = useProjectMembersContext();

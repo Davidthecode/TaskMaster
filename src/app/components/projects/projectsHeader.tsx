@@ -32,7 +32,6 @@ export default function ProjectsHeader() {
 
         return () => unsubscribe();
     }, []);
-    console.log(projectMembers)
 
     return (
         <section className="px-6 pt-3 flex flex-col border-b h-[100%]">

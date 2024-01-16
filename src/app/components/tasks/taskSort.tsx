@@ -9,24 +9,23 @@ type CloseSortType = {
 
 export default function TaskSort({ closeSort }: CloseSortType) {
 
-    const { todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks } = useTasks();
-
-    console.log(inprogressTasks);
+    const { todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, checkSort, setCheckSort } = useTasks();
 
     const handleSort = () => {
+        setCheckSort(!checkSort);
         const sortedTodoTasks = [...todoTasks].sort((taskA, taskB) => {
-            const dateA: any = new Date(taskA.taskData.dateAdded);
-            const dateB: any = new Date(taskB.taskData.dateAdded);
+            const dateA: any = new Date(taskA.taskData.dueDate);
+            const dateB: any = new Date(taskB.taskData.dueDate);
             return dateA - dateB;
         });
         const sortedInProgressTasks = [...inprogressTasks].sort((taskA, taskB) => {
-            const dateA: any = new Date(taskA.taskData.dateAdded);
-            const dateB: any = new Date(taskB.taskData.dateAdded);
+            const dateA: any = new Date(taskA.taskData.dueDate);
+            const dateB: any = new Date(taskB.taskData.dueDate);
             return dateA - dateB;
         });
         const sortedCompletedTasks = [...completedTasks].sort((taskA, taskB) => {
-            const dateA: any = new Date(taskA.taskData.dateAdded);
-            const dateB: any = new Date(taskB.taskData.dateAdded);
+            const dateA: any = new Date(taskA.taskData.dueDate);
+            const dateB: any = new Date(taskB.taskData.dueDate);
             return dateA - dateB;
         });
 
@@ -51,7 +50,7 @@ export default function TaskSort({ closeSort }: CloseSortType) {
             </div>
             <div className="flex flex-col text-sm space-y-4 mt-3">
                 <p className="hover:bg-[#edecec] w-full px-5 py-1 rounded-sm cursor-pointer" onClick={undoSort}>None</p>
-                <p className="hover:bg-[#edecec] w-full px-5 py-1 rounded-sm cursor-pointer" onClick={handleSort}>Created on</p>
+                <p className={`hover:bg-[#edecec] w-full px-5 py-1 rounded-sm cursor-pointer ${checkSort && "bg-[#edecec]"}`} onClick={handleSort}>Due date</p>
             </div>
         </section>
     )

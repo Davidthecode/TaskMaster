@@ -38,6 +38,18 @@ export default function ListTodoClient() {
                 <h1 className="text-lg font-medium">To do</h1>
             </div>
             {handleTask.map((todoTask: any) => {
+                const currentDate = new Date();
+                const dueDateFromDB = todoTask.taskData.dueDate;
+                const taskDueDate = new Date(dueDateFromDB);
+                let textColorClass = "";
+
+                if (currentDate < taskDueDate) {
+                    textColorClass = "text-green-500";
+                } else if (currentDate.toDateString() === taskDueDate.toDateString()) {
+                    textColorClass = "text-yellow-500";
+                } else {
+                    textColorClass = "text-red-500";
+                }
                 return (
                     <section key={todoTask.id}>
                         <div className={`flex items-center ${showTodoList ? "flex" : "hidden"}`}>
@@ -55,7 +67,10 @@ export default function ListTodoClient() {
                             </div>
                             <div className="flex items-center w-[50%] h-[42px]">
                                 <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300">
-                                    <p>{new Date(todoTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                                    <p
+                                        className={`${textColorClass}`}>
+                                        {new Date(todoTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                    </p>
                                 </div>
                                 <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center hover:border hover:border-gray-300">
                                     <div className={`${todoTask.taskData.status === "On track" ? "bg-[#4ECBC4]" : todoTask.taskData.status === "At risk" ? "bg-[#F8DF72]" : todoTask.taskData.status === "Off track" ? "bg-[#F06A6A]" : ""} rounded-3xl w-[95%] h-[80%] flex items-center pl-4`}>

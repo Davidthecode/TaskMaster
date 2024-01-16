@@ -92,9 +92,10 @@ export default function AddProjectTask({ onClose }: AddtaskPopupProps) {
                     taskStatus,
                     note,
                     completed: false,
-                    collaborators: [],
+                    collaborators: [currentUser?.uid],
                     assigneeId: currentUser?.uid,
                     assigneeName: currentUser?.displayName,
+                    assigneeImageUrl: currentUser?.photoURL,
                     taskId: paramsId
                 };
                 const docRef = doc(collectionRef, uuidv4())

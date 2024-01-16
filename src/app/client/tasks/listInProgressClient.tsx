@@ -39,6 +39,18 @@ export default function ListInprogressClient() {
                 <h1 className="text-lg font-medium">In progress</h1>
             </div>
             {handleTasks.map((inprogressTask: any) => {
+                const currentDate = new Date();
+                const dueDateFromDB = inprogressTask.taskData.dueDate;
+                const taskDueDate = new Date(dueDateFromDB);
+                let textColorClass = "";
+
+                if (currentDate < taskDueDate) {
+                    textColorClass = "text-green-500";
+                } else if (currentDate.toDateString() === taskDueDate.toDateString()) {
+                    textColorClass = "text-yellow-500";
+                } else {
+                    textColorClass = "text-red-500";
+                }
                 return (
                     <section key={inprogressTask.id}>
                         <div className={`flex items-center ${showInprogressList ? "flex" : "hidden"}`}>
@@ -56,7 +68,9 @@ export default function ListInprogressClient() {
                             </div>
                             <div className="flex items-center w-[50%] h-[42px]">
                                 <div className={`text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300`}>
-                                    <p>{new Date(inprogressTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                    <p
+                                        className={`${textColorClass}`}>
+                                        {new Date(inprogressTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                     </p>
                                 </div>
                                 <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex justify-center items-center hover:border hover:border-gray-300">
