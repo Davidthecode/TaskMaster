@@ -1,14 +1,15 @@
-import dynamic from 'next/dynamic'
-import { CiSearch } from 'react-icons/ci'
-import Image from 'next/image'
-import taskmasterImage from "../../../../public/taskmasterImage.png"
-import { DashboardNavSkeleton } from '../skeleton/skeleton'
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import taskmasterImage from "../../../../public/taskmasterImage.png";
+import { DashboardNavSkeleton } from '../skeleton/skeleton';
+import { IoLogoGithub } from "react-icons/io";
+import Link from 'next/link';
 
 
-const DynmaicDashboardNavClient = dynamic(()=> import("@/app/client/dashboardNav/dashboardNavClient"), {
-    ssr:false,
-    loading: ()=> <DashboardNavSkeleton />
-})
+const DynmaicDashboardNavClient = dynamic(() => import("@/app/client/dashboardNav/dashboardNavClient"), {
+    ssr: false,
+    loading: () => <DashboardNavSkeleton />
+});
 
 export default function DashboardNav() {
     return (
@@ -19,19 +20,15 @@ export default function DashboardNav() {
                 </div>
                 <h1 className="text-xl opacity-90">TaskMaster</h1>
             </div>
-            <div className='ml-24 w-[40%] mobile:hidden'>
-                <div className='flex items-center border border-gray-50 rounded-lg px-4 bg-[#3D3E40] border-opacity-25'>
-                    <div className='mr-2 opacity-60'>
-                        <CiSearch size="1.1rem" />
+            <div className='ml-[25%] mobile:hidden flex items-center'>
+                <p className='text-xs mr-1'>Taskmaster is in beta testing, if you find any bugs, contact us here {"->"}</p>
+                <Link href="https://github.com/Davidthecode/TaskMaster" target='_blank'>
+                    <div className='cursor-pointer'>
+                        <IoLogoGithub />
                     </div>
-                    <input
-                        className='h-8 w-full outline-none bg-[#3D3E40] opacity-90'
-                        type="text"
-                        placeholder='search for anything...'
-                    />
-                </div>
+                </Link>
             </div>
-           <DynmaicDashboardNavClient />
+            <DynmaicDashboardNavClient />
         </nav>
     )
-}
+};

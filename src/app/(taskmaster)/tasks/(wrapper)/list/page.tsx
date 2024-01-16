@@ -6,6 +6,7 @@ import ListInprogressClient from "@/app/client/tasks/listInProgressClient";
 import ListCompletedClient from "@/app/client/tasks/listCompletedClient";
 import { TaskListSkeleton } from "@/app/components/skeleton/skeleton";
 import { useTasks } from "@/app/context/tasksContext";
+import { TaskSubNavSkeleton } from "@/app/components/skeleton/skeleton";
 
 export default function List() {
     const { loading } = useTasks();
@@ -13,18 +14,20 @@ export default function List() {
     return (
         <section className="px-6 h-[100%]">
             <div className="h-[8%]">
-                <TaskSubNav />
+                {loading ? <TaskSubNavSkeleton /> : <TaskSubNav />}
             </div>
-            <div className="flex items-center h-[8%]">
-                <div className="w-[50%] border-b">
-                    <p className="text-xs py-3 cursor-default">Task name</p>
+            {!loading && (
+                <div className="flex items-center h-[8%]">
+                    <div className="w-[50%] border-b">
+                        <p className="text-xs py-3 cursor-default">Task name</p>
+                    </div>
+                    <div className="flex items-center w-[50%]">
+                        <div className="text-xs w-[33.3%] border border-t-0 border-r-0 py-3 text-center cursor-default">Due date</div>
+                        <div className="text-xs w-[33.3%] border border-t-0 border-r-0 py-3 text-center cursor-default">Status</div>
+                        <div className="text-xs w-[33.3%] border border-t-0 border-r-0 py-3 text-center cursor-default">Priority</div>
+                    </div>
                 </div>
-                <div className="flex items-center w-[50%]">
-                    <div className="text-xs w-[33.3%] border border-t-0 border-r-0 py-3 text-center cursor-default">Due date</div>
-                    <div className="text-xs w-[33.3%] border border-t-0 border-r-0 py-3 text-center cursor-default">Status</div>
-                    <div className="text-xs w-[33.3%] border border-t-0 border-r-0 py-3 text-center cursor-default">Priority</div>
-                </div>
-            </div>
+            )}
             {loading ? (
                 <TaskListSkeleton />
             ) : (

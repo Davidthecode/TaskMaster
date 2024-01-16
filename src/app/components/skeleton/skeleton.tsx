@@ -15,32 +15,56 @@ export const SidebarSkeleton = () => {
     return (
         <div className="h-full border-r bg-[#2E2E30] flex flex-col">
             <div className="ml-8 mt-10 flex items-center">
-                <div className="bg-[#3D3E40] w-5 h-5 animate-pulse rounded-md mr-4"></div>
-                <div className="bg-[#3D3E40] w-20 h-3 rounded-md animate-pulse"></div>
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
             </div>
             <div className="ml-8 mt-6 flex items-center">
-                <div className="bg-[#3D3E40] w-5 h-5 animate-pulse rounded-md mr-4"></div>
-                <div className="bg-[#3D3E40] w-20 h-3 rounded-md animate-pulse"></div>
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
             </div>
             <div className="ml-8 mt-6 flex items-center">
-                <div className="bg-[#3D3E40] w-5 h-5 animate-pulse rounded-md mr-4"></div>
-                <div className="bg-[#3D3E40] w-20 h-3 rounded-md animate-pulse"></div>
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
             </div>
             <div className="ml-8 mt-6 flex items-center">
-                <div className="bg-[#3D3E40] w-5 h-5 animate-pulse rounded-md mr-4"></div>
-                <div className="bg-[#3D3E40] w-20 h-3 rounded-md animate-pulse"></div>
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
             </div>
             <div className="w-full border border-gray-200 border-opacity-25 mt-6"></div>
             <div className="ml-8 mt-6 flex items-center">
-                <div className="bg-[#3D3E40] w-5 h-5 animate-pulse rounded-md mr-4"></div>
-                <div className="bg-[#3D3E40] w-20 h-3 rounded-md animate-pulse"></div>
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
+            </div>
+            <div className="ml-8 mt-6 flex items-center">
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
+            </div>
+            <div className="ml-8 mt-6 flex items-center">
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
+            </div>
+            <div className="ml-8 mt-6 flex items-center">
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
+            </div>
+            <div className="ml-8 mt-6 flex items-center">
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
+            </div>
+            <div className="ml-8 mt-6 flex items-center">
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
+            </div>
+            <div className="ml-8 mt-6 flex items-center">
+                <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
             </div>
             <div className="mt-auto ml-8">
                 <div className="mt-6 flex items-center mb-12">
-                    <div className="bg-[#3D3E40] w-5 h-5 animate-pulse rounded-md mr-4"></div>
-                    <div className="bg-[#3D3E40] w-20 h-3 rounded-md animate-pulse"></div>
+                    <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
+                    <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
                 </div>
-                <div className="w-20 h-4 mb-4 bg-[#3D3E40] animate-pulse rounded-md"></div>
+                {/* <div className="w-28 h-4 mb-4 bg-[#4A4A4B] animate-pulse rounded-md"></div> */}
             </div>
         </div>
     )
@@ -165,7 +189,7 @@ export const HomeSkeleton = () => {
 
 export const DashboardNavSkeleton = () => {
     return (
-        <div className="w-6 h-6 rounded-full animate-pulse bg-[#3D3E40] ml-auto"></div>
+        <div className="w-6 h-6 rounded-full animate-pulse bg-[#4A4A4B] ml-auto"></div>
     )
 }
 
@@ -184,6 +208,46 @@ export const ProjectHeaderSkeleton = () => (
             <div className="border-b h-2 mt-2"></div>
         </div>
     </div>
+)
+
+export const TaskNavSkeleton = () => (
+    <section className="px-6 pt-3 flex flex-col border-b h-[100%]">
+        <div className="flex items-center">
+            <div className="mr-2">
+                <div className="rounded-full h-12 w-12 bg-[#f0eded] animate-pulse"></div>
+            </div>
+            <div>
+                <h1 className="h-3 w-36 rounded-md bg-[#f0eded] animate-pulse"></h1>
+            </div>
+        </div>
+        <div className="flex items-center mt-auto">
+            <div className="flex items-center pb-2">
+                <div className="flex items-center mr-3 cursor-pointer">
+                    <div className="w-12 h-2 rounded-md bg-[#f0eded] animate-pulse"></div>
+                </div>
+
+                <div className="flex items-center cursor-pointer">
+                    <div className="w-12 h-2 rounded-md bg-[#f0eded] animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+)
+
+export const TaskSubNavSkeleton = () => (
+    <section className="h-full flex items-center border-b smallTablet:px-10 mobile:px-6">
+        <div className="flex items-center bg-[#f0eded] animate-pulse rounded-md px-3 mobile:hidden w-20 h-3"></div>
+        <div>
+            <div className="flex items-center ml-2 mr-1 bg-[#f0eded] animate-pulse px-3 rounded-md w-20 h-3"></div>
+        </div>
+        <div>
+            <div className="flex items-center bg-[#f0eded] animate-pulse px-3 rounded-md font-medium w-20 h-3"></div>
+        </div>
+        <div className="flex ml-auto items-center mr-1 px-3 rounded-md">
+            <p className="w-20 h-3 bg-[#f0eded] rounded-md mr-2 animate-pulse"></p>
+            <div className="w-4 h-4 rounded-full bg-[#f0eded] animate-pulse"></div>
+        </div>
+    </section>
 )
 
 export const TaskListSkeleton = () => (
