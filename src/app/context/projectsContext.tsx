@@ -56,6 +56,7 @@ export const UseProjectsContext: React.FC<{ children: ReactNode }> = ({ children
 
     useEffect(() => {
         try {
+            setLoading(true);
             const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
                 setTodoProjects([]);
                 setInprogressProjects([]);
@@ -70,11 +71,13 @@ export const UseProjectsContext: React.FC<{ children: ReactNode }> = ({ children
 
                 });
                 setProjects(tempArray);
+                setLoading(false);
             });
 
             return () => unsubscribe();
         } catch (error) {
             console.log(error);
+            setLoading(false);
         };
     }, [currentUser, paramsId]);
 

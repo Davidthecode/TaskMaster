@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import TasksHook from "@/app/hooks/tasksHook";
+import { useTasks } from "@/app/context/tasksContext";
 import Image from "next/image";
 import spinner from "../../../../public/icons8-spinner.gif";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function InsightsPieChart() {
-    const { tasks } = TasksHook();
+    const { tasks } = useTasks();
     const tasksMarkedAsCompleted = tasks.filter((task => task.taskData.completed));
     const overdueTasks = tasks.filter((task) => {
         const dueDate = new Date(task.taskData.dueDate);

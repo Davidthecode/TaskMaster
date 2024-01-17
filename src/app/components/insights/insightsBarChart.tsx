@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 import { Bar } from "react-chartjs-2";
-import TasksHook from "@/app/hooks/tasksHook";
+import { useTasks } from "@/app/context/tasksContext";
 import Image from "next/image";
 import spinner from "../../../../public/icons8-spinner.gif";
 
 export default function InsightsBarChart() {
-    const { tasks } = TasksHook();
+    const { tasks } = useTasks();
     const tasksMarkedAsCompleted = tasks.filter((task => task.taskData.completed));
     const overdueTasks = tasks.filter((task) => {
         const dueDate = new Date(task.taskData.dueDate);

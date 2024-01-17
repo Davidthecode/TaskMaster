@@ -16,6 +16,7 @@ import CreateProject from "../projects/createProject";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
 import CurrentUserHook from "../../hooks/currentUserHook";
+import { ProjectSideBarSkeleton } from "../skeleton/skeleton";
 
 export default function Sidebar() {
     const { currentUser } = CurrentUserHook();
@@ -124,8 +125,27 @@ export default function Sidebar() {
                     </div>
                 </div>
 
-                <div className="h-[15rem] overflow-y-auto">
-                    {projects.map((project) => {
+                <div>
+                    {!projects.length ? (
+                        <ProjectSideBarSkeleton />
+                    ) : (
+                        <div className="h-[15rem] overflow-y-auto">
+                            {projects.map((project) => {
+                                return (
+                                    <div className="px-4 mt-2 text-sm flex items-center hover:bg-[#454547] rounded-md py-1" key={project.id}>
+                                        <div className="bg-[#F06A6A] w-4 h-4 rounded-md"></div>
+                                        <Link
+                                            href={`/project/${project.id}/overview`}
+                                            className="px-2"
+                                        >
+                                            {project.projectData.projectName}
+                                        </Link>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )}
+                    {/* {projects.map((project) => {
                         return (
                             <div className="px-4 mt-2 text-sm flex items-center hover:bg-[#454547] rounded-md py-1" key={project.id}>
                                 <div className="bg-[#F06A6A] w-4 h-4 rounded-md"></div>
@@ -137,7 +157,7 @@ export default function Sidebar() {
                                 </Link>
                             </div>
                         )
-                    })}
+                    })} */}
                 </div>
 
             </div>

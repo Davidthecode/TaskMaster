@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import spinner from "../../../../public/icons8-spinner.gif";
-import TasksHook from "@/app/hooks/tasksHook";
+import { useTasks } from "@/app/context/tasksContext";
 
 export default function TasksInsights() {
-    const { tasks } = TasksHook();
+    const { tasks } = useTasks();
     const tasksMarkedAsCompleted = tasks.filter((task => task.taskData.completed));
     const tasksMarkedAsInComplete = tasks.filter((task => !task.taskData.completed));
     const overdueTasks = tasks.filter((task) => {
