@@ -14,8 +14,11 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrolled = window.scrollY > 0;
-            setSticky(scrolled);
+            if (window.scrollY > 0) {
+                setSticky(true);
+            } else {
+                setSticky(false);
+            }
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -23,7 +26,7 @@ export default function Navbar() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [])
+    }, []);
 
     const handleLogin = () => {
         router.push('/login')
@@ -55,7 +58,7 @@ export default function Navbar() {
 
     return (
         <nav>
-            <div className={`bg-[#EEEBEA] px-[8%] pb-4 flex items-center justify-between pt-2 w-full ${sticky ? "w-full fixed top-0 shadow transition-all duration-500 ease-in-out z-50" : ""}`}>
+            <div className={`bg-[#EEEBEA] px-[8%] pb-4 flex items-center justify-between pt-2 w-full fixed top-0 ${sticky && "w-full border-b border-gray-300 shadow-sm transition-all duration-500 ease-in-out z-50"}`}>
                 <div className="flex items-center">
                     <div className="mr-3">
                         <Image src={taskmasterImage} alt="image" height={30} width={30} />
@@ -92,7 +95,7 @@ export default function Navbar() {
 
             {/* mobile */}
             {dropdown && (
-                <div className="fixed bg-white w-full h-full z-50">
+                <div className="fixed bg-white w-full h-full z-50 mt-16">
                     <div className="px-[4%] pt-4">
                         <ul className="text-lg font-semibold space-y-6 mt-4">
                             <li className="border"></li>
