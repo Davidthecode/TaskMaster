@@ -8,6 +8,7 @@ import Image from "next/image";
 import lighteningImage from "../../../../public/lightening.png";
 import Link from "next/link";
 import FiscalYearHook from "@/app/hooks/fiscalYearHook";
+import { UserGoalsSkeleton } from "../skeleton/skeleton";
 
 export default function UserGoals() {
     const { fiscalQuarter, fiscalYear } = FiscalYearHook();
@@ -39,22 +40,18 @@ export default function UserGoals() {
         }
     }, []);
 
-    console.log(goals)
-
-    return (
-        <section className="h-[82%]">
-            <div className="flex items-center px-10 border-y h-[6%] ">
-                <div className="text-xs w-[50%]">Name</div>
-                <div className="text-xs w-[20%] text-center">Time period</div>
-                <div className="text-xs w-[20%] text-center">Progress</div>
-                <div className="text-xs w-[10%] text-center">Owner</div>
-            </div>
-            <div className="h-[94%] overflow-y-auto pb-3">
-                {goals.map((goal) => (
-                    <Link href={`/goals/${goal.id}`} key={goal.id}>
-                        <div className="flex border-b h-16 items-center px-10 cursor-pointer">
-                            <div className="w-[50%] font-medium">
-                                {goal.goalData.formData.goalTitle}
+    if (!goals.length) {
+        return <UserGoalsSkeleton />
+    } else {
+        return (
+            <section className="h-[76%]">
+                <div className="h-[94%] overflow-y-auto pb-3">
+                    {goals.map((goal) => (
+                        <div className="flex border-b h-16 items-center px-10 cursor-pointer" key={goal.id}>
+                            <div className="w-[50%] font-medium h-full flex items-center hover:bg-[#f5f4f4] pl-2">
+                                <Link href={`/goals/${goal.id}`} className="w-full h-full flex items-center">
+                                    {goal.goalData.formData.goalTitle}
+                                </Link>
                             </div>
                             <div className="w-[20%] flex justify-center">
                                 <p className="text-xs font-medium">{fiscalQuarter + fiscalYear}</p>
@@ -92,9 +89,9 @@ export default function UserGoals() {
                                 />
                             </div>
                         </div>
-                    </Link>
-                ))}
-            </div>
-        </section>
-    );
+                    ))}
+                </div>
+            </section>
+        )
+    };
 };

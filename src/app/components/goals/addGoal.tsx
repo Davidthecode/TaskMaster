@@ -25,7 +25,10 @@ export default function AddGoal({ closeGoal }: closeGoalType) {
 
     const initialFormData = {
         goalTitle: "",
-        goalSubtitle: ""
+        goalSubtitle: "",
+        goalDescription: "",
+        dueDate: "",
+        status: ""
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -55,10 +58,6 @@ export default function AddGoal({ closeGoal }: closeGoalType) {
             };
             const docRef = doc(collectionRef, uuidv4());
             await setDoc(docRef, { goalData });
-            setFormData({
-                goalTitle: '',
-                goalSubtitle: '',
-            });
             toast.success("Goal added successfully");
             setLoading(false);
             closeGoal();

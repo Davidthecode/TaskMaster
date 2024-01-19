@@ -2,6 +2,7 @@ import Image from "next/image";
 import circle from "../../../../public/circle.png";
 import dynamic from "next/dynamic";
 import { GoalSubNavSkeleton, UserGoalsSkeleton } from "@/app/components/skeleton/skeleton";
+import UserGoalsHeader from "@/app/components/goals/userGoalsHeader";
 
 const DynamicGoalSubNav = dynamic(() => import("@/app/components/goals/goalSubNav"), {
     ssr: false,
@@ -23,6 +24,7 @@ export default function Goals() {
                 <h1 className="text-xl font-medium">My Goals</h1>
             </div>
             <DynamicGoalSubNav />
+            <UserGoalsHeader />
             <DynamicUserGoals />
         </section>
     );

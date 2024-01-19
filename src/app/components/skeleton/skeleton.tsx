@@ -260,130 +260,102 @@ export const GoalSubNavSkeleton = () => (
 
 export const UserGoalsSkeleton = () => (
     <section className="h-[82%]">
-        <div className="flex items-center px-10 border-y h-[6%] ">
-            <div className="w-[50%] ">
-                <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-            </div>
-            <div className="w-[20%]">
-                <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-            </div>
-            <div className="w-[20%]">
-                <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-            </div>
-            <div className="w-[10%]">
-                <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-            </div>
-        </div>
         <div className="h-[94%] overflow-y-auto pb-3">
             <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
+                <div className="w-[50%]">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[10%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-                </div>
-            </div>
-            <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-                </div>
-                <div className="w-[20%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-                </div>
-                <div className="w-[20%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-                </div>
-                <div className="w-[10%]">
+                <div className="w-[10%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
             </div>
             <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
+                <div className="w-[50%]">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[10%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-                </div>
-            </div>
-            <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-                </div>
-                <div className="w-[20%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-                </div>
-                <div className="w-[20%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-                </div>
-                <div className="w-[10%]">
+                <div className="w-[10%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
             </div>
             <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
+                <div className="w-[50%]">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[10%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-                </div>
-            </div>
-            <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
-                </div>
-                <div className="w-[20%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-                </div>
-                <div className="w-[20%]">
-                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
-                </div>
-                <div className="w-[10%]">
+                <div className="w-[10%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
             </div>
             <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
+                <div className="w-[50%]">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[10%]">
+                <div className="w-[10%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
             </div>
             <div className="flex items-center px-10 border-b h-16">
-                <div className="w-[50%] ">
+                <div className="w-[50%]">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[20%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
                 </div>
-                <div className="w-[10%]">
+                <div className="w-[10%] flex justify-center">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
+                </div>
+            </div>
+            <div className="flex items-center px-10 border-b h-16">
+                <div className="w-[50%]">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
+                </div>
+                <div className="w-[20%] flex justify-center">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
+                </div>
+                <div className="w-[20%] flex justify-center">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
+                </div>
+                <div className="w-[10%] flex justify-center">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
+                </div>
+            </div>
+            <div className="flex items-center px-10 border-b h-16">
+                <div className="w-[50%]">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
+                </div>
+                <div className="w-[20%] flex justify-center">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
+                </div>
+                <div className="w-[20%] flex justify-center">
+                    <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[30%]"></div>
+                </div>
+                <div className="w-[10%] flex justify-center">
                     <div className="animate-pulse rounded-md h-3 px-2 bg-[#f0eded] w-[50%]"></div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { StaticImageData } from "next/image";
 import triangle from "../../../../../public/triangle.png";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import { useParams } from "next/navigation";
 import FiscalYearHook from "@/app/hooks/fiscalYearHook";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import DeleteGoal from "@/app/components/goals/deleteGoal";
 
 export default function GoalsInfo() {
     const { fiscalQuarter, fiscalYear } = FiscalYearHook();
@@ -31,8 +32,10 @@ export default function GoalsInfo() {
     const [selectedDate, setSelectedDate] = useState<Date | string>('');
     const [selectedStatusOption, setSelectedStatusOption] = useState('');
     const [goalDescription, setGoalDescription] = useState('');
-    const animationRef = useRef<number | null>(null);
+    const [deletePopup, setDeletePopup] = useState(false);
     const { back } = useRouter();
+
+    console.log(selectedDate);
 
     const statusOptions = [
         { label: "On track", bgColor: "#34D399" },
@@ -45,11 +48,11 @@ export default function GoalsInfo() {
             setLoading(true);
             const unsubscribe = onSnapshot(docRef, (snapshot) => {
                 if (snapshot.exists()) {
-                    setGoalTitle(snapshot.data().goalData.formData.goalTitle);
-                    setGoalSubtitle(snapshot.data().goalData.formData.goalSubtitle);
-                    setSelectedDate(snapshot.data().goalData.formData.dueDate);
-                    setSelectedStatusOption(snapshot.data().goalData.formData.status);
-                    setGoalDescription(snapshot.data().goalData.formData.goalDescription);
+                    setGoalTitle(snapshot.data().goalData.formData?.goalTitle);
+                    setGoalSubtitle(snapshot.data().goalData.formData?.goalSubtitle);
+                    setSelectedDate(snapshot.data().goalData.formData?.dueDate);
+                    setSelectedStatusOption(snapshot.data().goalData?.formData.status);
+                    setGoalDescription(snapshot.data().goalData.formData?.goalDescription);
                 }
                 setLoading(false);
             });
@@ -58,7 +61,7 @@ export default function GoalsInfo() {
 
         } catch (error) {
             setLoading(false);
-        }
+        };
     }, []);
 
     useEffect(() => {
@@ -85,36 +88,6 @@ export default function GoalsInfo() {
 
         return () => clearInterval(interval);
     }, [selectedDate]);
-
-    // useEffect(() => {
-    //     const calculateProgress = () => {
-    //         const currentDate = new Date();
-    //         const convertedSelectedDate = new Date(selectedDate);
-
-    //         if (!(convertedSelectedDate instanceof Date)) {
-    //             setLoadPercentage(0);
-    //             return;
-    //         }
-
-    //         const totalMilliseconds = convertedSelectedDate.getTime() - currentDate.getTime();
-    //         const remainingMilliseconds = Math.max(totalMilliseconds, 0);
-    //         const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
-    //         const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
-    //         const percentage = ((totalDays - remainingDays) / totalDays) * 100;
-
-    //         setLoadPercentage(percentage);
-
-    //         if (remainingMilliseconds > 0) {
-    //             animationRef.current = requestAnimationFrame(calculateProgress);
-    //         }
-    //     };
-
-    //     return () => {
-    //         if (animationRef.current !== null) {
-    //             cancelAnimationFrame(animationRef.current);
-    //         }
-    //     };
-    // }, [selectedDate]);
 
     useEffect(() => {
         const handleDueDate = async () => {
@@ -181,6 +154,10 @@ export default function GoalsInfo() {
         await updateDoc(docRef, dataToUpdate);
     };
 
+    const openDeletePopup = () => {
+        setDeletePopup(true);
+    }
+
     return (
         <section className="h-full relative">
             <div className="flex items-center pt-4 border-b border-gray-200 pb-3 px-10 h-[10%]">
@@ -238,7 +215,7 @@ export default function GoalsInfo() {
                             {
                                 statusOptions.map((statusOption, index) => (
                                     <div
-                                        className={`flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer ${selectedStatusOption === statusOption.label && "bg-[#F0EDED]"}`}
+                                        className={`flex items-center border border-[#b8b6b6] rounded-md px-3 py-[5px] w-fit mr-3 hover:bg-[#F0EDED] cursor-pointer ${selectedStatusOption === statusOption.label && "bg-[#e1dddd]"}`}
                                         key={index}
                                         onClick={() => handleStatusOption(statusOption)}
                                     >
@@ -292,7 +269,7 @@ export default function GoalsInfo() {
                     </div>
                 </div>
                 {/* second div */}
-                <div className="w-[20%] border-l pl-6 mt-32">
+                <div className="w-[20%] border-l pl-6 mt-32 flex flex-col">
                     <h1 className="font-medium text-lg opacity-90">About this goal</h1>
                     <div className="border-b border-gray-200 mt-4 pb-6">
                         <p className="text-sm opacity-70">Goal owner</p>
@@ -341,8 +318,17 @@ export default function GoalsInfo() {
                             </div>
                         )}
                     </div>
+                    <div className="mt-auto mb-10">
+                        <button
+                            onClick={openDeletePopup}
+                            className="border text-sm px-6 py-1 rounded-md bg-red-400 hover:bg-red-500 text-white"
+                        >
+                            Delete goal
+                        </button>
+                    </div>
                 </div>
             </div>
+            {deletePopup && <DeleteGoal setDeletePopup ={setDeletePopup}/>}
         </section>
     );
 };
