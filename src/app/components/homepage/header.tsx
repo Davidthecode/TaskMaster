@@ -8,7 +8,7 @@ const DynamicHeaderClient = dynamic(() => import("@/app/client/header/headerClie
 
 export default function Header() {
     return (
-        <section className="bg-[#EEEBEA] pt-28 flex justify-center px-[8%]">
+        <section className="pt-28 flex justify-center px-[8%]">
             <div className="w-[40rem]">
                 <div className="flex justify-center ">
                     <h1 className="text-6xl w-full text-center leading-tight xs:text-4xl xs:text-start">The best platform for cross-functional work</h1>

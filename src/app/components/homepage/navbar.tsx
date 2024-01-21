@@ -58,7 +58,7 @@ export default function Navbar() {
 
     return (
         <nav>
-            <div className={`bg-[#EEEBEA] px-[8%] pb-4 flex items-center justify-between pt-2 w-full fixed top-0 ${sticky && "w-full border-b border-gray-300 shadow-sm transition-all duration-500 ease-in-out z-50"}`}>
+            <div className={`bg-[#f5f2f1] px-[8%] pb-4 flex items-center justify-between pt-2 w-full fixed top-0 ${sticky && "w-full border-b border-gray-300 shadow-sm transition-all duration-500 ease-in-out z-50"}`}>
                 <div className="flex items-center">
                     <div className="mr-3">
                         <Image src={taskmasterImage} alt="image" height={30} width={30} />
@@ -72,7 +72,6 @@ export default function Navbar() {
                             <li className="hover:text-black cursor-pointer">Solutions</li>
                             <li className="hover:text-black cursor-pointer">Resources</li>
                             <li className="hover:text-black cursor-pointer">Enterprise</li>
-                            <li className="hover:text-black cursor-pointer">Pricing</li>
                         </ul>
                     </div>
                 </div>
