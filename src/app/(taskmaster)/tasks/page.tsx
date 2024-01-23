@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { usePathname } from "next/navigation"
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Tasks() {
-    const router = useRouter()
-    const pathname = usePathname()
+    const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
-        if (pathname === "/tasks"){
+        if (pathname === "/tasks") {
             router.push("/tasks/list")
         }
-    }, [pathname])
+    }, [pathname]);
 
     return (
         <div></div>
-    )
-}
+    );
+};

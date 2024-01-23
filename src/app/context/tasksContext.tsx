@@ -7,6 +7,12 @@ import { db } from "../firebase/firebase-config";
 import toast from "react-hot-toast";;
 import CurrentUserHook from '../hooks/currentUserHook';
 
+type OriginalOrderType = {
+    todoTasks: any[];
+    inprogressTasks: any[];
+    completedTasks: any[];
+}
+
 type TasksContextType = {
     tasks: any[],
     setTasks: Dispatch<SetStateAction<any[]>>,
@@ -31,7 +37,9 @@ type TasksContextType = {
     sortedTasks: any[],
     setSortedTasks: Dispatch<SetStateAction<any[]>>,
     checkSort: boolean,
-    setCheckSort: Dispatch<SetStateAction<boolean>>
+    setCheckSort: Dispatch<SetStateAction<boolean>>,
+    originalOrder: OriginalOrderType | null,
+    setOriginalOrder: Dispatch<SetStateAction<OriginalOrderType | null>>
 };
 
 export const TasksContext = createContext<TasksContextType | null>(null);
@@ -51,6 +59,7 @@ export const UseTasksContext: React.FC<{ children: ReactNode }> = ({ children })
     const [checkIncompleteFilter, setCheckIncompleteFilter] = useState(false);
     const [sortedTasks, setSortedTasks] = useState<any[]>([]);
     const [checkSort, setCheckSort] = useState(false);
+    const [originalOrder, setOriginalOrder] = useState<OriginalOrderType | null>(null);
 
     const showNetworkAlert = () => {
         if (!navigator.onLine) {
@@ -102,7 +111,7 @@ export const UseTasksContext: React.FC<{ children: ReactNode }> = ({ children })
 
     }, [tasks]);
     return (
-        <TasksContext.Provider value={{ tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort }}>
+        <TasksContext.Provider value={{ tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort, originalOrder, setOriginalOrder }}>
             {children}
         </TasksContext.Provider>
     );

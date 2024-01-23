@@ -24,7 +24,7 @@ export default function Footer() {
                     <SlSocialLinkedin size=".8rem" className="" />
                 </div>
                 <div className="border p-1 rounded-full">
-                    <SlSocialInstagram size=".9rem" className="mt-" />
+                    <SlSocialInstagram size=".9rem" className="" />
                 </div>
             </div>
         </div>
