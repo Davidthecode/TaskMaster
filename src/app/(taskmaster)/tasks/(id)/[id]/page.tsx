@@ -6,14 +6,14 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
-import toast from "react-hot-toast";
 import spinner from "../../../../../../public/icons8-spinner.gif";
 import { CiCircleCheck } from "react-icons/ci";
 import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { IoCheckmarkOutline } from "react-icons/io5";
+import DeleteTask from "@/app/components/tasks/deleteTask";
 
 export default function Task() {
     const { currentUser } = CurrentUserHook();
@@ -32,6 +32,7 @@ export default function Task() {
     const [selectedStatusOption, setSelectedStatusOption] = useState("On track");
     const [completed, setCompleted] = useState<boolean>();
     const [dueDate, setDueDate] = useState("");
+    const [deleteTask, setDeleteTask] = useState(false);
 
 
     const priorityOptions = [
@@ -127,9 +128,7 @@ export default function Task() {
 
     //function to delete task
     const handleDelete = async () => {
-        await deleteDoc(docRef);
-        router.push("/tasks");
-        toast.success("Task deleted successfully");
+        setDeleteTask(true);
     };
 
     const handleNavigation = () => {
@@ -362,6 +361,7 @@ export default function Task() {
                     </div>
                 </div>
             </div>
+            {deleteTask && <DeleteTask setDeleteTask={setDeleteTask} />}
         </section>
     );
 };

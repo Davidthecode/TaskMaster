@@ -52,7 +52,7 @@ export default function ProjectBrief({ closeProjectBrief }: CreateOverviewBriefT
     return (
         <section>
             <div className="fixed top-0 z-50 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-                <div className="text-black w-[40%] h-[45%] rounded-md mt-10 mobile:mt-0 largeTablet:w-[60%] mobile:w-[100%] mobile:h-[100%]">
+                <div className="text-black w-[40%] h-[47%] rounded-md mt-10 mobile:mt-0 largeTablet:w-[60%] mobile:w-[100%] mobile:h-[100%]">
                     <div className="overflow-y-auto h-full bg-white rounded-md px-2">
                         <div
                             onClick={closeProjectBrief}
@@ -70,7 +70,7 @@ export default function ProjectBrief({ closeProjectBrief }: CreateOverviewBriefT
                                     id=""
                                     cols={0}
                                     rows={0}
-                                    className="border border-gray-400 rounded-md px-2 py-1 outline-none w-full h-full text-sm"
+                                    className="rounded-md px-2 py-1 outline-none w-full h-full text-sm"
                                     placeholder="write a project brief..."
                                 ></textarea>
                             </div>
@@ -81,7 +81,7 @@ export default function ProjectBrief({ closeProjectBrief }: CreateOverviewBriefT
                                  </div>
                              </div>
                             ): (
-                                <button className="text-sm border border-gray-400 mt-4 px-3 py-1 rounded-md w-fit ml-auto hover:bg-[#F0EDED]" onClick={addBrief}>Add brief</button>
+                                <button className="text-[13px] border border-gray-400 mt-4 px-2 py-1 rounded-md w-fit ml-auto hover:bg-[#F0EDED]" onClick={addBrief}>Add brief</button>
                             )}
                         </div>
                     </div>

@@ -6,9 +6,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import { deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
-import toast from "react-hot-toast";
 import spinner from "../../../../../../../public/icons8-spinner.gif";
 import { CiCircleCheck } from "react-icons/ci";
 import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
@@ -19,7 +18,6 @@ import DeleteProjectTask from "@/app/components/projects/deleteProjectTask";
 
 export default function ProjectTask() {
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
-    const { currentUser } = CurrentUserHook();
     const params = useParams();
     const paramsId = params.taskId;
     const router = useRouter();

@@ -9,23 +9,23 @@ import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 type DeleteProjectTaskProps = {
-    setDeleteProjectTask: Dispatch<SetStateAction<boolean>>
+    setDeleteTask: Dispatch<SetStateAction<boolean>>
 };
 
-export default function DeleteProjectTask({ setDeleteProjectTask }: DeleteProjectTaskProps) {
+export default function DeleteTask({ setDeleteTask }: DeleteProjectTaskProps) {
     const params = useParams();
-    const paramsId = params.taskId;
+    const paramsId = params.id;
     const router = useRouter();
-    const docRef = doc(db, "projectsTasks", paramsId as string);
+    const docRef = doc(db, "tasks", paramsId as string);
 
     const cancelDelete = () => {
-        setDeleteProjectTask(false);
+        setDeleteTask(false);
     };
 
-    const deleteTask = async () => {
+    const handleDeleteTask = async () => {
         try {
             await deleteDoc(docRef);
-            setDeleteProjectTask(false);
+            setDeleteTask(false);
             router.back();
             toast.success("Task deleted successfully");
         } catch (error) {
@@ -66,7 +66,7 @@ export default function DeleteProjectTask({ setDeleteProjectTask }: DeleteProjec
                                 Once you delete this task, you cannot undo it
                             </div>
                             <div className="items-center gap-2 mt-3 text-sm sm:flex">
-                                <div onClick={deleteTask}>
+                                <div onClick={handleDeleteTask}>
                                     <button className="w-full mt-2 py-1 px-2 flex-1 text-white bg-red-600 rounded-md border hover:bg-red-700">
                                         Delete
                                     </button>
