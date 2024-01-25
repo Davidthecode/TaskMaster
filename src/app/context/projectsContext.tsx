@@ -7,6 +7,12 @@ import { db } from "../firebase/firebase-config";
 import CurrentUserHook from '../hooks/currentUserHook';
 import { useParams } from "next/navigation";
 
+type OriginalOrderType = {
+    todoTasks: any[];
+    inprogressTasks: any[];
+    completedTasks: any[];
+};
+
 type ProjectsContextType = {
     projects: any[],
     setProjects: Dispatch<SetStateAction<any[]>>,
@@ -31,7 +37,11 @@ type ProjectsContextType = {
     sortedTasks: any[],
     setSortedTasks: Dispatch<SetStateAction<any[]>>,
     checkSort: boolean,
-    setCheckSort: Dispatch<SetStateAction<boolean>>
+    setCheckSort: Dispatch<SetStateAction<boolean>>,
+    originalOrder: OriginalOrderType | null,
+    setOriginalOrder: Dispatch<SetStateAction<OriginalOrderType | null>>,
+    disableDueDateButton: boolean,
+    setDisableDueDateButton: Dispatch<SetStateAction<boolean>>
 };
 
 export const ProjectsContext = createContext<ProjectsContextType | null>(null);
@@ -53,6 +63,8 @@ export const UseProjectsContext: React.FC<{ children: ReactNode }> = ({ children
     const [checkIncompleteFilter, setCheckIncompleteFilter] = useState(false);
     const [sortedTasks, setSortedTasks] = useState<any[]>([]);
     const [checkSort, setCheckSort] = useState(false);
+    const [originalOrder, setOriginalOrder] = useState<OriginalOrderType | null>(null);
+    const [disableDueDateButton, setDisableDueDateButton] = useState(false);
 
     useEffect(() => {
         try {
@@ -95,7 +107,7 @@ export const UseProjectsContext: React.FC<{ children: ReactNode }> = ({ children
     }, [projects]);
 
     return (
-        <ProjectsContext.Provider value={{ projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, completedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort }}>
+        <ProjectsContext.Provider value={{ projects, setProjects, todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, completedProjects, setCompletedProjects, loading, setLoading, checkFilter, setCheckFilter, filteredTodoProjects, setFilteredTodoProjects, filteredInprogressProjects, setFilteredInprogressProjects, filteredCompletedProjects, setFilteredCompletedProjects, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort, originalOrder, setOriginalOrder, disableDueDateButton, setDisableDueDateButton }}>
             {children}
         </ProjectsContext.Provider>
     );

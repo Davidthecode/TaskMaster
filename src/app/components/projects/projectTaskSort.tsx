@@ -9,10 +9,16 @@ type CloseSortType = {
 
 export default function ProjectTaskSort({ closeSort }: CloseSortType) {
 
-    const { todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, completedProjects, setCompletedProjects, checkSort, setCheckSort } = useProjects();
+    const { todoProjects, setTodoProjects, inprogressProjects, setInprogressProjects, completedProjects, setCompletedProjects, checkSort, setCheckSort, originalOrder, setOriginalOrder, disableDueDateButton, setDisableDueDateButton } = useProjects();
 
     const handleSort = () => {
-        setCheckSort(!checkSort);
+        setDisableDueDateButton(true);
+        setCheckSort(true);
+        setOriginalOrder({
+            todoTasks: [...todoProjects],
+            inprogressTasks: [...inprogressProjects],
+            completedTasks: [...completedProjects]
+        });
         const sortedTodoTasks = [...todoProjects].sort((taskA, taskB) => {
             const dateA: any = new Date(taskA.taskData.taskDueDate);
             console.log(dateA)
@@ -32,13 +38,18 @@ export default function ProjectTaskSort({ closeSort }: CloseSortType) {
         });
 
         setTodoProjects(sortedTodoTasks);
-        console.log(sortedTodoTasks);
         setInprogressProjects(sortedInProgressTasks);
         setCompletedProjects(sortedCompletedTasks);
     };
 
     const undoSort = () => {
-
+        if (originalOrder !== null) {
+            setDisableDueDateButton(false);
+            setCheckSort(false);
+            setTodoProjects(originalOrder.todoTasks);
+            setInprogressProjects(originalOrder.inprogressTasks);
+            setCompletedProjects(originalOrder.completedTasks);
+        };
     };
 
     return (
@@ -52,8 +63,19 @@ export default function ProjectTaskSort({ closeSort }: CloseSortType) {
                 </div>
             </div>
             <div className="flex flex-col text-sm space-y-4 mt-3">
-                <p className="hover:bg-[#edecec] w-full px-5 py-1 rounded-sm cursor-pointer" onClick={undoSort}>None</p>
-                <p className={`hover:bg-[#edecec] w-full px-5 py-1 rounded-sm cursor-pointer ${checkSort && 'bg-[#edecec]'}`} onClick={handleSort}>Due date</p>
+                <button
+                    className={`hover:bg-[#edecec] w-full px-5 py-1 rounded-sm cursor-pointer ${!checkSort && "bg-[#edecec]"}`}
+                    onClick={undoSort}
+                >
+                    None
+                </button>
+                <button
+                    className={`hover:bg-[#edecec] w-full px-5 py-1 rounded-sm cursor-pointer ${checkSort && 'bg-[#edecec]'} ${disableDueDateButton && "opacity-50"}`}
+                    onClick={handleSort}
+                    disabled={disableDueDateButton}
+                >
+                    Due date
+                </button>
             </div>
         </section>
     )

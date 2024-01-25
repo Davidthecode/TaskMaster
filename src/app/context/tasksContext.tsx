@@ -11,7 +11,7 @@ type OriginalOrderType = {
     todoTasks: any[];
     inprogressTasks: any[];
     completedTasks: any[];
-}
+};
 
 type TasksContextType = {
     tasks: any[],
@@ -39,7 +39,9 @@ type TasksContextType = {
     checkSort: boolean,
     setCheckSort: Dispatch<SetStateAction<boolean>>,
     originalOrder: OriginalOrderType | null,
-    setOriginalOrder: Dispatch<SetStateAction<OriginalOrderType | null>>
+    setOriginalOrder: Dispatch<SetStateAction<OriginalOrderType | null>>,
+    disableDueDateButton: boolean,
+    setDisableDueDateButton: Dispatch<SetStateAction<boolean>>
 };
 
 export const TasksContext = createContext<TasksContextType | null>(null);
@@ -60,6 +62,7 @@ export const UseTasksContext: React.FC<{ children: ReactNode }> = ({ children })
     const [sortedTasks, setSortedTasks] = useState<any[]>([]);
     const [checkSort, setCheckSort] = useState(false);
     const [originalOrder, setOriginalOrder] = useState<OriginalOrderType | null>(null);
+    const [disableDueDateButton, setDisableDueDateButton] = useState(false);
 
     const showNetworkAlert = () => {
         if (!navigator.onLine) {
@@ -111,7 +114,7 @@ export const UseTasksContext: React.FC<{ children: ReactNode }> = ({ children })
 
     }, [tasks]);
     return (
-        <TasksContext.Provider value={{ tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort, originalOrder, setOriginalOrder }}>
+        <TasksContext.Provider value={{ tasks, setTasks, todoTasks, setTodoTasks, inprogressTasks, setInprogressTasks, completedTasks, setCompletedTasks, loading, setLoading, checkFilter, setCheckFilter, filteredTodoTasks, setFilteredTodoTasks, filteredInProgressTasks, setFilteredInProgressTasks, filteredCompletedTasks, setFilteredCompletedTasks, checkIncompleteFilter, setCheckIncompleteFilter, sortedTasks, setSortedTasks, checkSort, setCheckSort, originalOrder, setOriginalOrder, disableDueDateButton, setDisableDueDateButton }}>
             {children}
         </TasksContext.Provider>
     );

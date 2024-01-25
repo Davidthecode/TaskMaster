@@ -81,11 +81,6 @@ export default function ProjectTaskFilter({ closeFilter }: CloseFilterType) {
                 </div>
             </div>
             <div className="mt-8 border"></div>
-            <div className="flex">
-                <div className="ml-auto mt-2">
-                    <button className="text-xs border px-3 py-1 rounded-md hover:bg-[#F9F8F8]">Clear all</button>
-                </div>
-            </div>
         </section>
     )
 };
