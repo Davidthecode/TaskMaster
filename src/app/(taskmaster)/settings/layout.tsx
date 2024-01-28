@@ -10,7 +10,7 @@ export default function ServiceLayout({
     children: React.ReactNode
 }) {
     return (
-        <section className="pl-[5%] pt-[2%] h-full flex flex-col">
+        <section className="pl-[5%] pt-[2%] h-full flex flex-col largeTablet:w-full">
             <DynamicSettingsHeader />
 
             <div className="overflow-y-auto mt-6">

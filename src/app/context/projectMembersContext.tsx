@@ -9,19 +9,19 @@ import noUser from "../../../public/nouser.jpg";
 
 type ProfileMembersDataType = {
     profileData: { username: string; photoUrl: string }
-}
+};
 
 type ProfileDataType = {
     username: string,
     photoUrl: string
-}
+};
 
 type ProjectMembersContextType = {
     projectBrief: string,
     projectOwnerName: string | null,
     projectOwnerImageUrl: string | StaticImageData,
     projectMembers: ProfileDataType[]
-}
+};
 
 const ProjectMembersContext = createContext<ProjectMembersContextType | null>(null);
 
@@ -31,8 +31,10 @@ export const UseProjectMembersContext: React.FC<{ children: ReactNode }> = ({ ch
     const [projectBrief, setProjectBrief] = useState("");
     const [projectOwnerName, setProjectOwnerName] = useState<string | null>(null);
     const [projectOwnerImageUrl, setProjectOwnerImageUrl] = useState<string | StaticImageData>(noUser);
+    
     const [projectMembers, setProjectMembers] = useState<ProfileDataType[]>([])
 
+    // console.log(projectMembers)
     useEffect(() => {
         if (id) {
             const docRef = doc(db, "projects", id);
@@ -52,7 +54,8 @@ export const UseProjectMembersContext: React.FC<{ children: ReactNode }> = ({ ch
                             if (userDocSnapshot.exists()) {
                                 const userData = userDocSnapshot.data();
                                 setProjectOwnerName(userData.profileData.username);
-                                setProjectOwnerImageUrl(userData.profileData.photoUrl);
+                                const imageUrl = userData.profileData.photoUrl;
+                                setProjectOwnerImageUrl(imageUrl);
                             } else {
                                 console.warn('User not found in the users collection');
                             };

@@ -25,7 +25,7 @@ export default function DashboardNavClient() {
         if (currentUser?.photoURL) {
             setPhoto(currentUser?.photoURL);
         };
-    }, [currentUser]);
+    }, [currentUser, currentUser?.photoURL]);
 
     const handleDropdown = () => {
         setDropdownVisibility(!dropdownVisibility);

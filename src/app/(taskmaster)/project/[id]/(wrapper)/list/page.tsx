@@ -1,16 +1,14 @@
-"use client"
+"use client";
 
 import ProjectsSubnav from "@/app/components/projects/projectsSubnav";
-import ProjectListTodoClient from "@/app/client/projects/projectListTodoClient"
-import ProjectListInprogressClient from "@/app/client/projects/projectListInprogressClient"
-import ProjectListCompletedClient from "@/app/client/projects/projectListCompletedClient"
-import { TaskListSkeleton } from "@/app/components/skeleton/skeleton"
-import { useProjects } from "@/app/context/projectsContext"
+import ProjectListTodoClient from "@/app/client/projects/projectListTodoClient";
+import ProjectListInprogressClient from "@/app/client/projects/projectListInprogressClient";
+import ProjectListCompletedClient from "@/app/client/projects/projectListCompletedClient";
+import { TaskListSkeleton } from "@/app/components/skeleton/skeleton";
+import { useProjects } from "@/app/context/projectsContext";
 
 export default function List() {
     const { loading } = useProjects();
-    console.log(loading)
-
     return (
         <section className="px-6 h-[100%]">
             <div className="h-[8%]">
@@ -40,5 +38,5 @@ export default function List() {
                 </div>
             )}
         </section>
-    )
-}
+    );
+};

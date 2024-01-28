@@ -11,10 +11,11 @@ import { db } from "@/app/firebase/firebase-config";
 import spinner from "../../../../../../../public/icons8-spinner.gif";
 import { CiCircleCheck } from "react-icons/ci";
 import { TaskTitleSkeleton } from "@/app/components/skeleton/skeleton";
-import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 import DeleteProjectTask from "@/app/components/projects/deleteProjectTask";
+import noUser from "../../../../../../../public/nouser.jpg";
+import { StaticImageData } from "next/image";
 
 export default function ProjectTask() {
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
@@ -35,6 +36,7 @@ export default function ProjectTask() {
     const [selectedDate, setSelectedDate] = useState('');
     const [deleteProjectTask, setDeleteProjectTask] = useState(false);
     const [assigneeName, setAssigneeName] = useState("");
+    const [assigneeImageUrl, setAssigneeImageUrl] = useState<string | StaticImageData>(noUser);
 
     const priorityOptions = [
         { label: "Low", bgColor: "#9EE7E3" },
@@ -63,6 +65,7 @@ export default function ProjectTask() {
                         setSelectedStatusOption(snapshot.data().taskData?.taskStatus);
                         setCompleted(snapshot.data().taskData?.completed);
                         setAssigneeName(snapshot.data().taskData?.assigneeName);
+                        setAssigneeImageUrl(snapshot.data().taskData?.assigneeImageUrl);
                     }
                     setLoading(false);
                 });
@@ -268,7 +271,12 @@ export default function ProjectTask() {
                     <div className="w-[95%] pl-2">
                         <div className="flex items-center">
                             <p className="mr-16 text-xs">Assignee</p>
-                            <p className="text-xs">{assigneeName}</p>
+                            <div className="flex items-center">
+                                <div className="mr-1">
+                                    <Image src={assigneeImageUrl} alt="image" width={20} height={20} className="rounded-full" />
+                                </div>
+                                <p className="text-xs">{assigneeName}</p>
+                            </div>
                         </div>
                         <div className="mt-6 flex items-center">
                             <p className="mr-11 text-xs">Date created</p>

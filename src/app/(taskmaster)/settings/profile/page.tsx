@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import anime from "../../../../../public/anime.jpg";
 import { auth, db } from "@/app/firebase/firebase-config";
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import spinner from "../../../../../public/icons8-spinner.gif";
-import { collection, doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import noUser from "../../../../../public/nouser.jpg";
 import { StaticImageData } from "next/image";
 import { storage } from "../../../firebase/firebase-config";
@@ -33,7 +32,7 @@ export default function Profile() {
             setPhotoUrl(currentuser.photoURL.replace('/_next/', '/next/'));
         };
     }, [currentuser]);
-   
+
     const handleImageChange = (e: any) => {
         if (e.target.files[0]) {
             setPhoto(e.target.files[0]);
@@ -47,7 +46,20 @@ export default function Profile() {
                 setImageLoading(true);
                 const snapshot = await uploadBytes(fileRef, photo);
                 const photoURL = await getDownloadURL(fileRef);
+                const profileData = {
+                    pronouns,
+                    jobTitle,
+                    department,
+                    about,
+                    userId: currentuser?.uid,
+                    photoUrl: photoURL,
+                    username,
+                    userEmail
+                };
                 updateProfile(currentuser, { photoURL });
+                const userRef = doc(profileCollectionRef, currentuser?.uid);
+                await updateDoc(userRef, { profileData });
+                setPhotoUrl(photoURL);
                 setImageLoading(false);
                 toast.success("image updated successfully");
             };
@@ -58,53 +70,53 @@ export default function Profile() {
 
     useEffect(() => {
         if (currentuser && currentuser.displayName) {
-            setUsername(currentuser?.displayName)
-        }
+            setUsername(currentuser?.displayName);
+        };
         if (currentuser && currentuser.email) {
-            setUserEmail(currentuser?.email)
-        }
-    }, [currentuser])
+            setUserEmail(currentuser?.email);
+        };
+    }, [currentuser]);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setCurrentUser(user)
-            } else setCurrentUser(null)
-        })
-        return () => unsubscribe()
-    }, [currentuser])
+                setCurrentUser(user);
+            } else setCurrentUser(null);
+        });
+        return () => unsubscribe();
+    }, [currentuser]);
 
     useEffect(() => {
         if (currentuser && currentuser.uid) {
             try {
-                const userRef = doc(profileCollectionRef, currentuser?.uid)
+                const userRef = doc(profileCollectionRef, currentuser?.uid);
                 const unsubscribe = onSnapshot(userRef, (snapshot) => {
                     if (snapshot.exists()) {
-                        setAbout(snapshot.data().profileData.about)
-                        setDepartment(snapshot.data().profileData.department)
-                        setJobTitle(snapshot.data().profileData.jobTitle)
-                        setPronouns(snapshot.data().profileData.pronouns)
-                    }
-                })
-                return () => unsubscribe()
+                        setAbout(snapshot.data().profileData.about);
+                        setDepartment(snapshot.data().profileData.department);
+                        setJobTitle(snapshot.data().profileData.jobTitle);
+                        setPronouns(snapshot.data().profileData.pronouns);
+                    };
+                });
+                return () => unsubscribe();
             } catch (error) {
-                console.log(error)
-            }
-        }
-    }, [currentuser])
+                console.log(error);
+            };
+        };
+    }, [currentuser]);
 
     const validateFields = () => {
-        const fullNameValid = username.length > 0
-        return fullNameValid
-    }
+        const fullNameValid = username.length > 0;
+        return fullNameValid;
+    };
 
     useEffect(() => {
-        setDisableButton(!validateFields())
-    }, [username])
+        setDisableButton(!validateFields());
+    }, [username]);
 
     const saveProfileChanges = async () => {
         try {
-            setLoading(true)
+            setLoading(true);
             if (currentuser) {
                 const profileData = {
                     pronouns,
@@ -112,25 +124,25 @@ export default function Profile() {
                     department,
                     about,
                     userId: currentuser?.uid,
-                    photoUrl,
+                    photoUrl: currentuser?.photoURL,
                     username,
                     userEmail
-                }
-                await updateProfile(currentuser, { displayName: username })
-                const userRef = doc(profileCollectionRef, currentuser?.uid)
-                await updateDoc(userRef, { profileData })
-                toast.success("Profile updated successfully")
-            }
-            setLoading(false)
+                };
+                await updateProfile(currentuser, { displayName: username });
+                const userRef = doc(profileCollectionRef, currentuser?.uid);
+                await updateDoc(userRef, { profileData });
+                toast.success("Profile updated successfully");
+            };
+            setLoading(false);
         } catch (error) {
-            console.log(error)
-            setLoading(false)
-        }
-    }
+            console.log(error);
+            setLoading(false);
+        };
+    };
 
     return (
-        <div className="pt-[2%] bg-white h-full mobile:px-6 overflow-y-auto">
-            <div className="flex items-center">
+        <div className="bg-white h-full mobile:px-6 overflow-y-auto">
+            <div className="flex items-center border-b pb-4 fixed bg-white w-[75%]">
                 <div className="mr-5">
                     <Image src={photoUrl} alt="image" height={50} width={50} className="rounded-" style={{ borderRadius: "100%" }} />
                 </div>
@@ -147,7 +159,7 @@ export default function Profile() {
                 ) : (
                     <div>
                         <button
-                            className={`text-blue-500 hover:underline w-fit ${!photo && 'hover:no-underline'}`}
+                            className={`text-blue-500 hover:underline w-fit ${!photo && 'hover:no-underline  opacity-50'}`}
                             disabled={imageLoading || !photo}
                             onClick={handlePhotoUpload}
                         >
@@ -157,7 +169,7 @@ export default function Profile() {
                     </div>
                 )}
             </div>
-            <div className="flex items-center mt-10">
+            <div className="flex items-center mt-[6rem]">
                 <div className="mr-5">
                     <p className="mb-2 text-sm font-medium">Your full name</p>
                     <input
@@ -232,5 +244,5 @@ export default function Profile() {
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
