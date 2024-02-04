@@ -7,11 +7,33 @@ import { LimitWords } from "../../../../utils/limitWords";
 import Link from "next/link";
 import ok from "../../../../public/icons8-ok-16 (1).png";
 import { useTasks } from "@/app/context/tasksContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-config";
 
 export default function BoardTodoClient() {
     const { todoTasks, setTodoTasks, loading, checkFilter, checkIncompleteFilter, filteredTodoTasks } = useTasks();
 
     const handleTask = checkFilter || checkIncompleteFilter ? filteredTodoTasks : todoTasks;
+
+    const handleMarkAsComplete = async (id: string) => {
+        const docRef = doc(db, "tasks", id);
+        const dataToUpdate = {
+            "taskData.completed": true
+        };
+
+        await updateDoc(docRef, dataToUpdate);
+
+    };
+
+    const handleMarkAsIncomplete = async (id: string) => {
+        const docRef = doc(db, "tasks", id);
+        const dataToUpdate = {
+            "taskData.completed": false
+        };
+
+        await updateDoc(docRef, dataToUpdate);
+    };
+
     return (
         <section className="w-[22%] mr-5 h-[100%]">
             <div className="h-[12%] flex items-center">
@@ -39,9 +61,19 @@ export default function BoardTodoClient() {
                                     <div className="flex items-center">
                                         <div className="mr-1 cursor-pointer pl-4 pt-4">
                                             {todoTask.taskData.completed ? (
-                                                <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
+                                                <Image
+                                                    src={ok}
+                                                    alt="image"
+                                                    width={20}
+                                                    height={20}
+                                                    className="opacity-90 mt-1"
+                                                    onClick={() => handleMarkAsIncomplete(todoTask.id)}
+                                                />
                                             ) : (
-                                                <CiCircleCheck size="1.2rem" />
+                                                <CiCircleCheck
+                                                    size="1.2rem"
+                                                    onClick={() => handleMarkAsComplete(todoTask.id)}
+                                                />
                                             )}
                                         </div>
                                         <Link href={`/tasks/${todoTask.id}`} className="h-full w-full">

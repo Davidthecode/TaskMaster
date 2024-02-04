@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { CiCircleCheck } from "react-icons/ci";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import ok from "../../../../public/icons8-ok-16 (1).png";
 import { useProjects } from "@/app/context/projectsContext";
 import { useParams } from "next/navigation";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase-config";
 import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
@@ -19,7 +19,7 @@ export default function ProjectListTodoClient() {
     const params = useParams();
     const paramsId = params.id;
     const [showTodoList, setShowTodoList] = useState(true);
-    const { todoProjects, setTodoProjects, loading, checkFilter, checkIncompleteFilter, filteredTodoProjects, projects } = useProjects();
+    const { todoProjects, checkFilter, checkIncompleteFilter, filteredTodoProjects } = useProjects();
 
     const handleProjects = checkFilter || checkIncompleteFilter ? filteredTodoProjects : todoProjects;
 
@@ -36,7 +36,9 @@ export default function ProjectListTodoClient() {
         const dataToUpdate = {
             "taskData.completed": true
         };
+
         await updateDoc(docRef, dataToUpdate);
+
     };
 
     const handleMarkAsIncomplete = async (id: string) => {
@@ -44,6 +46,7 @@ export default function ProjectListTodoClient() {
         const dataToUpdate = {
             "taskData.completed": false
         };
+
         await updateDoc(docRef, dataToUpdate);
     };
 
@@ -77,6 +80,7 @@ export default function ProjectListTodoClient() {
 
                 return (
                     <div className={`flex items-center ${showTodoList ? "flex" : "hidden"}`} key={data.id}>
+
                         <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                             <div className="cursor-pointer w-fit pl-6">
                                 {data.taskData.completed ? (

@@ -70,9 +70,6 @@ export const UseProjectsContext: React.FC<{ children: ReactNode }> = ({ children
         try {
             setLoading(true);
             const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-                setTodoProjects([]);
-                setInprogressProjects([]);
-                setCompletedProjects([]);
                 const tempArray: any[] = [];
                 snapshot.docs.forEach((doc) => {
                     const data = doc.data();

@@ -32,9 +32,8 @@ export const UseProjectMembersContext: React.FC<{ children: ReactNode }> = ({ ch
     const [projectOwnerName, setProjectOwnerName] = useState<string | null>(null);
     const [projectOwnerImageUrl, setProjectOwnerImageUrl] = useState<string | StaticImageData>(noUser);
     
-    const [projectMembers, setProjectMembers] = useState<ProfileDataType[]>([])
+    const [projectMembers, setProjectMembers] = useState<ProfileDataType[]>([]);
 
-    // console.log(projectMembers)
     useEffect(() => {
         if (id) {
             const docRef = doc(db, "projects", id);

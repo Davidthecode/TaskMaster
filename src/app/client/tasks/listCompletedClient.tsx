@@ -9,6 +9,8 @@ import { LimitWords } from "../../../../utils/limitWords";
 import Link from "next/link";
 import ok from "../../../../public/icons8-ok-16 (1).png";
 import { useTasks } from "@/app/context/tasksContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-config";
 
 export default function ListCompletedClient() {
     const [showCompletedList, setShowCompletedList] = useState(true);
@@ -23,6 +25,26 @@ export default function ListCompletedClient() {
     const handleOpenCompletedList = () => {
         setShowCompletedList(true);
     };
+
+    const handleMarkAsComplete = async (id: string) => {
+        const docRef = doc(db, "tasks", id);
+        const dataToUpdate = {
+            "taskData.completed": true
+        };
+
+        await updateDoc(docRef, dataToUpdate);
+
+    };
+
+    const handleMarkAsIncomplete = async (id: string) => {
+        const docRef = doc(db, "tasks", id);
+        const dataToUpdate = {
+            "taskData.completed": false
+        };
+
+        await updateDoc(docRef, dataToUpdate);
+    };
+
     return (
         <section className="mt-6">
             <div className="flex items-center border-b">
@@ -56,9 +78,19 @@ export default function ListCompletedClient() {
                             <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                                 <div className="mr-1 cursor-pointer w-fit pl-6">
                                     {completedTask.taskData.completed ? (
-                                        <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
+                                        <Image
+                                            src={ok}
+                                            alt="image"
+                                            width={17}
+                                            height={17}
+                                            className="opacity-90 mt-1"
+                                            onClick={() => handleMarkAsIncomplete(completedTask.id)}
+                                        />
                                     ) : (
-                                        <CiCircleCheck size="1.2rem" />
+                                        <CiCircleCheck
+                                            size="1.2rem"
+                                            onClick={() => handleMarkAsComplete(completedTask.id)}
+                                        />
                                     )}
                                 </div>
                                 <Link href={`/tasks/${completedTask.id}`} className="w-full h-full flex items-center hover:bg-[#F9F8F8] pl-1">

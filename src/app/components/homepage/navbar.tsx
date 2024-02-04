@@ -1,11 +1,12 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { HiOutlineBars3 } from "react-icons/hi2"
-import { AiOutlineClose } from "react-icons/ai"
-import taskmasterImage from "../../../../public/taskmasterImage.png"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { HiOutlineBars3 } from "react-icons/hi2";
+import { AiOutlineClose } from "react-icons/ai";
+import taskmasterImage from "../../../../public/taskmasterImage.png";
+import Link from "next/link";
 
 export default function Navbar() {
     const [sticky, setSticky] = useState(false)
@@ -27,14 +28,6 @@ export default function Navbar() {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-    const handleLogin = () => {
-        router.push('/login')
-    }
-
-    const handleSignUp = () => {
-        router.push("/signup")
-    }
 
     const handleDropdown = () => {
         setDropdown(!dropdown);
@@ -78,14 +71,17 @@ export default function Navbar() {
                 <div className="flex items-center">
                     <ul className="flex items-center space-x-10 mr-10 xs:hidden">
                         <li className="cursor-pointer">Contact Sales</li>
-                        <li className="cursor-pointer hover:border-b hover:border-black" onClick={handleLogin}>Log in</li>
+                        <Link href="/login">
+                            <li className="cursor-pointer hover:border-b hover:border-black">Log in</li>
+                        </Link>
                     </ul>
-                    <button
-                        className="text-white bg-black hover:outline-none text-md px-3 py-1 cursor-pointer rounded-sm hover:bg-[#EE6969] mobile:text-xs mobile:py-2"
-                        onClick={handleSignUp}
-                    >
-                        Get started
-                    </button>
+                    <Link href="/signup">
+                        <button
+                            className="text-white bg-black hover:outline-none text-md px-3 py-1 cursor-pointer rounded-sm hover:bg-[#EE6969] mobile:text-xs mobile:py-2"
+                        >
+                            Get started
+                        </button>
+                    </Link>
                     <div className="ml-4 hidden largeTablet:block xs:block cursor-pointer" onClick={handleDropdown}>
                         {dropdown ? <AiOutlineClose size="1.7rem" /> : <HiOutlineBars3 size="1.7rem" />}
                     </div>
@@ -106,18 +102,20 @@ export default function Navbar() {
                         </ul>
                     </div>
                     <div className="mt-12 flex flex-col px-[4%]">
-                        <button
-                            className="w-full bg-black text-white h-12 rounded-sm text-md font-semibold hover:bg-[#F06A6A]"
-                            onClick={handleSignUp}
-                        >
-                            Get started
-                        </button>
-                        <button
-                            className="mt-4 border border-black h-12 rounded-sm text-md font-semibold hover:bg-[#F06A6A] hover:border-none"
-                            onClick={handleLogin}
-                        >
-                            Log In
-                        </button>
+                        <Link href="/signup">
+                            <button
+                                className="w-full bg-black text-white h-12 rounded-sm text-md font-semibold hover:bg-[#F06A6A]"
+                            >
+                                Get started
+                            </button>
+                        </Link>
+                        <Link href="/login">
+                            <button
+                                className="mt-4 border border-black h-12 rounded-sm text-md font-semibold hover:bg-[#F06A6A] hover:border-none"
+                            >
+                                Log In
+                            </button>
+                        </Link>
                     </div>
                 </div>
             )}

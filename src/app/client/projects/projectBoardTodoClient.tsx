@@ -63,8 +63,8 @@ export default function ProjectBoardTodoClient() {
                                                 <Image
                                                     src={ok}
                                                     alt="image"
-                                                    width={17}
-                                                    height={17}
+                                                    width={20}
+                                                    height={20}
                                                     className="opacity-90 mt-1"
                                                     onClick={() => handleMarkAsIncomplete(todoTask.id)}
                                                 />

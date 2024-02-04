@@ -1,19 +1,39 @@
-"use client"
+"use client";
 
-import { Dispatch, SetStateAction } from "react"
-import { CiCircleCheck } from "react-icons/ci"
-import Image from "next/image"
-import anime from "../../../../public/anime.jpg"
-import { LimitWords } from "../../../../utils/limitWords"
-import Link from "next/link"
-import ok from "../../../../public/icons8-ok-16 (1).png"
-import { useTasks } from "@/app/context/tasksContext"
+import { CiCircleCheck } from "react-icons/ci";
+import Image from "next/image";
+import anime from "../../../../public/anime.jpg";
+import { LimitWords } from "../../../../utils/limitWords";
+import Link from "next/link";
+import ok from "../../../../public/icons8-ok-16 (1).png";
+import { useTasks } from "@/app/context/tasksContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-config";
 
 export default function BoardInProgressClient() {
 
     const { inprogressTasks, setInprogressTasks, loading, checkFilter, checkIncompleteFilter, filteredInProgressTasks } = useTasks();
 
-    const handleTasks = checkFilter || checkIncompleteFilter ? filteredInProgressTasks : inprogressTasks
+    const handleTasks = checkFilter || checkIncompleteFilter ? filteredInProgressTasks : inprogressTasks;
+
+    const handleMarkAsComplete = async (id: string) => {
+        const docRef = doc(db, "tasks", id);
+        const dataToUpdate = {
+            "taskData.completed": true
+        };
+
+        await updateDoc(docRef, dataToUpdate);
+
+    };
+
+    const handleMarkAsIncomplete = async (id: string) => {
+        const docRef = doc(db, "tasks", id);
+        const dataToUpdate = {
+            "taskData.completed": false
+        };
+
+        await updateDoc(docRef, dataToUpdate);
+    };
 
     return (
         <section className="w-[22%] mr-5 h-[100%]">
@@ -42,9 +62,19 @@ export default function BoardInProgressClient() {
                                     <div className="flex items-center">
                                         <div className="mr-1 cursor-pointer pl-4 pt-4">
                                             {inprogressTask.taskData.completed ? (
-                                                <Image src={ok} alt="image" width={17} height={17} className="opacity-90 mt-1" />
+                                                <Image
+                                                    src={ok}
+                                                    alt="image"
+                                                    width={20}
+                                                    height={20}
+                                                    className="opacity-90 mt-1"
+                                                    onClick={() => handleMarkAsIncomplete(inprogressTask.id)}
+                                                />
                                             ) : (
-                                                <CiCircleCheck size="1.2rem" />
+                                                <CiCircleCheck
+                                                    size="1.2rem"
+                                                    onClick={() => handleMarkAsComplete(inprogressTask.id)}
+                                                />
                                             )}
                                         </div>
                                         <Link href={`/tasks/${inprogressTask.id}`} className="h-full w-full">

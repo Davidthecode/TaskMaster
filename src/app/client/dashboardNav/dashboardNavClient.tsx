@@ -18,7 +18,6 @@ export default function DashboardNavClient() {
     const router = useRouter();
     const [dropdownVisibility, setDropdownVisibility] = useState(false);
     const [loading, setLoading] = useState(false);
-
     const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
 
     useEffect(() => {

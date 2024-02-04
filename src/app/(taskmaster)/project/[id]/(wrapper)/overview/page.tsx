@@ -80,7 +80,6 @@ export default function Overview() {
                         </div>
                         <div className="flex items-center space-x-6">
                             {projectMembers.map((projectMember, id) => {
-                                console.log(projectMember.photoUrl)
                                 return (
                                     <div key={id} className="flex items-center min-w-[10rem]">
                                         <div className="mr-2">
