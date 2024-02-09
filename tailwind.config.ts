@@ -33,10 +33,10 @@ const config: Config = {
         largeScreen: {
           min: "1174px",
           max: "1289px"
-        }
-      }
+        },
+      },
     },
   },
   plugins: [],
-}
-export default config
+};
+export default config;

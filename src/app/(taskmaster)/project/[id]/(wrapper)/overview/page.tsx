@@ -98,7 +98,7 @@ export default function Overview() {
             </div>
             <div className="mt-6">
                 <h1 className="text-lg font-medium">Key Resources</h1>
-                <div className="border h-[10rem] w-[70%] mt-6 rounded-md flex items-center justify-center">
+                <div className="border h-[10rem] w-[70%] largeTablet:w-[80%] smallTablet:min-w-[100%] mobile:min-w-[100%] mt-6 rounded-md flex items-center justify-center">
                     <div className="w-[20%] h-[10rem]">
                         <Image src={keyResourcesImg} alt="image" width={0} height={0} className="w-full h-full" />
                     </div>

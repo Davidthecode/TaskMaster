@@ -20,7 +20,7 @@ export default function DashboardNav() {
                 </div>
                 <h1 className="text-xl opacity-90">TaskMaster</h1>
             </div>
-            <div className='ml-[25%] mobile:hidden flex items-center'>
+            <div className='ml-[25%] largeTablet:ml-[8%] mobile:hidden flex items-center'>
                 <p className='text-xs mr-1'>Taskmaster is in beta testing, if you find any bugs, contact us here {"->"}</p>
                 <Link href="https://github.com/Davidthecode/TaskMaster" target='_blank'>
                     <div className='cursor-pointer'>

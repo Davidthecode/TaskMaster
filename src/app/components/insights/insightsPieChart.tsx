@@ -40,7 +40,7 @@ export default function InsightsPieChart() {
         maintainAspectRatio: false,
     };
     return (
-        <section className="border rounded-md border-gray-300 w-[48%] h-[20rem] ml-auto flex flex-col justify-center items-center">
+        <section className="border rounded-md border-gray-300 w-[48%] h-[20rem] ml-auto flex flex-col justify-center items-center smallTablet:ml-0 smallTablet:mt-10 smallTablet:w-[85%] mobile:ml-0 mobile:mt-10 mobile:w-[100%]">
             <h1 className="mt-4 font-medium">Tasks by completion status</h1>
             <div className="w-[100%] h-[80%]">
                 {!tasks.length ? (

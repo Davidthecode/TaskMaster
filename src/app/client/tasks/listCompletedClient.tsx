@@ -75,7 +75,7 @@ export default function ListCompletedClient() {
                 return (
                     <section key={completedTask.id}>
                         <div className={`flex items-center ${showCompletedList ? "flex" : "hidden"}`}>
-                            <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
+                            <div className="w-[50%] smallTablet:min-w-[50%] mobile:min-w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                                 <div className="mr-1 cursor-pointer w-fit pl-6">
                                     {completedTask.taskData.completed ? (
                                         <Image
@@ -97,7 +97,7 @@ export default function ListCompletedClient() {
                                     <p className="text-sm">{LimitWords(completedTask.taskData.title, 4)}</p>
                                 </Link>
                             </div>
-                            <div className="flex items-center w-[50%] h-[42px]">
+                            <div className="flex items-center w-[50%] smallTablet:min-w-[80%] mobile:min-w-[120%] h-[42px]">
                                 <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300">
                                     <p className={`${textColorClass}`}>
                                         {new Date(completedTask.taskData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}

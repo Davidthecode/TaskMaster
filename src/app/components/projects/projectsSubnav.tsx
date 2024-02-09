@@ -65,7 +65,9 @@ export default function ProjectsSubnav() {
                     )}
                 </div>
                 {filterVisible && (
-                    <div className="absolute bg-white border rounded-md border-gray-300 py-2 px-4 shadow-lg w-[25%] top-[11rem] h-[10rem] z-50">
+                    <div
+                        className="absolute bg-white border rounded-md border-gray-300 py-2 px-4 shadow-lg w-[25%] largeTablet:w-[30%]  top-[11rem] h-[10rem] z-50 mobile:w-[55%]"
+                    >
                         <ProjectTaskFilter closeFilter={closeFilter} />
                     </div>
                 )}
@@ -87,7 +89,9 @@ export default function ProjectsSubnav() {
                     )}
                 </div>
                 {sortVisible && (
-                    <div className="absolute bg-white border rounded-md border-gray-300 py-2 shadow-lg w-[13%] top-[11rem] h-[10rem] z-50">
+                    <div
+                        className="absolute bg-white border rounded-md border-gray-300 py-2 shadow-lg w-[13%] top-[11rem] h-[10rem] z-50 smallTablet:w-[20%] mobile:w-[40%]"
+                    >
                         <ProjectTaskSort closeSort={closeSort} />
                     </div>
                 )}

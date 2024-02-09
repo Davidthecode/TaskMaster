@@ -178,7 +178,7 @@ export default function Task() {
     return (
         <section className="bg-[#F9F8F8] px-20 mobile:px-0 py-3 flex flex-col items-center overflow-y-auto h-full">
             <div className="bg-white w-[75%] mobile:w-full h-full largeTablet:w-full flex flex-col rounded-md overflow-y-auto">
-                <div className="flex items-center justify-between mb-3 w-[57.5%] border-b pl-11 py-2 fixed z-40 bg-white">
+                <div className="flex items-center justify-between mb-3 w-full border-b pl-11 py-2 z-40 bg-white">
                     <div className="flex items-center">
                         <div
                             onClick={handleNavigation}
@@ -189,7 +189,7 @@ export default function Task() {
                     </div>
                 </div>
 
-                <div className="pl-12 mt-14">
+                <div className="pl-12 mt-4 overflow-y-auto">
                     {completed ? (
                         <div className="flex items-center border rounded-md px-2 py-1 w-fit cursor-pointer bg-[#E0F4EC] border-[#3d9673] hover:border-[#2d6f55]" onClick={handleMarkAsIncomplete}>
                             <div className="mr-1">

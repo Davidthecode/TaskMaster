@@ -32,7 +32,7 @@ export default function TaskSubNav() {
   };
 
   const handleToggle = () => {
-    setIsOpen(true);
+    setIsOpen(true);  //check it
   };
 
   const onProClose = () => {
@@ -59,16 +59,10 @@ export default function TaskSubNav() {
   };
 
   return (
-    <section className="h-full flex items-center border-b py-2 smallTablet:px-10 mobile:px-6">
-      <div
-        className="mr-4 cursor-pointer hidden largeTablet:block mobile:block"
-        onClick={handleToggle}
-      >
-        <BsReverseLayoutTextSidebarReverse size="1.3rem" />
-      </div>
+    <section className="h-full flex items-center border-b py-2">
       <div
         onClick={handleAddTask}
-        className="flex items-center cursor-pointer bg-[#F9F8F8] hover:bg-[#EBEBEA] rounded-md border border-gray-300 px-3 py-1 mobile:hidden"
+        className="flex items-center cursor-pointer bg-[#F9F8F8] hover:bg-[#EBEBEA] rounded-md border border-gray-300 px-3 py-1"
       >
         <div>
           <IoAddSharp />
@@ -91,7 +85,9 @@ export default function TaskSubNav() {
           </div>
         </div>
         {filterVisible && (
-          <div className="absolute bg-white border rounded-md border-gray-300 py-2 px-4 shadow-lg w-[25%] top-[11rem] h-[10rem] z-50">
+          <div
+            className="absolute bg-white border rounded-md border-gray-300 py-2 px-4 shadow-lg w-[25%] top-[11rem] h-[10rem] z-50 largeTablet:w-[30%] mobile:w-[55%]"
+          >
             <TaskFilter closeFilter={closeFilter} />
           </div>
         )}
@@ -115,25 +111,26 @@ export default function TaskSubNav() {
           </div>
         </div>
         {sortVisible && (
-          <div className="absolute bg-white border rounded-md border-gray-300 py-2 shadow-lg w-[10%] top-[11rem] h-[10rem] z-50">
+          <div
+            className="absolute bg-white border rounded-md border-gray-300 py-2 shadow-lg w-[10%] top-[11rem] h-[10rem] z-50 smallTablet:w-[20%] mobile:w-[40%] largeTablet:w-[20%]"
+          >
             <TaskSort closeSort={closeSort} />
           </div>
         )}
       </div>
 
-      <div className="flex ml-auto items-center mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md">
+      <div
+        className="flex ml-auto items-center mr-1 hover:bg-[#F9F8F8] cursor-pointer py-2 px-3 rounded-md mobile:hidden"
+        onClick={() => setProVisible(true)}
+      >
         <p
           className="mr-2 text-xs font-medium"
-          onClick={() => setProVisible(true)}
         >
           Upgrade to Pro
         </p>
         <div>
           <Image src={star} alt="image" width={20} height={20} />
         </div>
-      </div>
-      <div className="ml-auto cursor-pointer hidden smallTablet:block mobile:block">
-        <AiOutlineBars size="1.3rem" />
       </div>
       {isVisible && <Addtask onClose={onClose} />}
       {proVisible && <ProUpgrade onProClose={onProClose} />}

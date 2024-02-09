@@ -80,8 +80,7 @@ export default function ProjectListTodoClient() {
 
                 return (
                     <div className={`flex items-center ${showTodoList ? "flex" : "hidden"}`} key={data.id}>
-
-                        <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
+                        <div className="w-[50%] smallTablet:min-w-[50%] mobile:min-w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                             <div className="cursor-pointer w-fit pl-6">
                                 {data.taskData.completed ? (
                                     <Image
@@ -103,7 +102,7 @@ export default function ProjectListTodoClient() {
                                 <p className="text-sm">{LimitWords(data.taskData.title, 4)}</p>
                             </Link>
                         </div>
-                        <div className="flex items-center w-[50%] h-[42px]">
+                        <div className="flex items-center w-[50%] smallTablet:min-w-[80%] mobile:min-w-[120%] h-[42px]">
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
                                 <p>{data.taskData?.assigneeName}</p>
                             </div>

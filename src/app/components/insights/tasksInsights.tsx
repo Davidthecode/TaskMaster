@@ -14,8 +14,8 @@ export default function TasksInsights() {
         return dueDate < currentDate;
     });
     return (
-        <div className="mt-10 flex items-center justify-between mx-20">
-            <div className="border border-gray-300 w-[23%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
+        <div className="mt-10 flex items-center justify-between mx-20 mobile:mx-10 smallTablet:flex-col mobile:flex-col smallTablet:space-y-3 mobile:space-y-3">
+            <div className="border border-gray-300 w-[23%] smallTablet:w-[85%] mobile:w-[100%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
                 <h1 className="text-xl ">Completed tasks</h1>
                 {!tasks.length ? (
                     <div className="flex justify-center mt-8">
@@ -25,7 +25,7 @@ export default function TasksInsights() {
                     <p className="mt-4 text-4xl">{tasksMarkedAsCompleted.length}</p>
                 )}
             </div>
-            <div className="border border-gray-300 w-[23%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
+            <div className="border border-gray-300 w-[23%] smallTablet:w-[85%] mobile:w-[100%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
                 <h1 className="text-xl ">Incomplete tasks</h1>
                 {!tasks.length ? (
                     <div className="flex justify-center mt-8">
@@ -35,7 +35,7 @@ export default function TasksInsights() {
                     <p className="mt-4 text-4xl">{tasksMarkedAsInComplete.length}</p>
                 )}
             </div>
-            <div className="border border-gray-300 w-[23%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
+            <div className="border border-gray-300 w-[23%] smallTablet:w-[85%] mobile:w-[100%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
                 <h1 className="text-xl ">Overdue tasks</h1>
                 {!tasks.length ? (
                     <div className="flex justify-center mt-8">
@@ -45,7 +45,7 @@ export default function TasksInsights() {
                     <p className="mt-4 text-4xl">{overdueTasks.length}</p>
                 )}
             </div>
-            <div className="border border-gray-300 w-[23%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
+            <div className="border border-gray-300 w-[23%] smallTablet:w-[85%] mobile:w-[100%] h-[10rem] rounded-md flex flex-col items-center py-6 shadow-sm">
                 <h1 className="text-xl ">Total tasks</h1>
                 {!tasks.length ? (
                     <div className="flex justify-center mt-8">

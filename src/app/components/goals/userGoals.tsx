@@ -47,7 +47,7 @@ export default function UserGoals() {
             <section className="h-[76%]">
                 <div className="h-[94%] overflow-y-auto pb-3">
                     {goals.map((goal) => (
-                        <div className="flex border-b h-16 items-center px-10 cursor-pointer" key={goal.id}>
+                        <div className="flex border-b h-16 items-center cursor-pointer" key={goal.id}>
                             <div className="w-[50%] font-medium h-full flex items-center hover:bg-[#f5f4f4] pl-2">
                                 <Link href={`/goals/${goal.id}`} className="w-full h-full flex items-center">
                                     {goal.goalData.formData.goalTitle}

@@ -31,9 +31,7 @@ export default function ListTodoClient() {
         const dataToUpdate = {
             "taskData.completed": true
         };
-
         await updateDoc(docRef, dataToUpdate);
-
     };
 
     const handleMarkAsIncomplete = async (id: string) => {
@@ -41,12 +39,11 @@ export default function ListTodoClient() {
         const dataToUpdate = {
             "taskData.completed": false
         };
-
         await updateDoc(docRef, dataToUpdate);
     };
 
     return (
-        <section className="mt-3">
+        <section>
             <div className="flex items-center border-b">
                 {showTodoList ? (
                     <div className="mr-3 opacity-70 cursor-pointer" onClick={handleCloseTodoList}>
@@ -75,7 +72,7 @@ export default function ListTodoClient() {
                 return (
                     <section key={todoTask.id}>
                         <div className={`flex items-center ${showTodoList ? "flex" : "hidden"}`}>
-                            <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
+                            <div className="w-[50%] smallTablet:min-w-[50%] mobile:min-w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                                 <div className="mr-1 cursor-pointer w-fit pl-6">
                                     {todoTask.taskData.completed ? (
                                         <Image
@@ -97,7 +94,7 @@ export default function ListTodoClient() {
                                     <p className="text-sm">{LimitWords(todoTask.taskData.title, 4)}</p>
                                 </Link>
                             </div>
-                            <div className="flex items-center w-[50%] h-[42px]">
+                            <div className="flex items-center w-[50%] smallTablet:min-w-[80%] mobile:min-w-[120%] h-[42px]">
                                 <div className="text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300">
                                     <p
                                         className={`${textColorClass}`}>

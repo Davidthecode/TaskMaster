@@ -76,7 +76,7 @@ export default function ListInprogressClient() {
                 return (
                     <section key={inprogressTask.id}>
                         <div className={`flex items-center ${showInprogressList ? "flex" : "hidden"}`}>
-                            <div className="w-[50%] border-b flex items-center h-[42px] cursor-pointer">
+                            <div className="w-[50%] smallTablet:min-w-[50%] mobile:min-w-[50%] border-b flex items-center h-[42px] cursor-pointer">
                                 <div className="mr-1 cursor-pointer w-fit pl-6">
                                     {inprogressTask.taskData.completed ? (
                                         <Image
@@ -98,7 +98,7 @@ export default function ListInprogressClient() {
                                     <p className="text-sm">{LimitWords(inprogressTask.taskData.title, 4)}</p>
                                 </Link>
                             </div>
-                            <div className="flex items-center w-[50%] h-[42px]">
+                            <div className="flex items-center w-[50%] smallTablet:min-w-[80%] mobile:min-w-[120%] h-[42px]">
                                 <div className={`text-xs w-[33.3%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300`}>
                                     <p
                                         className={`${textColorClass}`}>

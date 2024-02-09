@@ -19,9 +19,15 @@ export default function Board() {
                     <TaskBoardSkeleton />
                 ) : (
                     <div className="w-full flex">
-                        <ProjectBoardTodoClient />
-                        <ProjectBoardInprogressClient />
-                        <ProjectBoardCompletedClient />
+                        <div className="w-[22%] largeScreen:w-[28%] largeTablet:w-[28%] smallTablet:min-w-[50%] mobile:min-w-[80%]">
+                            <ProjectBoardTodoClient />
+                        </div>
+                        <div className="w-[22%] largeScreen:w-[28%] largeTablet:w-[28%] smallTablet:min-w-[50%] mobile:min-w-[80%]">
+                            <ProjectBoardInprogressClient />
+                        </div>
+                        <div className="w-[22%] largeScreen:w-[28%] largeTablet:w-[28%] smallTablet:min-w-[50%] mobile:min-w-[80%]">
+                            <ProjectBoardCompletedClient />
+                        </div>
                     </div>
                 )}
 

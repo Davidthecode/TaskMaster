@@ -40,7 +40,7 @@ export default function InsightsBarChart() {
     };
 
     return (
-        <section className="w-[48%] h-[20rem] flex flex-col justify-center items-center border rounded-md border-gray-300 px-3">
+        <section className="w-[48%] h-[20rem] flex flex-col justify-center items-center border rounded-md border-gray-300 px-3 smallTablet:w-[85%] mobile:w-[100%]">
             <h1 className="mt-4 font-medium">Tasks by completion status</h1>
             <div className="w-[90%] h-[80%]">
                 {!tasks.length ? (

@@ -16,7 +16,7 @@ export default function GoalSubnav() {
     };
 
     return (
-        <div className="flex items-center h-[8%] px-10">
+        <div className="flex items-center h-[8%]">
             <div className="flex items-center border w-fit rounded-md h-7 px-2 cursor-pointer bg-blue-600 hover:bg-blue-800 text-white" onClick={openGoal}>
                 <div className="font-bold">
                     <IoAdd size="1.1rem" />

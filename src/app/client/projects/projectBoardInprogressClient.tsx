@@ -34,7 +34,7 @@ export default function ProjectBoardInprogressClient() {
     };
 
     return (
-        <section className="w-[22%] mr-5 h-[100%]">
+        <section className="mr-5 h-[100%]">
             <div className="h-[12%] flex items-center">
                 <h1 className="font-medium">In progress</h1>
             </div>
