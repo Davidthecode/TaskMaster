@@ -24,7 +24,6 @@ export default function HomeClient() {
     const { setIsOpen } = useSidebarContext();
     const [currentDate, setCurrentDate] = useState(new Date());
 
-    //function to get current date
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentDate(new Date());

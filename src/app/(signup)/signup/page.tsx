@@ -16,6 +16,7 @@ import checkListImage from "../../../../public/check-list.png";
 import writingImage from "../../../../public/writing.png";
 import writingTwoImage from "../../../../public/copy-writing.png";
 import { collection, doc, setDoc } from "firebase/firestore";
+import Cookies from "js-cookie";
 
 export default function Login() {
     const router = useRouter();
@@ -27,61 +28,60 @@ export default function Login() {
 
     const handleSignupWithGoogle = async () => {
         try {
-            const result = await signInWithPopup(auth, provider)
-            console.log(result)
-            router.push("/home")
+            const result = await signInWithPopup(auth, provider);
+            console.log(result);
+            router.push("/home");
         } catch (error) {
-            console.log(error)
-        }
-    }
+            console.log(error);
+        };
+    };
 
     const handleSignup = async () => {
-        const validate = username !== "" && email !== "" && password !== ""
+        const validate = username !== "" && email !== "" && password !== "";
         if (validate) {
             try {
-                setLoading(true)
-                const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
-                await updateProfile(userCredentials.user, {
-                    displayName: username
-                })
+                setLoading(true);
+                const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+                Cookies.set("token", JSON.stringify(auth.currentUser?.uid));
+                const user = userCredentials.user;
+                await updateProfile(user, {
+                    displayName: username,
+                    photoURL: `https://ui-avatars.com/api/?name=${username}`
+                });
 
                 const profileData = {
                     username,
                     userEmail: email,
-                    userId: userCredentials.user.uid,
+                    userId: user.uid,
                     photoUrl: "",
                     pronouns: "",
                     jobTitle: "",
                     department: "",
                     about: ""
-                }
-                const userRef = doc(collectionRef, userCredentials.user.uid)
-                await setDoc(userRef, { profileData })
-                setUsername("")
-                setEmail("")
-                setPassword("")
-                toast.success("signed up successfully")
-                setLoading(false)
-                router.replace("/home")
+                };
+                const userRef = doc(collectionRef, user.uid);
+                await setDoc(userRef, { profileData });
+                toast.success("signed up successfully");
+                setLoading(false);
+                router.replace("/home");
             } catch (error: any) {
                 if (error.code === "auth/weak-password") {
-                    toast.error("Weak password!")
-                }
-                else if (error.code === "auth/email-already-in-use") {
-                    toast.error("Email already in use, Kindly log in")
+                    toast.error("Weak password!");
+                }else if (error.code === "auth/email-already-in-use") {
+                    toast.error("Email already in use, Kindly log in");
                 } else if (error.code == "auth/invalid-email") {
-                    toast.error("Invalid email address")
+                    toast.error("Invalid email address");
                 } else if (error.code == "auth/missing-password") {
-                    toast.error("Input password")
-                }
-                setLoading(false)
-            }
-        } else toast.error("Complete all fields")
-    }
+                    toast.error("Input password");
+                };
+                setLoading(false);
+            };
+        } else toast.error("Complete all fields");
+    };
 
     const redirectToLogin = () => {
-        router.push("/login")
-    }
+        router.push("/login");
+    };
 
     return (
         <div className="px-[10%] font-sans">
@@ -195,5 +195,5 @@ export default function Login() {
                 </div>
             </aside>
         </div>
-    )
-}
+    );
+};

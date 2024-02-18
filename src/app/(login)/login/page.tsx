@@ -14,6 +14,7 @@ import meetingTwoImage from "../../../../public/meeting-room.png";
 import meetingThreeImage from "../../../../public/round-table.png";
 import writingImage from "../../../../public/writing.png";
 import { useSearchParams } from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function Login() {
     const searchParams = useSearchParams();
@@ -30,16 +31,15 @@ export default function Login() {
             console.log(result);
             router.push("/home");
         } catch (error) {
-            console.log(error);
+            console.error(error);
         };
     };
 
-    const handleSignin = async () => {
+    const handleLogin = async () => {
         try {
             setLoading(true);
             await signInWithEmailAndPassword(auth, email, password);
-            setEmail("");
-            setPassword("");
+            Cookies.set("token", JSON.stringify(auth.currentUser?.uid));
             setLoading(false);
             router.replace(continueTo);
             toast.success("logged in Successfully");
@@ -136,7 +136,7 @@ export default function Login() {
                             </div>
                         ) : (
                             <div
-                                onClick={handleSignin}
+                                onClick={handleLogin}
                                 className="w-full mt-6 flex items-center justify-center bg-[#426DC6] hover:bg-[#375699] h-10 rounded-md cursor-pointer"
                             >
                                 <button

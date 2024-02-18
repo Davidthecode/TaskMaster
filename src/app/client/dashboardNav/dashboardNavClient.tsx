@@ -12,6 +12,7 @@ import spinner from "../../../../public/icons8-spinner.gif";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
 import { StaticImageData } from "next/image";
 import noUser from "../../../../public/nouser.jpg";
+import Cookies from "js-cookie";
 
 export default function DashboardNavClient() {
     const { currentUser } = CurrentUserHook();
@@ -33,6 +34,7 @@ export default function DashboardNavClient() {
     const handleSignOut = async () => {
         setLoading(true);
         await signOut(auth);
+        Cookies.remove("token");
         router.push("/");
         setLoading(false);
     };
