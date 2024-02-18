@@ -91,7 +91,7 @@ export default function CreateProject({ onClose }: CreateProjectType) {
                                 <h1 className='text-xl font-medium mb-4'>Create Project</h1>
                                 <div className='w-[20rem] h-10 rounnded-md'>
                                     <input
-                                        className='border outline-[#1616d1] px-2 border-[#0e0ead] bg-gray-200 rounded-md w-full h-full'
+                                        className='border outline-black px-2 border-gray-400 bg-gray- rounded-md w-full h-full'
                                         placeholder='project name'
                                         type="text"
                                         value={projectName}

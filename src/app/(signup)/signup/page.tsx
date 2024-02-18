@@ -29,7 +29,7 @@ export default function Login() {
     const handleSignupWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
-            console.log(result);
+            Cookies.set("token", JSON.stringify(result.user.uid));
             router.push("/home");
         } catch (error) {
             console.log(error);

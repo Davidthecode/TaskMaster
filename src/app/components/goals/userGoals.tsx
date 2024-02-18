@@ -16,6 +16,7 @@ export default function UserGoals() {
     const [goals, setGoals] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const collectionRef = collection(db, 'goals');
+    const imageSrc = "https://media.giphy.com/media/Ll88bcCbnV5U5UGsW7/giphy.gif?cid=790b7611zuq44cl8k831zu3jmsfddxxvzz56th28htwfr78m&ep=v1_gifs_search&rid=giphy.gif&ct=g";
 
     useEffect(() => {
         try {
@@ -40,7 +41,16 @@ export default function UserGoals() {
         }
     }, []);
 
-    if (!goals.length) {
+    if (!loading && !goals.length) {
+        return (
+            <div className="flex flex-col h-[80%] justify-center items-center">
+                <h1 className="pb-3">Write a goal and track your progress</h1>
+                <Image src={imageSrc} alt="image" width={400} height={250} />
+            </div>
+        );
+    };
+
+    if (loading) {
         return <UserGoalsSkeleton />
     } else {
         return (

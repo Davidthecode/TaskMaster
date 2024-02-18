@@ -9,7 +9,7 @@ import Image from "next/image";
 import spinner from "../../../../public/icons8-spinner.gif";
 
 export default function InsightsBarChart() {
-    const { tasks } = useTasks();
+    const { tasks, loading } = useTasks();
     const tasksMarkedAsCompleted = tasks.filter((task => task.taskData.completed));
     const overdueTasks = tasks.filter((task) => {
         const dueDate = new Date(task.taskData.dueDate);
@@ -43,17 +43,15 @@ export default function InsightsBarChart() {
         <section className="w-[48%] h-[20rem] flex flex-col justify-center items-center border rounded-md border-gray-300 px-3 smallTablet:w-[85%] mobile:w-[100%]">
             <h1 className="mt-4 font-medium">Tasks by completion status</h1>
             <div className="w-[90%] h-[80%]">
-                {!tasks.length ? (
+                {loading ? (
                     <div className="flex justify-center items-center mt-32">
                         <Image src={spinner} alt="image" width={20} height={20} />
                     </div>
                 ) : (
                     <Bar
-                        style={
-                            { paddingBlock: "20px", height: "75%", width: "75%" }
-                        }
+                        style={{ paddingBlock: "20px", height: "75%", width: "75%", }}
                         data={data}
-                        options={options}
+                        options={options}                      
                     >
                     </Bar>
                 )}

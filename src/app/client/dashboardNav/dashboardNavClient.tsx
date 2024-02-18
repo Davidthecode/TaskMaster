@@ -35,7 +35,7 @@ export default function DashboardNavClient() {
         setLoading(true);
         await signOut(auth);
         Cookies.remove("token");
-        router.push("/");
+        router.replace("/");
         setLoading(false);
     };
 

@@ -10,7 +10,7 @@ import spinner from "../../../../public/icons8-spinner.gif";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function InsightsPieChart() {
-    const { tasks } = useTasks();
+    const { tasks, loading } = useTasks();
     const tasksMarkedAsCompleted = tasks.filter((task => task.taskData.completed));
     const overdueTasks = tasks.filter((task) => {
         const dueDate = new Date(task.taskData.dueDate);
@@ -43,7 +43,7 @@ export default function InsightsPieChart() {
         <section className="border rounded-md border-gray-300 w-[48%] h-[20rem] ml-auto flex flex-col justify-center items-center smallTablet:ml-0 smallTablet:mt-10 smallTablet:w-[85%] mobile:ml-0 mobile:mt-10 mobile:w-[100%]">
             <h1 className="mt-4 font-medium">Tasks by completion status</h1>
             <div className="w-[100%] h-[80%]">
-                {!tasks.length ? (
+                {loading ? (
                     <div className="flex justify-center items-center mt-32">
                         <Image src={spinner} alt="image" width={20} height={20} />
                     </div>

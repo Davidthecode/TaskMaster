@@ -25,6 +25,7 @@ export default function Sidebar() {
     const [isVisible, setIsvisible] = useState(false);
     const collectionRef = collection(db, "projects");
     const [projects, setProjects] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const handleResise = () => {
@@ -35,40 +36,43 @@ export default function Sidebar() {
         window.addEventListener("resize", handleResise);
 
         return () => {
-            window.removeEventListener("resize", handleResise)
-        }
-    }, [])
+            window.removeEventListener("resize", handleResise);
+        };
+    }, []);
 
     useEffect(() => {
         try {
             const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-                const tempArray: any[] = []
+                setLoading(true);
+                const tempArray: any[] = [];
                 snapshot.forEach((doc) => {
                     const projectData = doc.data().projectData;
                     if (projectData.members && projectData.members.includes(currentUser?.uid)) {
                         tempArray.push({ ...doc.data(), id: doc.id });
-                    }
-                })
-                setProjects(tempArray)
-            })
+                    };
+                });
+                setProjects(tempArray);
+                setLoading(false);
+            });
 
-            return () => unsubscribe()
+            return () => unsubscribe();
         } catch (error) {
-            console.log(error)
-        }
-    }, [currentUser])
+            console.log(error);
+        };
+    }, [currentUser]);
 
     const handleAddProject = () => {
-        setIsvisible(true)
-    }
+        setIsvisible(true);
+    };
 
     const onClose = () => {
-        setIsvisible(false)
-    }
+        setIsvisible(false);
+    };
 
     const closeSidebar = () => {
-        setIsOpen(false)
-    }
+        setIsOpen(false);
+    };
+
     return (
         <aside className={`${isOpen ? "absolute w-[25%] smallTablet:w-[35%] h-[93%] mobile:w-[80%] z-50" : "largeTablet:hidden mobile:hidden w-full"} border-r h-[100%] text-[#E2E1E0] bg-[#2E2E30] flex flex-col`}>
             <div className='px-5 py-5 space-y-5'>
@@ -126,7 +130,7 @@ export default function Sidebar() {
                 </div>
 
                 <div>
-                    {!projects.length ? (
+                    {loading ? (
                         <ProjectSideBarSkeleton />
                     ) : (
                         <div className="h-[15rem] overflow-y-auto">
@@ -145,21 +149,7 @@ export default function Sidebar() {
                             })}
                         </div>
                     )}
-                    {/* {projects.map((project) => {
-                        return (
-                            <div className="px-4 mt-2 text-sm flex items-center hover:bg-[#454547] rounded-md py-1" key={project.id}>
-                                <div className="bg-[#F06A6A] w-4 h-4 rounded-md"></div>
-                                <Link
-                                    href={`/project/${project.id}/overview`}
-                                    className="px-2"
-                                >
-                                    {project.projectData.projectName}
-                                </Link>
-                            </div>
-                        )
-                    })} */}
                 </div>
-
             </div>
             <div className="px-5 space-y-5 flex flex-col mt-auto">
                 <Link
@@ -182,7 +172,7 @@ export default function Sidebar() {
             </div>
             {isVisible && <CreateProject onClose={onClose} />}
         </aside>
-    )
-}
+    );
+};
 
 

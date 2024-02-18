@@ -48,7 +48,7 @@ export default function Insights() {
                     <p className="text-xs">share</p>
                 </div>
             </div>
-            <div className="">
+            <div>
                 <TasksInsights />
             </div>
             <div className="flex items-center mx-20 mobile:mx-5 mt-10 smallTablet:flex-col mobile:flex-col pb-10">
