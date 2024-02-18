@@ -17,6 +17,7 @@ import writingImage from "../../../../public/writing.png";
 import writingTwoImage from "../../../../public/copy-writing.png";
 import { collection, doc, setDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 export default function Login() {
     const router = useRouter();
@@ -67,7 +68,7 @@ export default function Login() {
             } catch (error: any) {
                 if (error.code === "auth/weak-password") {
                     toast.error("Weak password!");
-                }else if (error.code === "auth/email-already-in-use") {
+                } else if (error.code === "auth/email-already-in-use") {
                     toast.error("Email already in use, Kindly log in");
                 } else if (error.code == "auth/invalid-email") {
                     toast.error("Invalid email address");
@@ -77,10 +78,6 @@ export default function Login() {
                 setLoading(false);
             };
         } else toast.error("Complete all fields");
-    };
-
-    const redirectToLogin = () => {
-        router.push("/login");
     };
 
     return (
@@ -185,8 +182,10 @@ export default function Login() {
                         </div>
                     </div>
 
-                    <div className="mt-6">
-                        <p className="text-xs text-center">Already created an account? <span className="underline cursor-pointer font-semibold" onClick={redirectToLogin}>Login</span></p>
+                    <div className="mt-6 flex justify-center">
+                        <Link href="/login">
+                            <button className="text-xs text-center">Already created an account? <span className="underline cursor-pointer font-semibold">Login</span></button>
+                        </Link>
                     </div>
 
                     <div className="mt-3">

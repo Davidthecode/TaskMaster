@@ -15,6 +15,7 @@ import meetingThreeImage from "../../../../public/round-table.png";
 import writingImage from "../../../../public/writing.png";
 import { useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 export default function Login() {
     const searchParams = useSearchParams();
@@ -36,7 +37,6 @@ export default function Login() {
         };
     };
 
-
     const handleLogin = async () => {
         try {
             setLoading(true);
@@ -55,10 +55,6 @@ export default function Login() {
             };
             setLoading(false);
         };
-    };
-
-    const redirectToSignUp = () => {
-        router.push("/signup");
     };
 
     return (
@@ -150,8 +146,14 @@ export default function Login() {
                         )}
                     </div>
 
-                    <div className="mt-6">
-                        <p className="text-xs text-center">Don&apos;t have an account? <span className="underline cursor-pointer font-semibold" onClick={redirectToSignUp}>create account</span></p>
+                    <Link href="/forgotpassword">
+                        <button className="text-xs font-medium pt-3 underline">Forgot password?</button>
+                    </Link>
+
+                    <div className="mt-3 flex justify-center">
+                        <Link href="/signup">
+                            <button className="text-xs text-center">Don&apos;t have an account? <span className="underline cursor-pointer font-semibold">create account</span></button>
+                        </Link>
                     </div>
                 </div>
             </aside>
