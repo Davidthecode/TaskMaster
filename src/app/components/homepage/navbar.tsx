@@ -61,7 +61,9 @@ export default function Navbar() {
                     </div>
                     <div className="xs:hidden largeTablet:hidden">
                         <ul className="flex items-center space-x-10 largeScreen:space-x-5 text-s font-normal">
-                            <li className="hover:text-very-black cursor-pointer">Features</li>
+                            <Link href="">
+                                <li className="hover:text-very-black cursor-pointer">Features</li>
+                            </Link>
                             <li className="hover:text-black cursor-pointer">Solutions</li>
                             <li className="hover:text-black cursor-pointer">Resources</li>
                             <li className="hover:text-black cursor-pointer">Enterprise</li>
