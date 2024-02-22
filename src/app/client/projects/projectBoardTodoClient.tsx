@@ -91,7 +91,14 @@ export default function ProjectBoardTodoClient() {
                                             </div>
                                             <div className="pt-4 flex items-center">
                                                 <div className="mr-3">
-                                                    <Image src={todoTask.taskData.assigneeImageUrl} alt="image" width={22} height={22} className="rounded-full" />
+                                                    <Image
+                                                        src={todoTask.taskData.assigneeImageUrl}
+                                                        alt="image"
+                                                        width={22}
+                                                        height={22}
+                                                        className="rounded-full"
+                                                        loader={({ src }) => src}
+                                                    />
                                                 </div>
                                                 <div className="flex items-center">
                                                     <p className="text-xs mr-2 font-semibold">Due</p>
@@ -100,7 +107,6 @@ export default function ProjectBoardTodoClient() {
                                             </div>
                                         </div>
                                     </Link>
-
                                 </div>
                             </div>
                         </div>

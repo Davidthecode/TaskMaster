@@ -16,6 +16,7 @@ import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 export default function ProjectsHeader() {
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
+    console.log(projectMembers.length)
     const params = useParams();
     const paramsId = params.id;
     const currentPath = usePathname();
@@ -46,37 +47,50 @@ export default function ProjectsHeader() {
                     )}
                 <div className="absolute right-6 flex items-center">
                     <div>
-                        <Image src={projectOwnerImageUrl} alt="image" width={20} height={20} className="rounded-full" />
+                        <Image
+                            src={projectOwnerImageUrl}
+                            alt="image"
+                            width={20}
+                            height={20}
+                            className="rounded-full"
+                            loader={({ src }) => src}
+                        />
                     </div>
                     <div className="flex items-center">
-                        {projectMembers.length > 2 ? (
+                        {projectMembers.length !== 0 && (
                             <>
-                                {projectMembers.slice(0, 2).map((projectMember, id) => (
-                                    <div key={id}>
-                                        <Image
-                                            src={projectMember.photoUrl}
-                                            alt="image"
-                                            width={20}
-                                            height={20}
-                                            className="rounded-full"
-                                        />
-                                    </div>
-                                ))}
-                                <div className="font-medium text-sm">+{projectMembers.length - 1}</div>
-                            </>
-                        ) : (
-                            <>
-                                {projectMembers.map((projectMember, id) => (
-                                    <div key={id} className="">
-                                        <Image
-                                            src={projectMember.photoUrl}
-                                            alt="image"
-                                            width={20}
-                                            height={20}
-                                            className="rounded-full"
-                                        />
-                                    </div>
-                                ))}
+                                {projectMembers.length > 2 ? (
+                                    <>
+                                        {projectMembers.slice(0, 2).map((projectMember, id) => (
+                                            <div key={id}>
+                                                <Image
+                                                    src={projectMember.photoUrl}
+                                                    alt="image"
+                                                    width={20}
+                                                    height={20}
+                                                    className="rounded-full"
+                                                    loader={({ src }) => src}
+                                                />
+                                            </div>
+                                        ))}
+                                        <div className="font-medium text-sm">+{projectMembers.length - 1}</div>
+                                    </>
+                                ) : (
+                                    <>
+                                        {projectMembers.map((projectMember, id) => (
+                                            <div key={id} className="">
+                                                <Image
+                                                    src={projectMember.photoUrl}
+                                                    alt="image"
+                                                    width={20}
+                                                    height={20}
+                                                    className="rounded-full"
+                                                    loader={({ src }) => src}
+                                                />
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
                             </>
                         )}
                     </div>

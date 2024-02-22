@@ -111,7 +111,7 @@ export default function AddGoal({ closeGoal }: closeGoalType) {
                                 <p className="text-xs font-medium opacity-70 mr-1">Goal owner</p>
                                 <div className="border w-full rounded-md text-sm h-9 px-2 border-gray-400 outline-blue-800 flex items-center">
                                     <div className="mr-2">
-                                        <Image src={photo} alt="image" width={23} height={23} className="rounded-full" />
+                                        <Image src={photo} alt="image" width={23} height={23} className="rounded-full" loader={({src})=>src}/>
                                     </div>
                                     <div>
                                         <p className="text-xs">{currentUser?.displayName}</p>

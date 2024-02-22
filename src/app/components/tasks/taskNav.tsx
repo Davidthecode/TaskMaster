@@ -28,7 +28,7 @@ export default function TaskNav() {
             <div className="flex flex-col h-full">
                 <div className="flex items-center">
                     <div className="mr-2">
-                        <Image src={photo} alt="image" height={40} width={40} className="rounded-full max-h-10" />
+                        <Image src={photo} alt="image" height={40} width={40} className="rounded-full max-h-10" loader={({src})=>src}/>
                     </div>
                     <div>
                         <h1 className="text-xl font-medium">My tasks</h1>
@@ -69,6 +69,7 @@ export default function TaskNav() {
                         alt='image'
                         width={22}
                         height={22}
+                        loader={({src})=>src}
                     />
                 </div>
                 <div className="flex items-center text-black border-gray-400 border px-2 py-1 rounded-md cursor-pointer">

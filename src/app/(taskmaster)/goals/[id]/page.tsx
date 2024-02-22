@@ -35,8 +35,6 @@ export default function GoalsInfo() {
     const [deletePopup, setDeletePopup] = useState(false);
     const { back } = useRouter();
 
-    console.log(selectedDate);
-
     const statusOptions = [
         { label: "On track", bgColor: "#34D399" },
         { label: "In progress", bgColor: "#d8a846" },
@@ -74,17 +72,19 @@ export default function GoalsInfo() {
         const calculateProgress = () => {
             const currentDate = new Date();
             const convertedSelectedDate = new Date(selectedDate);
-            const totalMilliseconds = convertedSelectedDate instanceof Date ? convertedSelectedDate.getTime() - currentDate.getTime() : setLoadPercentage(0);
-            if (totalMilliseconds) {
+            const totalMilliseconds = convertedSelectedDate instanceof Date ? convertedSelectedDate.getTime() - currentDate.getTime() : 0;
+            if (totalMilliseconds > 0) {
                 const remainingMilliseconds = Math.max(totalMilliseconds, 0);
                 const remainingDays = Math.ceil(remainingMilliseconds / (1000 * 60 * 60 * 24));
                 const totalDays = Math.ceil(totalMilliseconds / (1000 * 60 * 60 * 24));
                 const percentage = ((totalDays - remainingDays) / totalDays) * 100;
                 setLoadPercentage(percentage);
-            };
+            } else {
+                setLoadPercentage(100);
+            }
         };
 
-        const interval = setInterval(calculateProgress, 1000);
+        const interval = setInterval(calculateProgress, 3000);
 
         return () => clearInterval(interval);
     }, [selectedDate]);
@@ -174,6 +174,7 @@ export default function GoalsInfo() {
                         alt='image'
                         width={22}
                         height={22}
+                        loader={({src})=>src}
                     />
                 </div>
                 <div className="flex items-center bg-[#426DC6] text-white px-2 py-1 rounded-md cursor-pointer">
@@ -275,7 +276,7 @@ export default function GoalsInfo() {
                         <p className="text-sm opacity-70">Goal owner</p>
                         <div className="flex items-center mt-4">
                             <div className="mr-1">
-                                <Image src={anime} alt="image" width={20} height={20} className="rounded-full" />
+                                <Image src={photo} alt="image" width={20} height={20} className="rounded-full" loader={({src})=>src} />
                             </div>
                             <div>
                                 <p className="text-sm">Dave</p>
@@ -303,7 +304,9 @@ export default function GoalsInfo() {
                             </div>
                         )}
                         <div className="mt-2">
-                            <p className="text-xs font-medium cursor-pointer" onClick={openDate}>{customDateDiv ? "Select a custom due date" : "Set a custom due date"}</p>
+                            <p className="text-xs font-medium cursor-pointer" onClick={openDate}>
+                                {customDateDiv ? "Select a custom due date" : "Set a custom due date"}
+                            </p>
                         </div>
                         {customDateDiv && (
                             <div className="mt-4">
@@ -328,7 +331,7 @@ export default function GoalsInfo() {
                     </div>
                 </div>
             </div>
-            {deletePopup && <DeleteGoal setDeletePopup ={setDeletePopup}/>}
+            {deletePopup && <DeleteGoal setDeletePopup={setDeletePopup} />}
         </section>
     );
 };

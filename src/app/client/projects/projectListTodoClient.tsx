@@ -120,6 +120,7 @@ export default function ProjectListTodoClient() {
                                         width={18}
                                         height={18}
                                         className="rounded-full"
+                                        loader={({src})=> src}
                                     />
                                 </div>
                                 {projectMembers.length > 2 ? (
@@ -132,6 +133,7 @@ export default function ProjectListTodoClient() {
                                                     width={18}
                                                     height={18}
                                                     className="rounded-full"
+                                                    loader={({src})=> src}
                                                 />
                                             </div>
                                         ))}
@@ -146,6 +148,7 @@ export default function ProjectListTodoClient() {
                                                     width={18}
                                                     height={18}
                                                     className="rounded-full"
+                                                    loader={({src})=> src}
                                                 />
                                             </div>
                                         ))}

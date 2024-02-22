@@ -71,7 +71,14 @@ export default function Overview() {
                     <div className="flex items-center overflow-x-auto">
                         <div className="flex items-center px-4 min-w-[10rem]">
                             <div className="mr-2">
-                                <Image src={projectOwnerImageUrl} alt="image" width={30} height={30} className="rounded-full" />
+                                <Image
+                                    src={projectOwnerImageUrl}
+                                    alt="image"
+                                    width={30}
+                                    height={30}
+                                    className="rounded-full"
+                                    loader={({ src }) => src}
+                                />
                             </div>
                             <div className="flex flex-col">
                                 <p className="text-sm font-medium">{projectOwnerName}</p>
@@ -83,7 +90,14 @@ export default function Overview() {
                                 return (
                                     <div key={id} className="flex items-center min-w-[10rem]">
                                         <div className="mr-2">
-                                            <Image src={projectMember.photoUrl} alt="image" width={30} height={30} className="rounded-full" />
+                                            <Image
+                                                src={projectMember.photoUrl}
+                                                alt="image"
+                                                width={30}
+                                                height={30}
+                                                className="rounded-full"
+                                                loader={({ src }) => src}
+                                            />
                                         </div>
                                         <div className="flex flex-col">
                                             <p className="text-sm font-medium">{projectMember.username}</p>

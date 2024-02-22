@@ -24,6 +24,7 @@ export default function DashboardNavClient() {
     useEffect(() => {
         if (currentUser?.photoURL) {
             setPhoto(currentUser?.photoURL);
+            console.log(currentUser?.photoURL);
         };
     }, [currentUser, currentUser?.photoURL]);
 
@@ -51,6 +52,7 @@ export default function DashboardNavClient() {
                     alt='image'
                     width={22}
                     height={22}
+                    loader={({ src }) => src}
                 />
             </div>
             <div className='cursor-pointer' onClick={handleDropdown}>

@@ -54,7 +54,7 @@ export default function Login() {
                     username,
                     userEmail: email,
                     userId: user.uid,
-                    photoUrl: "",
+                    photoUrl: `https://ui-avatars.com/api/?name=${username}`,
                     pronouns: "",
                     jobTitle: "",
                     department: "",

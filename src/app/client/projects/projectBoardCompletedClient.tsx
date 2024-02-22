@@ -92,7 +92,14 @@ export default function ProjectBoardCompletedClient() {
                                             </div>
                                             <div className="pt-4 flex items-center">
                                                 <div className="mr-3">
-                                                    <Image src={completedTask.taskData.assigneeImageUrl} alt="image" width={22} height={22} className="rounded-full" />
+                                                    <Image
+                                                        src={completedTask.taskData.assigneeImageUrl}
+                                                        alt="image"
+                                                        width={22}
+                                                        height={22}
+                                                        className="rounded-full"
+                                                        loader={({ src }) => src}
+                                                    />
                                                 </div>
                                                 <div className="flex items-center">
                                                     <p className="text-xs mr-2 font-semibold">Due</p>

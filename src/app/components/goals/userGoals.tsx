@@ -96,6 +96,7 @@ export default function UserGoals() {
                                     alt='image'
                                     width={22}
                                     height={22}
+                                    loader={({src})=>src}
                                 />
                             </div>
                         </div>
