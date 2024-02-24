@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import googleIcon from "../../../../public/google-icon.png";
 import taskmasterImage from "../../../../public/taskmasterImage.png";
-import { auth, db, provider } from "@/app/firebase/firebase-config";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth } from "@/app/firebase/firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import spinner from "../../../../public/icons8-spinner.gif";
@@ -16,38 +15,15 @@ import writingImage from "../../../../public/writing.png";
 import { useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
-import { collection, doc, setDoc } from "firebase/firestore";
+import HandleGoogleSignIn from "@/app/components/signIn/googleSignIn";
 
 export default function Login() {
     const searchParams = useSearchParams();
-    const router = useRouter();
+    const { replace } = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const continueTo = searchParams.get("continueTo") || "/home";
-
-    const handleSignupWithGoogle = async () => {
-        try {
-            const { user } = await signInWithPopup(auth, provider);
-            const profileData = {
-                username: user.displayName,
-                userEmail: email,
-                userId: user.uid,
-                photoUrl: `https://ui-avatars.com/api/?name=${user.displayName}`,
-                pronouns: "",
-                jobTitle: "",
-                department: "",
-                about: ""
-            };
-            Cookies.set("token", JSON.stringify(user.uid));
-            const userRef = doc(collection(db, "profile"), user.uid);
-            await setDoc(userRef, { profileData });
-            toast.success("signed up successfully");
-            router.replace(continueTo);
-        } catch (error) {
-            console.log(error);
-        };
-    };
 
     const handleLogin = async () => {
         try {
@@ -55,7 +31,7 @@ export default function Login() {
             await signInWithEmailAndPassword(auth, email, password);
             Cookies.set("token", JSON.stringify(auth.currentUser?.uid));
             setLoading(false);
-            router.replace(continueTo);
+            replace(continueTo);
             toast.success("logged in Successfully");
         } catch (error: any) {
             if (error.code == "auth/invalid-login-credentials") {
@@ -101,14 +77,7 @@ export default function Login() {
                             <h1 className="text-3xl xs:text-2xl mb-2">Welcome to TaskMaster</h1>
                             <p className="text-xl xs:text-lg text-center">To get started, please sign in</p>
                         </div>
-                        <div className="flex justify-between items-center border-black rounded-md border-opacity-20 px-5 py-3 mt-8 border w-full hover:bg-[#F9F8F8] cursor-pointer">
-                            <div>
-                                <Image src={googleIcon} alt="image" width={20} height={20} />
-                            </div>
-                            <div className="pr-[30%] xs:pr-[10%]" onClick={handleSignupWithGoogle}>
-                                <p>Continue with Google</p>
-                            </div>
-                        </div>
+                        <HandleGoogleSignIn />
                     </div>
 
                     <div className="flex justify-center items-center mt-8 w-full">

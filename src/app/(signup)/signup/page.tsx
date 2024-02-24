@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import googleIcon from "../../../../public/google-icon.png";
 import taskmasterImage from "../../../../public/taskmasterImage.png";
-import { auth, db, provider } from "@/app/firebase/firebase-config";
-import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
+import { auth, db } from "@/app/firebase/firebase-config";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import spinner from "../../../../public/icons8-spinner.gif";
@@ -18,6 +17,7 @@ import writingTwoImage from "../../../../public/copy-writing.png";
 import { collection, doc, setDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import HandleGoogleSignIn from "@/app/components/signIn/googleSignIn";
 
 export default function Login() {
     const router = useRouter();
@@ -26,16 +26,6 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const collectionRef = collection(db, "profile");
-
-    const handleSignupWithGoogle = async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            Cookies.set("token", JSON.stringify(result.user.uid));
-            router.push("/home");
-        } catch (error) {
-            console.log(error);
-        };
-    };
 
     const handleSignup = async () => {
         const validate = username !== "" && email !== "" && password !== "";
@@ -116,17 +106,7 @@ export default function Login() {
                         <div>
                             <h1 className="text-4xl mb-2 text-center xs:text-2xl">You are one click away from organizing your work</h1>
                         </div>
-                        <div
-                            onClick={handleSignupWithGoogle}
-                            className="flex justify-between items-center border-black rounded-md border-opacity-20 px-5 py-3 mt-8 border w-full hover:bg-[#F9F8F8] cursor-pointer text-black"
-                        >
-                            <div>
-                                <Image src={googleIcon} alt="image" width={20} height={20} className="bg-[#F9F8F8]" />
-                            </div>
-                            <div className="pr-[30%] xs:pr-[10%]">
-                                <p>Signup with google</p>
-                            </div>
-                        </div>
+                        <HandleGoogleSignIn />
                     </div>
 
                     <div className="flex justify-center items-center mt-8 w-full">
