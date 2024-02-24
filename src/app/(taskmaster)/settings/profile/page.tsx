@@ -144,7 +144,15 @@ export default function Profile() {
         <div className="bg-white h-full mobile:px-6 overflow-y-auto">
             <div className="flex items-center border-b pb-4 fixed bg-white w-[75%]">
                 <div className="mr-5">
-                    <Image src={photoUrl} alt="image" height={50} width={50} className="rounded-" style={{ borderRadius: "100%" }} loader={({src})=>src} />
+                    <Image
+                        src={photoUrl}
+                        alt="image"
+                        height={50}
+                        width={50}
+                        className="rounded"
+                        style={{ borderRadius: "100%" }}
+                        loader={({ src }) => src}
+                    />
                 </div>
                 <div>
                     <input type="file" className="text-sm" onChange={handleImageChange} accept="image/*" />
@@ -152,7 +160,13 @@ export default function Profile() {
                 {imageLoading ? (
                     <div className="flex items-center">
                         <div className="mr-2">
-                            <Image src={spinner} alt="spinner" height={20} width={20} className="rounded-full" />
+                            <Image
+                                src={spinner}
+                                alt="spinner"
+                                height={20}
+                                width={20}
+                                className="rounded-full"
+                            />
                         </div>
                         <p>uploading image..</p>
                     </div>

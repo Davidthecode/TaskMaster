@@ -15,7 +15,7 @@ import { db } from "@/app/firebase/firebase-config";
 import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 export default function ProjectListTodoClient() {
-    const { projectOwnerImageUrl, projectMembers } = useProjectMembersContext();
+    const { projectOwnerImageUrl, projectMembers, projectOwnerName } = useProjectMembersContext();
     const params = useParams();
     const paramsId = params.id;
     const [showTodoList, setShowTodoList] = useState(true);
@@ -104,7 +104,7 @@ export default function ProjectListTodoClient() {
                         </div>
                         <div className="flex items-center w-[50%] smallTablet:min-w-[80%] mobile:min-w-[120%] h-[42px]">
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
-                                <p>{data.taskData?.assigneeName}</p>
+                                <p>{projectOwnerName}</p>
                             </div>
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
                                 <p

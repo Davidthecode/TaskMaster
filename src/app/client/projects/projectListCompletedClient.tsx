@@ -15,7 +15,7 @@ import { db } from "@/app/firebase/firebase-config";
 import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 export default function ProjectListCompletedClient() {
-    const { projectOwnerImageUrl, projectMembers } = useProjectMembersContext();
+    const { projectOwnerImageUrl, projectMembers, projectOwnerName } = useProjectMembersContext();
     const params = useParams();
     const paramsId = params.id;
     const [showCompletedList, setShowCompletedList] = useState(true);
@@ -101,7 +101,7 @@ export default function ProjectListCompletedClient() {
                         </div>
                         <div className="flex items-center w-[50%] smallTablet:min-w-[80%] mobile:min-w-[120%] h-[42px]">
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center hover:border hover:border-gray-300">
-                                <p>David</p>
+                                <p>{projectOwnerName}</p>
                             </div>
                             <div className="text-xs w-[20%] border border-t-0 border-r-0 h-full cursor-pointer flex items-center justify-center text-red-500 hover:border hover:border-gray-300">
                                 <p

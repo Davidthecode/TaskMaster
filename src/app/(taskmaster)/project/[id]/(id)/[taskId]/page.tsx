@@ -16,8 +16,10 @@ import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 import DeleteProjectTask from "@/app/components/projects/deleteProjectTask";
 import noUser from "../../../../../../../public/nouser.jpg";
 import { StaticImageData } from "next/image";
+import CurrentUserHook from "@/app/hooks/currentUserHook";
 
 export default function ProjectTask() {
+    const { currentUser } = CurrentUserHook();
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
     const params = useParams();
     const paramsId = params.taskId;
@@ -37,6 +39,7 @@ export default function ProjectTask() {
     const [deleteProjectTask, setDeleteProjectTask] = useState(false);
     const [assigneeName, setAssigneeName] = useState("");
     const [assigneeImageUrl, setAssigneeImageUrl] = useState<string | StaticImageData>(noUser);
+    const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
 
     const priorityOptions = [
         { label: "Low", bgColor: "#9EE7E3" },
@@ -49,6 +52,12 @@ export default function ProjectTask() {
         { label: "At risk", bgColor: "#F8DF72" },
         { label: "Off track", bgColor: "#F06A6A" }
     ];
+
+    useEffect(()=> {
+        if(currentUser && currentUser.photoURL){
+            setPhoto(currentUser.photoURL);
+        }
+    },[])
 
     useEffect(() => {
         const getTaskData = () => {
@@ -273,7 +282,14 @@ export default function ProjectTask() {
                             <p className="mr-16 text-xs">Assignee</p>
                             <div className="flex items-center">
                                 <div className="mr-1">
-                                    <Image src={assigneeImageUrl} alt="image" width={20} height={20} className="rounded-full" />
+                                    <Image
+                                        src={photo}
+                                        alt="image"
+                                        width={20}
+                                        height={20}
+                                        className="rounded-full"
+                                        loader={({ src }) => src}
+                                    />
                                 </div>
                                 <p className="text-xs">{assigneeName}</p>
                             </div>
