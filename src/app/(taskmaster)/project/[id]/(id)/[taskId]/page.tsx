@@ -292,7 +292,7 @@ export default function ProjectTask() {
                             <div className="flex items-center">
                                 <div className="mr-1">
                                     <Image
-                                        src={photo}
+                                        src={projectOwnerImageUrl}
                                         alt="image"
                                         width={20}
                                         height={20}
