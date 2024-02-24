@@ -21,7 +21,6 @@ import CurrentUserHook from "@/app/hooks/currentUserHook";
 export default function ProjectTask() {
     const { currentUser } = CurrentUserHook();
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
-    console.log(projectOwnerImageUrl)
     const params = useParams();
     const paramsId = params.taskId;
     const router = useRouter();

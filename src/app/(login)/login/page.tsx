@@ -43,7 +43,7 @@ export default function Login() {
             const userRef = doc(collection(db, "profile"), user.uid);
             await setDoc(userRef, { profileData });
             toast.success("signed up successfully");
-            router.replace("/home");
+            router.replace(continueTo);
         } catch (error) {
             console.log(error);
         };
