@@ -16,7 +16,6 @@ import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 export default function ProjectsHeader() {
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
-    console.log(projectMembers.length)
     const params = useParams();
     const paramsId = params.id;
     const currentPath = usePathname();

@@ -24,7 +24,6 @@ export default function DashboardNavClient() {
     useEffect(() => {
         if (currentUser?.photoURL) {
             setPhoto(currentUser?.photoURL);
-            console.log(currentUser?.photoURL);
         };
     }, [currentUser, currentUser?.photoURL]);
 

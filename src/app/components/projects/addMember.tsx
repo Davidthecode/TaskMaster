@@ -50,10 +50,10 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
         from_name: currentuser?.displayName,
         from_email: currentuser?.email,
         ws_name: projectName[0],
-        linkTo: currentPath, 
-        to: userEmail 
+        linkTo: currentPath,
+        to: userEmail
     };
-
+    
     const sendEmail = async () => {
         if (userEmail) {
             try {
