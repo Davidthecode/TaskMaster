@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import googleIcon from "../../../../public/google-icon.png";
 import taskmasterImage from "../../../../public/taskmasterImage.png";
-import { auth, provider } from "@/app/firebase/firebase-config";
+import { auth, db, provider } from "@/app/firebase/firebase-config";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -16,6 +16,7 @@ import writingImage from "../../../../public/writing.png";
 import { useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 export default function Login() {
     const searchParams = useSearchParams();
@@ -23,15 +24,26 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const redirectLink = "/home";
-    const continueTo = searchParams.get("continueTo") || redirectLink;
+    const continueTo = searchParams.get("continueTo") || "/home";
 
     const handleSignupWithGoogle = async () => {
         try {
-            const result = await signInWithPopup(auth, provider);
-            console.log(result.user)
-            Cookies.set("token", JSON.stringify(result.user.uid));
-            router.push("/home");
+            const { user } = await signInWithPopup(auth, provider);
+            const profileData = {
+                username: user.displayName,
+                userEmail: email,
+                userId: user.uid,
+                photoUrl: `https://ui-avatars.com/api/?name=${user.displayName}`,
+                pronouns: "",
+                jobTitle: "",
+                department: "",
+                about: ""
+            };
+            Cookies.set("token", JSON.stringify(user.uid));
+            const userRef = doc(collection(db, "profile"), user.uid);
+            await setDoc(userRef, { profileData });
+            toast.success("signed up successfully");
+            router.replace("/home");
         } catch (error) {
             console.log(error);
         };

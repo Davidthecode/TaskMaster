@@ -21,6 +21,7 @@ import CurrentUserHook from "@/app/hooks/currentUserHook";
 export default function ProjectTask() {
     const { currentUser } = CurrentUserHook();
     const { projectMembers, projectOwnerImageUrl } = useProjectMembersContext();
+    console.log(projectOwnerImageUrl)
     const params = useParams();
     const paramsId = params.taskId;
     const router = useRouter();
@@ -53,11 +54,11 @@ export default function ProjectTask() {
         { label: "Off track", bgColor: "#F06A6A" }
     ];
 
-    useEffect(()=> {
-        if(currentUser && currentUser.photoURL){
+    useEffect(() => {
+        if (currentUser && currentUser.photoURL) {
             setPhoto(currentUser.photoURL);
         }
-    },[])
+    }, [])
 
     useEffect(() => {
         const getTaskData = () => {
@@ -204,7 +205,14 @@ export default function ProjectTask() {
                     <div className="flex items-center pr-11">
                         <p className="text-xs mr-1">Collaborators</p>
                         <div>
-                            <Image src={projectOwnerImageUrl} alt="image" width={20} height={20} className="rounded-full" />
+                            <Image
+                                src={projectOwnerImageUrl}
+                                alt="image"
+                                width={20}
+                                height={20}
+                                className="rounded-full"
+                                loader={({ src }) => src}
+                            />
                         </div>
                         <div className="flex items-center">
                             {projectMembers.length > 2 ? (
@@ -217,6 +225,7 @@ export default function ProjectTask() {
                                                 width={20}
                                                 height={20}
                                                 className="rounded-full"
+                                                loader={({ src }) => src}
                                             />
                                         </div>
                                     ))}
@@ -232,6 +241,7 @@ export default function ProjectTask() {
                                                 width={20}
                                                 height={20}
                                                 className="rounded-full"
+                                                loader={({ src }) => src}
                                             />
                                         </div>
                                     ))}

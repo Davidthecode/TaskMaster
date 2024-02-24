@@ -15,6 +15,8 @@ import { useProjectMembersContext } from "@/app/context/projectMembersContext";
 
 export default function Overview() {
     const { projectBrief, projectMembers, projectOwnerImageUrl, projectOwnerName } = useProjectMembersContext();
+    console.log(projectOwnerImageUrl);
+    console.log(projectOwnerName);
     const { currentUser } = CurrentUserHook();
     const params = useParams();
     const id = params.id as string;

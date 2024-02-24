@@ -4,7 +4,11 @@ export default function middleware(request: NextRequest) {
     let loggedin = request.cookies.get("token");
     const { pathname } = request.nextUrl;
 
-    if (loggedin && (pathname === "/signup" || pathname === "/login")) {
+    const urlParams = request.nextUrl.searchParams.get('continueTo') || "/home";
+
+    if (pathname === "/login*") {
+        return NextResponse.redirect(new URL(urlParams, request.url));
+    } else if (loggedin && (pathname === "/signup" || pathname === "/login")) {
         return NextResponse.redirect(new URL("/home", request.url));
     } else if (!loggedin && pathname !== "/" && pathname !== "/signup" && pathname !== "/login" && pathname !== "/forgotpassword") {
         return NextResponse.redirect(new URL("/login", request.url));
