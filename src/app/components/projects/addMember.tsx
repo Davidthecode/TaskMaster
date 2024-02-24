@@ -88,8 +88,9 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
                             </div>
                         </div>
                         <div className="mt-3 border-b h-0"></div>
-                        <div className="px-8 mt-6">
+                        <div className="px-8 mt-6 flex items-center">
                             <h2 className="font-semibold">Invite with email</h2>
+                            <p className="text-xs ml-auto"><span className="text-red-500">*</span>Invited users must have a Taskmaster acoount</p>
                         </div>
                         <div className="mt-6 px-8 flex items-center">
                             <div className="w-[90%] h-[35px] mr-3">

@@ -1,7 +1,7 @@
 "use client";
 
 import { auth, db, provider } from "@/app/firebase/firebase-config";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, updateProfile } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
@@ -19,11 +19,15 @@ export default function HandleGoogleSignIn() {
     const handleSignupWithGoogle = async () => {
         try {
             const { user } = await signInWithPopup(auth, provider);
+            const userPhoto = `https://ui-avatars.com/api/?name=${user.displayName}&background=random`
+            await updateProfile(user, {
+                photoURL: userPhoto
+            });
             const profileData = {
                 username: user.displayName,
                 userEmail: user.email,
                 userId: user.uid,
-                photoUrl: `https://ui-avatars.com/api/?name=${user.displayName}`,
+                photoUrl: userPhoto,
                 pronouns: "",
                 jobTitle: "",
                 department: "",
@@ -40,11 +44,14 @@ export default function HandleGoogleSignIn() {
     };
 
     return (
-        <div className="flex justify-between items-center border-black rounded-md border-opacity-20 px-5 py-3 mt-8 border w-full hover:bg-[#F9F8F8] cursor-pointer">
+        <div
+            className="flex justify-between items-center border-black rounded-md border-opacity-20 px-5 py-3 mt-8 border w-full hover:bg-[#F9F8F8] cursor-pointer"
+            onClick={handleSignupWithGoogle}
+        >
             <div>
                 <Image src={googleIcon} alt="image" width={20} height={20} />
             </div>
-            <div className="pr-[30%] xs:pr-[10%]" onClick={handleSignupWithGoogle}>
+            <div className="pr-[30%] xs:pr-[10%]">
                 <p>Continue with Google</p>
             </div>
         </div>

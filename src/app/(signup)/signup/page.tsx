@@ -32,19 +32,23 @@ export default function Login() {
         if (validate) {
             try {
                 setLoading(true);
-                const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+                const { user } = await createUserWithEmailAndPassword(auth, email, password);
                 Cookies.set("token", JSON.stringify(auth.currentUser?.uid));
-                const user = userCredentials.user;
                 await updateProfile(user, {
                     displayName: username,
-                    photoURL: `https://ui-avatars.com/api/?name=${username}`
+                });
+
+                const userPhoto = `https://ui-avatars.com/api/?name=${user.displayName}&background=random`;
+
+                await updateProfile(user, {
+                    photoURL: userPhoto
                 });
 
                 const profileData = {
                     username,
                     userEmail: email,
                     userId: user.uid,
-                    photoUrl: `https://ui-avatars.com/api/?name=${username}`,
+                    photoUrl: userPhoto,
                     pronouns: "",
                     jobTitle: "",
                     department: "",
