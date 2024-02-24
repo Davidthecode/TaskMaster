@@ -39,6 +39,7 @@ export default function Insights() {
                         alt='image'
                         width={22}
                         height={22}
+                        loader={({ src }) => src}
                     />
                 </div>
                 <div className="flex items-center bg-[#426DC6] text-white px-2 py-1 rounded-md cursor-pointer">
