@@ -11,9 +11,17 @@ const DynmaicDashboardNavClient = dynamic(() => import("@/app/client/dashboardNa
     loading: () => <DashboardNavSkeleton />
 });
 
+const DynamicSidebarClient = dynamic(() => import("@/app/client/dashboardNav/sidebarClient"), {
+    ssr: false,
+    loading: () => <DashboardNavSkeleton />
+})
+
 export default function DashboardNav() {
     return (
         <nav className="flex items-center w-full h-full py-4 px-5 mobile:px-3 bg-[#2E2E30] text-white">
+            <div className='hidden largeTablet:block smallTablet:block mobile:block px-2'>
+                <DynamicSidebarClient />
+            </div>
             <div className="flex items-center pl-4 mobile:pl-2">
                 <div className='mr-3'>
                     <Image src={taskmasterImage} alt='image' width={20} height={20} />

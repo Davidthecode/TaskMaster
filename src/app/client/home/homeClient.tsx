@@ -7,8 +7,6 @@ import { TfiHelpAlt } from "react-icons/tfi";
 import loader1 from "../../../../public/loader (1).png";
 import loader2 from "../../../../public/loader (2).png";
 import loader3 from "../../../../public/loader (3).png";
-import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
-import { useSidebarContext } from "@/app/context/sidebarContext";
 import spinner from "../../../../public/icons8-spinner.gif";
 import { useTasks } from "@/app/context/tasksContext";
 import CurrentUserHook from "@/app/hooks/currentUserHook";
@@ -21,7 +19,6 @@ function formatDate(date: any) {
 export default function HomeClient() {
     const { tasks, todoTasks, inprogressTasks, completedTasks, loading } = useTasks();
     const { currentUser } = CurrentUserHook();
-    const { setIsOpen } = useSidebarContext();
     const [currentDate, setCurrentDate] = useState(new Date());
 
     useEffect(() => {
@@ -34,19 +31,9 @@ export default function HomeClient() {
 
     const formattedDate = formatDate(currentDate);
 
-    const closeSidebar = () => {
-        setIsOpen(true);
-    };
-
     return (
         <section className="h-full bg-white flex flex-col px-16 mobile:px-6 overflow-y-auto">
-            <div className=" items-center pt-4">
-                <div
-                    onClick={closeSidebar}
-                    className="mr-4 cursor-pointer mobile:block smallTablet:block largeTablet:block hidden"
-                >
-                    <BsReverseLayoutTextSidebarReverse size="1.5rem" />
-                </div>
+            <div className="items-center pt-4">
                 <div className="my-2">
                     <p className="font-semibold">{formattedDate}</p>
                 </div>

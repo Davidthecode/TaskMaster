@@ -8,7 +8,6 @@ import { DiGithubBadge } from 'react-icons/di';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSidebarContext } from '../../context/sidebarContext';
-import { IoChevronBackOutline } from "react-icons/io5";
 import { MdOutlineInsights } from "react-icons/md";
 import { GoGoal } from "react-icons/go";
 import { IoIosAdd } from "react-icons/io";
@@ -69,21 +68,12 @@ export default function Sidebar() {
         setIsvisible(false);
     };
 
-    const closeSidebar = () => {
-        setIsOpen(false);
-    };
-
     return (
-        <aside className={`${isOpen ? "absolute w-[25%] smallTablet:w-[35%] h-[93%] mobile:w-[80%] z-50" : "largeTablet:hidden mobile:hidden w-full"} border-r h-[100%] text-[#E2E1E0] bg-[#2E2E30] flex flex-col`}>
+        <div
+            className={`bg-[#2E2E30] text-white h-[100%] ${isOpen ? "fixed inset-0 z-40 mobile:w-[60%] smallTablet:w-[40%] largeTablet:w-[30%] w-1/5 h-[93%] mt-auto border-t border-opacity-90" : ""
+                }`}
+        >
             <div className='px-5 py-5 space-y-5'>
-                {isOpen && (
-                    <div
-                        onClick={closeSidebar}
-                        className='bg-gray-200 text-black hover:bg-gray-300 cursor-pointer w-fit px-1 py-1 rounded-full absolute right-2 top-2'
-                    >
-                        <IoChevronBackOutline />
-                    </div>
-                )}
                 <Link
                     href="/home"
                     className={`flex items-center rounded-md cursor-pointer px-4 py-1 hover:bg-[#505051] ${currentPath == "/home" && "bg-[#636366] text-[#F0EFEE]"}`}
@@ -171,7 +161,8 @@ export default function Sidebar() {
                 </Link>
             </div>
             {isVisible && <CreateProject onClose={onClose} />}
-        </aside>
+        </div>
+        // </aside>
     );
 };
 
