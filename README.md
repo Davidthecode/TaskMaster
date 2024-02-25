@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![TaskMaster image]()
 
-## Getting Started
+## TaskMaster
+TaskMaster is a lightning-fast, easy to use application that that is built for task management and collaboration
 
-First, run the development server:
+## Features
+- Streamlined task creation for quick and efficient workflow
+- Intuitive list and board interface for enhanced organization
+- Effortlessly manage tasks by setting priorities and tracking status
+- Create and monitor goals seamlessly
+- Insightful analytics for comprehensive task tracking
+- Collaborate in real-time by creating and managing projects
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Getting started
+To start useing TaskMaster, simply visit [taskmaster.com](https://taskmaster-pm.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributions
+Contributions are welcome! If you have any ideas, bug fixes, or enhancements, feel free to submit a PR
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## License
+TaskMaster is a free software application released under the MIT License.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
