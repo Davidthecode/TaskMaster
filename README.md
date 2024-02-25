@@ -1,4 +1,4 @@
-![TaskMaster image]()
+![TaskMaster image](./public/taskmasterhomeImage.png)
 
 ## TaskMaster
 TaskMaster is a lightning-fast, easy to use application that that is built for task management and collaboration

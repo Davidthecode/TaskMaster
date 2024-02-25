@@ -5,7 +5,7 @@ export default function Header() {
         <section className="pt-28 flex justify-center px-[8%]">
             <div className="w-[40rem]">
                 <div className="flex justify-center ">
-                    <h1 className="text-6xl w-full text-center leading-tight xs:text-4xl xs:text-start">The best platform for cross-functional work</h1>
+                    <h1 className="text-6xl w-full text-center leading-tight xs:text-4xl xs:text-start">A modern platform for cross-functional work</h1>
                 </div>
                 <div className="flex justify-center pt-10">
                     <p className="w-full text-xl text-center opacity-80 xs:text-start xs:text-2xl">Effortlessly manage your tasks. Set priorities, track progress, and achieve your goals seamlessly. TaskMaster is easy to use, so you can deliver quality work, faster.</p>
