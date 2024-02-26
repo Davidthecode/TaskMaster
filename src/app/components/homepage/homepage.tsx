@@ -36,6 +36,7 @@ export default function Homepage() {
                             <Image src={mobileList} alt="image" className="w-full h-full object-contain" />
                         </div>
                     </div>
+                    
                     {/* Boards */}
                     <div className="flex items-start largeTablet:flex-col-reverse smallTablet:flex-col-reverse mobile:flex-col largeTablet:space-y-6 smallTablet:space-y-6">
                         <div className="mobile:hidden w-full h-[25rem] largeScreen:h-[22rem] largeTablet:w-[85%] smallTablet:min-w-[100%] largeTablet:h-[24rem] smallTablet:h-[25rem] smallTablet:object-cover">

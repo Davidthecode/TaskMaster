@@ -23,7 +23,7 @@ export default function Addmember({ closeAddMember }: AddMenberType) {
     const currentPath = usePathname();
     const [projects, setProjects] = useState<any[]>([]);
     const collectionRef = collection(db, "projects");
-
+    
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
     const publicApiKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_API_KEY;
