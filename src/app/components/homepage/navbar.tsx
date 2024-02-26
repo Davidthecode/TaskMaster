@@ -62,17 +62,16 @@ export default function Navbar() {
                     <div className="xs:hidden largeTablet:hidden">
                         <ul className="flex items-center space-x-10 largeScreen:space-x-5 text-s font-normal">
                             <Link href="">
-                                <li className="hover:text-very-black cursor-pointer">Features</li>
+                                <li className="hover:text-very-black cursor-pointer">FAQ</li>
                             </Link>
-                            <li className="hover:text-black cursor-pointer">Solutions</li>
-                            <li className="hover:text-black cursor-pointer">Resources</li>
-                            <li className="hover:text-black cursor-pointer">Enterprise</li>
+                            <Link href="">
+                                <li className="hover:text-black cursor-pointer">Resources</li>
+                            </Link>
                         </ul>
                     </div>
                 </div>
                 <div className="flex items-center">
                     <ul className="flex items-center space-x-10 mr-10 xs:hidden">
-                        <li className="cursor-pointer">Contact Sales</li>
                         <Link href="/login">
                             <li className="cursor-pointer hover:border-b hover:border-black">Log in</li>
                         </Link>
@@ -94,13 +93,13 @@ export default function Navbar() {
             {dropdown && (
                 <div className="fixed bg-white w-full h-full z-50 mt-16">
                     <div className="px-[4%] pt-4">
-                        <ul className="text-lg font-semibold space-y-6 mt-4">
-                            <li className="border"></li>
-                            <li className="h-12 border-b border-black border-opacity-20 cursor-pointer">Features</li>
-                            <li className="h-12 border-b border-black border-opacity-20 cursor-pointer">Solutions</li>
-                            <li className="h-12 border-b border-black border-opacity-20 cursor-pointer">Resources</li>
-                            <li className="h-12 border-b border-black border-opacity-20 cursor-pointer">Enterprise</li>
-                            <li className="h-12 border-b border-black border-opacity-20 cursor-pointer">Pricing</li>
+                        <ul className="text-lg font-semibold mt-4">
+                            <Link href="">
+                                <li className="border-b border-black border-opacity-20 cursor-pointer py-3">FAQ</li>
+                            </Link>
+                            <Link href="">
+                                <li className="border-b border-black border-opacity-20 cursor-pointer py-3">Resources</li>
+                            </Link>
                         </ul>
                     </div>
                     <div className="mt-12 flex flex-col px-[4%]">
@@ -113,7 +112,7 @@ export default function Navbar() {
                         </Link>
                         <Link href="/login">
                             <button
-                                className="mt-4 border border-black h-12 rounded-sm text-md font-semibold hover:bg-[#F06A6A] hover:border-none"
+                                className="mt-4 border w-full border-black h-12 rounded-sm text-md font-semibold hover:bg-[#F06A6A] hover:border-none"
                             >
                                 Log In
                             </button>

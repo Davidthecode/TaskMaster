@@ -4,6 +4,7 @@ import twitterImage from "../../../../public/twitterImg.png";
 import linkedLnImage from "../../../../public/linkedlnImg.png";
 import facebookImage from "../../../../public/facebookImage.png";
 import instagramImage from "../../../../public/instagramImage.png";
+import githubImage from "../../../../public/githubImage.png";
 
 
 export default function Footer() {
@@ -14,7 +15,10 @@ export default function Footer() {
             </div>
             <div className="ml-[38%]">
                 <Link href="https://github.com/Davidthecode" target="_blank">
-                    <h1 className="text-sm">Github</h1>
+                    <div className="flex items-center">
+                        <h1 className="text-sm mr-1">Github</h1>
+                        <Image src={githubImage} alt="image" width={20} height={20} className="" />
+                    </div>
                 </Link>
             </div>
             <div className="flex items-center ml-auto space-x-2">
