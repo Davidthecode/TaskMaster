@@ -190,25 +190,33 @@ export default function Task() {
                 </div>
 
                 <div className="pl-12 mt-4 overflow-y-auto">
-                    {completed ? (
-                        <div className="flex items-center border rounded-md px-2 py-1 w-fit cursor-pointer bg-[#E0F4EC] border-[#3d9673] hover:border-[#2d6f55]" onClick={handleMarkAsIncomplete}>
-                            <div className="mr-1">
-                                <div>
-                                    <IoCheckmarkOutline />
+                    <div className="flex items-center w-full">
+                        <div>
+                            {completed ? (
+                                <div className="flex items-center border rounded-md px-2 py-1 w-fit cursor-pointer bg-[#E0F4EC] border-[#3d9673] hover:border-[#2d6f55]" onClick={handleMarkAsIncomplete}>
+                                    <div className="mr-1">
+                                        <div>
+                                            <IoCheckmarkOutline />
+                                        </div>
+                                    </div>
+                                    <p className="text-xs">Completed</p>
                                 </div>
-                            </div>
-                            <p className="text-xs">Completed</p>
-                        </div>
-                    ) : (
-                        <div className="flex items-center border rounded-md px-2 py-1 w-fit cursor-pointer hover:bg-[#E0F4EC] border-gray-300 hover:border-[#3d9673]" onClick={handleMarkAsComplete}>
-                            <div className="mr-1">
-                                <div>
-                                    <IoCheckmarkOutline />
+                            ) : (
+                                <div className="flex items-center border rounded-md px-2 py-1 w-fit cursor-pointer hover:bg-[#E0F4EC] border-gray-300 hover:border-[#3d9673]" onClick={handleMarkAsComplete}>
+                                    <div className="mr-1">
+                                        <div>
+                                            <IoCheckmarkOutline />
+                                        </div>
+                                    </div>
+                                    <p className="text-xs">Mark complete</p>
                                 </div>
-                            </div>
-                            <p className="text-xs">Mark complete</p>
+                            )}
                         </div>
-                    )}
+                        <div className="bg-[#F5F2F1] h-fit p-1 w-40 ml-auto mr-4 rounded-md flex items-start animate-pulse ">
+                            <span className="text-red-500 text-lg">*</span>
+                            <p className="text-xs pt-1">Comments section is coming soon</p>
+                        </div>
+                    </div>
                     {loading ? (
                         <TaskTitleSkeleton />
                     ) : (
