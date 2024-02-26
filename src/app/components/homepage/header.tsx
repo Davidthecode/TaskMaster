@@ -8,7 +8,7 @@ export default function Header() {
                     <h1 className="text-6xl w-full text-center leading-tight xs:text-4xl xs:text-start">A modern platform for cross-functional work</h1>
                 </div>
                 <div className="flex justify-center pt-10">
-                    <p className="w-full text-xl text-center opacity-80 xs:text-start xs:text-2xl">Effortlessly manage your tasks. Set priorities, track progress, and achieve your goals seamlessly. TaskMaster is easy to use, so you can deliver quality work, faster.</p>
+                    <p className="w-full text-xl text-center opacity-80 xs:text-start xs:text-2xl">Simplify task management with TaskMaster. Prioritize, track progress, achieve goals effortlessly for faster, high-quality work</p>
                 </div>
                 <section className="flex justify-center pt-10 xs:justify-start">
                     <Link href="/signup">
