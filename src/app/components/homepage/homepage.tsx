@@ -17,7 +17,7 @@ export default function Homepage() {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="w-full mt-16 py-2 border-gray-300">
+                    <div className="xl:w-[60%] mt-16 py-2 border-gray-300">
                         <h1 className="font-semibold text-center text-5xl">Unlocking productivity</h1>
                         <p className="text-lg pt-5 text-center">Simple, flexible, and powerful, TaskMaster requires only lists and boards to provide a clear view of your tasks, guiding you toward increased productivity. </p>
                     </div>

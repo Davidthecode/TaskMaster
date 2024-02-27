@@ -53,11 +53,11 @@ export default function Navbar() {
         <nav>
             <div className={`bg-[#f5f2f1] px-[8%] pb-4 flex items-center justify-between pt-2 w-full fixed top-0 ${sticky && "w-full border-b border-gray-300 shadow-sm transition-all duration-500 ease-in-out z-50"}`}>
                 <div className="flex items-center">
-                    <div className="mr-3">
-                        <Image src={taskmasterImage} alt="image" height={30} width={30} />
+                    <div className="mr-3 w-[1.9rem] h-[2.4rem]">
+                        <Image src={taskmasterImage} alt="image" className="w-full h-full" />
                     </div>
                     <div className="mr-10">
-                        <h1 className="text-2xl cursor-pointer mobile:text-md">TaskMaster</h1>
+                        <h1 className="text-2xl cursor-pointer mobile:text-md xxs:text-lg">TaskMaster</h1>
                     </div>
                     <div className="xs:hidden largeTablet:hidden">
                         <ul className="flex items-center space-x-10 largeScreen:space-x-5 text-s font-normal">
