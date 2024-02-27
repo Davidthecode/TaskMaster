@@ -10,16 +10,18 @@ import githubImage from "../../../../public/githubImage.png";
 export default function Footer() {
     return (
         <div className="px-[8%] bg-[#2A2B2C] h-20 flex items-center text-white">
-            <div className="pt-3">
-                <p className="text-sm">©2024 TaskMaster</p>
-            </div>
-            <div className="ml-[38%]">
-                <Link href="https://github.com/Davidthecode" target="_blank">
-                    <div className="flex items-center">
-                        <h1 className="text-sm mr-1">Github</h1>
-                        <Image src={githubImage} alt="image" width={20} height={20} className="" />
-                    </div>
-                </Link>
+            <div className="w-[50%] flex items-center">
+                <div>
+                    <p className="text-sm mobile:text-xs">©2024 TaskMaster</p>
+                </div>
+                <div className="ml-auto">
+                    <Link href="https://github.com/Davidthecode" target="_blank">
+                        <div className="flex items-center">
+                            <h1 className="text-sm mr-1 xxs:text-xs">Github</h1>
+                            <Image src={githubImage} alt="image" width={20} height={20} className="" />
+                        </div>
+                    </Link>
+                </div>
             </div>
             <div className="flex items-center ml-auto space-x-2">
                 <Link href="https://twitter.com/DavidAjibola_" target="_blank">
