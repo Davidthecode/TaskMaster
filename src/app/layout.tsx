@@ -10,8 +10,8 @@ import { UseProjectMembersContext } from './context/projectMembersContext';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'TaskMaster',
-  description: 'The best platform for cross-functional work',
+  title: 'TaskMaster | A modern platform for cross-functional work',
+  description: 'A modern platform for cross-functional work',
 };
 
 export default function RootLayout({

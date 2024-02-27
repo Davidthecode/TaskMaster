@@ -3,6 +3,7 @@ import circle from "../../../../public/circle.png";
 import dynamic from "next/dynamic";
 import { GoalSubNavSkeleton, UserGoalsSkeleton } from "@/app/components/skeleton/skeleton";
 import UserGoalsHeader from "@/app/components/goals/userGoalsHeader";
+import type { Metadata } from 'next';
 
 const DynamicGoalSubNav = dynamic(() => import("@/app/components/goals/goalSubNav"), {
     ssr: false,
@@ -13,6 +14,11 @@ const DynamicUserGoals = dynamic(() => import("@/app/components/goals/userGoals"
     ssr: false,
     loading: () => <UserGoalsSkeleton />
 });
+
+export const metadata: Metadata = {
+    title: 'Goals - TaskMaster',
+    description: 'A modern platform for cross-functional work',
+};
 
 export default function Goals() {
     return (

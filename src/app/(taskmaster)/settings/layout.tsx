@@ -1,8 +1,14 @@
 import dynamic from "next/dynamic";
+import type { Metadata } from 'next';
 
 const DynamicSettingsHeader = dynamic(() => import("@/app/components/settings/settingsHeader"), {
     ssr: false
 })
+
+export const metadata: Metadata = {
+    title: 'Settings - Taskmaster',
+    description: 'A modern platform for cross-functional work',
+};
 
 export default function ServiceLayout({
     children,

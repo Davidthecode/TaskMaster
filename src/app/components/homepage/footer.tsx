@@ -11,7 +11,7 @@ export default function Footer() {
     return (
         <div className="px-[8%] bg-[#2A2B2C] h-20 flex items-center text-white">
             <div className="pt-3">
-                <p className="text-md">©2024 TaskMaster</p>
+                <p className="text-sm">©2024 TaskMaster</p>
             </div>
             <div className="ml-[38%]">
                 <Link href="https://github.com/Davidthecode" target="_blank">

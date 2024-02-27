@@ -1,11 +1,19 @@
 import dynamic from "next/dynamic";
 import DashboardNav from "../components/navbar/dashboardNav";
 import { SidebarSkeleton } from "../components/skeleton/skeleton";
+import type { Metadata } from 'next';
 
 const DynamicSidebar = dynamic(() => import('@/app/components/sidebar/sidebar'), {
     ssr: false,
     loading: () => <SidebarSkeleton />
 });
+
+
+export const metadata: Metadata = {
+    title: 'Taskmaster',
+    description: 'A modern platform for cross-functional work',
+};
+
 
 export default function ServiceLayout({
     children,
