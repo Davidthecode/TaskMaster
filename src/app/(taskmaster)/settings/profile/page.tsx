@@ -141,8 +141,8 @@ export default function Profile() {
     };
 
     return (
-        <div className="bg-white h-full mobile:px-6 overflow-y-auto">
-            <div className="flex items-center border-b pb-4 fixed bg-white w-[75%]">
+        <div className="bg-white h-full">
+            <div className="flex items-center border-b pb-4 bg-white w-[95%] h-[15%] mobile:flex-col mobile:items-center mobile:h-[33%]">
                 <div className="mr-5">
                     <Image
                         src={photoUrl}
@@ -154,7 +154,7 @@ export default function Profile() {
                         loader={({ src }) => src}
                     />
                 </div>
-                <div>
+                <div className="mobile:mt-4">
                     <input type="file" className="text-sm" onChange={handleImageChange} accept="image/*" />
                 </div>
                 {imageLoading ? (
@@ -171,7 +171,7 @@ export default function Profile() {
                         <p>uploading image..</p>
                     </div>
                 ) : (
-                    <div>
+                    <div className="mobile:mt-3 mobile:flex mobile:flex-col mobile:items-center">
                         <button
                             className={`text-blue-500 hover:underline w-fit ${!photo && 'hover:no-underline  opacity-50'}`}
                             disabled={imageLoading || !photo}
@@ -183,79 +183,95 @@ export default function Profile() {
                     </div>
                 )}
             </div>
-            <div className="flex items-center mt-[6rem]">
-                <div className="mr-5">
-                    <p className="mb-2 text-sm font-medium">Your full name</p>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
-                    />
-                </div>
-                <div>
-                    <p className="mb-2 text-sm font-medium">Pronouns</p>
-                    <input
-                        value={pronouns}
-                        onChange={(e) => setPronouns(e.target.value)}
-                        type="text"
-                        placeholder="Third person pronouns (e.g. she/her/hers)"
-                        className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
-                    />
-                </div>
-            </div>
-            <div className="flex items-center mt-10">
-                <div className="mr-5">
-                    <p className="mb-2 text-sm font-medium">Job title</p>
-                    <input
-                        value={jobTitle}
-                        onChange={(e) => setJobTitle(e.target.value)}
-                        type="text"
-                        className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
-                    />
-                </div>
-                <div>
-                    <p className="mb-2 text-sm font-medium">Department or team</p>
-                    <input
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                        type="text"
-                        className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
-                    />
-                </div>
-            </div>
-            <div className="mt-10">
-                <p className="mb-2 text-sm font-medium">Email</p>
-                <input
-                    type="text"
-                    value={userEmail}
-                    readOnly
-                    className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-none opacity-60"
-                />
-            </div>
-            <div className="mt-10">
-                <p className="mb-2 text-sm font-medium">About me</p>
-                <textarea
-                    value={about}
-                    onChange={(e) => setAbout(e.target.value)}
-                    placeholder="I usually work from 9am-5pm PST. Feel free to assign me a task with a due date anytime. Also, i love dogs!"
-                    className="border rounded-md w-[45rem] h-[6rem] px-2 py-1 outline-blue-500"
-                />
-            </div>
-            <div className="my-5">
-                {loading ? (
-                    <div className="border bg-[#DDDDDC] cursor-auto px-6 py-2 rounded-md opacity-60 hover:opacity-100 w-fit">
-                        <Image src={spinner} alt="image" width={20} height={20} />
+            {/* second div */}
+            <div className="h-[85%] pt-6 overflow-y-auto mobile:h-[66%]">
+                <div className="flex items-center mobile:flex-col mobile:items-center">
+                    <div className="mr-5 mobile:mr-0 w-[50%] mobile:w-[100%]">
+                        <p className="mb-2 text-sm font-medium">Your full name</p>
+                        <div className="w-[70%] h-[2.3rem] mobile:w-[80%]">
+                            <input
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="border rounded-md w-full h-full px-2 outline-blue-500"
+                            />
+                        </div>
                     </div>
-                ) : (
-                    <button
-                        disabled={disableButon}
-                        onClick={saveProfileChanges}
-                        className={`border px-3 py-1 rounded-md bg-black text-white opacity-80 text-sm${disableButon && "opacity-25 text-opacity-25"}`}
-                    >
-                        Save changes
-                    </button>
-                )}
+                    <div className="mobile:mt-4 w-[50%] mobile:w-[100%]">
+                        <p className="mb-2 text-sm font-medium">Pronouns</p>
+                        <div className="w-[70%] h-[2.3rem] mobile:w-[80%]">
+                            <input
+                                value={pronouns}
+                                onChange={(e) => setPronouns(e.target.value)}
+                                type="text"
+                                placeholder="Third person pronouns (e.g. she/her/hers)"
+                                className="border rounded-md w-full h-full px-2 outline-blue-500"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-center mt-10 mobile:flex-col mobile:items-center">
+                    <div className="mr-5 mobile:mr-0 w-[50%] mobile:w-[100%]">
+                        <p className="mb-2 text-sm font-medium">Job title</p>
+
+                        <div className="w-[70%] h-[2.3rem] mobile:w-[80%]">
+                            <input
+                                value={jobTitle}
+                                onChange={(e) => setJobTitle(e.target.value)}
+                                type="text"
+                                className="border rounded-md w-full h-full px-2 outline-blue-500"
+                            />
+                        </div>
+                    </div>
+                    <div className="mobile:mt-4 w-[50%] mobile:w-[100%]">
+                        <p className="mb-2 text-sm font-medium">Department or team</p>
+                        <div className="w-[70%] h-[2.3rem] mobile:w-[80%]">
+                            <input
+                                value={department}
+                                onChange={(e) => setDepartment(e.target.value)}
+                                type="text"
+                                className="border rounded-md w-full h-full px-2 outline-blue-500"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-10">
+                    <p className="mb-2 text-sm font-medium">Email</p>
+                    <div className="w-[35%] h-[2.3rem] mobile:min-w-[80%]">
+                        <input
+                            type="text"
+                            value={userEmail}
+                            readOnly
+                            className="border rounded-md w-full h-full px-2 outline-none opacity-60"
+                        />
+                    </div>
+                </div>
+                <div className="mt-10">
+                    <p className="mb-2 text-sm font-medium">About me</p>
+                    <div className="w-[70%] h-[6rem] mobile:w-[90%]">
+                        <textarea
+                            value={about}
+                            onChange={(e) => setAbout(e.target.value)}
+                            placeholder="I usually work from 9am-5pm PST. Feel free to assign me a task with a due date anytime. Also, i love dogs!"
+                            className="border rounded-md w-full h-full px-2 py-1 outline-blue-500"
+                        />
+                    </div>
+                </div>
+                <div className="my-5">
+                    {loading ? (
+                        <div className="border bg-[#DDDDDC] cursor-auto px-6 py-2 rounded-md opacity-60 hover:opacity-100 w-fit">
+                            <Image src={spinner} alt="image" width={20} height={20} />
+                        </div>
+                    ) : (
+                        <button
+                            disabled={disableButon}
+                            onClick={saveProfileChanges}
+                            className={`border px-3 py-1 rounded-md bg-black text-white opacity-80 text-sm${disableButon && "opacity-25 text-opacity-25"}`}
+                        >
+                            Save changes
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );

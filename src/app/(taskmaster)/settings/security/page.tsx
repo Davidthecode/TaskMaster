@@ -18,13 +18,12 @@ export default function Security() {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setCurrentUser(user)
-            } else setCurrentUser(null)
-        })
+                setCurrentUser(user);
+            } else setCurrentUser(null);
+        });
 
-        return () => unsubscribe()
-    }, [])
-
+        return () => unsubscribe();
+    }, []);
 
     const validateFields = () => {
         const oldPasswordValid = oldPassword !== "";
@@ -33,11 +32,8 @@ export default function Security() {
         return oldPasswordValid && newPasswordValid && confirmNewPasswordValid;
     };
 
-    useEffect(() => {
-        setDisableButton(!validateFields());
-    }, [oldPassword, newPassword, confirmNewPassword]);
-
-    const updateUserPassword = async () => {
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
         try {
             if (currentuser && currentuser.email) {
                 try {
@@ -52,63 +48,85 @@ export default function Security() {
                         setConfirmNewPassword("");
                     } else {
                         toast.error("New password and confirm password do not match.");
-                    }
-                    setLoading(false)
+                    };
+                    setLoading(false);
                 } catch (error) {
-                    toast.error("invalid old password")
-                    setLoading(false)
-                }
-            }
+                    toast.error("invalid old password");
+                    setLoading(false);
+                };
+            };
         } catch (error) {
-            console.log(error)
-        }
-    }
+            console.log(error);
+        };
+    };
+
+    useEffect(() => {
+        setDisableButton(!validateFields());
+    }, [oldPassword, newPassword, confirmNewPassword]);
+
     return (
-        <div>
+        <section>
             <h1 className="mb-5 text-xl font-medium">Change password</h1>
-            <div>
-                <p className="mb-2 text-sm font-medium">Old password</p>
-                <input
-                    className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
-                    type="password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                />
-            </div>
-            <div className="mt-5">
-                <p className="mb-2 text-sm font-medium">New password</p>
-                <input
-                    className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
-                    type="password"
-                    placeholder="password must be at least 6 characters long"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                />
-            </div>
-            <div className="mt-5">
-                <p className="mb-2 text-sm font-medium">Confirm password</p>
-                <input
-                    className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
-                    type="password"
-                    value={confirmNewPassword}
-                    onChange={(e) => setConfirmNewPassword(e.target.value)}
-                />
-            </div>
-            <div className="mt-6">
-                {loading ? (
-                    <div className="border bg-[#DDDDDC] cursor-auto px-6 py-2 rounded-md opacity-60 hover:opacity-100 w-fit">
-                        <Image src={spinner} alt="image" width={20} height={20}/>
+            <form onSubmit={handleSubmit}>
+                <fieldset>
+                    <div>
+                        <label htmlFor="oldPassword">
+                            <p className="mb-2 text-sm font-medium">Old password</p>
+                            <input
+                                id="oldPassword"
+                                className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
+                                type="password"
+                                value={oldPassword}
+                                onChange={(e) => setOldPassword(e.target.value)}
+                            />
+                        </label>
                     </div>
-                ):(
-                    <button
-                    onClick={updateUserPassword}
-                    className={`border bg-black text-white opacity-80 px-3 py-1 rounded-md text-sm ${disableButon && "opacity-30 text-opacity-25"}`}
-                    disabled={disableButon}
-                >
-                    Update password
-                </button>
-                )}
-            </div>
-        </div>
+                    <div className="mt-5">
+                        <label
+                            htmlFor="newPassword"
+                        >
+                            <p className="mb-2 text-sm font-medium">New password</p>
+                            <input
+                                id="newPassword"
+                                className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
+                                type="password"
+                                placeholder="password must be at least 6 characters long"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                            />
+                        </label>
+                    </div>
+                    <div className="mt-5">
+                        <label
+                            htmlFor="confirmPassword"
+                        >
+                            <p className="mb-2 text-sm font-medium">Confirm password</p>
+                            <input
+                                id="confirmPassword"
+                                className="border rounded-md w-[20rem] h-[2.3rem] px-2 outline-blue-500"
+                                type="password"
+                                value={confirmNewPassword}
+                                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                            />
+                        </label>
+                    </div>
+                </fieldset>
+                <div className="mt-6">
+                    {loading ? (
+                        <div className="border bg-[#DDDDDC] cursor-auto px-6 py-2 rounded-md opacity-60 hover:opacity-100 w-fit">
+                            <Image src={spinner} alt="image" width={20} height={20} />
+                        </div>
+                    ) : (
+                        <button
+                            type="submit"
+                            className={`border bg-black text-white opacity-80 px-3 py-1 rounded-md text-sm ${disableButon && "opacity-30 text-opacity-25"}`}
+                            disabled={disableButon}
+                        >
+                            Update password
+                        </button>
+                    )}
+                </div>
+            </form>
+        </section>
     )
 }
