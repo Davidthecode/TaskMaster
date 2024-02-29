@@ -15,7 +15,7 @@ export const HomeSkeleton = () => {
 
 export const SidebarSkeleton = () => {
     return (
-        <div className="h-full border-r bg-[#2E2E30] flex flex-col">
+        <div className="h-full border-r bg-[#2E2E30] flex flex-col w-[14.3rem]">
             <div className="ml-8 mt-10 flex items-center">
                 <div className="bg-[#4A4A4B] w-5 h-5 animate-pulse rounded-md mr-4"></div>
                 <div className="bg-[#4A4A4B] w-28 h-3 rounded-md animate-pulse"></div>
