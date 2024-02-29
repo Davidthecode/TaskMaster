@@ -114,12 +114,12 @@ export default function Overview() {
             <div className="mt-6">
                 <h1 className="text-lg font-medium">Key Resources</h1>
                 <div className="border h-[10rem] w-[70%] largeTablet:w-[80%] smallTablet:min-w-[100%] mobile:min-w-[100%] mt-6 rounded-md flex items-center justify-center">
-                    <div className="w-[20%] h-[10rem]">
+                    <div className="w-[20%] mobile:w-[6rem] mobile:h-[6rem] h-[10rem]">
                         <Image src={keyResourcesImg} alt="image" width={0} height={0} className="w-full h-full" />
                     </div>
-                    <div className="w-[40%] flex flex-col">
-                        <p className="">Align your team around a shared vision with a project brief</p>
-                        <div className="flex items-center mt-4 cursor-pointer hover:bg-[#F9F8F8] w-fit pl-1 pr-3 py-1 rounded-sm opacity-70 hover:opacity-100">
+                    <div className="w-[40%] mobile:w-full flex flex-col">
+                        <p className="mobile:text-sm">Align your team around a shared vision with a project brief</p>
+                        <div className="flex items-center mt-4 mobile:mt-1 cursor-pointer hover:bg-[#F9F8F8] w-fit pl-1 pr-3 py-1 rounded-sm opacity-70 hover:opacity-100">
                             <div>
                                 <LiaStickyNote size="1.2rem" />
                             </div>
