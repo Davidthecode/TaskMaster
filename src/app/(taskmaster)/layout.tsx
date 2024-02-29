@@ -27,10 +27,10 @@ export default function ServiceLayout({
             </section>
 
             <section className="flex h-[93%]">
-                <section className="w-[15%] largeScreen:w-[20%] largeTablet:w-0 mobile:w-0 h-[100%]">
+                <section className="h-[100%]">
                     <DynamicSidebar />
                 </section>
-                <section className="w-[85%] largeTablet:w-full smallTablet:w-full mobile:w-full">
+                <section className="w-full largeTablet:w-full smallTablet:w-full mobile:w-full">
                     {children}
                 </section>
             </section>

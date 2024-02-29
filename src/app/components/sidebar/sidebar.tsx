@@ -70,7 +70,7 @@ export default function Sidebar() {
 
     return (
         <div
-            className={`bg-[#2E2E30] text-white h-[100%] ${isOpen ? "fixed inset-0 z-40 mobile:w-[60%] smallTablet:w-[40%] largeTablet:w-[30%] w-1/5 h-[93%] mt-auto border-t border-opacity-90" : ""
+            className={`bg-[#2E2E30] w-[14.3rem] text-white h-[100%] ${isOpen ? "fixed inset-0 z-40 largeTablet:block smallTablet:block mobile:block h-[93%] mt-auto border-t border-opacity-90" : "largeTablet:hidden smallTablet:hidden mobile:hidden"
                 }`}
         >
             <div className='px-5 py-5 space-y-5'>
