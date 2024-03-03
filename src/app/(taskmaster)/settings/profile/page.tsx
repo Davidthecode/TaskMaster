@@ -114,21 +114,24 @@ export default function Profile() {
         setDisableButton(!validateFields());
     }, [username]);
 
+    console.log()
+
     const saveProfileChanges = async () => {
         try {
             setLoading(true);
             if (currentuser) {
+                const userPhoto = `https://ui-avatars.com/api/?name=${username}&background=random`;
+                await updateProfile(currentuser, { displayName: username, photoURL: userPhoto });
                 const profileData = {
                     pronouns,
                     jobTitle,
                     department,
                     about,
                     userId: currentuser?.uid,
-                    photoUrl: currentuser?.photoURL,
+                    photoUrl: userPhoto,
                     username,
                     userEmail
                 };
-                await updateProfile(currentuser, { displayName: username });
                 const userRef = doc(profileCollectionRef, currentuser?.uid);
                 await updateDoc(userRef, { profileData });
                 toast.success("Profile updated successfully");

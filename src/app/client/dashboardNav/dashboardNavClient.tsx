@@ -21,6 +21,8 @@ export default function DashboardNavClient() {
     const [loading, setLoading] = useState(false);
     const [photo, setPhoto] = useState<string | StaticImageData>(noUser);
 
+    console.log(currentUser?.displayName, currentUser?.photoURL)
+
     useEffect(() => {
         if (currentUser?.photoURL) {
             setPhoto(currentUser?.photoURL);
