@@ -279,7 +279,7 @@ export default function GoalsInfo() {
                                 <Image src={photo} alt="image" width={20} height={20} className="rounded-full" loader={({src})=>src} />
                             </div>
                             <div>
-                                <p className="text-sm">Dave</p>
+                                <p className="text-sm">{currentUser?.displayName}</p>
                             </div>
                         </div>
                     </div>
