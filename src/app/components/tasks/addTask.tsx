@@ -121,7 +121,7 @@ export default function Addtask({ onClose }: AddtaskPopupProps) {
                                 <input
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    className='w-[60%] h-20 text-3xl borde outline-none px-4 bg-white fomt-bold'
+                                    className='w-[60%] h-20 text-3xl border-b border-gray-300 hover:border-gray-400 outline-none px-4 bg-white fomt-bold'
                                     placeholder='Untitled'
                                     type="text"
                                 />
